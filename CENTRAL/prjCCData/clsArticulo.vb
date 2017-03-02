@@ -14,7 +14,7 @@ Public NotInheritable Class clsArticulo
 
     ' Class constructor
     Private Sub New()
-        ' Empty constructor to avoid the creation of the default constructors
+        ' Empty constructor to avoid the creation of the default constructor
     End Sub
 
     '====================================================================
