@@ -1,0 +1,46 @@
+/*
+notes:
+	1. not all browsers render styles the same way so try out your style sheet
+	on different browsers before publishing
+	2. remove these instructions and save them in some file for future references
+	when you finished with setup. this is not to overload your visitors with
+	data they don't need
+
+style naming convention:
+	m<menu number>l<level number><state><tag>
+
+where:
+	<menu number> - zero based number of menu on the page (first has number 0, second - 1 and so on) 
+	<level number> - zero based number of menu level (root level has number 0, first sub level - 1 and so on) 
+	<state> - the state of item to which style is applied. May have values mout, mover and mdown.
+	<tag> - position of the item's tag. Can have values o for outer tag and i for inner tag 
+*/
+.m1l1mouto 
+	{
+	background: #C00000;
+	border: 1px solid #666666;
+	margin: 0px;
+	}
+.m1l1movero
+	{
+	background: #910707;
+	border: 1px solid #666666;
+	margin: 0px;
+	}
+.m1l1mdowno
+	{
+	background: #910707;
+	border: 1px solid #666666;
+	margin: 0px;
+	}
+.m1l1mouti, .m1l1moveri, .m1l1mdowni
+	{
+	color: #ffffff;
+	font-family: arial;
+	font-size: 10px;
+	font-weight: normal;
+	padding-left: 5px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	vertical-align: middle;
+	}

@@ -1,0 +1,850 @@
+body 
+	{
+	background-color: #ffffff; vertical-align: top;
+	}
+td.tdlogo 
+	{
+	padding-left: 12px;
+	padding-top: 12px;
+	padding-bottom: 12px;
+	width: 520px;
+	}
+	td.tdtitablasinicio {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #ffffff;
+	font-weight: bold;
+	font-variant: normal;
+	text-transform: none;
+	padding-left: 3px;
+	padding-right: 3px;
+	vertical-align: middle;
+	background-color: #525698;
+	text-decoration: none;
+	height: 20px;
+	}
+	.boton {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #ffffff;
+	border: 1px solid #DDDDCC;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	padding-left: 3px;
+	padding-right: 3px;
+	vertical-align: middle;
+	background-color: #525698;
+	text-decoration: none;
+	height: 20px;
+	}
+.campo {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #3A3A3A;
+	border: 1px solid; color:#666666;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	background-color: #ffffff;
+	text-decoration: none;
+	height: 17px;
+	padding-left: 3px;
+	vertical-align: top;
+	}
+	.campotabla {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #575757;
+	border: 1px solid; color:#666666;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	background-color: #ffffff;
+	text-decoration: none;
+	height: 17px;
+	padding-left: 3px;
+	vertical-align: middle;
+	}
+	.campotablaresultado {
+	font-family: verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #575757;
+	border: 1px solid White;
+	font-weight: bold;
+	font-variant: normal;
+	text-transform: none;
+	background-color: #ffffff;
+	text-decoration: none;
+	height: 17px;
+	padding-left: 3px;
+	vertical-align: middle;
+	}
+	.campotablaceleste {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #575757;
+	border: 1px solid; color:#666666;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	background-color: #F4F6F8;
+	text-decoration: none;
+	height: 17px;
+	padding-left: 3px;
+	vertical-align: middle;
+	}
+	.campotablaroja {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #ffffff;
+	border: 1px solid; color:#ffffff;
+	font-weight: bold;
+	font-variant: normal;
+	text-transform: none;
+	background-color: #C00000;
+	text-decoration: none;
+	height: 17px;
+	padding-left: 3px;
+	vertical-align: middle;
+	}
+td.tdnombreusuario {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #05096D;
+	font-weight: bold;
+	font-variant: normal;
+	text-transform: none;
+	text-decoration: none;
+	height: 18px;
+	padding-top: 8px;
+	vertical-align: middle;
+	}
+td.tdmigaja {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	color: #666666;
+	padding-left: 15px;
+	height: 23px;
+	vertical-align: middle;
+	border-left: 1px solid; color:#C2C2C2;
+	border-bottom: 1px solid; color:#C2C2C2;
+	}
+.txdmigaja {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	color: #666666;
+	text-decoration: none;
+	}
+.txdmigaja:hover {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	color: #666666;
+	text-decoration: underline;
+	}
+td.tdbusqueda {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	text-align: right;
+	padding-right: 10px;
+	color: #666666;
+	height: 51px;
+	vertical-align: middle;
+	}
+td.tdbusquedacampo {
+	height: 51px;
+	vertical-align: middle;
+	}
+td.tdbotonestop 
+	{
+	border-bottom : 1px solid #666666;
+	background-color: #E6E6E6;
+	}
+	td.tdenvolventeazul 
+	{
+	border: 1px solid #40427B;
+	padding: 10px;
+	}
+	td.tdenvolvente 
+	{
+	padding: 7px;
+	border-bottom : 1px solid #40427B;
+	border-right: 1px solid #40427B;
+	}
+	td.tdcolizqhelp 
+	{
+	border-bottom : 1px solid #666666;
+	border-left: 1px solid #666666;
+	border-top: 1px solid #666666;
+	}
+	td.tdcolderhelp 
+	{
+	border-bottom : 1px solid #666666;
+	border-right: 1px solid #666666;
+	border-left: 1px solid #666666;
+	border-top: 1px solid #666666;
+	background-color: #c8cedd;
+	padding: 15px;
+	vertical-align: top;
+	}
+	td.tdtitpaghelp 
+	{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	color: #cc0000;
+	padding-left: 15px;
+	border-top : 1px solid #666666;
+	border-left : 1px solid #666666;
+	border-right : 1px solid #666666;
+	vertical-align: middle;
+	height: 25px;
+	}
+	.txsubtitpaghelp 
+	{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	color: #525698;
+	}
+	td.tdenvolventenum 
+	{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: #05096D;
+	padding: 10px;
+	border-bottom : 1px solid #40427B;
+	border-right: 1px solid #40427B;
+	border-left: 1px solid #40427B;
+	background-color: #F4F6F8;
+	}
+	td.tdenvolventeazulnopad 
+	{
+	border: 1px solid #40427B;
+	}
+td.tdsucursal 
+	{
+	border-bottom : 1px solid #666666;
+	border-right : 1px solid #666666;
+	padding-left: 10px;
+	padding-right: 10px;
+	background-color: #E6E6E6;
+	}
+td.tdnodesucursal 
+	{ 
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	color: #05096D;
+	border-right : 1px solid #666666;
+	padding-right: 10px;
+	text-align: right;
+	background-color: #E6E6E6;
+	border-bottom : 1px solid #666666;
+	}
+td.tdnombresucursal 
+	{ 
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	color: #C00000;
+	border-right : 1px solid #666666;
+	padding-left: 10px;
+	text-align: left;
+	background-color: #E6E6E6;
+	border-bottom : 1px solid #666666;
+	
+	}
+td.tdfechahora {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #666666;
+	height: 23px;
+	vertical-align: middle;
+	padding-left: 10px;
+	border-bottom: 1px solid #C2C2C2;
+	border-left: 1px dotted #666666;
+	}
+td.tdcolumnader {
+	background-color: #EDEDED;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 20px;
+	border-left: 1px dotted #666666;
+	border-right: 1px solid #C2C2C2;
+	border-bottom: 1px solid #C2C2C2;
+	width: 187px;
+}
+td.tdbottom {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	color: #767373;
+	background-color: #E6E6E6;
+	padding-left: 10px;
+	height: 20px;
+	border-bottom: 1px solid #C2C2C2;
+	}
+td.tdtablacont {
+	padding-bottom: 15px;
+	padding-top: 15px;
+	padding-right: 15px;
+	}
+.txtitulo {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 15px;
+	font-weight: bold;
+	color: #B00E0E;
+	padding-bottom: 11px;
+	display: block;
+	}
+.txcontenido {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: regular;
+	color: #3A3A3A;
+	padding-bottom: 5px;
+	display: block;
+	}
+	.txcontenidobold {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	color: #3A3A3A;
+	
+	}
+	.txcontazul {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	color: #525698;
+	}
+	.txcont {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: regular;
+	color: #3A3A3A;
+	padding-bottom: 7px;
+	display: block;
+	}
+.txsubtitulo {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: #00005C;
+	padding-bottom: 11px;
+	display: block;
+	}
+	.txsubtitulorojo {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: #C00000;
+	padding-bottom: 11px;
+	display: block;
+	}
+	.txsubtituloresalta {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: #A14852;
+	}
+.txsubtituloliga {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	color: #00005C;
+	text-decoration: underline;
+	padding-bottom: 5px;
+	display: block;
+	}
+.txsubtituloliga:hover {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	color: #B00E0E;
+	text-decoration: underline;
+	padding-bottom: 5px;
+	display: block;
+	}
+td.tdcontenidoliga {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: regular;
+	color: #3A3A3A;
+	padding-bottom: 10px;
+	padding-top: 5px;
+	vertical-align: top;
+	}
+th.rayita {
+	border-bottom: 4px solid #525698;
+	}
+	th.rayita2 {
+	border-bottom: 4px solid #525698;
+	border-left: 1px solid #666666;
+	}
+td.tdtittablas {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	color: #575757;
+	height: 27px;
+	vertical-align: middle;
+	}
+	td.tdtittablasazul {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	color: #05096D;
+	height: 27px;
+	vertical-align: middle;
+	}
+	td.tdtittablas2 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	color: #575757;
+	height: 18px;
+	vertical-align: middle;
+	}
+	td.tdtittablas3 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	font-weight: bold;
+	color: #777575;
+	height: 13px;
+	vertical-align: middle;
+	}
+	td.tdtittablas4 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	color: #575757;
+	height: 15px;
+	vertical-align: top;
+	}
+	td.tdtxtablas {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	color: #575757;
+	height: 27px;
+	vertical-align: middle;
+	}
+td.tdconttablas {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	color: #525698;
+	height: 27px;
+	padding-left: 5px;
+	vertical-align: middle;
+	}
+	td.tdconttablasgris {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	color: #3A3A3A;
+	height: 27px;
+	padding-left: 5px;
+	vertical-align: middle;
+	}
+	td.tdconttablasrojo {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	color: #C00000;
+	height: 27px;
+	padding-left: 5px;
+	vertical-align: middle;
+	}
+	.txconttablasrojo {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	color: #C00000;
+	}
+	td.tdconttablasnopad {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	color: #525698;
+	padding-bottom: 7px;
+	padding-top: 3px;
+	vertical-align: middle;
+	}
+	td.tdpadleft5 {
+	padding-left: 5px;
+	}
+tr.trtitulos {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	color: #575757;
+	height: 27px;
+	padding-left: 5px;
+	text-align: left;
+	}
+td.tdceleste {
+	background-color: #F4F6F8;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	color: #575757;
+	border-bottom: 1px solid #525698;
+	padding-left: 5px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	}
+td.tdblanco {
+	background-color: #ffffff;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	color: #575757;
+	border-bottom: 1px solid #525698;
+	padding-left: 5px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	}
+td.tdaccion {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	color: #575757;
+	vertical-align: middle;
+	}
+.txaccion {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	text-decoration: none;
+	color: #575757;
+	vertical-align: middle;
+	}
+	td.tdbullethelp {
+	padding-top: 5px;
+	}
+	.txaccionhelp01bold {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	text-decoration: none;
+	color: #333366;
+	vertical-align: top;
+	padding-top: 10px;
+	}
+	.txaccionhelp01 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	text-decoration: none;
+	color: #525698;
+	vertical-align: top;
+	padding-top: 10px;
+	}
+	.txaccionhelp01:hover {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	text-decoration: underline;
+	color: #525698;
+	vertical-align: top;
+	}
+	.txaccionhelp02 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	text-decoration: none;
+	color: #575757;
+	vertical-align: top;
+	padding-top: 5px;
+	}
+	.txaccionhelp02:hover {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	text-decoration: underline;
+	color: #575757;
+	vertical-align: top;
+	}
+	.txaccionbold {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	text-decoration: none;
+	color: #575757;
+	vertical-align: middle;
+	}
+	.txrojobold {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	text-decoration: none;
+	color: #C00000;
+	vertical-align: middle;
+	}
+	.txaccionazul {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	text-decoration: none;
+	color: #525698;
+	vertical-align: middle;
+	}
+	.txaccionazul:hover {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	text-decoration: underline;
+	color: #525698;
+	vertical-align: middle;
+	}
+	.txtitintabla {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	padding-left: 3px;
+	text-decoration: none;
+	color: #777575;
+	vertical-align: middle;
+	}
+.txaccion:hover {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	text-decoration: underline;
+	color: #575757;
+	vertical-align: middle;
+	}
+td.tdliganormal {
+	padding-top:5px;
+	padding-top:5px;
+	height: 20px;
+	vertical-align: middle;
+	}
+.txliganormal {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	text-decoration: underline;
+	color: #575757;
+	}
+.txliganormal:hover {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	text-decoration: underline;
+	color: #C00000;
+	}
+.txligaroja {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	text-decoration: none;
+	color: #C00000;
+	}
+.txtbox {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #575757;
+	border: 1px solid; color:#666666;
+	padding-left: 3px;
+}
+td.tdlogopop {
+	border-bottom: 1px solid #666666;
+	}
+td.tdenvolventetabla {
+	border: 1px solid #525698;
+	padding: 10px;
+	background-color: #EFEFEF;
+	}
+	
+	/*
+Estilos para pops ayuda
+*/
+
+td.tdtablatitayuda {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 15px;
+	font-weight: bold;
+	text-decoration: none;
+	color: #C00000;
+	text-decoration: none;
+	border-top: 1px solid #999999;
+	border-bottom: 1px solid #999999;
+	padding-left: 10px;
+	background-color: #EBEBEB;
+	vertical-align: middle;
+	}
+.txsubtituloayuda {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	line-height: 120%;
+	font-weight: bolder;
+	color: #333333;
+	margin-bottom: 12px;
+	display: inline;
+	}
+.txsubtitulono {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: #00005C;
+	}
+td.tdnumero{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #333333;
+	padding-left: 2px;
+	padding-top: 1px;
+	padding-bottom: 3px;
+	border-bottom: 0px solid #dedede;
+	}
+td.tdpantallayuda {
+	border: 1px solid #353975;
+	margin: 0px;
+}
+td.tdtitablaguia1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: #ffffff;
+	padding-right: 20px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	padding-left: 10px;
+	border-top: 1px solid #353975;
+	border-bottom: 1px solid #353975;
+	background-color: #353975;
+	}
+td.tdtitablaguia2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: #ffffff;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	border-top: 1px solid #353975;
+	border-bottom: 1px solid #353975;
+	background-color: #353975;
+	}
+td.tdcontablaguia1 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: regular;
+	color: #3A3A3A;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	padding-right: 20px;
+	vertical-align: top;
+	border-bottom: 1px solid #353975;
+	}
+td.tdnumeroguia1a {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: #00005C;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	padding-right: 20px;
+	padding-left: 8px;
+	border-bottom: 1px solid #353975;
+	}
+td.tdnumeroguia1b {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: #00005C;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	border-bottom: 1px solid #353975;
+	}
+td.tdnumeroguia2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	color: #00005C;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	padding-left: 10px;
+	border-bottom: 1px solid #353975;
+	background-color: #F4F6F8;
+	}
+td.tdnumeroguia3 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	color: #525698;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	padding-left: 10px;
+	vertical-align: top;
+	border-bottom: 1px solid #353975;
+	}
+td.tdcontablaguia2 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: regular;
+	color: #3A3A3A;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	vertical-align: top;
+	border-bottom: 1px solid #353975;
+	}
+.txaccionguia {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	text-decoration: none;
+	color: #3A3A3A;
+	}
+	.txaccionguia:hover {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	text-decoration: none;
+	color: #cc0000;
+	}
+.txayudagris01
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	font-weight: normal;
+	text-decoration: none;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	padding-right: 5px;
+	color: #333333;
+	text-decoration: none;
+	display: block;
+}
+
+.txayudagris01:hover
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	font-weight: normal;
+	text-decoration: none;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	padding-right: 5px;
+	color: #333333;
+	text-decoration: underline;
+	display: block;
+}
+td.tdpiefoto
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	color: #666666;
+	padding-left: 25px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	border-bottom: 1px solid #dedede;
+}
+	
+		/*
+Final de estilos para pops ayuda
+*/	

@@ -1,0 +1,1 @@
+<%@ WebService Language="vb" Codebehind="wsRutaTransportes.asmx.vb" Class="com.isocraft.backbone.ccentral.wsRutaTransportes" %>
