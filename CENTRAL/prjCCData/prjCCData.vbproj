@@ -1,0 +1,1386 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>7.10.3077</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C71D662C-9182-461F-BF19-73897986AC9E}</ProjectGuid>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccProvider>
+    </SccProvider>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon />
+    <AssemblyKeyContainerName />
+    <AssemblyName>prjCCData</AssemblyName>
+    <AssemblyOriginatorKeyFile />
+    <AssemblyOriginatorKeyMode>None</AssemblyOriginatorKeyMode>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <OptionCompare>Binary</OptionCompare>
+    <OptionExplicit>On</OptionExplicit>
+    <OptionStrict>On</OptionStrict>
+    <RootNamespace>Benavides.CC.Data</RootNamespace>
+    <StartupObject>Benavides.CC.Data.%28None%29</StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <MyType>Windows</MyType>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>0.0</OldToolsVersion>
+    <SccAuxPath />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>prjCCData.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile />
+    <DefineConstants />
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>42016,42017,42018,42019,42032,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>prjCCData.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile />
+    <DefineConstants />
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>42016,42017,42018,42019,42032,42353,42354,42355</NoWarn>
+    <DebugType>none</DebugType>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="prjDataAccess">
+      <Name>prjDataAccess</Name>
+      <HintPath>..\prjDataAccess\bin\prjDataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsArticulo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsAtributo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsAtributoTipoFormaCaptura.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsBINTarjeta.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsCaducidadArticulos.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsCaja.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsCapturaInsumosMateriaPrima.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsCeroFaltante.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsClienteEspecial.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsClienteEspecialSucursal.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsConfiguracionSucursal.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsConsultarPromociones.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsControlDeAsistencia.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsControlPagares.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsCuenta.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsDoctores.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsEmpleado.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsEmpresaValores.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsEncuesta.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsEntregaValores.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsExceptoDescuentoArticulo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsExhibicionesAdicionales.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsFacturaElectronicaGlobal.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsFolio.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsFormaCaptura.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsImportacionArticuloNoAutorizado.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsImportacionArticulosExceptosDeDescuento.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsImportacionDescuentoClienteArticulo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsImportacionDescuentoClienteEspecialDepartamento.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsOperacionDEX.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsPoliticaPOSSucursal.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsPromociones.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsPromocionMonedero.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsPromocionVentaCuotas.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsProveedor.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsRecoleccion.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsRegistroActividadesSistemas.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsReporteDeTarjetas.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsReporteDeVisitas.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsRutaTransportes.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsSorteo95.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsSorteo95Aniversario.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsSucursalTarjetasDeRegalo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblABFOtrasIdentificaciones.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblAlcanceDescuento.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblArticulo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblArticuloClienteEspecial.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblArticuloComplementario.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblArticuloCompraDirecta.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblArticuloCupon.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblArticuloDatoAdicional.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblArticuloDatosPublicidad.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblArticuloDevolucion.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblArticuloEmpresaServicio.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblArticuloEstadoFacturaElectronica.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblArticuloEstadoRemisionElectronica.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblArticuloEstadoTransferencia.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblArticuloFotolabAtributo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblArticuloIEPS.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblArticuloInventarioAgotado.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblArticuloInventarioNegado.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblArticuloInventarioSugerido.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblArticuloMerma.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblArticuloNoAutorizadoParaVentaCredito.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblArticuloOferta.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblArticuloOfertaManual.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblArticuloOfertaPromocion.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblArticuloPlano.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblArticuloPrecioMaximo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblArticuloPromocionMonederoElectronico.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblArticuloPromocionVentaCuotas.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblArticuloRecetaEnLinea.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblArticuloReclamacion.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblArticuloRestringidoPagoVales.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblArticuloServicioPromociones.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblArticuloSucursal.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblArticuloTipoTBI.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblArticuloTransferenciaInterna.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblAsignacionCaja.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblAtributo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblAtributoTipoFormaCaptura.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblAutorizacionDescuentoDetalleTicket.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblAutorizacionDevolucionDetalleTicket.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblAutorizador.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblBancoIntegradorCorresponsalia.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblBinesNoPermitidosPagoDeServicio.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblBINTarjeta.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblBonosPendientes.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblBultoEstadoTransferencia.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblCadena.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblCaja.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblCajaTipoCaja.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblCambioFormaPago.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblCategoriaArticulo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblCategoriaArticulos.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblCategoriaArticulosCupon.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblCategoriaArticulosPromocionMonederoElectronico.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblCategoriaComisionDiferenciada.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblCategoriaComisionDiferenciadaArticulo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblCategoriaCupon.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblCategoriaFotolab.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblCategoriaRegistroEvento.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblCedulaDoctor.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblCedulaDoctorTicket.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblCentroCosto.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblCiudad.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblClasificacionArticulo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblClaveVigenciaArticulo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblClienteEspecial.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblClienteEspecialDatoGeneralRequerido.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblClienteEspecialSucursal.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblClienteEspecialTipoFormaCaptura.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblClienteFiscal.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblClienteRecetaEnLinea.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblClientesABF.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblClienteVentasInstitucionales.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblCodigoBarraArticulo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblCodigoErrorABF.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblComisionEmpleado.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblComisionEmpleadoPuntaje.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblComisionGerente.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblCompania.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblCompraDirecta.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblCompraPorDepartamento.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblConceptoEntregaValores.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblConceptoPrenomina.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblConfiguracionAsistencias.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblConfiguracionSucursal.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblCorteCaja.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblCreditoEmpleado.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblCuenta.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblCuentaDepartamento.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblCuentaDevolucion.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblCuentaFormaPago.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblCuentaGasto.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblCuentaRelacionada.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblCuentaSucursal.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblCuentaTipoTicket.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblCuotaGasto.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblCuotaVenta.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblCupon.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblCuponFormaPago.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblCuponSucursal.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblCuponTicket.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblDatoAdicionalDetalleTicket.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblDatoAdicionalPagoTicket.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblDatoAdicionalTarjetaRegalo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblDatoGeneralVentaClienteEspecial.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblDepartamento.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblDepartamentoSucursal.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblDescuentoCiudadanosSeniorCategoriaArticulos.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblDescuentoClienteArticulo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblDescuentoClienteEspecialCategoriaArticulos.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblDescuentoClienteEspecialDepartamento.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblDescuentoDepartamento.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblDesviacionCajero.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblDetalleFormaCaptura.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblDetalleSucursalEncuesta.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblDetalleTicket.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblDevolucion.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblDevolucionFacturaElectronica.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblDiaCierre.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblDiaCierreTienda.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblDiaInhabilDeposito.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblDiasFestivos.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblDiferenciaPolizaCreditos.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblDireccionOperativa.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblDivisionArticulos.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblDoctor.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblEfectoPromocional.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblEmisorFormaPago.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblEmisorFormaPagoSucursal.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblEmpleado.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblEmpleadoSucursal.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblEmpresaServicio.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblEmpresaServicioAutorizador.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblEmpresaServicioDatoAdicionalFormato.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblEmpresaServicioFormato.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblEmpresaServicioPago.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblEmpresaServicioSucursal.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblEmpresaServicioSucursalMonto.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblEmpresaServicioTipoDatoAdicionalFormato.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblEmpresaServicioTipoDatoFormato.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblEmpresaValores.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblEmpresaValoresSucursal.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblEncuesta.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblEntregaValores.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblEquivalenciaCompania.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblEquivalenciaFormaPago.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblEstado.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblEstadoCaja.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblEstadoFacturaElectronica.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblEstadoOperativoCaja.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblEstadoRemisionElectronica.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblEstadoTransferencia.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblExceptoDescuentoArticulo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblFacturaElectronica.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblFacturaElectronicaGlobal.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblFacturaElectronicaGlobalDatosFacturacion.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblFacturaElectronicaGlobalSucursal.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblFacturaManual.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblFamilia.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblFarmaciaLaboratorio.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblFolioCompraDirecta.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblFolioDevolucion.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblFolioFacturaElectronica.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblFolioFacturaManual.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblFolioFondoFijo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblFolioFondoFijoTicket.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblFolioInventarioAgotado.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblFolioInventarioNegado.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblFolioInventarioSugerido.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblFolioMerma.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblFolioReclamacion.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblFolioRemision.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblFolioTransferenciaCancelada.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblFolioTransferenciaEnviada.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblFolioTransferenciaInterna.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblFolioTransferenciaRecibida.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblFondoFijoGastado.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblFondoFijoPresupuestado.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblFondoFijoServicioSucursal.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblFormaPago.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblFormaPagoDatoAdicional.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblFormaPagoEmisor.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblGrupoArticulos.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblGrupoClienteEspecial.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblGrupoClienteEspecialArticuloPrecioOficial.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblGrupoUsuario.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblHistoricoActaFaltanteCaja.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblHistoricoTarjetaFaltanteCaja.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblImportacionArticuloNoAutorizado.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblImportacionDescuentoClienteArticulo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblImportacionDescuentoClienteEspecialDepartamento.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblImportacionExceptoDescuentoArticulo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblImporteEmisorFormaPagoCorteCaja.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblImpuesto.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblImpuestoSucursal.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblIntegradorRecetaEnLinea.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblIntegradorServicioVirtual.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblInventarioAgotado.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblInventarioNegado.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblInventarioSugerido.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblLaboratorioCategoria.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblLaboratorioEnFarmacia.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblListaMensajesDeProgramaABF.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblListaPromocionesPlanABF.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblMarcaArticulo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblMembresiaUsuario.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblMensajeInformativoABF.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblMerma.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblMermaSucursal.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblMetaVentasPromedioSucursal.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblModificacionArticulo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblModificacionExistenciaIdealArticulo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblModificacionOferta.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblMoneda.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblMonedaSucursal.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblMontoMaximoFaltanteCajero.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblMotivoDevolucion.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblMotivoDevolucionTicket.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblMotivoMerma.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblMotivoReclamacion.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblMotivoTransferencia.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblMovimientoArticulo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblMovimientoBonos.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblMovimientoPrenomina.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblMovimientoRecetasCredito.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblMovimientos.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblMovimientosEmpleados.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblMQAgentError.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblMQAgentLog.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblNotaCargo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblObjeto.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblOferta.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblOfertaManual.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblOperacionConceptoEntregaValores.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblOperacionDEX.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblOperacionEntregaValores.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblOrdenFotoLabDetalleTicket.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblOrdenFotoLabTicket.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblOtrasIdentificacionesABF.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblPadecimiento.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblPadecimientoArticulo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblPagoTicket.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblPagoTicketUbicacionBanco.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblPais.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblPlano.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblPlanoSucursal.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblPoliticaPosSucursal.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblPoliticaTicket.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblPoliza.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblPolizaCorteCuenta.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblPolizaPendiente.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblPregunta.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblPreguntaEncuesta.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblPrivilegioAcceso.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblPromocionMonederoElectronico.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblPromocionMonederoElectronicoSucursal.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblPromocionMonederoElectronicoSucursalEliminada.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblPromocionVentaCuotas.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblProveedor.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblProveedorArticulo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblProveedorArticuloPromocion.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblProveedorArticuloSucursal.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblProveedorCategoriaArticulosCupon.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblProveedorCategoriaCupon.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblProveedorCupon.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblProveedorDepartamento.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblProveedorRelacionado.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblProveedorSubcategoriaArticulosCupon.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblProveedorSubcategoriaCupon.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblProyeccionGasto.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblProyeccionVenta.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblPuestoEmpleado.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblRangosPreciosArticuloGPI.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblRankingVendedorSucursal.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblRecetasCreditoPendientes.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblReclamacion.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblRegistroActualizacionCaja.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblRegistroEtiben.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblRegistroEvento.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblRegistroUtilizacionCupon.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblReglaAsistencia.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblReglaAsistenciaMovimiento.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblRemisionElectronica.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblRespuesta.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblRespuestaPregunta.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblSAFCerrarCompra.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblSAFTarjetaPlatinoLMS.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblServicioPublico.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblServicioPublicoArticulo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblServicioPublicoAsignadoSucursal.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblServiciosCorresponsalia.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblServiciosCorresponsaliaMonto.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblServiciosCorresponsaliaMontoCashBack.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblServicioVirtual.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblServicioVirtualCampoVariable.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblServicioVirtualDatoAdicional.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblServicioVirtualTienda.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblSeñalizacionMarcaPropiaLideres.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblSolicitudActualizacion.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblSubCategoria.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblSubCategoriaArticulo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblSubCategoriaArticulos.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblSubcategoriaArticulosCupon.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblSubcategoriaCupon.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblSucursal.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblSucursalCTF.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblSucursalDireccion.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblSucursalEncuesta.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblSucursalUEN.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblSucursalZonaOperativa.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblTarjetaRegalo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblTicket.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblTicketAcumuladoContingenciaTBI.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblTicketAcumuladoPLB.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblTicketPendiente.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblTicketPromedioSucursal.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblTicketServicioPublico.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblTienda.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblTipoArticulo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblTipoAtributo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblTipoCaja.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblTipoCuenta.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblTipoCupon.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblTipoDatoAdicionalPagoTicket.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblTipoDatoGeneralClienteEspecial.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblTipoDatoPoliticaPos.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblTipoDeCambioMoneda.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblTipoDescuento.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblTipoDescuentoDepartamento.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblTipoDescuentoDetalleTicket.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblTipoEntregaArticulo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblTipoEstadoFacturaElectronica.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblTipoEstadoRemisionElectronica.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblTipoEstadoTransferencia.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblTipoExcepto.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblTipoFormaCaptura.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblTipoImpuesto.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblTipoMovimientoAntibiotico.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblTipoNotaCargo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblTipoOferta.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblTipoOperacionDEX.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblTipoOrdenFotolab.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblTipoProveedor.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblTipoServicioVirtual.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblTipoTicket.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblTipoTicketDevolucion.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblTransferencia.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblTransferenciaInterna.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblTurnoLaboral.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblTurnoLaboralSucursal.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblUbicacionBanco.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblUbicacionCaja.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblUbicacionSucursal.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblUsuario.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblVentaAgregada.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblVentaAgregadaCTX.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblVentaClienteEspecial.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblVentaDiaria.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblVentaDiariaPendiente.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblVentaDiariaProveedor.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblVentaEmpleado.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblVentaPorCategoria.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblVentaPorDepartamento.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clstblZonaOperativa.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsTienda.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsTransmision.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsUsuario.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsVentaAgregada.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="clsVentaClienteEspecial.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Content Include="bin\prjCCData.dll" />
+    <Content Include="bin\prjDataAccess.dll" />
+    <Content Include="bin\Xceed.Compression.dll" />
+    <Content Include="bin\Xceed.Compression.Formats.dll" />
+    <EmbeddedResource Include="clstblServicioVirtual.resx">
+      <DependentUpon>clstblServicioVirtual.vb</DependentUpon>
+    </EmbeddedResource>
+    <None Include="prjCCData.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="My Project\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <PropertyGroup>
+    <PreBuildEvent />
+    <PostBuildEvent />
+  </PropertyGroup>
+</Project>
