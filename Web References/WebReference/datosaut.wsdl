@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://189.254.22.30" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" targetNamespace="http://189.254.22.30" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://189.254.22.30">
+      <s:element name="GetDataByAuthorization">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strAutorizacion" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDataByAuthorizationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDataByAuthorizationResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DataSet" nillable="true">
+        <s:complexType>
+          <s:sequence>
+            <s:element ref="s:schema" />
+            <s:any />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetDataByAuthorizationSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDataByAuthorization" />
+  </wsdl:message>
+  <wsdl:message name="GetDataByAuthorizationSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDataByAuthorizationResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDataByAuthorizationHttpGetIn">
+    <wsdl:part name="strAutorizacion" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDataByAuthorizationHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="GetDataByAuthorizationHttpPostIn">
+    <wsdl:part name="strAutorizacion" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDataByAuthorizationHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:portType name="AutorizacionesSoap">
+    <wsdl:operation name="GetDataByAuthorization">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Este Web service devuelve los datos por autorización.</wsdl:documentation>
+      <wsdl:input message="tns:GetDataByAuthorizationSoapIn" />
+      <wsdl:output message="tns:GetDataByAuthorizationSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="AutorizacionesHttpGet">
+    <wsdl:operation name="GetDataByAuthorization">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Este Web service devuelve los datos por autorización.</wsdl:documentation>
+      <wsdl:input message="tns:GetDataByAuthorizationHttpGetIn" />
+      <wsdl:output message="tns:GetDataByAuthorizationHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="AutorizacionesHttpPost">
+    <wsdl:operation name="GetDataByAuthorization">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Este Web service devuelve los datos por autorización.</wsdl:documentation>
+      <wsdl:input message="tns:GetDataByAuthorizationHttpPostIn" />
+      <wsdl:output message="tns:GetDataByAuthorizationHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="AutorizacionesSoap" type="tns:AutorizacionesSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetDataByAuthorization">
+      <soap:operation soapAction="http://189.254.22.30/GetDataByAuthorization" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="AutorizacionesSoap12" type="tns:AutorizacionesSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" />
+    <wsdl:operation name="GetDataByAuthorization">
+      <soap12:operation soapAction="http://189.254.22.30/GetDataByAuthorization" style="document" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" />
+      <wsdl:input>
+        <soap12:body use="literal" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="AutorizacionesHttpGet" type="tns:AutorizacionesHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="GetDataByAuthorization">
+      <http:operation location="/GetDataByAuthorization" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="AutorizacionesHttpPost" type="tns:AutorizacionesHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="GetDataByAuthorization">
+      <http:operation location="/GetDataByAuthorization" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Autorizaciones">
+    <wsdl:port name="AutorizacionesSoap" binding="tns:AutorizacionesSoap">
+      <soap:address location="http://189.254.22.30/WebServicesAMB/WS_HSA/datosaut.asmx" />
+    </wsdl:port>
+    <wsdl:port name="AutorizacionesSoap12" binding="tns:AutorizacionesSoap12">
+      <soap12:address location="http://189.254.22.30/WebServicesAMB/WS_HSA/datosaut.asmx" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" />
+    </wsdl:port>
+    <wsdl:port name="AutorizacionesHttpGet" binding="tns:AutorizacionesHttpGet">
+      <http:address location="http://189.254.22.30/WebServicesAMB/WS_HSA/datosaut.asmx" />
+    </wsdl:port>
+    <wsdl:port name="AutorizacionesHttpPost" binding="tns:AutorizacionesHttpPost">
+      <http:address location="http://189.254.22.30/WebServicesAMB/WS_HSA/datosaut.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
