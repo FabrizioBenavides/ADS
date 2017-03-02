@@ -1,0 +1,859 @@
+body 
+{
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-weight: normal;
+margin: 0;
+}
+/* Estilos de header */
+td.tdsignoutbutton 
+{
+background-color: #E6E6E6;
+border-bottom: 1px solid #666;
+border-right: 1px solid #666;
+}
+td.tdbranchnumber 
+{
+padding-right: 10px;
+border-right: 1px solid #666;
+border-bottom: 1px solid #666;
+font-size: 10px;
+font-weight: bold;
+color: #05096D;
+background-color: #E6E6E6;
+text-align: right;
+}
+td.tdbranchname 
+{
+padding-left: 10px;
+border-right: 1px solid #666;
+border-bottom: 1px solid #666;
+font-size: 10px;
+font-weight: bold;
+color: #C00000;
+background-color: #E6E6E6;
+}
+td.tdlogo 
+{
+border-bottom: 1px solid #666;
+}
+td.tdusername 
+{
+border-bottom: 1px solid #666;
+font-size: 10px;
+font-weight: bold;
+color: #05096D;
+padding-bottom: 7px;
+text-align: right;
+}
+td.tdnavigate 
+{
+border-bottom: 1px solid #666;
+height: 33px;
+background-color: #E6E6E6;
+}
+td.tddateandtime 
+{
+border-bottom: 1px solid #666;
+border-right: 1px solid #666;
+height: 33px;
+background-color: #E6E6E6;
+font-size: 9px;
+color: #666;
+text-align: right;
+padding-right: 10px;
+}
+/* Estilos de header */
+
+/* Estilos de tab */
+td.tdtab {
+font-size: 9px;
+color: #666;
+padding-left: 15px;
+height: 23px;
+vertical-align: middle;
+border-left: 1px solid #C2C2C2;
+border-bottom: 1px solid #C2C2C2;
+border-right: 1px solid #666;
+font-weight: normal;
+}
+td.tdtab a {
+color: #666666;
+text-decoration: none;
+}
+td.tdtab a:hover {
+text-decoration: underline;
+}
+/* Estilos de tab */
+
+/* Estilos de bottom */
+td.tdbottom {
+font-size: 9px;
+color: #767373;
+background-color: #E6E6E6;
+padding-left: 10px;
+height: 22px;
+border-bottom: 1px solid #666;
+border-right: 1px solid #666;
+border-top: 1px solid #C2C2C2;
+}
+
+/* Estilos de bottom */
+
+
+/* Estilo tabla contenedora */
+
+td.tdgeneralcontent {
+padding: 0 10px 15px 10px;
+height: 400px;
+padding-top: 10px;
+border-right: 1px solid #666;
+vertical-align: top;
+}
+
+
+
+/* Estilos h´s */
+h1 {
+font-family: Arial, Helvetica, sans-serif;
+font-size: 16px;
+font-weight: bold;
+color: #C00000;
+margin: 0 0 9px 0;
+padding: 0;
+
+}
+h2 {
+font-family: Arial, Helvetica, sans-serif;
+font-size: 12px;
+font-weight: bold;
+color: #00005C;
+padding: 0 0 0 17px;
+margin: 0 0 9px 0;
+background-image: url(../images/imgBullet_h2.gif);
+background-repeat: no-repeat;
+}
+h3 {
+font-family: Arial, Helvetica, sans-serif;
+font-size: 11px;
+font-weight: bold;
+color: #C00000;
+margin: 0 0 9px 0;
+padding: 0;
+}
+h4 {
+font-size: 11px;
+font-weight: normal;
+color: #C00000;
+margin: 0 0 9px 0;
+padding: 0;
+}
+h5 {
+font-family: Arial, Helvetica, sans-serif;
+font-size: 11px;
+font-weight: bold;
+color: #05096D;
+margin: 0 0 9px 0;
+padding: 0;
+}
+
+p { font-size: 10px; color: #3A3A3A; margin: 0 0 12px 0; }
+
+/* Fin de Estilos h´s */
+
+/* Estilos para campos, combos y botones */
+.field {
+font-family: Arial, Helvetica, sans-serif;
+font-size: 10px;
+color: #666666;
+border: 1px solid;
+height: 17px;
+padding: 0 0 0 3px;
+margin: 0;
+vertical-align: middle;
+}
+.fieldborderless {
+font-family: Arial, Helvetica, sans-serif;
+font-size: 10px;
+color: #666666;
+border: 0px solid;
+height: 17px;
+padding: 0 0 0 3px;
+margin: 0;
+vertical-align: middle;
+}
+.fieldcomment {
+font-family: Arial, Helvetica, sans-serif;
+font-size: 10px;
+color: #666666;
+border: 1px solid;
+padding: 0 0 0 3px;
+margin: 0;
+vertical-align: middle;
+}
+.fieldblue {
+font-family: Arial, Helvetica, sans-serif;
+font-size: 10px;
+color: #575757;
+border: 1px solid;
+background-color: #DADDE4;
+height: 17px;
+padding: 0 0 0 3px;
+margin: 0;
+vertical-align: middle;
+}
+.fieldred {
+font-family: Arial, Helvetica, sans-serif;
+font-size: 12px;
+color: #C00000;
+font-weight: bold;
+border: 0px solid;
+background-color: #FFFFFF;
+height: 17px;
+padding: 0 0 0 3px;
+margin: 0;
+vertical-align: middle;
+}
+.button {
+font-family: Arial, Helvetica, sans-serif;
+font-size: 10px;
+color: #ffffff;
+border: 1px solid #DDDDCC;
+padding: 0 3px 0 3px;
+vertical-align: middle;
+background-color: #525698;
+height: 20px;
+}
+/* Fin de estilos para campos, combos y botones */
+
+/* Estilos para ligas de homes*/
+
+td.tdbluebold12 {
+font-family: Arial, Helvetica, sans-serif;
+font-size: 12px;
+color: #00005C;
+font-weight: bold;
+padding: 0 0 5px 0;
+}
+.txbluebold12 {
+font-family: Arial, Helvetica, sans-serif;
+font-size: 12px;
+color: #00005C;
+font-weight: bold;
+}
+.txbluebold12 a {
+text-decoration: underline;
+}
+.txbluebold12 a:hover {
+text-decoration: underline;
+color: #C00000;
+}
+.txlinkgrey {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 10px;
+color: #575757;
+font-weight: normal;
+}
+.txlinkgray {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 10px;
+color: #575757;
+font-weight: normal;
+text-decoration: underline;
+}
+.txlinkgray:hover {
+text-decoration: underline;
+color: #C00000;
+}
+
+/* Fin de Estilos para ligas de homes*/
+
+
+/* Estilos para tablas 01 */
+td.tdpadleft5 {
+padding-left: 5px;
+}
+td.tdtexttablebold {
+font-size: 10px;
+font-weight: bold;
+color: #575757;
+height: 27px;
+}
+td.tdtexttablereg {
+font-size: 10px;
+font-weight: normal;
+padding: 0 5px 0 0;
+color: #575757;
+height: 27px;
+}
+/* Fin de estilos para tablas */
+
+/* Estilos para tablas 02 */
+
+th.line {
+border-bottom: 4px solid #525698;
+}
+tr.trtitle {
+font-size: 10px;
+font-weight: bold;
+color: #575757;
+height: 27px;
+padding-left: 5px;
+text-align: left;
+}
+td.td_bluefill {
+font-size: 10px;
+color: #575757;
+text-decoration: none;
+font-weight: normal;
+background-color: #F4F6F8;
+border-bottom: 1px solid #525698;
+padding: 5px 0 5px 5px;
+}
+td.td_bluefill a {color: #575757; text-decoration: none;}
+td.td_bluefill a:hover {text-decoration: underline;}
+
+td.td_whitefill {
+font-size: 10px;
+color: #575757;
+text-decoration: none;
+font-weight: normal;
+background-color: #ffffff;
+border-bottom: 1px solid #525698;
+padding: 5px 0 5px 5px;
+}
+td.td_whitefill a {color: #575757; text-decoration: none;}
+td.td_whitefill a:hover {text-decoration: underline;}
+
+td.tdframebluefill
+{
+padding: 10px;
+border: 1px solid #40427B;
+background-color: #F4F6F8;
+}
+
+/* Fin de estilos para tablas 02 */
+
+
+/* Textos para tablas */
+
+td.tdcontentableblue {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 10px;
+font-weight: normal;
+color: #525698;
+height: 27px;
+padding-left: 5px;
+vertical-align: middle;
+}
+td.tdcontentableblue a {color: #525698; text-decoration: none;}
+td.tdcontentableblue a:hover {text-decoration: underline;}
+
+/* Fin de textos para tablas */
+
+
+/* Estilos de tx */
+
+.txgreybold {
+font-size: 10px;
+font-weight: bold;
+color: #3A3A3A;
+}
+.txblueregular {
+font-size: 10px;
+color: #525698;
+}
+.txbluebold {
+font-size: 10px;
+color: #05096D;
+font-weight: bold;
+}
+.txredregular {
+font-size: 10px;
+color: #C00000;
+}
+.txredbold12 {
+font-size: 12px;
+font-weight: bold;
+color: #C00000;
+}
+.txredbold11 {
+font-size: 11px;
+font-weight: bold;
+color: #C00000;
+}
+/* Fin de estilos de tx */
+
+
+/* Estilos de pop */
+td.tdbottompop {
+font-size: 9px;
+color: #767373;
+background-color: #E6E6E6;
+padding-left: 10px;
+height: 35px;
+border-bottom: 1px solid #666;
+border-top: 1px solid #C2C2C2;
+}
+td.tdgeneralcontentpop {
+padding: 15px 10px 15px 10px;
+height: 200px;
+vertical-align: top;
+}
+td.tdclosewindow {
+background-color: #E6E6E6;
+height: 20px;
+border-bottom: 1px solid #666;
+border-top: 1px solid #666;
+padding: 0 10px 0 0;
+text-align: right;
+font-size: 9px;
+color: #666;
+font-weight: normal;
+}
+td.tdclosewindow a {
+color: #666;
+text-decoration: none;
+}
+td.tdclosewindow a:hover {
+text-decoration: underline;
+}
+td.tdblueframe 
+{
+border: 1px solid #40427B;
+padding: 10px;
+}
+
+/* Fin de estilos de pop */
+
+/*******************************/
+/* Estilos del Record Browser */
+/*******************************/
+
+.txcontazul
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	color: #525698;
+}
+
+.txcontenidobold
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	color: #3A3A3A;
+}
+
+.txaccionbold
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	text-decoration: none;
+	color: #575757;
+	vertical-align: middle;
+}
+
+tr.trtitulos
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	color: #575757;
+	height: 27px;
+	padding-left: 5px;
+	text-align: left;
+}
+
+th.rayita
+{
+	border-bottom: 4px solid #525698;
+}
+th.rayita3 {
+	border-top: 4px solid #525698;
+	}	
+.txsubtitulo
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: #00005C;
+	padding-bottom: 11px;
+	display: block;
+}
+
+td.tdceleste
+{
+	background-color: #F4F6F8;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	color: #575757;
+	border-bottom: 1px solid #525698;
+	padding-left: 5px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+td.tdblanco
+{
+	background-color: #ffffff;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	color: #575757;
+	border-bottom: 1px solid #525698;
+	padding-left: 5px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.boton
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #ffffff;
+	border: 1px solid #DDDDCC;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	padding-left: 3px;
+	padding-right: 3px;
+	vertical-align: middle;
+	background-color: #525698;
+	text-decoration: none;
+	height: 20px;
+}
+
+.txaccion
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	text-decoration: none;
+	color: #575757;
+	vertical-align: middle;
+}
+.campotablaresultado
+{
+	font-family: verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #575757;
+	border: 1px Transparent;
+	font-weight: bold;
+	font-variant: normal;
+	text-transform: none;
+	background-color: Transparent;
+	text-decoration: none;
+	height: 17px;
+	padding-left: 3px;
+	vertical-align: middle;
+}
+
+td.tdenvolventetabla
+{
+	border: 1px solid #525698;
+	padding: 10px;
+	background-color: #EFEFEF;
+}
+.txrojobold
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	text-decoration: none;
+	color: #C00000;
+	vertical-align: middle;
+}
+
+.tdenvolventetablas {
+	border: 1px solid #40427B;	
+    background-color: #F4F6F8;
+    padding: 2px;
+}
+
+
+.tdTituloAzul 
+{
+	font-size: 12px;
+	font-weight: bold;	
+    background-color:  Transparent;
+    border-bottom: 2px solid #666;   
+    padding: 2px;
+    
+
+}
+.txtitintabla
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	padding-left: 3px;
+	text-decoration: none;
+	color: #777575;
+	vertical-align: middle;
+}
+td.tdtittablas3
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	font-weight: bold;
+	color: #777575;
+	height: 13px;
+	vertical-align: middle;
+}
+
+/*----  Elongoria ----*/
+
+/* estilo usuado para el combo multilinea*/
+.comboTabla
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #575757;
+	border: 1px solid;
+	color: #666666;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	background-color: #ffffff;
+	text-decoration: none;
+	padding-left: 3px;
+	vertical-align: middle;	
+	width:220px;
+}
+
+/* CCL : 18 Mar 2005 
+ * para la captura de Inventarios Libres
+ * campo de Descripcion del Articulo
+ */
+.fieldborderlessBlue {
+font-family: Arial, Helvetica, sans-serif;
+font-size: 10px;
+color: #666666;
+border: 0px solid;
+background-color: #F4F6F8;
+height: 17px;
+padding: 0 0 0 3px;
+margin: 0;
+vertical-align: middle;
+}
+
+.campotabla
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #575757;
+	border: 1px solid;
+	color: #666666;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	background-color: #ffffff;
+	text-decoration: none;
+	height: 17px;
+	padding-left: 3px;
+	vertical-align: middle;
+}
+td.tdconttablas
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	color: #525698;
+	height: 27px;
+	padding-left: 5px;
+	vertical-align: middle;
+}
+/* estilo usuado para el combo multilinea*/
+.comboTabla
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #575757;
+	border: 1px solid;
+	color: #666666;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	background-color: #ffffff;
+	text-decoration: none;
+	padding-left: 3px;
+	vertical-align: middle;	
+	width:220px;
+}
+
+/* CCL : 18 Mar 2005 
+ * para la captura de Inventarios Libres
+ * campo de Descripcion del Articulo
+ */
+.fieldborderlessBlue {
+font-family: Arial, Helvetica, sans-serif;
+font-size: 10px;
+color: #666666;
+border: 0px solid;
+background-color: #F4F6F8;
+height: 17px;
+padding: 0 0 0 3px;
+margin: 0;
+vertical-align: middle;
+}
+
+.campotablaresultadoenvolventeazul
+{
+	font-family: verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #525698;
+	border: 0px solid;
+	font-weight: bold;
+	font-variant: normal;
+	text-transform: none;
+	background-color: #F4F6F8;
+	text-decoration: none;
+	height: 17px;	
+	vertical-align: middle;
+}
+.campotablaresultadoenvolventerojo
+{
+	font-family: verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #C00000;
+	border: 0px solid;
+	font-weight: bold;
+	font-variant: normal;
+	text-transform: none;
+	background-color: #F4F6F8;
+	text-decoration: none;
+	height: 17px;	
+	vertical-align: middle;
+}
+
+.tdEnvolventeTablaAzul {
+	border: 1px solid #E8ECF3;	
+    background-color:#E8ECF3;
+    color: #1F4B84;
+    padding: 2px;
+}
+
+td.tdtextablaBoldAzul {
+font-size: 10px;
+font-weight: bold;
+color:#1F4B84;
+height: 27px;
+}
+.tdEnvolventeTablaGris {
+	border: 1px solid #F2F2F2;	
+    background-color: #F2F2F2;
+    padding: 2px;
+}
+
+
+/*Estilos para Record Browser
+*/
+.Linabottom
+{
+	border-bottom: 4px solid #525698;
+}
+.RBTitulos
+{
+	font-family: Verdana,Arial,  Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	color: #575757;
+	height: 18px;
+	padding-left: 2px;
+	text-align: left;
+}
+
+
+.RBTdAzul
+{
+	background-color: #F2F2F2;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	color: #575757;
+	height: 18px;
+	border-bottom: 1px solid #525698;
+	padding-left: 1px;
+	padding-top: 1px;
+	padding-bottom: 1px;
+}
+.RBTdBlanco
+{
+	background-color: #ffffff;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	color: #575757;
+	height: 18px;
+	border-bottom: 1px solid #525698;
+	padding-left: 1px;
+	padding-top: 1px;
+	padding-bottom: 1px;
+}
+td.tdceleste2
+{
+	background-color: #F4F6F8;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	font-weight: normal;
+	color: #575757;
+	border-bottom: 0px;
+	padding-left: 4px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+td.tdblanco2
+{
+	background-color: #ffffff;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	font-weight: normal;
+	color: #575757;
+	border-bottom: 0px;
+	padding-left: 4px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+
+.tdEnvolventeTablaAzul {
+	border: 1px solid #E8ECF3;	
+    background-color:#E8ECF3;
+    color: #1F4B84;
+    padding: 2px;
+}
+tr.trtitulos2
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;	
+	height:28px;
+	padding-left: 1px;
+	text-align: left;
+}
+td.tdceleste2
+{
+	background-color: #F4F6F8;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	font-weight: normal;
+	color:  #575757;
+	border-bottom: 1px solid #525698;
+	padding-left: 2px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	
+}
+td.tddetalle
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	font-weight: normal;
+	color: #575757;
+	border-bottom: 1px solid #525698;
+	padding-left: 2px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
