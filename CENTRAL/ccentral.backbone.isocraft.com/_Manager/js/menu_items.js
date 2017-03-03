@@ -202,7 +202,11 @@ var MENU_ITEMS = [
 		['Consulta Promociones', '', null,
 			['Consulta','SistemaConsultarPromociones.aspx'],
 			['Consulta Masiva','SistemaConsultarPromocionesMasiva.aspx'],
-		],		
+		],
+        ['Clientes', '', null,
+            ['Consulta Cliente Otras Identificaciones', 'SistemaAdministrarClienteOtrasIdentificaciones.aspx'],
+            ['Consulta Cliente Recetas en Línea',''],
+
+        ],
 	],
 ];
-

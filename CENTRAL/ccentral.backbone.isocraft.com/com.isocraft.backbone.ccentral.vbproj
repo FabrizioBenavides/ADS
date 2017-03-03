@@ -643,6 +643,13 @@
       <DependentUpon>SistemaAdministrarAtributos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="_Manager\SistemaAdministrarClienteOtrasIdentificaciones.aspx.designer.vb">
+      <DependentUpon>SistemaAdministrarClienteOtrasIdentificaciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="_Manager\SistemaAdministrarClienteOtrasIdentificaciones.aspx.vb">
+      <DependentUpon>SistemaAdministrarClienteOtrasIdentificaciones.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="_Manager\SistemaAdministrarClientes.aspx.vb">
       <DependentUpon>SistemaAdministrarClientes.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2927,6 +2934,7 @@
     <Content Include="_Manager\SistemaActualizacionesPendientesDetalleZona.aspx" />
     <Content Include="_Manager\SistemaActualizarSucursal.aspx" />
     <Content Include="_Manager\SistemaAdministrarAtributos.aspx" />
+    <Content Include="_Manager\SistemaAdministrarClienteOtrasIdentificaciones.aspx" />
     <Content Include="_Manager\SistemaAdministrarClientes.aspx" />
     <Content Include="_Manager\SistemaAdministrarClientesNuevos.aspx" />
     <Content Include="_Manager\SistemaAdministrarDiasInhabiles.aspx" />
@@ -4644,7 +4652,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>56974</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost/</IISUrl>
           <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
