@@ -1,4 +1,4 @@
-<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="SistemaAdministrarClienteOtrasIdentificaciones.aspx.vb" Inherits="com.isocraft.backbone.ccentral.SistemaAdministrarClienteOtrasIdentificaciones" CodePage="28592" %>
+<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="SistemaAdministrarClienteOtrasIdentificaciones.aspx.vb" Inherits="com.isocraft.backbone.ccentral.SistemaAdministrarClienteOtrasIdentificaciones" CodePage="28592"  EnableViewState="true"%>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 
@@ -20,6 +20,21 @@
 
         function window_onload() {
             <%= strJavascriptWindowOnLoadCommands %>;
+            cargarValoresControles();
+        }
+
+        function cargarValoresControles() {
+            document.getElementById("txtClienteAbf").value = "<%=txtClienteAbf%>"; 
+        }
+
+        function btnConsultar_onclick() {
+            var txtClienteAbf = document.getElementById("txtClienteAbf").value;
+            var rbtSucursales = document.getElementsByName("rbtSucursales");
+
+            for (var i = 0; i < rbtSucursales.length; i++) {
+
+            }
+
         }
 
         new menu(MENU_ITEMS, MENU_POS);
@@ -63,17 +78,17 @@
                         </tr>
                         <tr>
                             <td class="tdtexttablebold" valign="top">
-                                <input type="radio" value="0" name="optArticulo">Todos
+                                <input type="radio" value="1" name="rbtSucursales">Todos
                             </td>
                         </tr>
                         <tr>
                             <td class="tdtexttablebold" valign="top">
-                                <input type="radio" value="1" name="optArticulo">Sin Sucursales Asignadas
+                                <input type="radio" value="2" name="rbtSucursales">Sin Sucursales Asignadas
                             </td>
                         </tr>
                         <tr>
                             <td class="tdtexttablebold" valign="top">
-                                <input type="radio" value="2" name="optArticulo">Con Sucursales Asignadas
+                                <input type="radio" value="3" name="rbtSucursales">Con Sucursales Asignadas
                             </td>
                         </tr>
                     </table>
@@ -93,6 +108,8 @@
                                 <input class="boton" id="btnAgregar" type="button" value="Agregar" name="btnAgregar"
 							        onclick="return btnAgregar_onclick()">
                             </td>
+                        </tr>
+                        <tr height="50">
                         </tr>
                         <tr>
                             <td>

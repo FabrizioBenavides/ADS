@@ -204,8 +204,8 @@ var MENU_ITEMS = [
 			['Consulta Masiva','SistemaConsultarPromocionesMasiva.aspx'],
 		],
         ['Clientes', '', null,
+            ['Consulta Cliente Recetas en Línea', ''],
             ['Consulta Cliente Otras Identificaciones', 'SistemaAdministrarClienteOtrasIdentificaciones.aspx'],
-            ['Consulta Cliente Recetas en Línea',''],
 
         ],
 	],
