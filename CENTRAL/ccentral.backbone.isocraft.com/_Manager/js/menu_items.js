@@ -206,7 +206,6 @@ var MENU_ITEMS = [
         ['Clientes', '', null,
             ['Consulta Cliente Recetas en Línea', ''],
             ['Consulta Cliente Otras Identificaciones', 'SistemaAdministrarClienteOtrasIdentificaciones.aspx'],
-
         ],
 	],
 ];

@@ -37,10 +37,11 @@ Public Class SistemaAdministrarClienteOtrasIdentificaciones
         End Get
     End Property
 
-
-
-
-
+    Public ReadOnly Property rbtSucursales() As Integer
+        Get
+            Return CInt(ViewState("rbtSucursales"))
+        End Get
+    End Property
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
@@ -48,6 +49,14 @@ Public Class SistemaAdministrarClienteOtrasIdentificaciones
         '        blnPermitirAccesoObjeto(intGrupoUsuarioId, strThisPageName, strConnectionString) = False Then
         '    Call Response.Redirect("../Default.aspx")
         'End If
+
+        Select Case strCmd2
+
+            Case "Buscar"
+                Call MantenerValorControles()
+                Call strConsultarClientes()
+
+        End Select
 
     End Sub
 
@@ -126,10 +135,8 @@ Public Class SistemaAdministrarClienteOtrasIdentificaciones
     End Function
 
     Private Sub MantenerValorControles()
-
         ViewState("txtClienteAbf") = strClienteABF
-
-
+        ViewState("rbtSucursales") = CInt(intTipoFiltroSucursales)
     End Sub
 
 

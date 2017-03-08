@@ -25,16 +25,34 @@
 
         function cargarValoresControles() {
             document.getElementById("txtClienteAbf").value = "<%=txtClienteAbf%>"; 
+            var botonRadioSeleccionado = "<%=rbtSucursales%>";
+            var rbtSucursales = document.getElementsByName("rbtSucursales");
+
+            for (var i = 0; i < rbtSucursales.length; i++) {
+                if (rbtSucursales[i].value == botonRadioSeleccionado) {
+                    rbtSucursales[i].checked = true;
+                    break;
+                }
+            }
         }
 
         function btnConsultar_onclick() {
             var txtClienteAbf = document.getElementById("txtClienteAbf").value;
             var rbtSucursales = document.getElementsByName("rbtSucursales");
+            var idRadioSucursalSeleccionada;
 
             for (var i = 0; i < rbtSucursales.length; i++) {
-
+                if (rbtSucursales[i].checked == true) {
+                    idRadioSucursalSeleccionada = rbtSucursales[i].value;
+                    break;
+                }
             }
 
+            document.forms[0].action = "SistemaAdministrarClienteOtrasIdentificaciones.aspx?strCmd2=Buscar" +
+                                       "&strClienteABF=" + txtClienteAbf +
+                                       "&intTipoFiltroSucursales=" + idRadioSucursalSeleccionada;
+
+            document.forms(0).submit();
         }
 
         new menu(MENU_ITEMS, MENU_POS);
@@ -78,7 +96,7 @@
                         </tr>
                         <tr>
                             <td class="tdtexttablebold" valign="top">
-                                <input type="radio" value="1" name="rbtSucursales">Todos
+                                <input type="radio" value="1" name="rbtSucursales" checked>Todos
                             </td>
                         </tr>
                         <tr>
@@ -95,7 +113,7 @@
                     <table border="0" cellspacing="0" cellpadding="0" width="100%">
                         <tr>
                             <td class="tdtexttablebold" width="15%">Cliente ABF:</td>
-                            <td class="tdpadleft5" valign="top">
+                            <td class="tdpadleft5" valign="middle">
                                 <input class="field" id="txtClienteAbf" type="text" autocomplete="off" maxlength="20" size="40">
                             </td>
                         </tr>
