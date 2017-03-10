@@ -447,6 +447,13 @@
       <DependentUpon>popSistemaAgregarAtributosATipoDeReceta.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="_Manager\popSistemaAgregarClienteOtrasIdentificaciones.aspx.designer.vb">
+      <DependentUpon>popSistemaAgregarClienteOtrasIdentificaciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="_Manager\popSistemaAgregarClienteOtrasIdentificaciones.aspx.vb">
+      <DependentUpon>popSistemaAgregarClienteOtrasIdentificaciones.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="_Manager\popSistemaBuscarEmpleado.aspx.vb">
       <DependentUpon>popSistemaBuscarEmpleado.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2885,6 +2892,7 @@
     <Content Include="_Manager\PopPromocionesCupones.aspx" />
     <Content Include="_Manager\popProveedor.aspx" />
     <Content Include="_Manager\popSistemaAgregarAtributosATipoDeReceta.aspx" />
+    <Content Include="_Manager\popSistemaAgregarClienteOtrasIdentificaciones.aspx" />
     <Content Include="_Manager\popSistemaBuscarEmpleado.aspx" />
     <Content Include="_Manager\popSistemaBuscarSucursalUsuario.aspx" />
     <Content Include="_Manager\PopSistemaCambiarContrasena.aspx" />

@@ -36,7 +36,7 @@
             }
         }
 
-        function btnConsultar_onclick() {
+        function btnConsultarClientes_onclick() {
             var txtClienteAbf = document.getElementById("txtClienteAbf").value;
             var rbtSucursales = document.getElementsByName("rbtSucursales");
             var idRadioSucursalSeleccionada;
@@ -53,6 +53,11 @@
                                        "&intTipoFiltroSucursales=" + idRadioSucursalSeleccionada;
 
             document.forms(0).submit();
+        }
+
+        function btnAgregarCliente_onclick() {
+            window.open("popSistemaAgregarClienteOtrasIdentificaciones.aspx", "Pop", "width=800, height=700, left=150, top=0, resizable=no, scrollbars=auto, menubar=no, status=no");
+          
         }
 
         new menu(MENU_ITEMS, MENU_POS);
@@ -114,7 +119,7 @@
                         <tr>
                             <td class="tdtexttablebold" width="15%">Cliente ABF:</td>
                             <td class="tdpadleft5" valign="middle">
-                                <input class="field" id="txtClienteAbf" type="text" autocomplete="off" maxlength="20" size="40">
+                                <input class="field" id="txtClienteAbf" type="text" autocomplete="off" maxlength="15" size="30">
                             </td>
                         </tr>
                     </table>
@@ -122,9 +127,9 @@
                         <tr>
                             <td>
                                 <input class="boton" id="btnConsultar" type="button" value="Consultar" name="btnConsultar"
-							        onclick="return btnConsultar_onclick()"> 
+							        onclick="return btnConsultarClientes_onclick()"> 
                                 <input class="boton" id="btnAgregar" type="button" value="Agregar" name="btnAgregar"
-							        onclick="return btnAgregar_onclick()">
+							        onclick="return btnAgregarCliente_onclick()">
                             </td>
                         </tr>
                         <tr height="50">
