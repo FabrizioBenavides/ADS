@@ -56,7 +56,7 @@
         }
 
         function btnAgregarCliente_onclick() {
-            window.open("popSistemaAgregarClienteOtrasIdentificaciones.aspx", "Pop", "width=800, height=700, left=150, top=0, resizable=no, scrollbars=auto, menubar=no, status=no");
+            window.open("popSistemaAgregarClienteOtrasIdentificaciones.aspx", "Pop", "width=800, height=700, left=150, top=0, resizable=no, scrollbars=yes, menubar=no, status=no");
           
         }
 
