@@ -96,7 +96,290 @@ Public Class clsClientesABF
         End Function
 
 
+
     End Class
+
+
+
+End Class
+
+
+Public Class tblOtrasIdentificacionesABF
+
+    Private _strClienteABFId As String
+    Private _strClienteABFNombre As String
+    Private _strMensajePOS As String
+    Private _strCredencialUnica As String
+    Private _strLlaveOnline As String
+    Private _blnConsHostExterno As Boolean
+    Private _strCodigoStatus As String
+    Private _strCodigoConfirmaVenta As String
+    Private _strCodigoReversaVenta As String
+    Private _strTieneDVPHJ As String
+    Private _strAdjudicaSinStatus As String
+    Private _strMensajeSinStatus As String
+    Private _fltBonificacionSinStatus As Decimal
+    Private _fltCreditoSinStatus As Decimal
+    Private _strUsaOrdenDeCompra As String
+    Private _strValidaLimiteOC As String
+    Private _intLimiteOC As Integer
+    Private _strClavePadecimiento As String
+    Private _strClaveFamiliar As String
+    Private _strClaveUnica As String
+    Private _strClaveAutorizacion As String
+    Private _strDiasTratamiento As String
+    Private _strMensajeCredencial As String
+    Private _strSinDespliegueBeneficiarios As String
+    Private _strDuplicaIdTransaccion As String
+    Private _dtmOtrasIdentificacionesABFUltimaModificacion As Date
+    Private _strOtrasIdentificacionesABFModificadoPor As String
+
+    Public Property strClienteABFId() As String
+        Get
+            Return _strClienteABFId
+        End Get
+        Set(ByVal value As String)
+            _strClienteABFId = value
+        End Set
+    End Property
+
+    Public Property strClienteABFNombre() As String
+        Get
+            Return _strClienteABFNombre
+        End Get
+        Set(ByVal value As String)
+            _strClienteABFNombre = value
+        End Set
+    End Property
+
+
+    Public Property strMensajePOS() As String
+        Get
+            Return _strMensajePOS
+        End Get
+        Set(ByVal value As String)
+            _strMensajePOS = value
+        End Set
+    End Property
+
+    Public Property strCredencialUnica() As String
+        Get
+            Return _strCredencialUnica
+        End Get
+        Set(ByVal value As String)
+            _strCredencialUnica = value
+        End Set
+    End Property
+
+    Public Property strLlaveOnline() As String
+        Get
+            Return _strLlaveOnline
+        End Get
+        Set(ByVal value As String)
+            _strLlaveOnline = value
+        End Set
+    End Property
+
+    Public Property blnConsHostExterno() As Boolean
+        Get
+            Return _blnConsHostExterno
+        End Get
+        Set(ByVal value As Boolean)
+            _blnConsHostExterno = value
+        End Set
+    End Property
+
+    Public Property strCodigoStatus() As String
+        Get
+            Return _strCodigoStatus
+        End Get
+        Set(ByVal value As String)
+            _strCodigoStatus = value
+        End Set
+    End Property
+
+    Public Property strCodigoConfirmaVenta() As String
+        Get
+            Return _strCodigoConfirmaVenta
+        End Get
+        Set(ByVal value As String)
+            _strCodigoConfirmaVenta = value
+        End Set
+    End Property
+
+    Public Property strCodigoReversaVenta() As String
+        Get
+            Return _strCodigoReversaVenta
+        End Get
+        Set(ByVal value As String)
+            _strCodigoReversaVenta = value
+        End Set
+    End Property
+
+    Public Property strTieneDVPHJ() As String
+        Get
+            Return _strTieneDVPHJ
+        End Get
+        Set(ByVal value As String)
+            _strTieneDVPHJ = value
+        End Set
+    End Property
+
+    Public Property strAdjudicaSinStatus() As String
+        Get
+            Return _strAdjudicaSinStatus
+        End Get
+        Set(ByVal value As String)
+            _strAdjudicaSinStatus = value
+        End Set
+    End Property
+
+    Public Property strMensajeSinStatus() As String
+        Get
+            Return _strMensajeSinStatus
+        End Get
+        Set(ByVal value As String)
+            _strMensajeSinStatus = value
+        End Set
+    End Property
+
+    Public Property fltBonificacionSinStatus() As Decimal
+        Get
+            Return _fltBonificacionSinStatus
+        End Get
+        Set(ByVal value As Decimal)
+            _fltBonificacionSinStatus = value
+        End Set
+    End Property
+
+    Public Property fltCreditoSinStatus() As Decimal
+        Get
+            Return _fltCreditoSinStatus
+        End Get
+        Set(ByVal value As Decimal)
+            _fltCreditoSinStatus = value
+        End Set
+    End Property
+
+    Public Property strUsaOrdenDeCompra() As String
+        Get
+            Return _strUsaOrdenDeCompra
+        End Get
+        Set(ByVal value As String)
+            _strUsaOrdenDeCompra = value
+        End Set
+    End Property
+
+    Public Property strValidaLimiteOC() As String
+        Get
+            Return _strValidaLimiteOC
+        End Get
+        Set(ByVal value As String)
+            _strValidaLimiteOC = value
+        End Set
+    End Property
+
+    Public Property intLimiteOC() As Integer
+        Get
+            Return _intLimiteOC
+        End Get
+        Set(ByVal value As Integer)
+            _intLimiteOC = value
+        End Set
+    End Property
+
+    Public Property strClavePadecimiento() As String
+        Get
+            Return _strClavePadecimiento
+        End Get
+        Set(ByVal value As String)
+            _strClavePadecimiento = value
+        End Set
+    End Property
+
+    Public Property strClaveFamiliar() As String
+        Get
+            Return _strClaveFamiliar
+        End Get
+        Set(ByVal value As String)
+            _strClaveFamiliar = value
+        End Set
+    End Property
+
+    Public Property strClaveUnica() As String
+        Get
+            Return _strClaveUnica
+        End Get
+        Set(ByVal value As String)
+            _strClaveUnica = value
+        End Set
+    End Property
+
+    Public Property strClaveAutorizacion() As String
+        Get
+            Return _strClaveAutorizacion
+        End Get
+        Set(ByVal value As String)
+            _strClaveAutorizacion = value
+        End Set
+    End Property
+
+    Public Property strDiasTratamiento() As String
+        Get
+            Return _strDiasTratamiento
+        End Get
+        Set(ByVal value As String)
+            _strDiasTratamiento = value
+        End Set
+    End Property
+
+    Public Property strMensajeCredencial() As String
+        Get
+            Return _strMensajeCredencial
+        End Get
+        Set(ByVal value As String)
+            _strMensajeCredencial = value
+        End Set
+    End Property
+
+    Public Property strSinDespliegueBeneficiarios() As String
+        Get
+            Return _strSinDespliegueBeneficiarios
+        End Get
+        Set(ByVal value As String)
+            _strSinDespliegueBeneficiarios = value
+        End Set
+    End Property
+
+    Public Property strDuplicaIdTransaccion() As String
+        Get
+            Return _strDuplicaIdTransaccion
+        End Get
+        Set(ByVal value As String)
+            _strDuplicaIdTransaccion = value
+        End Set
+    End Property
+
+    Public Property dtmOtrasIdentificacionesABFUltimaModificacion() As Date
+        Get
+            Return _dtmOtrasIdentificacionesABFUltimaModificacion
+        End Get
+        Set(ByVal value As Date)
+            _dtmOtrasIdentificacionesABFUltimaModificacion = value
+        End Set
+    End Property
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 End Class
