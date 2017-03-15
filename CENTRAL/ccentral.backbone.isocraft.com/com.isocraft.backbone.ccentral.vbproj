@@ -2740,6 +2740,7 @@
     <Content Include="static\images\imgNREdiA.gif" />
     <Content Include="static\images\imgNReditar.gif" />
     <Content Include="static\images\imgNREliminar.gif" />
+    <Content Include="static\images\ImgNREliminarformadepago.gif" />
     <Content Include="static\images\ImgNRImprimir.gif" />
     <Content Include="static\images\imgNRPrevio.gif" />
     <Content Include="static\images\imgNRRetransmitir.gif" />

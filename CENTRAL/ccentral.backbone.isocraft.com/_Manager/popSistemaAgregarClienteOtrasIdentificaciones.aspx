@@ -16,11 +16,14 @@ s<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="popSistemaAgregarCli
 
     <script type="text/javascript">
 
-        strUsuarioNombre = "<%= strUsuarioNombre %>";
-
+        strUsuarioNombre = <%= strUsuarioNombre %>;
 
         function window_onload() {
-
+            <%= strJavascriptWindowOnLoadCommands %>;
+            
+            if (<%= ValorGuardar%> === 1){
+                window.close();
+            }
         }
 
         function btnCerrar_onclick() {
@@ -28,11 +31,12 @@ s<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="popSistemaAgregarCli
         }
 
         function btnGuardarCliente_onclick() {
-
             if (!validarCamposVacios()) {
                 agregarCliente();
             }
-
+            else {
+                window.alert("Favor de capturar la clave y/o nombre del cliente.");
+            }
         }
 
         function soloNumeros(valor) {
@@ -65,14 +69,70 @@ s<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="popSistemaAgregarCli
         }
 
         function validarCamposVacios() {
-            var hayCamposVacios = true;
+            var hayCamposVacios = false;
+            var txtClaveClienteAbf = document.getElementById("txtClaveClienteAbf").value;
+            var txtNombreClienteAbf = document.getElementById("txtNombreClienteAbf").value;
 
-
+            if (txtClaveClienteAbf === "" || txtNombreClienteAbf === "") {
+                hayCamposVacios = true;
+            }
             return hayCamposVacios;
         }
 
         function agregarCliente() {
+            var txtClaveClienteAbf = document.getElementById("txtClaveClienteAbf").value;
+            var txtNombreClienteAbf = document.getElementById("txtNombreClienteAbf").value;
+            var txtMensajePos = document.getElementById("txtMensajePos").value;
+            var txtCredencialUnica = document.getElementById("txtCredencialUnica").value;
+            var txtLlave = document.getElementById("txtLlave").value;
+            var cboHost = document.getElementById("cboHost").value;
+            var txtCodigoEstatus = document.getElementById("txtCodigoEstatus").value;
+            var txtCodigoConfirmacion = document.getElementById("txtCodigoConfirmacion").value;
+            var txtReversaConfirmacion = document.getElementById("txtReversaConfirmacion").value;
+            var cboDvphj = document.getElementById("cboDvphj").value;
+            var cboAdjudicaSinEstatus = document.getElementById("cboAdjudicaSinEstatus").value;
+            var txtMensajeSinEstatus = document.getElementById("txtMensajeSinEstatus").value;
+            var txtBonificacionSinEstatus = document.getElementById("txtBonificacionSinEstatus").value;
+            var txtCreditoSinEstatus = document.getElementById("txtCreditoSinEstatus").value;
+            var cboOrdenCompra = document.getElementById("cboOrdenCompra").value;
+            var cboValidaLimiteOc = document.getElementById("cboValidaLimiteOc").value;
+            var txtLimiteOc = document.getElementById("txtLimiteOc").value;
+            var txtClavePadecimiento = document.getElementById("txtClavePadecimiento").value;
+            var txtClaveFamiliar = document.getElementById("txtClaveFamiliar").value;
+            var txtClaveUnica = document.getElementById("txtClaveUnica").value;
+            var txtClaveAutorizacion = document.getElementById("txtClaveAutorizacion").value;
+            var txtDias = document.getElementById("txtDias").value;
+            var txtMensajeCredencial = document.getElementById("txtMensajeCredencial").value;
+            var cboBeneficiariosSinDesp = document.getElementById("cboBeneficiariosSinDesp").value;
+            var cboTransaccion = document.getElementById("cboTransaccion").value;
 
+            document.forms[0].action = "popSistemaAgregarClienteOtrasIdentificaciones.aspx?strCmd2=Nuevo" +
+                                       "&strClienteABFId=" + txtClaveClienteAbf +
+                                       "&strClienteABFNombre=" + txtNombreClienteAbf +
+                                       "&strMensajePOS=" + txtMensajePos +
+                                       "&strCredencialUnica=" + txtCredencialUnica +
+                                       "&strLlaveOnline=" + txtLlave +
+                                       "&blnConsHostExterno	=" + cboHost +
+                                       "&strCodigoStatus=" + txtCodigoEstatus +
+                                       "&strCodigoConfirmaVenta=" + txtCodigoConfirmacion +
+                                       "&strCodigoReversaVenta=" + txtReversaConfirmacion +
+                                       "&strTieneDVPHJ=" + cboDvphj +
+                                       "&strAdjudicaSinStatus=" + cboAdjudicaSinEstatus +
+                                       "&strMensajeSinStatus=" + txtMensajeSinEstatus +
+                                       "&fltBonificacionSinStatus=" + txtBonificacionSinEstatus +
+                                       "&fltCreditoSinStatus=" + txtCreditoSinEstatus +
+                                       "&strUsaOrdenDeCompra=" + cboOrdenCompra +
+                                       "&strValidaLimiteOC=" + cboValidaLimiteOc +
+                                       "&intLimiteOC=" + txtLimiteOc +
+                                       "&strClavePadecimiento=" + txtClavePadecimiento +
+                                       "&strClaveFamiliar=" + txtClaveFamiliar +
+                                       "&strClaveUnica=" + txtClaveUnica +
+                                       "&strClaveAutorizacion=" + txtClaveAutorizacion +
+                                       "&strDiasTratamiento=" + txtDias +
+                                       "&strMensajeCredencial=" + txtMensajeCredencial +
+                                       "&strSinDespliegueBeneficiarios=" + cboBeneficiariosSinDesp +
+                                       "&strDuplicaIdTransaccion=" + cboTransaccion;
+            document.forms[0].submit();
         }
 
 
@@ -90,7 +150,8 @@ s<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="popSistemaAgregarCli
             </tr>
             <tr>
                 <td width="2%">&nbsp;</td>
-                <td valign="top" width="99%" height="10">&nbsp;</td>
+                <td valign="top" width="99%" height="10"><h1 id="TituloCliente">Consulta Cliente Otras Identificaciones</h1></td>
+                
             </tr>
             <tr>
                 <td width="2%">&nbsp;</td>
@@ -100,8 +161,10 @@ s<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="popSistemaAgregarCli
                 <td width="2%">&nbsp;</td>
                 <td>
                     <div style="margin-left: 650px;">
-                        <input id="btnCerrar" name="btnCerrar" type="submit" class="boton" value="Cerrar" onclick="return btnCerrar_onclick()">
-                        <input id="btnGuardarCliente" type="button" name="btnGuardarCliente" class="boton" value="Guardar Datos" onclick="btnGuardarCliente_onclick">
+                        <input id="btnCerrar" name="btnCerrar" type="submit"
+                             class="boton" value="Cerrar" onclick="return btnCerrar_onclick()">
+                        <input id="btnGuardarCliente" type="button" name="btnGuardarCliente" 
+                            class="boton" value="Guardar Datos" onclick="btnGuardarCliente_onclick()">
                         <br>
                         <br>
                     </div>
@@ -111,7 +174,7 @@ s<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="popSistemaAgregarCli
         <table width="500" border="0" cellspacing="0" cellpadding="0">
             <tr>
                 <td width="500" class="tdgeneralcontentpop">
-                    <h2>Agregar Cliente</h2>
+                    <h2 id="TituloAccion">Agregar Cliente</h2>
                     <table cellspacing="0" cellpadding="0" width="100%" border="0">
                         <tr>
                             <td class="tdtexttablebold" width="30%">Clave Cliente ABF:</td>
@@ -128,7 +191,9 @@ s<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="popSistemaAgregarCli
                         <tr>
                             <td class="tdtexttablebold" width="30%">Mensaje POS:</td>
                             <td class="tdpadleft5" width="70%">
-                                <textarea id="txtMensajePos" autocomplete="off" maxlength="2048" rows="5" cols="41" ></textarea>
+                                <textarea id="txtMensajePos" autocomplete="off" style="height:60px!important;"
+                                     maxlength="2048" rows="5" cols="41" class="field" >
+                                </textarea>
                             </td>
                         </tr>
                         <tr>

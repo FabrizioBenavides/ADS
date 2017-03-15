@@ -90,7 +90,7 @@ Public Class SistemaAdministrarClienteOtrasIdentificaciones
     Private Function CrearRegistrosClientes(ByVal registrosProductos As Array) As String
         Dim contadorRegistros As Integer = 0
         Dim colorRegistro As String = String.Empty
-        Dim imagenVerActualizar As String = "<img src='../static/images/imgNRTodo.gif' width='11' height='13' border='0' align='center' alt='Haga clic aquí para ver ó actualizar cliente' title='Haga clic aquí para ver ó actualizar cliente'>"
+        Dim imagenVerActualizar As String = "<img src='../static/images/icono_editar.gif' border='0' align='center' alt='Haga clic aquí para ver ó actualizar cliente' title='Haga clic aquí para ver ó modificar cliente'>"
         Dim imagenAsignarSucursales As String = "<img src='../static/images/imgNRArchivo.gif' width='11' height='13' border='0' align='center' alt='Haga clic aquí para eliminar' title='Haga clic aquí para eliminar'>"
         Dim resultadoCliente As New StringBuilder
         Dim strClienteABFId As String = String.Empty
