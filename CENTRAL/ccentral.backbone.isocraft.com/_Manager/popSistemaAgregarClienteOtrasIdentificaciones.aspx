@@ -21,8 +21,62 @@ s<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="popSistemaAgregarCli
         function window_onload() {
             <%= strJavascriptWindowOnLoadCommands %>;
             
+            establecerEstadoDespuesGuardar();
+            establecerTipoVentana();
+            establecerValorAControles();
+        }
+
+        function establecerValorAControles(){
+            if (<%= ValorAsignar%> === 1){
+                document.getElementById("txtClaveClienteAbf").readOnly = true;
+
+                document.getElementById("txtClaveClienteAbf").value = '<%= strClienteABFId%>';
+                document.getElementById("txtNombreClienteAbf").value = '<%= strClienteABFNombre%>';
+                document.getElementById("txtMensajePos").value = '<%= strMensajePOS%>';
+                document.getElementById("txtCredencialUnica").value ='<%= strCredencialUnica%>';
+                document.getElementById("txtLlave").value= '<%= strLlaveOnline%>';
+                document.getElementById("cboHost").value= '<%= blnConsHostExterno%>';
+                document.getElementById("txtCodigoEstatus").value= '<%= strCodigoStatus%>';
+                document.getElementById("txtCodigoConfirmacion").value= '<%= strCodigoConfirmaVenta%>';
+                document.getElementById("txtReversaConfirmacion").value= '<%= strCodigoReversaVenta%>';
+                document.getElementById("cboDvphj").value= '<%= strTieneDVPHJ%>';
+                document.getElementById("cboAdjudicaSinEstatus").value= '<%= strAdjudicaSinStatus%>';
+                document.getElementById("txtMensajeSinEstatus").value= '<%= strMensajeSinStatus%>';
+                document.getElementById("txtBonificacionSinEstatus").value= '<%= fltBonificacionSinStatus%>';
+                document.getElementById("txtCreditoSinEstatus").value= '<%= fltCreditoSinStatus%>';
+                document.getElementById("cboOrdenCompra").value= '<%= strUsaOrdenDeCompra%>';
+                document.getElementById("cboValidaLimiteOc").value= '<%= strValidaLimiteOC%>';
+                document.getElementById("txtLimiteOc").value= '<%= intLimiteOC%>';
+                document.getElementById("txtClavePadecimiento").value= '<%= strClavePadecimiento%>';
+                document.getElementById("txtClaveFamiliar").value= '<%= strClaveFamiliar%>';
+                document.getElementById("txtClaveUnica").value= '<%= strClaveUnica%>';
+                document.getElementById("txtClaveAutorizacion").value= '<%= strClaveAutorizacion%>';
+                document.getElementById("txtDias").value= '<%= strDiasTratamiento%>';
+                document.getElementById("txtMensajeCredencial").value= '<%= strMensajeCredencial%>';
+                document.getElementById("cboBeneficiariosSinDesp").value= '<%= strSinDespliegueBeneficiarios%>';
+                document.getElementById("cboTransaccion").value= '<%= strDuplicaIdTransaccion%>';
+            }
+        }
+
+        function establecerEstadoDespuesGuardar() {
             if (<%= ValorGuardar%> === 1){
                 window.close();
+            }
+        }
+
+        function establecerTipoVentana() {
+            var strEsActualizarCliente = '<%= strEsActualizarCliente%>';
+            var strClienteABFId = "<%= strClienteABFId%>";
+            var strClienteABFNombre = "<%= strClienteABFNombre%>";
+
+            if (strEsActualizarCliente === 'true'){
+                document.getElementById("txtClaveClienteAbf").value = strClienteABFId; 
+                document.getElementById("TituloCliente").innerHTML = strClienteABFId + " - " + strClienteABFNombre;
+                document.getElementById("TituloAccion").innerHTML = "Modificar Cliente";
+
+                document.forms[0].action = "popSistemaAgregarClienteOtrasIdentificaciones.aspx?strCmd2=Buscar" +
+                                            "&strClienteABFId=" + strClienteABFId ;
+                document.forms[0].submit();
             }
         }
 
@@ -135,8 +189,6 @@ s<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="popSistemaAgregarCli
             document.forms[0].submit();
         }
 
-
-
     </script>
 
 </head>
@@ -150,8 +202,9 @@ s<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="popSistemaAgregarCli
             </tr>
             <tr>
                 <td width="2%">&nbsp;</td>
-                <td valign="top" width="99%" height="10"><h1 id="TituloCliente">Consulta Cliente Otras Identificaciones</h1></td>
-                
+                <td valign="top" width="99%" height="10">
+                    <h1 id="TituloCliente"></h1>
+                </td>
             </tr>
             <tr>
                 <td width="2%">&nbsp;</td>

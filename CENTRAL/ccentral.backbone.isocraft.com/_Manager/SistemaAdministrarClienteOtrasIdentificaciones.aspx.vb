@@ -90,11 +90,11 @@ Public Class SistemaAdministrarClienteOtrasIdentificaciones
     Private Function CrearRegistrosClientes(ByVal registrosProductos As Array) As String
         Dim contadorRegistros As Integer = 0
         Dim colorRegistro As String = String.Empty
-        Dim imagenVerActualizar As String = "<img src='../static/images/icono_editar.gif' border='0' align='center' alt='Haga clic aquí para ver ó actualizar cliente' title='Haga clic aquí para ver ó modificar cliente'>"
+        Dim imagenVerActualizar As String = "<img src='../static/images/icono_editar.gif' width='11' height='13' border='0' align='center' alt='Haga clic aquí para ver ó actualizar cliente' title='Haga clic aquí para ver ó actualizar cliente'>"
         Dim imagenAsignarSucursales As String = "<img src='../static/images/imgNRArchivo.gif' width='11' height='13' border='0' align='center' alt='Haga clic aquí para eliminar' title='Haga clic aquí para eliminar'>"
         Dim resultadoCliente As New StringBuilder
         Dim strClienteABFId As String = String.Empty
-        Dim strCheck As String = String.Empty
+        Dim strControlCheck As String = String.Empty
 
         For Each renglon As SortedList In registrosProductos
             contadorRegistros += 1
@@ -112,22 +112,30 @@ Public Class SistemaAdministrarClienteOtrasIdentificaciones
             resultadoCliente.AppendFormat("<td class='{0}' style='text-align:center'>{1}</td>", colorRegistro, renglon.Item("SucursalesAsignadas"))
 
             If CBool(renglon.Item("blnClienteActivo")) = True Then
-                strCheck = "checked"
+                strControlCheck = "checked"
             End If
 
             resultadoCliente.AppendFormat("<td class='{0}' style='text-align:center'>" & _
-                                          "<input type='checkbox' {1} disabled='disabled'/></td>", colorRegistro, strCheck)
-            strCheck = String.Empty
+                                          "<input type='checkbox' {1} disabled='disabled'/></td>", colorRegistro, strControlCheck)
+            strControlCheck = String.Empty
 
             If CBool(renglon.Item("blnClienteExcedidoEnLimiteCredito")) = True Then
-                strCheck = "checked"
+                strControlCheck = "checked"
             End If
 
             resultadoCliente.AppendFormat("<td class='{0}' style='text-align:center'>" & _
-                                          "<input type='checkbox' {1} disabled='disabled' /></td>", colorRegistro, strCheck)
-            strCheck = String.Empty
+                                          "<input type='checkbox' {1} disabled='disabled' /></td>", colorRegistro, strControlCheck)
+            strControlCheck = String.Empty
 
-            resultadoCliente.AppendFormat("<td class='{0}' style='text-align:center'>{1}</td>", colorRegistro, imagenVerActualizar)
+
+            resultadoCliente.AppendFormat("<td align='left' style='width: 50px;' class='{0}'>" & _
+                                          "<a href='#' onClick='mostrarVentanaEditarCliente(""{1}"", ""{2}"");return false;'>" & _
+                                          "{3}</a></td>", _
+                                           colorRegistro, _
+                                           renglon.Item("strClienteABFId").ToString(), _
+                                           renglon.Item("strClienteABFNombre").ToString(), _
+                                           imagenVerActualizar)
+
             resultadoCliente.AppendFormat("<td class='{0}' style='text-align:center'>{1}</td>", colorRegistro, imagenAsignarSucursales)
         Next
 

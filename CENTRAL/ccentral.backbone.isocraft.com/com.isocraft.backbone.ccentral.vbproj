@@ -2756,6 +2756,7 @@
     <Content Include="static\images\logo.gif" />
     <Content Include="static\images\logo.png" />
     <Content Include="static\images\logoEspera.gif" />
+    <Content Include="static\images\logoFirma.gif" />
     <Content Include="static\images\logo_home.gif" />
     <Content Include="static\images\logo_pop.gif" />
     <Content Include="static\images\menu0_r1_c1.gif" />
