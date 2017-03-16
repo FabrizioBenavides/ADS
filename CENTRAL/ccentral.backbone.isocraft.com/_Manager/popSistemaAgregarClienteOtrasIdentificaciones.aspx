@@ -1,10 +1,10 @@
-s<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="popSistemaAgregarClienteOtrasIdentificaciones.aspx.vb" Inherits="com.isocraft.backbone.ccentral.popSistemaAgregarClienteOtrasIdentificaciones" CodePage="28592" %>
+<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="popSistemaAgregarClienteOtrasIdentificaciones.aspx.vb" Inherits="com.isocraft.backbone.ccentral.popSistemaAgregarClienteOtrasIdentificaciones" CodePage="28592" %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 
 <html>
 <head>
-    <title>Benavides: Agregar Cliente Otras Identificaciones</title>
+    <title id="TituloPagina">Benavides: Agregar Cliente Otras Identificaciones</title>
     <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
     <link href="css/menu.css" rel="stylesheet" type="text/css" />
@@ -26,16 +26,43 @@ s<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="popSistemaAgregarCli
             establecerValorAControles();
         }
 
+        function establecerEstadoDespuesGuardar() {
+            if (<%= ValorGuardar%> === 1){
+                window.close();
+            }
+        }
+
+        function establecerTipoVentana() {
+            var strEsActualizarCliente = '<%= strEsActualizarCliente%>';
+            var strClienteABFId = "<%= strClienteABFId%>";
+
+            if (strEsActualizarCliente === 'true'){
+                document.forms[0].action = "popSistemaAgregarClienteOtrasIdentificaciones.aspx?strCmd2=Buscar" +
+                                            "&strClienteABFId=" + strClienteABFId ;
+                document.forms[0].submit();
+            }
+        }
+
         function establecerValorAControles(){
             if (<%= ValorAsignar%> === 1){
+                document.getElementById("TituloPagina").innerHTML ="Benavides: Modificar Cliente Otras Identificaciones";
+                document.getElementById("TituloCliente").innerHTML = "<%= strClienteABFId%>" + " - " + "<%= strClienteABFNombre%>";
+                document.getElementById("TituloAccion").innerHTML = "Modificar Cliente";
                 document.getElementById("txtClaveClienteAbf").readOnly = true;
-
+                document.getElementById("txtClaveClienteAbf").style.background= "lightgrey";
+        
                 document.getElementById("txtClaveClienteAbf").value = '<%= strClienteABFId%>';
                 document.getElementById("txtNombreClienteAbf").value = '<%= strClienteABFNombre%>';
                 document.getElementById("txtMensajePos").value = '<%= strMensajePOS%>';
                 document.getElementById("txtCredencialUnica").value ='<%= strCredencialUnica%>';
                 document.getElementById("txtLlave").value= '<%= strLlaveOnline%>';
-                document.getElementById("cboHost").value= '<%= blnConsHostExterno%>';
+
+                if('<%= blnConsHostExterno%>' === "True"){
+                    document.getElementById("cboHost").value= "1";
+                }
+                else{
+                    document.getElementById("cboHost").value= "0";
+                }
                 document.getElementById("txtCodigoEstatus").value= '<%= strCodigoStatus%>';
                 document.getElementById("txtCodigoConfirmacion").value= '<%= strCodigoConfirmaVenta%>';
                 document.getElementById("txtReversaConfirmacion").value= '<%= strCodigoReversaVenta%>';
@@ -58,35 +85,19 @@ s<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="popSistemaAgregarCli
             }
         }
 
-        function establecerEstadoDespuesGuardar() {
-            if (<%= ValorGuardar%> === 1){
-                window.close();
-            }
-        }
-
-        function establecerTipoVentana() {
-            var strEsActualizarCliente = '<%= strEsActualizarCliente%>';
-            var strClienteABFId = "<%= strClienteABFId%>";
-            var strClienteABFNombre = "<%= strClienteABFNombre%>";
-
-            if (strEsActualizarCliente === 'true'){
-                document.getElementById("txtClaveClienteAbf").value = strClienteABFId; 
-                document.getElementById("TituloCliente").innerHTML = strClienteABFId + " - " + strClienteABFNombre;
-                document.getElementById("TituloAccion").innerHTML = "Modificar Cliente";
-
-                document.forms[0].action = "popSistemaAgregarClienteOtrasIdentificaciones.aspx?strCmd2=Buscar" +
-                                            "&strClienteABFId=" + strClienteABFId ;
-                document.forms[0].submit();
-            }
-        }
-
         function btnCerrar_onclick() {
             window.close();
         }
 
         function btnGuardarCliente_onclick() {
+
             if (!validarCamposVacios()) {
-                agregarCliente();
+                if (<%= ValorAccion%> === 1){
+                    agregarActualizarCliente("Modificar");
+                }
+                else{
+                    agregarActualizarCliente("Agregar");
+                }
             }
             else {
                 window.alert("Favor de capturar la clave y/o nombre del cliente.");
@@ -133,7 +144,7 @@ s<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="popSistemaAgregarCli
             return hayCamposVacios;
         }
 
-        function agregarCliente() {
+        function agregarActualizarCliente(accion) {
             var txtClaveClienteAbf = document.getElementById("txtClaveClienteAbf").value;
             var txtNombreClienteAbf = document.getElementById("txtNombreClienteAbf").value;
             var txtMensajePos = document.getElementById("txtMensajePos").value;
@@ -160,7 +171,7 @@ s<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="popSistemaAgregarCli
             var cboBeneficiariosSinDesp = document.getElementById("cboBeneficiariosSinDesp").value;
             var cboTransaccion = document.getElementById("cboTransaccion").value;
 
-            document.forms[0].action = "popSistemaAgregarClienteOtrasIdentificaciones.aspx?strCmd2=Nuevo" +
+            document.forms[0].action = "popSistemaAgregarClienteOtrasIdentificaciones.aspx?strCmd2=" + accion  +
                                        "&strClienteABFId=" + txtClaveClienteAbf +
                                        "&strClienteABFNombre=" + txtNombreClienteAbf +
                                        "&strMensajePOS=" + txtMensajePos +
@@ -215,8 +226,8 @@ s<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="popSistemaAgregarCli
                 <td>
                     <div style="margin-left: 650px;">
                         <input id="btnCerrar" name="btnCerrar" type="submit"
-                             class="boton" value="Cerrar" onclick="return btnCerrar_onclick()">
-                        <input id="btnGuardarCliente" type="button" name="btnGuardarCliente" 
+                            class="boton" value="Cerrar" onclick="return btnCerrar_onclick()">
+                        <input id="btnGuardarCliente" type="button" name="btnGuardarCliente"
                             class="boton" value="Guardar Datos" onclick="btnGuardarCliente_onclick()">
                         <br>
                         <br>
@@ -232,7 +243,7 @@ s<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="popSistemaAgregarCli
                         <tr>
                             <td class="tdtexttablebold" width="30%">Clave Cliente ABF:</td>
                             <td class="tdpadleft5" width="70%">
-                               <input id="txtClaveClienteAbf" class="field" type="text" autocomplete="off" maxlength="15" size="30">
+                                <input id="txtClaveClienteAbf" class="field" type="text" autocomplete="off" maxlength="15" size="30">
                             </td>
                         </tr>
                         <tr>
@@ -244,8 +255,8 @@ s<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="popSistemaAgregarCli
                         <tr>
                             <td class="tdtexttablebold" width="30%">Mensaje POS:</td>
                             <td class="tdpadleft5" width="70%">
-                                <textarea id="txtMensajePos" autocomplete="off" style="height:60px!important;"
-                                     maxlength="2048" rows="5" cols="41" class="field" >
+                                <textarea id="txtMensajePos" autocomplete="off" style="height: 60px!important;" 
+                                    maxlength="2048" rows="5" cols="74" class="field">
                                 </textarea>
                             </td>
                         </tr>
@@ -268,7 +279,7 @@ s<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="popSistemaAgregarCli
                                     <option value=""></option>
                                     <option value="1">Si</option>
                                     <option value="0">No</option>
-                                 </select>
+                                </select>
                             </td>
                         </tr>
                         <tr>
@@ -292,11 +303,11 @@ s<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="popSistemaAgregarCli
                         <tr>
                             <td class="tdtexttablebold" width="30%">DVPHJ:</td>
                             <td class="tdpadleft5" width="70%">
-                                 <select id="cboDvphj" name="cboDvphj" class="field" style="width: 50px">
+                                <select id="cboDvphj" name="cboDvphj" class="field" style="width: 50px">
                                     <option value=""></option>
                                     <option value="1">Si</option>
                                     <option value="0">No</option>
-                                 </select>
+                                </select>
                             </td>
                         </tr>
                         <tr>
@@ -306,7 +317,7 @@ s<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="popSistemaAgregarCli
                                     <option value=""></option>
                                     <option value="1">Si</option>
                                     <option value="0">No</option>
-                                 </select>
+                                </select>
                             </td>
                         </tr>
                         <tr>
@@ -336,7 +347,7 @@ s<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="popSistemaAgregarCli
                                     <option value=""></option>
                                     <option value="1">Si</option>
                                     <option value="0">No</option>
-                                 </select>
+                                </select>
                             </td>
                         </tr>
                         <tr>
@@ -346,7 +357,7 @@ s<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="popSistemaAgregarCli
                                     <option value=""></option>
                                     <option value="1">Si</option>
                                     <option value="0">No</option>
-                                 </select>
+                                </select>
                             </td>
                         </tr>
                         <tr>
@@ -399,7 +410,7 @@ s<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="popSistemaAgregarCli
                                     <option value=""></option>
                                     <option value="1">Si</option>
                                     <option value="0">No</option>
-                                 </select>
+                                </select>
                             </td>
                         </tr>
                         <tr>
@@ -409,7 +420,7 @@ s<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="popSistemaAgregarCli
                                     <option value=""></option>
                                     <option value="1">Si</option>
                                     <option value="0">No</option>
-                                 </select>
+                                </select>
                             </td>
                         </tr>
                     </table>

@@ -1,8 +1,8 @@
-﻿Imports System.Text
-Imports System.Collections
-Imports Isocraft.Web.Http
+﻿Imports Benavides.CC.Data
 Imports Isocraft.Web.Convert
-Imports Benavides.CC.Data
+Imports Isocraft.Web.Http
+Imports System.Collections
+Imports System.Text
 
 Public Class popSistemaAgregarClienteOtrasIdentificaciones
     Inherits PaginaBase
@@ -17,10 +17,16 @@ Public Class popSistemaAgregarClienteOtrasIdentificaciones
         Si = 1
     End Enum
 
+    Public Enum Accion
+        Agregar = 0
+        Modificar = 1
+    End Enum
+
     Private _valorGuardar As EstatusGuardar
     Private _valorAsignar As AsignarValoresControles
+    Private _valorAccion As Accion
 
-    'Private _strClienteABFId As String
+    Private _strClienteABFId As String
     Private _strClienteABFNombre As String
     Private _strMensajePOS As String
     Private _strCredencialUnica As String
@@ -64,23 +70,37 @@ Public Class popSistemaAgregarClienteOtrasIdentificaciones
         End Get
     End Property
 
-    Public ReadOnly Property strClienteABFId() As String
+    Public ReadOnly Property ValorAccion As Accion
+        Get
+            Return _valorAccion
+        End Get
+    End Property
+
+    Public Property strClienteABFId() As String
         Get
             Return GetPageParameter("strClienteABFId", "")
+
+            Dim valorRegreso As String
+
+            If GetPageParameter("strClienteABFId", "") Is String.Empty Then
+                valorRegreso = _strClienteABFId
+            Else
+                valorRegreso = GetPageParameter("strClienteABFId", "")
+            End If
+
+            Return valorRegreso
         End Get
-        'Set(ByVal value As String)
-        '    _strClienteABFId = value
-        'End Set
+        Set(ByVal value As String)
+            _strClienteABFId = value
+        End Set
     End Property
 
     Public Property strClienteABFNombre() As String
         Get
-            Return GetPageParameter("strClienteABFNombre", "")
-
             Dim valorRegreso As String
 
             If GetPageParameter("strClienteABFNombre", "") Is String.Empty Then
-                valorRegreso = _strMensajePOS
+                valorRegreso = _strClienteABFNombre
             Else
                 valorRegreso = GetPageParameter("strClienteABFNombre", "")
             End If
@@ -504,16 +524,11 @@ Public Class popSistemaAgregarClienteOtrasIdentificaciones
 
             Case "Buscar"
                 Call BuscarTblOtrasIdentificacionesABFPorId()
-            Case "Nuevo"
-                Call GuardarTblOtrasIdentificacionesABF()
-
-
-
+            Case "Agregar"
+                Call AgregarTblOtrasIdentificacionesABF()
+            Case "Modificar"
+                Call ModificarTblOtrasIdentificacionesABF()
         End Select
-
-
-
-
     End Sub
 
     Private Sub BuscarTblOtrasIdentificacionesABFPorId()
@@ -526,17 +541,38 @@ Public Class popSistemaAgregarClienteOtrasIdentificaciones
                            intBuscarTblOtrasIdentificacionesABFPorId(strClienteABFId, strConnectionString)
 
         For Each renglon As SortedList In resultadoCliente
+            _strClienteABFId = renglon.Item("strClienteABFId").ToString()
+            _strClienteABFNombre = renglon.Item("strClienteABFNombre").ToString()
             _strMensajePOS = renglon.Item("strMensajePOS").ToString()
-
-
-
-
+            _strCredencialUnica = renglon.Item("strCredencialUnica").ToString()
+            _strLlaveOnline = renglon.Item("strLlaveOnline").ToString()
+            _blnConsHostExterno = CBool(renglon.Item("blnConsHostExterno").ToString())
+            _strCodigoStatus = renglon.Item("strCodigoStatus").ToString()
+            _strCodigoConfirmaVenta = renglon.Item("strCodigoConfirmaVenta").ToString()
+            _strCodigoReversaVenta = renglon.Item("strCodigoReversaVenta").ToString()
+            _strTieneDVPHJ = renglon.Item("strTieneDVPHJ").ToString()
+            _strAdjudicaSinStatus = renglon.Item("strAdjudicaSinStatus").ToString()
+            _strMensajeSinStatus = renglon.Item("strMensajeSinStatus").ToString()
+            _fltBonificacionSinStatus = CDec(renglon.Item("fltBonificacionSinStatus").ToString())
+            _fltCreditoSinStatus = CDec(renglon.Item("fltCreditoSinStatus").ToString())
+            _strUsaOrdenDeCompra = renglon.Item("strUsaOrdenDeCompra").ToString()
+            _strValidaLimiteOC = renglon.Item("strValidaLimiteOC").ToString()
+            _intLimiteOC = CInt(renglon.Item("intLimiteOC").ToString())
+            _strClavePadecimiento = renglon.Item("strClavePadecimiento").ToString()
+            _strClaveFamiliar = renglon.Item("strClaveFamiliar").ToString()
+            _strClaveUnica = renglon.Item("strClaveUnica").ToString()
+            _strClaveAutorizacion = renglon.Item("strClaveAutorizacion").ToString()
+            _strDiasTratamiento = renglon.Item("strDiasTratamiento").ToString()
+            _strMensajeCredencial = renglon.Item("strMensajeCredencial").ToString()
+            _strSinDespliegueBeneficiarios = renglon.Item("strSinDespliegueBeneficiarios").ToString()
+            _strDuplicaIdTransaccion = renglon.Item("strDuplicaIdTransaccion").ToString()
         Next
 
         _valorAsignar = AsignarValoresControles.Si
+        _valorAccion = Accion.Modificar
     End Sub
 
-    Private Sub GuardarTblOtrasIdentificacionesABF()
+    Private Sub AgregarTblOtrasIdentificacionesABF()
         Dim resultado As Integer = 0
         Dim objCliente As tblOtrasIdentificacionesABF
 
@@ -567,13 +603,15 @@ Public Class popSistemaAgregarClienteOtrasIdentificaciones
                                                      strDuplicaIdTransaccion, _
                                                      strUsuarioNombre)
 
-        resultado = clsClientesABF.clsOtrasIdentificacionesABF _
-                    .intGuardarTblOtrasIdentificacionesABF(objCliente, strConnectionString)
+        resultado = clsClientesABF. _
+                    clsOtrasIdentificacionesABF. _
+                    intGuardarTblOtrasIdentificacionesABF(objCliente, strConnectionString)
 
         If resultado = 1 Then
-            strJavascriptWindowOnLoadCommands = "alert(""Cliente guardado correctamente."");"
+            strJavascriptWindowOnLoadCommands = "alert(""Cliente agregado correctamente."");"
             _valorGuardar = EstatusGuardar.Correcto
-        ElseIf resultado = -1 Then
+        ElseIf resultado < 0 And resultado <> -2 And resultado <> -3 Then
+            strJavascriptWindowOnLoadCommands = "alert(""Error al guardar cliente."");"
             _valorGuardar = EstatusGuardar.Error
         ElseIf resultado = -2 Then
             strJavascriptWindowOnLoadCommands = "alert(""La clave del cliente ya existe."");"
@@ -583,5 +621,51 @@ Public Class popSistemaAgregarClienteOtrasIdentificaciones
             _valorGuardar = EstatusGuardar.Error
         End If
     End Sub
+
+    Private Sub ModificarTblOtrasIdentificacionesABF()
+        Dim resultado As Integer = 0
+        Dim objCliente As tblOtrasIdentificacionesABF
+
+        objCliente = New tblOtrasIdentificacionesABF(strClienteABFId, _
+                                                     strClienteABFNombre, _
+                                                     strMensajePOS, _
+                                                     strCredencialUnica, _
+                                                     strLlaveOnline, _
+                                                     blnConsHostExterno, _
+                                                     strCodigoStatus, _
+                                                     strCodigoConfirmaVenta, _
+                                                     strCodigoReversaVenta, _
+                                                     strTieneDVPHJ, _
+                                                     strAdjudicaSinStatus, _
+                                                     strMensajeSinStatus, _
+                                                     fltBonificacionSinStatus, _
+                                                     fltCreditoSinStatus, _
+                                                     strUsaOrdenDeCompra, _
+                                                     strValidaLimiteOC, _
+                                                     intLimiteOC, _
+                                                     strClavePadecimiento, _
+                                                     strClaveFamiliar, _
+                                                     strClaveUnica, _
+                                                     strClaveAutorizacion, _
+                                                     strDiasTratamiento, _
+                                                     strMensajeCredencial, _
+                                                     strSinDespliegueBeneficiarios, _
+                                                     strDuplicaIdTransaccion, _
+                                                     strUsuarioNombre)
+
+        resultado = clsClientesABF. _
+                    clsOtrasIdentificacionesABF.
+                    intActualizarTblOtrasIdentificacionesABF(objCliente, strConnectionString)
+
+        If resultado = 1 Then
+            strJavascriptWindowOnLoadCommands = "alert(""Cliente modificado correctamente."");"
+            _valorGuardar = EstatusGuardar.Correcto
+        ElseIf resultado < 0 Then
+            strJavascriptWindowOnLoadCommands = "alert(""Error al modificar cliente."");"
+            _valorGuardar = EstatusGuardar.Error
+        End If
+    End Sub
+
+
 
 End Class
