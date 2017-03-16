@@ -244,6 +244,103 @@ Public Class clsClientesABF
             End Try
         End Function
 
+        Public Shared Function intActualizarTblOtrasIdentificacionesABF(ByVal objOtrasIdentificacionesABF As tblOtrasIdentificacionesABF, _
+                                                                        ByVal strConnectionString As String) As Integer
+            ' Member identifier
+            Const strmThisMemberName As String = "intActualizarTblOtrasIdentificacionesABF"
+
+            ' Declare the local variables
+            Dim strSQLStatement As StringBuilder
+            Dim intRecordId As Integer
+            Dim aobjReturnedData As Array
+
+            strSQLStatement = New StringBuilder
+
+            Try
+
+                Call strSQLStatement.AppendFormat("EXECUTE spActualizarTblOtrasIdentificacionesABF " & _
+                                                  "'{0}', '{1}', '{2}', '{3}', " & _
+                                                  "'{4}', '{5}', '{6}', '{7}', " & _
+                                                  "'{8}', '{9}', '{10}', '{11}'," & _
+                                                  "{12},   {13}, '{14}', '{15}'," & _
+                                                  "{16},  '{17}', '{18}', '{19}'," & _
+                                                  "'{20}', '{21}', '{22}', '{23}'," & _
+                                                  "'{24}', '{25}'", _
+                                                  objOtrasIdentificacionesABF.strClienteABFId, _
+                                                  objOtrasIdentificacionesABF.strClienteABFNombre, _
+                                                  objOtrasIdentificacionesABF.strMensajePOS, _
+                                                  objOtrasIdentificacionesABF.strCredencialUnica, _
+                                                  objOtrasIdentificacionesABF.strLlaveOnline, _
+                                                  objOtrasIdentificacionesABF.blnConsHostExterno, _
+                                                  objOtrasIdentificacionesABF.strCodigoStatus, _
+                                                  objOtrasIdentificacionesABF.strCodigoConfirmaVenta, _
+                                                  objOtrasIdentificacionesABF.strCodigoReversaVenta, _
+                                                  objOtrasIdentificacionesABF.strTieneDVPHJ, _
+                                                  objOtrasIdentificacionesABF.strAdjudicaSinStatus, _
+                                                  objOtrasIdentificacionesABF.strMensajeSinStatus, _
+                                                  objOtrasIdentificacionesABF.fltBonificacionSinStatus, _
+                                                  objOtrasIdentificacionesABF.fltCreditoSinStatus, _
+                                                  objOtrasIdentificacionesABF.strUsaOrdenDeCompra, _
+                                                  objOtrasIdentificacionesABF.strValidaLimiteOC, _
+                                                  objOtrasIdentificacionesABF.intLimiteOC, _
+                                                  objOtrasIdentificacionesABF.strClavePadecimiento, _
+                                                  objOtrasIdentificacionesABF.strClaveFamiliar, _
+                                                  objOtrasIdentificacionesABF.strClaveUnica, _
+                                                  objOtrasIdentificacionesABF.strClaveAutorizacion, _
+                                                  objOtrasIdentificacionesABF.strDiasTratamiento, _
+                                                  objOtrasIdentificacionesABF.strMensajeCredencial, _
+                                                  objOtrasIdentificacionesABF.strSinDespliegueBeneficiarios, _
+                                                  objOtrasIdentificacionesABF.strDuplicaIdTransaccion, _
+                                                  objOtrasIdentificacionesABF.strOtrasIdentificacionesABFModificadoPor)
+
+                ' Execute the SQL statement
+                aobjReturnedData = Benavides.Data.SQL.MSSQL.clsSQLOperation3.aobjExecuteQuery(strSQLStatement.ToString(), strConnectionString)
+                strSQLStatement = Nothing
+
+                ' Return the results
+                If IsNothing(aobjReturnedData) = False AndAlso aobjReturnedData.Length > 0 Then
+                    intRecordId = CInt(DirectCast(aobjReturnedData.GetValue(0), SortedList).GetByIndex(0))
+                End If
+                aobjReturnedData = Nothing
+                Return intRecordId
+
+            Catch objException As Exception
+                ' Declare the error variables
+                Dim strErrorString As System.Text.StringBuilder = New System.Text.StringBuilder
+                Dim objApplicationEventLog As System.Diagnostics.EventLog = New System.Diagnostics.EventLog
+                Dim strProductName As String = System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly.Location).ProductName
+
+                ' Create the error message
+                Call strErrorString.Append("Product name:" & vbCrLf & vbTab & strProductName & "." & strmThisClassName & "." & strmThisMemberName & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Application name:" & vbCrLf & vbTab & System.Reflection.Assembly.GetExecutingAssembly.Location & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Version:" & vbCrLf & vbTab & System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly.Location).FileMajorPart & "." & System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly.Location).FileMinorPart & "." & System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly.Location).FileBuildPart & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Source:" & vbCrLf & vbTab & objException.Source & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Error number:" & vbCrLf & vbTab & "0x" & Hex(Err.Number) & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Line number:" & vbCrLf & vbTab & Erl() & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Message:" & vbCrLf & vbTab & objException.Message & vbCrLf & vbCrLf)
+                Call strErrorString.Append("SQLStatement:" & vbCrLf & vbTab & strSQLStatement.ToString() & vbCrLf & vbCrLf)
+                Call strErrorString.Append("StackTrace:" & vbCrLf & objException.StackTrace & vbCrLf & vbCrLf)
+
+                ' Create the event source
+                If Not EventLog.SourceExists(strProductName) Then
+                    Call EventLog.CreateEventSource(strProductName, "Application")
+                End If
+
+                ' Set the event source
+                objApplicationEventLog.Source = strProductName
+
+                ' Write the event. It can be read in the Event Viewer.
+                Call objApplicationEventLog.WriteEntry(strErrorString.ToString(), EventLogEntryType.Error, Err.Number, 0)
+
+                ' Clear the variables
+                strSQLStatement = Nothing
+                aobjReturnedData = Nothing
+
+                ' Raise the error
+                Throw
+            End Try
+        End Function
+
 
 
     End Class
@@ -279,7 +376,6 @@ Public Class tblOtrasIdentificacionesABF
     Private _strMensajeCredencial As String
     Private _strSinDespliegueBeneficiarios As String
     Private _strDuplicaIdTransaccion As String
-    'Private _dtmOtrasIdentificacionesABFUltimaModificacion As Date
     Private _strOtrasIdentificacionesABFModificadoPor As String
 
     Public Property strClienteABFId() As String
@@ -506,15 +602,6 @@ Public Class tblOtrasIdentificacionesABF
             _strDuplicaIdTransaccion = value
         End Set
     End Property
-
-    'Public Property dtmOtrasIdentificacionesABFUltimaModificacion() As Date
-    '    Get
-    '        Return _dtmOtrasIdentificacionesABFUltimaModificacion
-    '    End Get
-    '    Set(ByVal value As Date)
-    '        _dtmOtrasIdentificacionesABFUltimaModificacion = value
-    '    End Set
-    'End Property
 
     Public Property strOtrasIdentificacionesABFModificadoPor() As String
         Get
