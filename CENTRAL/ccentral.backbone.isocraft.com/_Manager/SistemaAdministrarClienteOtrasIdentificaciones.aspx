@@ -60,7 +60,7 @@
         }
 
         function mostrarVentanaAgregarCliente() {
-            window.open("popSistemaAgregarClienteOtrasIdentificaciones.aspx", "Pop", "width=800, height=700, left=150, top=0, resizable=no, scrollbars=yes, menubar=no, status=no");
+            window.open("popSistemaAgregarClienteOtrasIdentificaciones.aspx", "Pop", "width=800, height=600, left=150, top=30, resizable=no, scrollbars=yes, menubar=no, status=no");
         }
 
         function mostrarVentanaEditarCliente(strClienteABFId, strClienteABFNombre) {
@@ -68,8 +68,16 @@
                         "strEsActualizarCliente=true" +
                         "&strClienteABFId=" + strClienteABFId +
                         "&strClienteABFNombre=" + strClienteABFNombre ,
-                        "Pop", "width=800, height=700, left=150, top=0, resizable=no, scrollbars=yes, menubar=yes, status=yes");
+                        "Pop", "width=800, height=600, left=150, top=30, resizable=no, scrollbars=yes, menubar=no, status=no");
         }
+
+        function mostrarVentaConsultaSucursales(strClienteABFId, strClienteABFNombre) {
+            window.open("popSistemaConsultarSucursalesClientes.aspx?" +
+                       "&strClienteABFId=" + strClienteABFId +
+                       "&strClienteABFNombre=" + strClienteABFNombre,
+                       "Pop", "width=800, height=600, left=150, top=30, resizable=no, scrollbars=yes, menubar=no, status=no");
+        }
+
 
         new menu(MENU_ITEMS, MENU_POS);
     </script>

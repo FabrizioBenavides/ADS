@@ -521,7 +521,6 @@ Public Class popSistemaAgregarClienteOtrasIdentificaciones
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
 
         Select Case strCmd2
-
             Case "Buscar"
                 Call BuscarTblOtrasIdentificacionesABFPorId()
             Case "Agregar"

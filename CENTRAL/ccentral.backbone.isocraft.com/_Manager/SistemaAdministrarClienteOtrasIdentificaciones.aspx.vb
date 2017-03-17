@@ -91,13 +91,17 @@ Public Class SistemaAdministrarClienteOtrasIdentificaciones
         Dim contadorRegistros As Integer = 0
         Dim colorRegistro As String = String.Empty
         Dim imagenVerActualizar As String = "<img src='../static/images/icono_editar.gif' width='11' height='13' border='0' align='center' alt='Haga clic aquí para ver ó actualizar cliente' title='Haga clic aquí para ver ó actualizar cliente'>"
-        Dim imagenAsignarSucursales As String = "<img src='../static/images/imgNRArchivo.gif' width='11' height='13' border='0' align='center' alt='Haga clic aquí para eliminar' title='Haga clic aquí para eliminar'>"
+        Dim imagenVerSucursales As String = "<img src='../static/images/imgNRArchivo.gif' width='11' height='13' border='0' align='center' alt='Haga clic aquí para ver sucursales' title='Haga clic aquí para ver sucursales'>"
         Dim resultadoCliente As New StringBuilder
         Dim strClienteABFId As String = String.Empty
         Dim strControlCheck As String = String.Empty
+        Dim strClienteABFIdResultado As String = String.Empty
+        Dim strClienteABFNombreResultado As String = String.Empty
 
         For Each renglon As SortedList In registrosProductos
             contadorRegistros += 1
+            strClienteABFIdResultado = renglon.Item("strClienteABFId").ToString()
+            strClienteABFNombreResultado = renglon.Item("strClienteABFNombre").ToString()
 
             If (contadorRegistros Mod 2) <> 0 Then
                 colorRegistro = "tdceleste"
@@ -107,8 +111,8 @@ Public Class SistemaAdministrarClienteOtrasIdentificaciones
 
             resultadoCliente.Append("<tr>")
 
-            resultadoCliente.AppendFormat("<td class='{0}' style='text-align:left'>{1}</td>", colorRegistro, renglon.Item("strClienteABFId"))
-            resultadoCliente.AppendFormat("<td class='{0}' style='text-align:left'>{1}</td>", colorRegistro, renglon.Item("strClienteABFNombre"))
+            resultadoCliente.AppendFormat("<td class='{0}' style='text-align:left'>{1}</td>", colorRegistro, strClienteABFIdResultado)
+            resultadoCliente.AppendFormat("<td class='{0}' style='text-align:left'>{1}</td>", colorRegistro, strClienteABFNombreResultado)
             resultadoCliente.AppendFormat("<td class='{0}' style='text-align:center'>{1}</td>", colorRegistro, renglon.Item("SucursalesAsignadas"))
 
             If CBool(renglon.Item("blnClienteActivo")) = True Then
@@ -128,15 +132,23 @@ Public Class SistemaAdministrarClienteOtrasIdentificaciones
             strControlCheck = String.Empty
 
 
-            resultadoCliente.AppendFormat("<td align='left' style='width: 50px;' class='{0}'>" & _
+            resultadoCliente.AppendFormat("<td align='center' style='width: 50px;' class='{0}'>" & _
                                           "<a href='#' onClick='mostrarVentanaEditarCliente(""{1}"", ""{2}"");return false;'>" & _
                                           "{3}</a></td>", _
                                            colorRegistro, _
-                                           renglon.Item("strClienteABFId").ToString(), _
-                                           renglon.Item("strClienteABFNombre").ToString(), _
+                                           strClienteABFIdResultado, _
+                                           strClienteABFNombreResultado, _
                                            imagenVerActualizar)
 
-            resultadoCliente.AppendFormat("<td class='{0}' style='text-align:center'>{1}</td>", colorRegistro, imagenAsignarSucursales)
+            resultadoCliente.AppendFormat("<td align='center' style='width: 50px;' class='{0}'>" & _
+                                          "<a href='#' onClick='mostrarVentaConsultaSucursales(""{1}"", ""{2}"");return false;'>" & _
+                                          "{3}</a></td>", _
+                                           colorRegistro, _
+                                           strClienteABFIdResultado, _
+                                           strClienteABFNombreResultado, _
+                                           imagenVerSucursales)
+
+            resultadoCliente.Append("</tr>")
         Next
 
         Return resultadoCliente.ToString()

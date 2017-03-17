@@ -5,6 +5,7 @@ Imports Isocraft.Web.Javascript
 
 Imports System.Text
 Imports System.Collections
+Imports Benavides.CC.Business
 
 Public Class popSucursalProveedoresElegirSucursal
     Inherits System.Web.UI.Page
@@ -192,7 +193,10 @@ Public Class popSucursalProveedoresElegirSucursal
     '====================================================================
     Public Function strLlenarCiudadComboBox() As String
         If intEstadoId > 0 Then
-            Return isocraft.commons.clsWeb.strCreateJavascriptComboBoxOptions("cboCiudad", intCiudadId, Benavides.CC.Business.clsConcentrador.clsSucursal.strBuscarAgrupacionEdo(intEstadoId, 0, 0, strConnectionString), 0, 1, 2)
+            Return isocraft.commons.clsWeb. _
+                   strCreateJavascriptComboBoxOptions("cboCiudad", _
+                   intCiudadId, _
+                   clsConcentrador.clsSucursal.strBuscarAgrupacionEdo(intEstadoId, 0, 0, strConnectionString), 0, 1, 2)
         End If
     End Function
 

@@ -466,6 +466,20 @@
       <DependentUpon>PopSistemaCambiarContrasena.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="_Manager\popSistemaClientesElegirSucursal.aspx.designer.vb">
+      <DependentUpon>popSistemaClientesElegirSucursal.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="_Manager\popSistemaClientesElegirSucursal.aspx.vb">
+      <DependentUpon>popSistemaClientesElegirSucursal.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="_Manager\popSistemaConsultarSucursalesClientes.aspx.designer.vb">
+      <DependentUpon>popSistemaConsultarSucursalesClientes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="_Manager\popSistemaConsultarSucursalesClientes.aspx.vb">
+      <DependentUpon>popSistemaConsultarSucursalesClientes.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="_Manager\popSistemaElegirSucursalActualizar.aspx.vb">
       <DependentUpon>popSistemaElegirSucursalActualizar.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2898,6 +2912,8 @@
     <Content Include="_Manager\popSistemaBuscarEmpleado.aspx" />
     <Content Include="_Manager\popSistemaBuscarSucursalUsuario.aspx" />
     <Content Include="_Manager\PopSistemaCambiarContrasena.aspx" />
+    <Content Include="_Manager\popSistemaClientesElegirSucursal.aspx" />
+    <Content Include="_Manager\popSistemaConsultarSucursalesClientes.aspx" />
     <Content Include="_Manager\popSistemaElegirSucursalActualizar.aspx" />
     <Content Include="_Manager\popSistemaEmpresasRecolectorasElegirSucursales.aspx" />
     <Content Include="_Manager\popSistemaVincularSucursal.aspx" />

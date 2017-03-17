@@ -9,10 +9,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
     <link href="css/menu.css" rel="stylesheet" type="text/css" />
     <link href="css/estilo.css" rel="stylesheet" type="text/css" />
-    <script type="text/JavaScript" src="js/menu.js"></script>
+<%--    <script type="text/JavaScript" src="js/menu.js"></script>
     <script type="text/JavaScript" src="js/menu_items.js"></script>
     <script type="text/JavaScript" src="js/menu_tpl.js"></script>
-    <script type="text/JavaScript" src="js/headerfooter.js"></script>
+    <script type="text/JavaScript" src="js/headerfooter.js"></script>--%>
 
     <script type="text/javascript">
 
@@ -85,7 +85,7 @@
             }
         }
 
-        function btnCerrar_onclick() {
+        function btnCerrarVentana_onclick() {
             window.close();
         }
 
@@ -225,8 +225,8 @@
                 <td width="2%">&nbsp;</td>
                 <td>
                     <div style="margin-left: 650px;">
-                        <input id="btnCerrar" name="btnCerrar" type="submit"
-                            class="boton" value="Cerrar" onclick="return btnCerrar_onclick()">
+                        <input id="btnCerrarVentana" name="btnCerrarVentana" type="button"
+                            class="boton" value="Cerrar" onclick="return btnCerrarVentana_onclick()">
                         <input id="btnGuardarCliente" type="button" name="btnGuardarCliente"
                             class="boton" value="Guardar Datos" onclick="btnGuardarCliente_onclick()">
                         <br>
