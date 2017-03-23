@@ -73,9 +73,9 @@
 
         function mostrarVentaConsultaSucursales(strClienteABFId, strClienteABFNombre) {
             window.open("popSistemaConsultarSucursalesClientes.aspx?" +
-                       "&strClienteABFId=" + strClienteABFId +
-                       "&strClienteABFNombre=" + strClienteABFNombre,
-                       "Pop", "width=800, height=600, left=150, top=30, resizable=no, scrollbars=yes, menubar=no, status=no");
+                        "&strClienteABFId=" + strClienteABFId +
+                        "&strClienteABFNombre=" + strClienteABFNombre,
+                        "Pop", "width=800, height=600, left=150, top=30, resizable=no, scrollbars=yes, menubar=no, status=no");
         }
 
 

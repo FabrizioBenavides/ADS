@@ -4,7 +4,7 @@
 
 <html>
 <head>
-    <title>Benavides: Consulta Sucursales de Clientes</title>
+    <title>Benavides : Consulta Sucursales de Clientes</title>
     <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
     <link href="css/menu.css" rel="stylesheet" type="text/css" />
@@ -24,7 +24,12 @@
         }
 
         function btnAsignarSucursales_onclick() {
-            window.open("popSistemaClientesElegirSucursal.aspx", "Pop", "width=100, height=100," + 
+            var strClienteABFId = "<%= strClienteABFId%>";
+            var strClienteABFNombre = "<%= strClienteABFNombre%>";
+
+            window.open("popSistemaClientesElegirSucursal.aspx?strClienteABFId=" +strClienteABFId +
+                        "&strClienteABFNombre=" + strClienteABFNombre,
+                        "Pop", "width=100, height=100," + 
                         "left=750, top=400, resizable=no, scrollbars=yes, menubar=no, status=no");
         }
 

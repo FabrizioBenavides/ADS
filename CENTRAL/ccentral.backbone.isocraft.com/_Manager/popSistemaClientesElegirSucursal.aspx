@@ -12,19 +12,99 @@
 
     <script type="text/javascript">
 
+        strFechaHora = "<%= strHTMLFechaHora %>";
+
         function window_onload() {
+            document.forms[0].action = "<%= strFormAction %>";
+            var intCadenaId = "<%= intCadenaId %>";
 
             <%= strLlenarEstadoComboBox() %>
             <%= strLlenarCiudadComboBox() %>
             <%= strLlenarSucursalComboBox() %>
             <%= strJavascriptWindowOnLoadCommands %>
+
+            habilitarCboCiudadYSucursal();
+            establecerValorCboCadena();
+        }
+
+        function habilitarCboCiudadYSucursal() {
+            var habilitarCboCiudad = "<%= habilitarCboCiudad%>";
+            var habilitarCboSucursal = "<%= habilitarCboSucursal%>";
+
+            if (habilitarCboCiudad == "true") {
+                document.getElementById("cboCiudad").disabled = false;
+            }
+
+            if (habilitarCboSucursal == "true") {
+                document.getElementById("cboSucursal").disabled = false;
+            }
+        }
+
+        function establecerValorCboCadena() {
+            var strCadenaId = "<%= strCadenaId%>";
+            document.getElementById("cboCadena").value = strCadenaId;
+        }
+
+        function cboEstado_onchange() {
+            var cboCadena = document.getElementById("cboCadena").value;
+            var cboEstado = document.getElementById("cboEstado");
+            var cboCiudad = document.getElementById("cboCiudad");
+            var cboSucursal = document.getElementById("cboSucursal");
+            var strClienteABFId = "<%= strClienteABFId%>";
+            var strClienteABFNombre = "<%= strClienteABFNombre%>";
+
+            if (cboEstado.selectedIndex > 0) {
+                cboCiudad.selectedIndex = 0;
+                document.forms[0].action = "<%= strFormAction %>" +
+                                           "?habilitarCboCiudad=true" +
+                                           "&strCadenaId="+ cboCadena +
+                                           "&strClienteABFId=" + strClienteABFId +
+                                           "&strClienteABFNombre=" + strClienteABFNombre;
+
+                document.forms[0].submit();
+            }
+            else {
+                cboCiudad.selectedIndex = 0;
+                cboCiudad.disabled = true;
+
+                cboSucursal.selectedIndex = 0;
+                cboSucursal.disabled = true;
+            }
+            return (true);
+        }
+
+        function cboCiudad_onchange() {
+            var cboCadena = document.getElementById("cboCadena").value;
+            var cboCiudad = document.getElementById("cboCiudad");
+            var cboSucursal = document.getElementById("cboSucursal");
+            var strClienteABFId = "<%= strClienteABFId%>";
+            var strClienteABFNombre = "<%= strClienteABFNombre%>";
+
+            if (cboCiudad.selectedIndex > 0) {
+                cboSucursal.selectedIndex = 0;
+                document.forms[0].action = "<%= strFormAction %>" +
+                                           "?habilitarCboCiudad=true" +
+                                           "&habilitarCboSucursal=true" +
+                                           "&strCadenaId=" + cboCadena +
+                                           "&strClienteABFId=" + strClienteABFId +
+                                           "&strClienteABFNombre=" + strClienteABFNombre;
+                document.forms[0].submit();
+            }
+            else {
+                cboSucursal.selectedIndex = 0;
+                cboSucursal.disabled = true;
+            }
+            return (true);
         }
 
         function btnCerrarVentana_onclick() {
+            var strClienteABFId = "<%= strClienteABFId%>";
+            var strClienteABFNombre = "<%= strClienteABFNombre%>";
+
             window.open("popSistemaConsultarSucursalesClientes.aspx?" +
-                      "&strClienteABFId=" +
-                      "&strClienteABFNombre=",
-                      "Pop", "width=800, height=600, left=150, top=30, resizable=no, scrollbars=yes, menubar=no, status=no");
+                        "&strClienteABFId=" + strClienteABFId +
+                        "&strClienteABFNombre=" + strClienteABFNombre,
+                        "Pop", "width=800, height=600, left=150, top=30, resizable=no, scrollbars=yes, menubar=no, status=no");
         }
 
     </script>
@@ -39,8 +119,8 @@
                         <tr>
                             <td class="tdtexttablebold" width="30%">* Cadena:</td>
                             <td class="tdpadleft5" width="70%">
-                                <select name="cboCadena" class="field" id="cboCadena" onchange="return cboCadena_onchange()">
-                                    <option value="0" selected>--- Todas ---</option>
+                                <select name="cboCadena" class="field" id="cboCadena" >
+                                    <option value="0" selected></option>
                                     <option value="1">FARMACIAS BENAVIDES S.A.B. DE C.V.</option>
                                     <option value="2">FARMACIAS ABC DE MEXICO S.A. DE C.V.</option>
                                 </select>
@@ -50,33 +130,30 @@
                             <td class="tdtexttablebold" width="30%">* Estado:</td>
                             <td class="tdpadleft5" width="70%">
                                 <select name="cboEstado" class="field" id="cboEstado" language="javascript" onchange="return cboEstado_onchange()">
-                                    <option value="0" selected>--- Elija un estado ---</option>
-                                    <option>--------------------</option>
+                                    <option value="0" selected>--- Todos ---</option>
                                 </select>
                             </td>
                         </tr>
                         <tr>
                             <td class="tdtexttablebold" width="30%">* Ciudad:</td>
                             <td class="tdpadleft5" width="70%">
-                                <select name="cboCiudad" class="field" id="cboCiudad" onchange="return cboCiudad_onchange()">
-                                    <option value="0" selected>-- Elija una ciudad --</option>
-                                    <option>--------------------</option>
+                                <select name="cboCiudad" class="field" id="cboCiudad" onchange="return cboCiudad_onchange()" disabled="disabled">
+                                    <option value="0" selected>--- Todas ---</option>
                                 </select>
                             </td>
                         </tr>
                         <tr>
                             <td class="tdtexttablebold" width="30%">* Sucursal:</td>
                             <td class="tdpadleft5" width="70%">
-                                <select name="cboSucursal" class="field" id="cboSucursal" onchange="return cboSucursal_onchange()">
-                                    <option value="0" selected>-- Elija una sucursal --</option>
-                                    <option>--------------------</option>
+                                <select name="cboSucursal" class="field" id="cboSucursal"  disabled="disabled">
+                                    <option value="0" selected>--- Todas ---</option>
                                 </select>
                             </td>
                         </tr>
                     </table>
                     <br>
                     <input name="btnCerrarVentana" type="button" class="button" value="Cancelar" onclick="return btnCerrarVentana_onclick()">
-                    <input id ="btnAsignarSucursales" name="btnAsignarSucursales" type="button" class="button" value="Asignar" onclick="" />
+                    <input id="btnAsignarSucursales" name="btnAsignarSucursales" type="button" class="button" value="Asignar" onclick="" />
                 </td>
             </tr>
         </table>
