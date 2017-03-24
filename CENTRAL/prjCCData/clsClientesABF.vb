@@ -408,7 +408,10 @@ Public Class clsClientesABF
             End Try
         End Function
 
-        Public Shared Function intEliminarTblOtrasIdentificacionesSucursal(ByVal intRutaTransportesFrecuenciaId As Integer, ByVal strConnectionString As String) As Integer
+        Public Shared Function intEliminarTblOtrasIdentificacionesSucursal(ByVal strClienteABFId As String, _
+                                                                           ByVal intCompaniaId As Integer, _
+                                                                           ByVal intSucursalId As Integer, _
+                                                                           ByVal strConnectionString As String) As Integer
             ' Constantes locales
             Const strmThisMemberName As String = "intEliminarTblOtrasIdentificacionesSucursal"
 
@@ -424,11 +427,14 @@ Public Class clsClientesABF
                 strSQLStatement = New StringBuilder
 
                 ' Creamos es estatuto de SQL
-                Call strSQLStatement.Append("EXECUTE spEliminarTblRutaTransportesFrecuencia ")
-                Call strSQLStatement.Append(intRutaTransportesFrecuenciaId)
+                Call strSQLStatement. _
+                    AppendFormat("EXECUTE spEliminarTblOtrasIdentificacionesSucursal '{0}', {1}, {2} ", strClienteABFId, _
+                                                                                                        intCompaniaId, _
+                                                                                                        intSucursalId)
 
                 ' Ejecutamos el comando
                 strRegistros = clsSQLOperation.strExecuteQuery(strSQLStatement.ToString(), strConnectionString)
+
                 For Each strRowsAffected In strRegistros
                     intRowsAffected = CInt(strRowsAffected.GetValue(0))
                 Next
@@ -485,7 +491,8 @@ Public Class clsClientesABF
         Public Shared Function intGuardarTblOtrasIdentificacionesSucursal(ByVal strCadenaId As String, _
                                                                           ByVal intEstadoId As Integer, _
                                                                           ByVal intCiudadId As Integer, _
-                                                                          ByVal strCompaniaSucursalId As String, _
+                                                                          ByVal intCompaniaId As Integer, _
+                                                                          ByVal intSucursalId As Integer, _
                                                                           ByVal strClienteABFId As String, _
                                                                           ByVal strOtrasIdentificacionesSucursalModificadoPor As String, _
                                                                           ByVal strConnectionString As String) As Integer
@@ -501,13 +508,14 @@ Public Class clsClientesABF
 
             Try
                 Call strSQLStatement.AppendFormat("EXECUTE spAgregarTblOtrasIdentificacionesSucursal " & _
-                                                  "'{0}', {1}, {2}, '{3}'," & _
-                                                  "'{4}', '{5}'", strCadenaId, _
-                                                                  intEstadoId, _
-                                                                  intCiudadId, _
-                                                                  strCompaniaSucursalId, _
-                                                                  strClienteABFId, _
-                                                                  strOtrasIdentificacionesSucursalModificadoPor)
+                                                  "'{0}', {1}, {2}, {3}," & _
+                                                  " {4}, '{5}',{6}", strCadenaId, _
+                                                                     intEstadoId, _
+                                                                     intCiudadId, _
+                                                                     intCompaniaId, _
+                                                                     intSucursalId, _
+                                                                     strClienteABFId, _
+                                                                     strOtrasIdentificacionesSucursalModificadoPor)
 
                 ' Execute the SQL statement
                 aobjReturnedData = clsSQLOperation3.aobjExecuteQuery(strSQLStatement.ToString(), strConnectionString)
