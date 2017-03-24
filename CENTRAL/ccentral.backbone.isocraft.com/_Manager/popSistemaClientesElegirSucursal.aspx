@@ -15,16 +15,13 @@
         strFechaHora = "<%= strHTMLFechaHora %>";
 
         function window_onload() {
-            document.forms[0].action = "<%= strFormAction %>";
-            var intCadenaId = "<%= intCadenaId %>";
-
             <%= strLlenarEstadoComboBox() %>
             <%= strLlenarCiudadComboBox() %>
             <%= strLlenarSucursalComboBox() %>
             <%= strJavascriptWindowOnLoadCommands %>
 
             habilitarCboCiudadYSucursal();
-            establecerValorCboCadena();
+            matenerValorCboCadena();
         }
 
         function habilitarCboCiudadYSucursal() {
@@ -40,8 +37,8 @@
             }
         }
 
-        function establecerValorCboCadena() {
-            var strCadenaId = "<%= strCadenaId%>";
+        function matenerValorCboCadena() {
+            var strCadenaId = "<%= intCadenaId%>";
             document.getElementById("cboCadena").value = strCadenaId;
         }
 
@@ -107,6 +104,56 @@
                         "Pop", "width=800, height=600, left=150, top=30, resizable=no, scrollbars=yes, menubar=no, status=no");
         }
 
+        function btnAsignarSucursales_onclick() {
+            var cboCadena = document.getElementById("cboCadena").value;
+            var cboEstado;
+            var cboCiudad;
+            var cboSucursal;
+            var intCompaniaId;
+            var intSucursalId;
+            var strClienteABFId = "<%= strClienteABFId%>";
+            var strClienteABFNombre = "<%= strClienteABFNombre%>";
+
+            if (cboCadena != "0") {
+                 cboEstado = document.getElementById("cboEstado").value;
+                 cboCiudad = document.getElementById("cboCiudad").value;
+                 cboSucursal = document.getElementById("cboSucursal").value;
+
+                 intCompaniaId = obtenerIntCompaniaId(cboSucursal);
+                 intSucursalId = obtenerIntSucursalId(cboSucursal);
+
+                 document.forms[0].action = "<%= strFormAction %>" +
+                                            "?strCmd2=Agregar" + 
+                                            "&strClienteABFId=" + strClienteABFId +
+                                            "&strClienteABFNombre=" + strClienteABFNombre;
+
+                document.forms[0].submit();
+            }
+            else {
+                window.alert("Favor de seleccionar la Cadena.");
+            }
+        }
+
+        function obtenerIntCompaniaId(cboSucursal) {
+            var companiaSucursal;
+            var intCompaniaId;
+
+            companiaSucursal = cboSucursal.split('|');
+            intCompaniaId = companiaSucursal[0];
+
+            return intCompaniaId
+        }
+
+        function obtenerIntSucursalId(cboSucursal) {
+            var companiaSucursal;
+            var intSucursalId;
+
+            companiaSucursal = cboSucursal.split('|');
+            intSucursalId = companiaSucursal[1];
+
+            return intSucursalId
+        }
+
     </script>
 </head>
 <body onload="return window_onload()">
@@ -145,15 +192,15 @@
                         <tr>
                             <td class="tdtexttablebold" width="30%">* Sucursal:</td>
                             <td class="tdpadleft5" width="70%">
-                                <select name="cboSucursal" class="field" id="cboSucursal"  disabled="disabled">
+                                <select name="cboSucursal" class="field" id="cboSucursal" disabled="disabled">
                                     <option value="0" selected>--- Todas ---</option>
                                 </select>
                             </td>
                         </tr>
                     </table>
                     <br>
-                    <input name="btnCerrarVentana" type="button" class="button" value="Cancelar" onclick="return btnCerrarVentana_onclick()">
-                    <input id="btnAsignarSucursales" name="btnAsignarSucursales" type="button" class="button" value="Asignar" onclick="" />
+                    <input id="btnCerrarVentana" type="button" class="button" value="Cancelar" onclick="return btnCerrarVentana_onclick()">
+                    <input id="btnAsignarSucursales" type="button" class="button" value="Asignar" onclick="return btnAsignarSucursales_onclick()">
                 </td>
             </tr>
         </table>

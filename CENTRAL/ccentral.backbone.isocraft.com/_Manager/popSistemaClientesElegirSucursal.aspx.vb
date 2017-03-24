@@ -10,15 +10,24 @@ Imports System.Text
 Public Class popSistemaClientesElegirSucursal
     Inherits PaginaBase
 
-#Region " Web Form Designer Generated Code "
+    Private _intmCadenaId As Integer
+    Private _intmEstadoId As Integer
+    Private _intmCiudadId As Integer
+    Private _strmSucursalId As String
 
-    'This call is required by the Web Form Designer.
+    ''' <summary>
+    ''' his call is required by the Web Form Designer.
+    ''' </summary>
+    ''' <remarks></remarks>
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
 
     End Sub
 
-    'NOTE: The following placeholder declaration is required by the Web Form Designer.
-    'Do not delete or move it.
+    ''' <summary>
+    ''' NOTE: The following placeholder declaration is required by the Web Form Designer.
+    ''' Do not delete or move it.
+    ''' </summary>
+    ''' <remarks></remarks>
     Private designerPlaceholderDeclaration As System.Object
 
     Private Sub Page_Init(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Init
@@ -32,26 +41,6 @@ Public Class popSistemaClientesElegirSucursal
         intCiudadId = GetPageParameter("cboCiudad", 0)
         strSucursalId = GetPageParameter("cboSucursal", "")
     End Sub
-
-#End Region
-
-#Region " Class Private Attributes"
-
-    Const strComitasDobles As String = """"
-
-    Private strmJavascriptWindowOnLoadCommands As String
-
-    Private intmCadenaId As Integer
-    Private intmEstadoId As Integer
-    Private intmCiudadId As Integer
-    Private strmSucursalId As String
-
-    Private strmcboCadena As String
-    Private strmcboEstado As String
-    Private strmcboCiudad As String
-    Private strmCboSucursal As String
-
-#End Region
 
     Public ReadOnly Property strClienteABFId() As String
         Get
@@ -76,8 +65,8 @@ Public Class popSistemaClientesElegirSucursal
     Public Function strLlenarEstadoComboBox() As String
         Return clsWeb. _
                strCreateJavascriptComboBoxOptions("cboEstado", _
-               intEstadoId,
-               Benavides.CC.Business.clsConcentrador.clsSucursal.strBuscarAgrupacionEdo(0, 0, 0, strConnectionString), 0, 1, 2)
+                                                   intEstadoId,
+                                                   clsConcentrador.clsSucursal.strBuscarAgrupacionEdo(0, 0, 0, strConnectionString), 0, 1, 2)
     End Function
 
     '====================================================================
@@ -90,9 +79,10 @@ Public Class popSistemaClientesElegirSucursal
     '====================================================================
     Public Function strLlenarCiudadComboBox() As String
         If intEstadoId > 0 Then
-            Return isocraft.commons.clsWeb. _
-                   strCreateJavascriptComboBoxOptions("cboCiudad", intCiudadId, _
-                   clsConcentrador.clsSucursal.strBuscarAgrupacionEdo(intEstadoId, 0, 0, strConnectionString), 0, 1, 2)
+            Return clsWeb. _
+                   strCreateJavascriptComboBoxOptions("cboCiudad",
+                                                      intCiudadId, _
+                                                      clsConcentrador.clsSucursal.strBuscarAgrupacionEdo(intEstadoId, 0, 0, strConnectionString), 0, 1, 2)
         End If
     End Function
 
@@ -107,7 +97,10 @@ Public Class popSistemaClientesElegirSucursal
     '====================================================================
     Public Function strLlenarSucursalComboBox() As String
         If intEstadoId > 0 AndAlso intCiudadId > 0 Then
-            Return isocraft.commons.clsWeb.strCreateJavascriptComboBoxOptions("cboSucursal", strSucursalId, Benavides.CC.Business.clsConcentrador.clsSucursal.strBuscarAgrupacionEdo(intEstadoId, intCiudadId, intCadenaId, strConnectionString), New Integer(1) {0, 1}, 2, 2)
+            Return clsWeb. _
+                   strCreateJavascriptComboBoxOptions("cboSucursal", strSucursalId,
+                                                       clsConcentrador.clsSucursal.strBuscarAgrupacionEdo(intEstadoId, intCiudadId, intCadenaId, strConnectionString),
+                                                       New Integer(1) {0, 1}, 2, 2)
         End If
     End Function
 
@@ -119,10 +112,10 @@ Public Class popSistemaClientesElegirSucursal
     '====================================================================
     Public Property intEstadoId() As Integer
         Get
-            Return intmEstadoId
+            Return _intmEstadoId
         End Get
         Set(ByVal intValue As Integer)
-            intmEstadoId = intValue
+            _intmEstadoId = intValue
         End Set
     End Property
 
@@ -134,10 +127,10 @@ Public Class popSistemaClientesElegirSucursal
     '====================================================================
     Public Property intCiudadId() As Integer
         Get
-            Return intmCiudadId
+            Return _intmCiudadId
         End Get
         Set(ByVal intValue As Integer)
-            intmCiudadId = intValue
+            _intmCiudadId = intValue
         End Set
     End Property
 
@@ -149,10 +142,10 @@ Public Class popSistemaClientesElegirSucursal
     '====================================================================
     Public Property intCadenaId() As Integer
         Get
-            Return intmCadenaId
+            Return _intmCadenaId
         End Get
         Set(ByVal intValue As Integer)
-            intmCadenaId = intValue
+            _intmCadenaId = intValue
         End Set
     End Property
 
@@ -164,17 +157,11 @@ Public Class popSistemaClientesElegirSucursal
     '====================================================================
     Public Property strSucursalId() As String
         Get
-            Return strmSucursalId
+            Return _strmSucursalId
         End Get
         Set(ByVal intValue As String)
-            strmSucursalId = intValue
+            _strmSucursalId = intValue
         End Set
-    End Property
-
-    Public ReadOnly Property strCadenaId() As String
-        Get
-            Return GetPageParameter("strCadenaId", "")
-        End Get
     End Property
 
     Public ReadOnly Property habilitarCboCiudad() As String
@@ -197,23 +184,47 @@ Public Class popSistemaClientesElegirSucursal
 
     Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
-
         Select Case strCmd2
 
             Case "Agregar"
                 Call AgregarTblOtrasIdentificacionesSucursal()
 
         End Select
-
     End Sub
 
     Private Sub AgregarTblOtrasIdentificacionesSucursal()
-        Dim resultado As Integer = 0
+        Dim intResultado As Integer = 0
+        Dim intCompaniaId As Integer = 0
+        Dim intSucursalId As Integer = 0
 
-        'resultado = clsClientesABF.clsOtrasIdentificacionesSucursal.intGuardarTblOtrasIdentificacionesSucursal()
+        AsignarCompaniaSucursal(intCompaniaId, intSucursalId)
 
-        If resultado = 1 Then
-            strJavascriptWindowOnLoadCommands = "alert(""."");"
+        intResultado = clsClientesABF. _
+                    clsOtrasIdentificacionesSucursal. _
+                    intGuardarTblOtrasIdentificacionesSucursal(CStr(_intmCadenaId), _
+                                                               _intmEstadoId, _
+                                                               _intmCiudadId, _
+                                                               intCompaniaId, _
+                                                               intSucursalId, _
+                                                               strClienteABFId, _
+                                                               strUsuarioNombre, _
+                                                               strConnectionString)
+
+        If intResultado > 0 Then
+            strJavascriptWindowOnLoadCommands = "alert(""Sucursales asignadas correctamente."");"
+        ElseIf intResultado < 0 Then
+            strJavascriptWindowOnLoadCommands = "alert(""Error al asignar sucursales."");"
+        End If
+    End Sub
+
+    Private Sub AsignarCompaniaSucursal(ByRef intCompaniaId As Integer, ByRef intSucursalId As Integer)
+        Dim intCompaniaIdIntSucursalId As String()
+
+        If Not _strmSucursalId Is String.Empty And Not _strmSucursalId = "0" Then
+            intCompaniaIdIntSucursalId = _strmSucursalId.Split("|".ToCharArray(), StringSplitOptions.RemoveEmptyEntries)
+
+            intCompaniaId = CInt(intCompaniaIdIntSucursalId(0))
+            intSucursalId = CInt(intCompaniaIdIntSucursalId(1))
         End If
 
     End Sub

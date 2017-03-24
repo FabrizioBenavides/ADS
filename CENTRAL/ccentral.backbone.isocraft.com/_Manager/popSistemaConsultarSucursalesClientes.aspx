@@ -9,11 +9,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
     <link href="css/menu.css" rel="stylesheet" type="text/css" />
     <link href="css/estilo.css" rel="stylesheet" type="text/css" />
-<%--    <script type="text/JavaScript" src="js/menu.js"></script>
-    <script type="text/JavaScript" src="js/menu_items.js"></script>
-    <script type="text/JavaScript" src="js/menu_tpl.js"></script>
-    <script type="text/JavaScript" src="js/headerfooter.js"></script>--%>
-
     <script type="text/javascript">
 
         strUsuarioNombre = <%= strUsuarioNombre %>;
@@ -34,14 +29,62 @@
         }
 
         function btnBorrarSucursalesTodas_onclick() {
-     
+            var borrarSucursales = false;
+            var strClienteABFId = "<%= strClienteABFId%>";
+            var strClienteABFNombre = "<%= strClienteABFNombre%>";
+
+            borrarSucursales = confirm("¿Desea eliminar todas las sucursales?");
+
+            if (borrarSucursales) {
+                window.open("popSistemaConsultarSucursalesClientes.aspx?strCmd2=Eliminar&strClienteABFId=" + strClienteABFId +
+                            "&strClienteABFNombre=" + strClienteABFNombre,
+                            "Pop", "width=100, height=100," + 
+                            "left=750, top=400, resizable=no, scrollbars=yes, menubar=no, status=no");
+            }
         }
 
         function btnExportarDatos_onclick() {
-     
-        }
+            var tituloCliente = document.getElementById('TituloCliente').innerHTML;
+            var concatenacionExportacion;
+            var tablaSucursales = document.getElementById('tablaSucursales');
+            var guardar;
 
+            if (tablaSucursales != null) {
+                concatenacionExportacion = "<h2>" + tituloCliente + "</h2>";
+                concatenacionExportacion = concatenacionExportacion + "<table border='2px'>";
+                concatenacionExportacion = concatenacionExportacion + "<tr bgcolor='#87AFC6'>";
+                concatenacionExportacion = concatenacionExportacion + "<th>Centro Logístico</th>";
+                concatenacionExportacion = concatenacionExportacion + "<th>Nombre</th>";
+                concatenacionExportacion = concatenacionExportacion + "</tr>";
+
+                for (var i = 1, renglon; renglon = tablaSucursales.rows[i]; i++) {
+                    concatenacionExportacion = concatenacionExportacion + "<tr>";
+
+                    for (var j = 0, columna; columna = renglon.cells[j]; j++) {
+                        if (j < 2) {
+                            concatenacionExportacion = concatenacionExportacion + "<td>" + columna.innerHTML + "</td>";
+                        }
+                    }
+                    concatenacionExportacion = concatenacionExportacion + "</tr>";
+                }
+
+                concatenacionExportacion = concatenacionExportacion + "</table>";
+
+                var ua = window.navigator.userAgent;
+                var msie = ua.indexOf("MSIE");
+
+                if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) {
+                    iExportar.document.open("txt/html", "replace");
+                    iExportar.document.write(concatenacionExportacion);
+                    iExportar.document.close();
+                    iExportar.focus();
+                    guardar = iExportar.document.execCommand("SaveAs", true, "Sucursales " + tituloCliente + ".xls");
+                }
+            }
+        }
+        
         function btnCerrarVentana_onclick() {
+            recargarPaginaPrincipal();
             window.close();
         }
 
@@ -52,10 +95,33 @@
             document.getElementById("TituloCliente").innerText= strClienteABFId + "-" + strClienteABFNombre;
         }
 
+        function borrarSucursal(strCentroLogisticoId, intCompaniaId, intSucursalId){
+            var borrarSucursal = false;
+            var strClienteABFId = "<%= strClienteABFId%>";
+            var strClienteABFNombre = "<%= strClienteABFNombre%>";
+
+            borrarSucursal = confirm("¿Desea eliminar la sucursal " + strCentroLogisticoId + "?");
+
+            if (borrarSucursal) {
+
+                window.open("popSistemaConsultarSucursalesClientes.aspx?strCmd2=Eliminar" +
+                            "&strClienteABFId=" + strClienteABFId +
+                            "&strClienteABFNombre=" + strClienteABFNombre +
+                            "&intCompaniaId=" + intCompaniaId +
+                            "&intSucursalId=" + intSucursalId ,
+                            "Pop", "width=100, height=100," + 
+                            "left=750, top=400, resizable=no, scrollbars=yes, menubar=no, status=no");
+            }
+        }
+
+        function recargarPaginaPrincipal() {
+            window.opener.location.reload(true);
+        }
+
     </script>
 
 </head>
-<body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginheight="0" marginwidth="0" onload="return window_onload()">
+<body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginheight="0" marginwidth="0" onload="return window_onload()" onunload="recargarPaginaPrincipal()">
     <form id="frmSucursal" action="about:blank" method="post">
         <table height="158" cellspacing="0" cellpadding="0" width="100%" bgcolor="#ffffff" border="0">
             <tr>
@@ -89,7 +155,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <div style="margin-left: 700px;">
+                                <div style="margin-left: 670px;">
                                      <input id="btnExportar" name="btnExportar" type="button"
                                         class="boton" value="Exportar Datos" onclick="return btnExportarDatos_onclick()">   
                                 </div>
@@ -112,6 +178,7 @@
                 </td>
             </tr>
         </table>
+        <iframe id="iExportar" style="display: none"></iframe>
     </form>
 </body>
 </html>

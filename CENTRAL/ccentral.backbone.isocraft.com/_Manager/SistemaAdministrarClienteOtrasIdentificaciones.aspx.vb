@@ -159,6 +159,4 @@ Public Class SistemaAdministrarClienteOtrasIdentificaciones
         ViewState("rbtSucursales") = CInt(intTipoFiltroSucursales)
     End Sub
 
-
-
 End Class

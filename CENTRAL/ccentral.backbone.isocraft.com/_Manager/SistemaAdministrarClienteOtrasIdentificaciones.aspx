@@ -78,11 +78,10 @@
                         "Pop", "width=800, height=600, left=150, top=30, resizable=no, scrollbars=yes, menubar=no, status=no");
         }
 
-
         new menu(MENU_ITEMS, MENU_POS);
     </script>
 </head>
-<body onload="return window_onload()">
+<body onload="return window_onload()" >
     <form id="frmPrincipal" action="about:blank" method="post">
         <table cellspacing="0" cellpadding="0" width="780" border="0">
             <tr>

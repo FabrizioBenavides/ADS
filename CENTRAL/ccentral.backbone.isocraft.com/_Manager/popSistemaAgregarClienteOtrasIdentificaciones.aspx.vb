@@ -572,7 +572,7 @@ Public Class popSistemaAgregarClienteOtrasIdentificaciones
     End Sub
 
     Private Sub AgregarTblOtrasIdentificacionesABF()
-        Dim resultado As Integer = 0
+        Dim intResultado As Integer = 0
         Dim objCliente As tblOtrasIdentificacionesABF
 
         objCliente = New tblOtrasIdentificacionesABF(strClienteABFId, _
@@ -602,27 +602,27 @@ Public Class popSistemaAgregarClienteOtrasIdentificaciones
                                                      strDuplicaIdTransaccion, _
                                                      strUsuarioNombre)
 
-        resultado = clsClientesABF. _
+        intResultado = clsClientesABF. _
                     clsOtrasIdentificacionesABF. _
                     intGuardarTblOtrasIdentificacionesABF(objCliente, strConnectionString)
 
-        If resultado = 1 Then
+        If intResultado = 1 Then
             strJavascriptWindowOnLoadCommands = "alert(""Cliente agregado correctamente."");"
             _valorGuardar = EstatusGuardar.Correcto
-        ElseIf resultado < 0 And resultado <> -2 And resultado <> -3 Then
+        ElseIf intResultado < 0 And intResultado <> -2 And intResultado <> -3 Then
             strJavascriptWindowOnLoadCommands = "alert(""Error al guardar cliente."");"
             _valorGuardar = EstatusGuardar.Error
-        ElseIf resultado = -2 Then
+        ElseIf intResultado = -2 Then
             strJavascriptWindowOnLoadCommands = "alert(""La clave del cliente ya existe."");"
             _valorGuardar = EstatusGuardar.Error
-        ElseIf resultado = -3 Then
+        ElseIf intResultado = -3 Then
             strJavascriptWindowOnLoadCommands = "alert(""La clave del cliente no existe dentro del catálogo de clientes institucionales."");"
             _valorGuardar = EstatusGuardar.Error
         End If
     End Sub
 
     Private Sub ModificarTblOtrasIdentificacionesABF()
-        Dim resultado As Integer = 0
+        Dim intResultado As Integer = 0
         Dim objCliente As tblOtrasIdentificacionesABF
 
         objCliente = New tblOtrasIdentificacionesABF(strClienteABFId, _
@@ -652,14 +652,14 @@ Public Class popSistemaAgregarClienteOtrasIdentificaciones
                                                      strDuplicaIdTransaccion, _
                                                      strUsuarioNombre)
 
-        resultado = clsClientesABF. _
+        intResultado = clsClientesABF. _
                     clsOtrasIdentificacionesABF.
                     intActualizarTblOtrasIdentificacionesABF(objCliente, strConnectionString)
 
-        If resultado = 1 Then
+        If intResultado = 1 Then
             strJavascriptWindowOnLoadCommands = "alert(""Cliente modificado correctamente."");"
             _valorGuardar = EstatusGuardar.Correcto
-        ElseIf resultado < 0 Then
+        ElseIf intResultado < 0 Then
             strJavascriptWindowOnLoadCommands = "alert(""Error al modificar cliente."");"
             _valorGuardar = EstatusGuardar.Error
         End If

@@ -29,13 +29,13 @@ Public Class popSistemaConsultarSucursalesClientes
 
     Public ReadOnly Property intCompaniaId() As Integer
         Get
-            Return CInt(GetPageParameter("intCompaniaId", ""))
+            Return CInt(GetPageParameter("intCompaniaId", "0"))
         End Get
     End Property
 
     Public ReadOnly Property intSucursalId() As Integer
         Get
-            Return CInt(GetPageParameter("intSucursalId", ""))
+            Return CInt(GetPageParameter("intSucursalId", "0"))
         End Get
     End Property
 
@@ -65,7 +65,7 @@ Public Class popSistemaConsultarSucursalesClientes
                         strBuscarTblOtrasIdentificacionesSucursalPorClienteId(strClienteABFId, strConnectionString)
 
         If IsArray(objSucursales) AndAlso objSucursales.Length > 0 Then
-            strResultadoTablaSucursales.Append("<table width='100%' border='0' cellpadding='0' cellspacing='0'>")
+            strResultadoTablaSucursales.Append("<table id='tablaSucursales' width='95%' border='0' cellpadding='0' cellspacing='0'>")
             strResultadoTablaSucursales.Append("<tr class='trtitulos'>")
             strResultadoTablaSucursales.Append("<th class='rayita' style='text-align:left'>Centro Logístico</th>")
             strResultadoTablaSucursales.Append("<th class='rayita' style='text-align:left'>Nombre</th>")
@@ -85,6 +85,7 @@ Public Class popSistemaConsultarSucursalesClientes
         Dim colorRegistro As String = String.Empty
         Dim imagenEliminar As String = "<img src='../static/images/imgNREliminar.gif' width='11' height='13' border='0' align='center' alt='Haga clic aquí para eliminar' title='Haga clic aquí para eliminar'>"
         Dim resultadoSucursales As New StringBuilder
+        Dim strCentroLogisticoId As String = String.Empty
 
         For Each renglon As SortedList In registrosSucursales
             contadorRegistros += 1
@@ -97,14 +98,16 @@ Public Class popSistemaConsultarSucursalesClientes
 
             resultadoSucursales.Append("<tr>")
 
-            resultadoSucursales.AppendFormat("<td class='{0}' style='text-align:left'>{1}</td>", colorRegistro, renglon.Item("strCentroLogisticoId"))
+            strCentroLogisticoId = CStr(renglon.Item("strCentroLogisticoId"))
+
+            resultadoSucursales.AppendFormat("<td class='{0}' style='text-align:left'>{1}</td>", colorRegistro, strCentroLogisticoId)
             resultadoSucursales.AppendFormat("<td class='{0}' style='text-align:left'>{1}</td>", colorRegistro, renglon.Item("strSucursalNombre"))
 
             resultadoSucursales.AppendFormat("<td align='center' style='width: 25px;' class='{0}'>" & _
-                                             "<a href='popSistemaConsultarSucursalesClientes.aspx?strCmd2=Eliminar" & _
-                                             "&intCompaniaId={1}&intSucursalId={2}" & _
-                                             "'>{3}</a></td>", _
+                                             "<a a href='#' onClick='borrarSucursal(""{1}"", ""{2}"", ""{3}"");return false;'" & _
+                                             "'>{4}</a></td>", _
                                               colorRegistro, _
+                                              strCentroLogisticoId, _
                                               renglon.Item("intCompaniaId"), _
                                               renglon.Item("intSucursalId"), _
                                               imagenEliminar)
@@ -116,7 +119,20 @@ Public Class popSistemaConsultarSucursalesClientes
     End Function
 
     Private Sub EliminarTblOtrasIdentificacionesSucursal()
+        Dim intResultado As Integer = 0
 
+        intResultado = clsClientesABF. _
+                       clsOtrasIdentificacionesSucursal. _
+                       intEliminarTblOtrasIdentificacionesSucursal(strClienteABFId, _
+                                                                   intCompaniaId, _
+                                                                   intSucursalId, _
+                                                                   strConnectionString)
+
+        If intResultado > 0 Then
+            strJavascriptWindowOnLoadCommands = "alert(""Sucursal(es) eliminada(s) correctamente."");"
+        ElseIf intResultado < 0 Then
+            strJavascriptWindowOnLoadCommands = "alert(""Error al eliminar las sucursales."");"
+        End If
     End Sub
 
 End Class
