@@ -565,9 +565,155 @@ Public Class clsClientesABF
             End Try
         End Function
 
+        Public Shared Function intCopiarClienteSucursalesAsignadas(ByVal intCompaniaOrigenId As Integer, _
+                                                                   ByVal intSucursalOrigenId As Integer, _
+                                                                   ByVal intCompaniaDestinoId As Integer, _
+                                                                   ByVal intSucursalDestinoId As Integer, _
+                                                                   ByVal strOtrasIdentificacionesSucursalModificadoPor As String, _
+                                                                   ByVal strConnectionString As String) As Integer
 
+            ' Constantes locales
+            Const strmThisMemberName As String = "intCopiarClienteSucursalesAsignadas"
 
+            ' Variables locales
+            Dim strSQLStatement As StringBuilder = Nothing
+            Dim intRowsAffected As Integer = 0
+            Dim strRegistros As Array = Nothing
+            Dim strRowsAffected As String() = Nothing
 
+            Try
+
+                ' Inicializamos las varialbes locales
+                strSQLStatement = New StringBuilder
+
+                ' Creamos es estatuto de SQL
+                Call strSQLStatement.AppendFormat("EXECUTE spCopiarClienteSucursalesAsignadas {0}, {1}, {2}, {3}, '{4}'", _
+                                                                                                                    intCompaniaOrigenId, _
+                                                                                                                    intSucursalOrigenId, _
+                                                                                                                    intCompaniaDestinoId, _
+                                                                                                                    intSucursalDestinoId, _
+                                                                                                                    strOtrasIdentificacionesSucursalModificadoPor)
+
+                ' Ejecutamos el comando
+                strRegistros = clsSQLOperation.strExecuteQuery(strSQLStatement.ToString(), strConnectionString)
+                For Each strRowsAffected In strRegistros
+                    intRowsAffected = CInt(strRowsAffected.GetValue(0))
+                Next
+
+                ' Regresamos la información
+                strSQLStatement = Nothing
+                intCopiarClienteSucursalesAsignadas = intRowsAffected
+
+            Catch objException As Exception
+
+                ' Variables locales
+                Dim strErrorString As StringBuilder : strErrorString = New StringBuilder
+                Dim objApplicationEventLog As System.Diagnostics.EventLog : objApplicationEventLog = New System.Diagnostics.EventLog
+                Dim strProductName As String : strProductName = System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly.Location).ProductName
+                Dim strApplicationName As String : strApplicationName = System.Reflection.Assembly.GetExecutingAssembly.Location
+                Dim strVersion As String : strVersion = System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly.Location).FileMajorPart & "." & System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly.Location).FileMinorPart & "." & System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly.Location).FileBuildPart
+                Dim strSource As String : strSource = objException.Source
+                Dim strMessage As String : strMessage = objException.Message
+                Dim strStackTrace As String : strStackTrace = objException.StackTrace
+                Dim intLineNumber As Integer : intLineNumber = Erl()
+                Dim intErrorNumber As Integer : intErrorNumber = Err.Number
+                Dim intCategoryNumber As Short : intCategoryNumber = 100
+
+                ' Creamos el mensaje de error
+                Call strErrorString.Append("Product name:" & vbCrLf & vbTab & strProductName & "." & strmThisClassName & "." & strmThisMemberName & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Application name:" & vbCrLf & vbTab & strApplicationName & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Version:" & vbCrLf & vbTab & strVersion & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Source:" & vbCrLf & vbTab & strSource & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Error number:" & vbCrLf & vbTab & "0x" & Hex(intErrorNumber) & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Line number:" & vbCrLf & vbTab & intLineNumber & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Message:" & vbCrLf & vbTab & strMessage & vbCrLf & vbCrLf)
+                Call strErrorString.Append("SQLStatement:" & vbCrLf & vbTab & strSQLStatement.ToString() & vbCrLf & vbCrLf)
+                Call strErrorString.Append("StackTrace:" & vbCrLf & strStackTrace & vbCrLf & vbCrLf)
+
+                ' Creamos un evento para registrar el mensaje de error
+                If Not EventLog.SourceExists(strProductName) Then
+                    Call EventLog.CreateEventSource(strProductName, "Application")
+                End If
+
+                ' Establecemos la fuente del evento
+                objApplicationEventLog.Source = strProductName
+
+                ' Escribimos el evento en el Visor de Eventos
+                Call objApplicationEventLog.WriteEntry(strErrorString.ToString(), EventLogEntryType.Error, Err.Number, intCategoryNumber)
+
+                ' Regresamos la información
+                intCopiarClienteSucursalesAsignadas = 0
+
+                ' Notificamos el error
+                Throw
+            End Try
+        End Function
+
+        Public Shared Function strBuscarTblOtrasIdentificacionesSucursalPorClienteId(ByVal strClienteABFId As String, _
+                                                                                     ByVal intInitialPosition As Double, _
+                                                                                     ByVal intElementsToRetrieve As Double, _
+                                                                                     ByVal strConnectionString As String) As Array
+
+            ' Member identifier
+            Const strmThisMemberName As String = "strBuscarTblOtrasIdentificacionesSucursalPorClienteId"
+
+            ' Declare the local variables
+            Dim strSQLStatement As System.Text.StringBuilder
+            Dim aobjReturnedData As Array
+
+            Try
+
+                ' Create the SQL statement
+                strSQLStatement = New System.Text.StringBuilder
+
+                Call strSQLStatement. _
+                    AppendFormat("EXECUTE spBuscarTblOtrasIdentificacionesSucursalPorClienteId2 '{0}', {1}, {2}", strClienteABFId, _
+                                                                                                                  intInitialPosition, _
+                                                                                                                  intElementsToRetrieve)
+
+                ' Execute the SQL statement
+                aobjReturnedData = Benavides.Data.SQL.MSSQL.clsSQLOperation3.aobjExecuteQuery(strSQLStatement.ToString(), strConnectionString)
+                strSQLStatement = Nothing
+
+                ' Return the results
+                Return aobjReturnedData
+            Catch objException As Exception
+
+                ' Declare the error variables
+                Dim strErrorString As System.Text.StringBuilder = New System.Text.StringBuilder
+                Dim objApplicationEventLog As System.Diagnostics.EventLog = New System.Diagnostics.EventLog
+                Dim strProductName As String = System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly.Location).ProductName
+
+                ' Create the error message
+                Call strErrorString.Append("Product name:" & vbCrLf & vbTab & strProductName & "." & strmThisClassName & "." & strmThisMemberName & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Application name:" & vbCrLf & vbTab & System.Reflection.Assembly.GetExecutingAssembly.Location & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Version:" & vbCrLf & vbTab & System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly.Location).FileMajorPart & "." & System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly.Location).FileMinorPart & "." & System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly.Location).FileBuildPart & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Source:" & vbCrLf & vbTab & objException.Source & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Error number:" & vbCrLf & vbTab & "0x" & Hex(Err.Number) & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Line number:" & vbCrLf & vbTab & Erl() & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Message:" & vbCrLf & vbTab & objException.Message & vbCrLf & vbCrLf)
+                Call strErrorString.Append("SQLStatement:" & vbCrLf & vbTab & strSQLStatement.ToString() & vbCrLf & vbCrLf)
+                Call strErrorString.Append("StackTrace:" & vbCrLf & objException.StackTrace & vbCrLf & vbCrLf)
+
+                ' Create the event source
+                If Not EventLog.SourceExists(strProductName) Then
+                    Call EventLog.CreateEventSource(strProductName, "Application")
+                End If
+
+                ' Set the event source
+                objApplicationEventLog.Source = strProductName
+
+                ' Write the event. It can be read in the Event Viewer.
+                Call objApplicationEventLog.WriteEntry(strErrorString.ToString(), EventLogEntryType.Error, Err.Number, 0)
+
+                ' Clear the variables
+                strSQLStatement = Nothing
+                aobjReturnedData = Nothing
+
+                ' Raise the error
+                Throw
+            End Try
+        End Function
 
 
 
