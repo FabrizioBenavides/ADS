@@ -14,6 +14,19 @@ Public Class popSistemaClientesElegirSucursal
     Private _intmEstadoId As Integer
     Private _intmCiudadId As Integer
     Private _strmSucursalId As String
+    Private _intSeRecargoPaginaPrincipal As RecargaPaginaPrincipal = RecargaPaginaPrincipal.No
+
+    Public Enum RecargaPaginaPrincipal
+        No = 0
+        Si = 1
+        [Error] = 2
+    End Enum
+
+    Public ReadOnly Property intSeRecargoPaginaPrincipal As RecargaPaginaPrincipal
+        Get
+            Return _intSeRecargoPaginaPrincipal
+        End Get
+    End Property
 
     ''' <summary>
     ''' his call is required by the Web Form Designer.
@@ -212,8 +225,10 @@ Public Class popSistemaClientesElegirSucursal
 
         If intResultado > 0 Then
             strJavascriptWindowOnLoadCommands = "alert(""Sucursales asignadas correctamente."");"
-        ElseIf intResultado < 0 Then
-            strJavascriptWindowOnLoadCommands = "alert(""Error al asignar sucursales."");"
+            _intSeRecargoPaginaPrincipal = RecargaPaginaPrincipal.Si
+        ElseIf intResultado < 1 Then
+            strJavascriptWindowOnLoadCommands = "alert(""Error al asignar sucursales. Es posible que esté intentando asignar sucursales previamente asignadas."");"
+            _intSeRecargoPaginaPrincipal = RecargaPaginaPrincipal.Error
         End If
     End Sub
 

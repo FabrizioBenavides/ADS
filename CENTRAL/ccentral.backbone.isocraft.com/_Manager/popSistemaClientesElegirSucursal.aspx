@@ -22,6 +22,20 @@
 
             habilitarCboCiudadYSucursal();
             matenerValorCboCadena();
+            validarRecargaPagina();
+        }
+
+        function validarRecargaPagina(){
+            var valorRecargaPaginaPrincipal = <%= intSeRecargoPaginaPrincipal%>;
+
+            if(valorRecargaPaginaPrincipal == "1"){
+                window.opener.location.reload(true);
+            }
+            else if(valorRecargaPaginaPrincipal == "2"){
+                document.getElementById("cboEstado").selectedIndex = 0;
+                document.getElementById("cboCiudad").selectedIndex = 0;
+                document.getElementById("cboSucursal").selectedIndex = 0;
+            }
         }
 
         function habilitarCboCiudadYSucursal() {
@@ -113,21 +127,28 @@
             var intSucursalId;
             var strClienteABFId = "<%= strClienteABFId%>";
             var strClienteABFNombre = "<%= strClienteABFNombre%>";
+            var confirmacion = true;
 
             if (cboCadena != "0") {
                  cboEstado = document.getElementById("cboEstado").value;
                  cboCiudad = document.getElementById("cboCiudad").value;
                  cboSucursal = document.getElementById("cboSucursal").value;
 
-                 intCompaniaId = obtenerIntCompaniaId(cboSucursal);
-                 intSucursalId = obtenerIntSucursalId(cboSucursal);
+                 if(cboEstado == 0 && cboCiudad == 0 && cboSucursal == 0){
+                     confirmacion = window.confirm("Al seleccionar todos los filtros de busqueda se eliminaran todas las sucursales previamente asignadas. ¿Desea asignar las sucursales?")  
+                 }
+                 
+                 if(confirmacion){
+                     intCompaniaId = obtenerIntCompaniaId(cboSucursal);
+                     intSucursalId = obtenerIntSucursalId(cboSucursal);
 
-                 document.forms[0].action = "<%= strFormAction %>" +
+                     document.forms[0].action = "<%= strFormAction %>" +
                                             "?strCmd2=Agregar" + 
                                             "&strClienteABFId=" + strClienteABFId +
                                             "&strClienteABFNombre=" + strClienteABFNombre;
 
-                document.forms[0].submit();
+                     document.forms[0].submit();
+                 }
             }
             else {
                 window.alert("Favor de seleccionar la Cadena.");
@@ -156,7 +177,7 @@
 
     </script>
 </head>
-<body onload="return window_onload()">
+<body onload="return window_onload()" >
     <form id="frmSucursales" action="about:blank" method="post">
         <table width="450" border="0" cellspacing="0" cellpadding="0">
             <tr>

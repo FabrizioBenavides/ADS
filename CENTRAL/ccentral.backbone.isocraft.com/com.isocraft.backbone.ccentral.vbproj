@@ -508,6 +508,13 @@
       <DependentUpon>popSucursalBuscarClientesEspeciales.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="_Manager\popSucursalClientesConsultar.aspx.designer.vb">
+      <DependentUpon>popSucursalClientesConsultar.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="_Manager\popSucursalClientesConsultar.aspx.vb">
+      <DependentUpon>popSucursalClientesConsultar.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="_Manager\PopSucursalCupones.aspx.vb">
       <DependentUpon>PopSucursalCupones.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1038,6 +1045,13 @@
     <Compile Include="_Manager\SucursalAvisosABF.aspx.vb">
       <DependentUpon>SucursalAvisosABF.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="_Manager\SistemaClientesAltaNuevaSucursal.aspx.designer.vb">
+      <DependentUpon>SistemaClientesAltaNuevaSucursal.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="_Manager\SistemaClientesAltaNuevaSucursal.aspx.vb">
+      <DependentUpon>SistemaClientesAltaNuevaSucursal.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="_Manager\SucursalConsultarBrincosContables.aspx.vb">
       <DependentUpon>SucursalConsultarBrincosContables.aspx</DependentUpon>
@@ -2921,6 +2935,7 @@
     <Content Include="_Manager\popSucursalAsignarCuentasElegirSucursales.aspx" />
     <Content Include="_Manager\popSucursalAsignarSucursalesAClienteEspecial.aspx" />
     <Content Include="_Manager\popSucursalBuscarClientesEspeciales.aspx" />
+    <Content Include="_Manager\popSucursalClientesConsultar.aspx" />
     <Content Include="_Manager\PopSucursalCupones.aspx" />
     <Content Include="_Manager\popSucursalElegirMonedas.aspx" />
     <Content Include="_Manager\popSucursalElegirSucursales.aspx" />
@@ -3053,6 +3068,7 @@
     <Content Include="_Manager\SucursalAsignarEnLotePoliticasDePos.aspx" />
     <Content Include="_Manager\SucursalAsignarPoliticasDePosAUnaSucursal.aspx" />
     <Content Include="_Manager\SucursalAvisosABF.aspx" />
+    <Content Include="_Manager\SistemaClientesAltaNuevaSucursal.aspx" />
     <Content Include="_Manager\SucursalConsultarBrincosContables.aspx" />
     <Content Include="_Manager\SucursalConsultarCajas.aspx" />
     <Content Include="_Manager\SucursalConsultarCajasEnSucursales.aspx" />

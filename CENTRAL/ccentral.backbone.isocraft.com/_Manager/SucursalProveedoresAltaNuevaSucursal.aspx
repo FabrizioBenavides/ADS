@@ -1,4 +1,4 @@
-<%@ Page Language="vb" AutoEventWireup="false" EnableSessionState="False" enableViewState="False" Explicit="True" Trace="False" Strict="True" CodeBehind="SucursalProveedoresAltaNuevaSucursal.aspx.vb"      Inherits="com.isocraft.backbone.ccentral.SucursalProveedoresAltaNuevaSucursal" codePage="28592" %>
+<%@ Page Language="vb" AutoEventWireup="false" EnableSessionState="False" enableViewState="False" Explicit="True" Trace="False" Strict="True" CodeBehind="SucursalProveedoresAltaNuevaSucursal.aspx.vb" Inherits="com.isocraft.backbone.ccentral.SucursalProveedoresAltaNuevaSucursal" codePage="28592" %>
 <HTML>
 <HEAD>
 <title>Benavides : Administrador del Sistema Concentrador (CTX)</title>
@@ -162,12 +162,14 @@ function cmdRegresar_onclick() {
         </table>
         <input class="boton" id="cmdRegresar" type="button" value="Regresar" name="cmdRegresar"
 							language="javascript" onclick="return cmdRegresar_onclick()">
-&nbsp;
+        &nbsp;
         <input class="boton" id="cmdAgregar" type="button" value="Agregar" name="cmdAgregar" language="javascript"
 							onclick="return cmdAgregar_onclick()">
         <br>
         <br>
-        <div id="divRB" style="DISPLAY: none"></div>
+        <div id="divRB" style="DISPLAY: none">
+
+        </div>
       </td>
     </tr>
   </table>
