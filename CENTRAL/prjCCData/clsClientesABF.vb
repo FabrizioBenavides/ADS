@@ -649,13 +649,12 @@ Public Class clsClientesABF
             End Try
         End Function
 
-        Public Shared Function strBuscarTblOtrasIdentificacionesSucursalPorClienteId(ByVal strClienteABFId As String, _
-                                                                                     ByVal intInitialPosition As Double, _
-                                                                                     ByVal intElementsToRetrieve As Double, _
-                                                                                     ByVal strConnectionString As String) As Array
+        Public Shared Function strBuscarTblOtrasIdentificacionesSucursalPorCompaniaSucursal(ByVal intCompaniaId As Integer, _
+                                                                                            ByVal intSucursalId As Integer, _
+                                                                                            ByVal strConnectionString As String) As Array
 
             ' Member identifier
-            Const strmThisMemberName As String = "strBuscarTblOtrasIdentificacionesSucursalPorClienteId"
+            Const strmThisMemberName As String = "strBuscarTblOtrasIdentificacionesSucursalPorCompaniaSucursal"
 
             ' Declare the local variables
             Dim strSQLStatement As System.Text.StringBuilder
@@ -667,9 +666,8 @@ Public Class clsClientesABF
                 strSQLStatement = New System.Text.StringBuilder
 
                 Call strSQLStatement. _
-                    AppendFormat("EXECUTE spBuscarTblOtrasIdentificacionesSucursalPorClienteId2 '{0}', {1}, {2}", strClienteABFId, _
-                                                                                                                  intInitialPosition, _
-                                                                                                                  intElementsToRetrieve)
+                    AppendFormat("EXECUTE spBuscarTblOtrasIdentificacionesSucursalPorCompaniaSucursal {0}, {1}", intCompaniaId, _
+                                                                                                                 intSucursalId)
 
                 ' Execute the SQL statement
                 aobjReturnedData = Benavides.Data.SQL.MSSQL.clsSQLOperation3.aobjExecuteQuery(strSQLStatement.ToString(), strConnectionString)
@@ -714,8 +712,6 @@ Public Class clsClientesABF
                 Throw
             End Try
         End Function
-
-
 
     End Class
 
