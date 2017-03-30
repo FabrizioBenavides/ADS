@@ -1,4 +1,4 @@
-<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="SistemaAdministrarClienteOtrasIdentificaciones.aspx.vb" Inherits="com.isocraft.backbone.ccentral.SistemaAdministrarClienteOtrasIdentificaciones" CodePage="28592"  EnableViewState="true"%>
+<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="SistemaAdministrarClienteOtrasIdentificaciones.aspx.vb" Inherits="com.isocraft.backbone.ccentral.SistemaAdministrarClienteOtrasIdentificaciones" CodePage="28592" EnableViewState="true"%>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 

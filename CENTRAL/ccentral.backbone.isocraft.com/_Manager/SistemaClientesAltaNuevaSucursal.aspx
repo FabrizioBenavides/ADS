@@ -52,8 +52,11 @@
                 alert('Indicar la sucursal que se usara como espejo');
                 return (false);
             }
-            strParametros = 'strcmd=VerP&strSucursalId=' + document.forms[0].elements['hdnSucursalEspejoId'].value + "&strSucursalNombre=" + document.forms[0].elements['txtSucursalEspejo'].value;
-            Pop('popSucursalProveedoresConsultar.aspx?' + strParametros + '&strEvalJs=', 660, 620);
+
+            strParametros = 'strcmd=Consultar&strSucursalId=' + document.forms[0].elements['hdnSucursalEspejoId'].value +
+                                       '&strSucursalNombre=' + document.forms[0].elements['txtSucursalEspejo'].value;
+
+            Pop('popSucursalClientesConsultar.aspx?' + strParametros + '&strEvalJs=', 660, 620);
         }
 
         function cmdAgregar_onclick() {

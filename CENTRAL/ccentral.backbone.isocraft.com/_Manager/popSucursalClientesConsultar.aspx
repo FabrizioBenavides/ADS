@@ -39,12 +39,6 @@
             return (true);
         }
 
-        function cmdExportar_onclick() {
-            document.forms[0].action = "<%=strFormAction%>" + "?strCmd=" + "<%=strCmd%>" + "&intproveedorId=" + "<%=intProveedorId%>" + "&strProveedorNombreId=" + "<%=strProveedorNombreId%>" + "&strProveedorRazonSocial=" + "<%=strProveedorRazonSocial%>" + "&strSucursalId=" + "<%=strSucursalId%>" + "&strAccion=Exportar";
-            document.forms[0].submit();
-
-        }
-
         function cmdCerrar_onclick() {
             window.close();
             return (true);
@@ -67,7 +61,7 @@
             <tr>
                 <td width="2%">&nbsp;</td>
                 <td valign="top" height="30">
-                    <span class="txtitulo"><%= strTituloConsulta%></span> 
+                    <span class="txtitulo"><%= strSucursalNombre%></span> 
                     <span class="txcontenido"><%= strConsultar%></span> 
                 </td>
             </tr>

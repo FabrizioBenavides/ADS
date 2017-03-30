@@ -410,11 +410,8 @@ Public Class popSucursalProveedoresConsultar
 
                 Call Response.Write(strArchivoExcel.ToString)
                 Call Response.End()
-
             End If
-
         End If
-
     End Sub
 
 End Class

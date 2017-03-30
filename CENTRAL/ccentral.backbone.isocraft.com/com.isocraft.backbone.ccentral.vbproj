@@ -686,6 +686,13 @@
       <DependentUpon>SistemaAdministrarClientesNuevos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="_Manager\SistemaAdministrarClientesRecetaEnLinea.aspx.designer.vb">
+      <DependentUpon>SistemaAdministrarClientesRecetaEnLinea.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="_Manager\SistemaAdministrarClientesRecetaEnLinea.aspx.vb">
+      <DependentUpon>SistemaAdministrarClientesRecetaEnLinea.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="_Manager\SistemaAdministrarDiasInhabiles.aspx.vb">
       <DependentUpon>SistemaAdministrarDiasInhabiles.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2978,6 +2985,7 @@
     <Content Include="_Manager\SistemaAdministrarClienteOtrasIdentificaciones.aspx" />
     <Content Include="_Manager\SistemaAdministrarClientes.aspx" />
     <Content Include="_Manager\SistemaAdministrarClientesNuevos.aspx" />
+    <Content Include="_Manager\SistemaAdministrarClientesRecetaEnLinea.aspx" />
     <Content Include="_Manager\SistemaAdministrarDiasInhabiles.aspx" />
     <Content Include="_Manager\SistemaAdministrarGrupos.aspx" />
     <Content Include="_Manager\SistemaAdministrarMonedas.aspx" />

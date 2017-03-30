@@ -1,6 +1,7 @@
 ﻿Imports Benavides.CC.Data
 Imports Benavides.POSAdmin.Commons
 Imports Isocraft.Web.Http
+Imports System.Collections
 Imports System.Configuration
 Imports System.Text
 
@@ -24,9 +25,9 @@ Public Class popSucursalClientesConsultar
         InitializeComponent()
 
         ' Enviamos al usuario actual a la página de acceso, si no tiene privilegios de acceder a esta página
-        If Benavides.CC.Business.clsConcentrador.clsControlAcceso.blnPermitirAccesoObjeto(intGrupoUsuarioId, strThisPageName, strConnectionString) = False Then
-            Call Response.Redirect("../Default.aspx")
-        End If
+        'If Benavides.CC.Business.clsConcentrador.clsControlAcceso.blnPermitirAccesoObjeto(intGrupoUsuarioId, strThisPageName, strConnectionString) = False Then
+        '    Call Response.Redirect("../Default.aspx")
+        'End If
 
     End Sub
 
@@ -154,46 +155,6 @@ Public Class popSucursalClientesConsultar
     End Property
 
     '====================================================================
-    ' Name       : intFolioActualCarga 
-    ' Description: Folio para importacion desde archivo
-    ' Accessor   : Read
-    ' Output     : Long
-    '====================================================================
-    Public ReadOnly Property lngFolioActualCarga() As Long
-        Get
-            Dim strTemporal As String
-
-            strTemporal = Trim(Request("lngFolioActualCarga"))
-
-            If strTemporal.Equals("") Then
-                Return 0
-            Else
-                Return CLng(strTemporal)
-            End If
-
-        End Get
-    End Property
-
-    Public ReadOnly Property intProveedorId() As Integer
-        Get
-            Return CInt(Request("intProveedorId"))
-        End Get
-
-    End Property
-
-    Public ReadOnly Property strProveedorNombreId() As String
-        Get
-            Return Request("strProveedorNombreId")
-        End Get
-    End Property
-
-    Public ReadOnly Property strProveedorRazonSocial() As String
-        Get
-            Return Request("strProveedorRazonSocial")
-        End Get
-    End Property
-
-    '====================================================================
     ' Name       : strSucursalId
     ' Description: Value of a HTML form field
     ' Accessor   : Read / Write
@@ -255,10 +216,7 @@ Public Class popSucursalClientesConsultar
 
     Public ReadOnly Property strTituloConsulta() As String
         Get
-            Select Case strCmd
-                Case "VerA", "VerS"
-                    Return Benavides.POSAdmin.Commons.clsCommons.strFormatearDescripcion(strProveedorNombreId & " - " & strProveedorRazonSocial)
-            End Select
+            Return strSucursalNombre
         End Get
     End Property
 
@@ -270,74 +228,58 @@ Public Class popSucursalClientesConsultar
     ' Output     : String
     '====================================================================
     Public Function strConsultar() As String
-        ' Declaramos e inicializamos las constantes locales
-        Const intElementsPerPage As Integer = 15
-        Dim strRecordBrowserName As String = ""
-        Dim intSelectedPage As Integer = GetPageParameter("intNavegadorRegistrosPagina", 1)
-        Dim objDataArrayConsulta As Array
-        Dim strTargetURL As String = strThisPageName & "?strCmd=" & strCmd & "&lngFolioActualCarga=" & lngFolioActualCarga.ToString & "&intProveedorId=" & intProveedorId.ToString & "&strProveedorNombreId=" & strProveedorNombreId & "&strProveedorRazonSocial=" & strProveedorRazonSocial & "&strSucursalId=" & strSucursalId & "&strSucursalNombre=" & strSucursalNombre & "&intCompaniaid=" & intCompaniaid & "&intSucursalid=" & intSucursalid & "&"
+        Dim strResultadoTablaClientes As New StringBuilder
+        Dim objClientes As Array
 
-        Select Case strCmd
+        objClientes = clsClientesABF. _
+                      clsOtrasIdentificacionesSucursal. _
+                      strBuscarTblOtrasIdentificacionesSucursalPorCompaniaSucursal(intCompaniaid, _
+                                                                                   intSucursalid, _
+                                                                                   strConnectionString)
 
-            Case "VerA"  ' Genera la consulta de articulos de un proveedor
-                strRecordBrowserName = "SucursalProveedoresConsultarArticulos"
-                objDataArrayConsulta = clsProveedor.strBuscarProveedorArticulosAutorizados(intProveedorId, Benavides.CC.Commons.clsRecordBrowser.clsIndicator.intCalculateFirstElement(intSelectedPage, intElementsPerPage), intElementsPerPage, strConnectionString)
+        If IsArray(objClientes) AndAlso objClientes.Length > 0 Then
+            strResultadoTablaClientes.Append("<table width='100%' border='0' cellpadding='0' cellspacing='0'>")
+            strResultadoTablaClientes.Append("<tr class='trtitulos'>")
+            strResultadoTablaClientes.Append("<th class='rayita' style='text-align:left'>Cliente</th>")
+            strResultadoTablaClientes.Append("<th class='rayita' style='text-align:left'>Nombre</th>")
+            strResultadoTablaClientes.Append("</tr>")
 
-        End Select
+            strResultadoTablaClientes.Append(CrearRegistrosClientes(objClientes))
 
-        Dim strTagAcutal As String = ""
-        Dim strTagNuevo As String = ""
-
-        If strCmd = "VerA" Then
-            strTagAcutal = "<td align=""right"" class=""tdpadleft5"" id=""BotonDelNavegador""></td>"
-            strTagNuevo = "<td align=""right"" class=""tdpadleft5"" ><input name=""cmdExportar"" type=""button"" class=""boton"" value=""Exportar Datos"" language=""javascript"" onclick=""return cmdExportar_onclick()"">&nbsp</td>"
+            strResultadoTablaClientes.Append("</table>")
         End If
 
-        If strCmd = "VistaPrevia" Then
-            strTagAcutal = "<br><span class=""txsubtitulo""><img src=""../static/images/bullet_subtitulos.gif"" width=""17"" height=""11"" align=""absmiddle"">Articulos autorizados al Proveedor</span><br>"
-            strTagNuevo = "&nbsp;"
-        End If
+        Return strResultadoTablaClientes.ToString()
+    End Function
 
-        Return Replace(Benavides.CC.Commons.clsRecordBrowser.strGetHTML(strRecordBrowserName, objDataArrayConsulta, intSelectedPage, intElementsPerPage, strTargetURL), strTagAcutal, strTagNuevo)
+    Private Function CrearRegistrosClientes(ByVal registrosProductos As Array) As String
+        Dim contadorRegistros As Integer = 0
+        Dim colorRegistro As String = String.Empty
+        Dim resultadoCliente As New StringBuilder
+
+        For Each renglon As SortedList In registrosProductos
+            contadorRegistros += 1
+
+            If (contadorRegistros Mod 2) <> 0 Then
+                colorRegistro = "tdceleste"
+            Else
+                colorRegistro = "tdblanco"
+            End If
+
+            resultadoCliente.Append("<tr>")
+
+            resultadoCliente.AppendFormat("<td class='{0}' style='text-align:left'>{1}</td>", colorRegistro, renglon.Item("strClienteABFId"))
+            resultadoCliente.AppendFormat("<td class='{0}' style='text-align:left'>{1}</td>", colorRegistro, renglon.Item("strClienteNombre"))
+
+            resultadoCliente.Append("</tr>")
+        Next
+
+        Return resultadoCliente.ToString()
     End Function
 
     Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        Dim strNombreArchivoExcel As String = ""
-        Dim strArchivoExcel As New StringBuilder
-        Dim objDataArrayExportar As Array
-        Dim objRegistroExportar As System.Collections.SortedList = Nothing
-        Dim strArchivoDestino As String
 
-        If strAccion = "Exportar" Then
 
-            If strCmd = "VerA" Then
-                strNombreArchivoExcel = "ArtAutorizados_" & strProveedorNombreId & ".csv"
-                objDataArrayExportar = clsProveedor.strBuscarProveedorArticulosAutorizados(intProveedorId, 0, 0, strConnectionString)
-            End If
-
-            If IsArray(objDataArrayExportar) AndAlso objDataArrayExportar.Length > 0 Then
-
-                strArchivoExcel = New System.Text.StringBuilder
-
-                For Each objRegistroExportar In objDataArrayExportar
-
-                    If strCmd = "VerA" Then
-                        Call strArchivoExcel.Append(clsCommons.strFormatearDescripcion(CStr(objRegistroExportar.Item("intArticuloId"))))
-                        Call strArchivoExcel.Append(",")
-                        Call strArchivoExcel.Append(Replace(clsCommons.strFormatearDescripcion(CStr(objRegistroExportar.Item("strArticuloDescripcion"))), ",", " "))
-                        Call strArchivoExcel.Append(vbCrLf)
-                    End If
-                Next
-
-                strArchivoDestino = "attachment;filename=" & strComitasDobles & strNombreArchivoExcel & strComitasDobles
-
-                Response.ContentType = "application/octet-stream"
-                Call Response.AddHeader("Content-Disposition", "attachment;filename=" & strComitasDobles & strNombreArchivoExcel & strComitasDobles)
-
-                Call Response.Write(strArchivoExcel.ToString)
-                Call Response.End()
-            End If
-        End If
     End Sub
 
 End Class
