@@ -1,10 +1,10 @@
-<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="SistemaAdministrarClienteOtrasIdentificaciones.aspx.vb" Inherits="com.isocraft.backbone.ccentral.SistemaAdministrarClienteOtrasIdentificaciones" CodePage="28592" EnableViewState="true"%>
+<%@ Page Language="vb" EnableViewState="true" AutoEventWireup="false" CodeBehind="SistemaAdministrarClienteOtrasIdentificaciones.aspx.vb" Inherits="com.isocraft.backbone.ccentral.SistemaAdministrarClienteOtrasIdentificaciones" CodePage="28592" %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 
 <html>
 <head>
-    <title>Benavides : Consulta Cliente Otras Identificaciones</title>
+    <title>Benavides : Consulta Clientes Otras Identificaciones</title>
     <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
     <link href="css/menu.css" rel="stylesheet" type="text/css" />
@@ -94,7 +94,7 @@
             <tr>
                 <td width="10">&nbsp;</td>
                 <td width="780" class="tdtab">Est&aacute; en : 
-                    <a href="../_Manager/.aspx">Sistema</a> : Consulta Cliente Otras Identificaciones
+                    <a href="../_Manager/.aspx">Sistema</a> : Consulta Clientes Otras Identificaciones
                 </td>
             </tr>
         </table>
@@ -104,7 +104,7 @@
                     <table border="0" cellspacing="0" cellpadding="0" width="100%">
                         <tr>
                             <td>
-                                <h1>Consulta Cliente Otras Identificaciones</h1>
+                                <h1>Consulta Clientes Otras Identificaciones</h1>
                                 <p>
                                     En esta parte se puede consultar
                                 </p>

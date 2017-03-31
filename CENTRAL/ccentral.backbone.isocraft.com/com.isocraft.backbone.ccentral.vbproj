@@ -473,11 +473,25 @@
       <DependentUpon>popSistemaClientesElegirSucursal.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="_Manager\popSistemaClientesElegirSucursalClientesRecetaEnLinea.aspx.designer.vb">
+      <DependentUpon>popSistemaClientesElegirSucursalClientesRecetaEnLinea.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="_Manager\popSistemaClientesElegirSucursalClientesRecetaEnLinea.aspx.vb">
+      <DependentUpon>popSistemaClientesElegirSucursalClientesRecetaEnLinea.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="_Manager\popSistemaConsultarSucursalesClientes.aspx.designer.vb">
       <DependentUpon>popSistemaConsultarSucursalesClientes.aspx</DependentUpon>
     </Compile>
     <Compile Include="_Manager\popSistemaConsultarSucursalesClientes.aspx.vb">
       <DependentUpon>popSistemaConsultarSucursalesClientes.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="_Manager\popSistemaConsultarSucursalesClientesRecetaEnLinea.aspx.designer.vb">
+      <DependentUpon>popSistemaConsultarSucursalesClientesRecetaEnLinea.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="_Manager\popSistemaConsultarSucursalesClientesRecetaEnLinea.aspx.vb">
+      <DependentUpon>popSistemaConsultarSucursalesClientesRecetaEnLinea.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="_Manager\popSistemaElegirSucursalActualizar.aspx.vb">
@@ -2934,7 +2948,9 @@
     <Content Include="_Manager\popSistemaBuscarSucursalUsuario.aspx" />
     <Content Include="_Manager\PopSistemaCambiarContrasena.aspx" />
     <Content Include="_Manager\popSistemaClientesElegirSucursal.aspx" />
+    <Content Include="_Manager\popSistemaClientesElegirSucursalClientesRecetaEnLinea.aspx" />
     <Content Include="_Manager\popSistemaConsultarSucursalesClientes.aspx" />
+    <Content Include="_Manager\popSistemaConsultarSucursalesClientesRecetaEnLinea.aspx" />
     <Content Include="_Manager\popSistemaElegirSucursalActualizar.aspx" />
     <Content Include="_Manager\popSistemaEmpresasRecolectorasElegirSucursales.aspx" />
     <Content Include="_Manager\popSistemaVincularSucursal.aspx" />

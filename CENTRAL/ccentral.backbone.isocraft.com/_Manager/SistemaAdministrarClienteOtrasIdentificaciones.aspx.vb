@@ -113,7 +113,7 @@ Public Class SistemaAdministrarClienteOtrasIdentificaciones
 
             resultadoCliente.AppendFormat("<td class='{0}' style='text-align:left'>{1}</td>", colorRegistro, strClienteABFIdResultado)
             resultadoCliente.AppendFormat("<td class='{0}' style='text-align:left'>{1}</td>", colorRegistro, strClienteABFNombreResultado)
-            resultadoCliente.AppendFormat("<td class='{0}' style='text-align:center'>{1}</td>", colorRegistro, renglon.Item("SucursalesAsignadas"))
+            resultadoCliente.AppendFormat("<td class='{0}' style='text-align:center'>{1}</td>", colorRegistro, renglon.Item("TotalSucursalesAsignadas"))
 
             If CBool(renglon.Item("blnClienteActivo")) = True Then
                 strControlCheck = "checked"
