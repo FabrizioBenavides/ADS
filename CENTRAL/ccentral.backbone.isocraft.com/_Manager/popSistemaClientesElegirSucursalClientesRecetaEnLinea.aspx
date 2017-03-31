@@ -143,9 +143,9 @@
                      intSucursalId = obtenerIntSucursalId(cboSucursal);
 
                      document.forms[0].action = "<%= strFormAction %>" +
-                                            "?strCmd2=Agregar" + 
-                                            "&strClienteABFId=" + strClienteABFId +
-                                            "&strClienteRecetaEnLineaNombre=" + strClienteRecetaEnLineaNombre;
+                                                "?strCmd2=Agregar" + 
+                                                "&strClienteABFId=" + strClienteABFId +
+                                                "&strClienteRecetaEnLineaNombre=" + strClienteRecetaEnLineaNombre;
 
                      document.forms[0].submit();
                  }

@@ -36,7 +36,8 @@
             borrarSucursales = confirm("¿Desea eliminar todas las sucursales?");
 
             if (borrarSucursales) {
-                window.open("popSistemaConsultarSucursalesClientes.aspx?strCmd2=Eliminar&strClienteABFId=" + strClienteABFId +
+                window.open("popSistemaConsultarSucursalesClientesRecetaEnLinea.aspx?strCmd2=Eliminar" +
+                            "&strClienteABFId=" + strClienteABFId +
                             "&strClienteRecetaEnLineaNombre=" + strClienteRecetaEnLineaNombre,
                             "Pop", "width=100, height=100," + 
                             "left=750, top=400, resizable=no, scrollbars=yes, menubar=no, status=no");
@@ -92,7 +93,7 @@
             var strClienteABFId = "<%= strClienteABFId%>";
             var strClienteRecetaEnLineaNombre = "<%= strClienteRecetaEnLineaNombre%>";
 
-            document.getElementById("TituloCliente").innerText= strClienteABFId + "-" + strClienteABFNombre;
+            document.getElementById("TituloCliente").innerText= strClienteABFId + "-" + strClienteRecetaEnLineaNombre;
         }
 
         function borrarSucursal(strCentroLogisticoId, intCompaniaId, intSucursalId){

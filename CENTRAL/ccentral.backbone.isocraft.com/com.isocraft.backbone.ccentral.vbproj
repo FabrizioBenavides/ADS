@@ -529,6 +529,13 @@
       <DependentUpon>popSucursalClientesConsultar.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="_Manager\popSucursalClientesRecetaEnLineaConsultar.aspx.designer.vb">
+      <DependentUpon>popSucursalClientesRecetaEnLineaConsultar.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="_Manager\popSucursalClientesRecetaEnLineaConsultar.aspx.vb">
+      <DependentUpon>popSucursalClientesRecetaEnLineaConsultar.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="_Manager\PopSucursalCupones.aspx.vb">
       <DependentUpon>PopSucursalCupones.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -790,6 +797,13 @@
     <Compile Include="_Manager\SistemaClientesEspeciales.aspx.vb">
       <DependentUpon>SistemaClientesEspeciales.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="_Manager\SistemaClientesRecetaEnLineaAltaNuevaSucursal.aspx.designer.vb">
+      <DependentUpon>SistemaClientesRecetaEnLineaAltaNuevaSucursal.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="_Manager\SistemaClientesRecetaEnLineaAltaNuevaSucursal.aspx.vb">
+      <DependentUpon>SistemaClientesRecetaEnLineaAltaNuevaSucursal.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="_Manager\SistemaComisionesDex.aspx.vb">
       <DependentUpon>SistemaComisionesDex.aspx</DependentUpon>
@@ -2959,6 +2973,7 @@
     <Content Include="_Manager\popSucursalAsignarSucursalesAClienteEspecial.aspx" />
     <Content Include="_Manager\popSucursalBuscarClientesEspeciales.aspx" />
     <Content Include="_Manager\popSucursalClientesConsultar.aspx" />
+    <Content Include="_Manager\popSucursalClientesRecetaEnLineaConsultar.aspx" />
     <Content Include="_Manager\PopSucursalCupones.aspx" />
     <Content Include="_Manager\popSucursalElegirMonedas.aspx" />
     <Content Include="_Manager\popSucursalElegirSucursales.aspx" />
@@ -3023,6 +3038,7 @@
     <Content Include="_Manager\SistemaBinesConsultar.aspx" />
     <Content Include="_Manager\SistemaBinesEditar.aspx" />
     <Content Include="_Manager\SistemaClientesEspeciales.aspx" />
+    <Content Include="_Manager\SistemaClientesRecetaEnLineaAltaNuevaSucursal.aspx" />
     <Content Include="_Manager\SistemaComisionesDex.aspx" />
     <Content Include="_Manager\SistemaConsultarActualizacionesPendientes.aspx" />
     <Content Include="_Manager\SistemaConsultarNivelDeServicioEnTransmisiones.aspx" />
