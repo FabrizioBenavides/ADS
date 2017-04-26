@@ -132,6 +132,7 @@ var MENU_ITEMS = [
                    ['Administrar Observaciones', 'SistemaControlAsistenciaObservaciones.aspx'],
                    ['Administrar Periodo de Pago Sucursal', 'ControlAdministrarPeriodoPagoSucursal.aspx'],
                    ['Administrar Interfaces Adam', 'ControlAsistenciaAdministrarInterfasesAdam.aspx'],
+                   ['Administración Usuarios Supervisor Médico', 'ControlAsistenciaAdministracionDeSupervisoresMedico.aspx'],
            	],
                 ['Visitas a Sucursales', 'SucursalReporteDeVisitasCentral.aspx'],
                 ['Rutas para Transporte', null, null,

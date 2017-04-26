@@ -281,6 +281,20 @@
       <DependentUpon>ControlAsistenciaAdministracionDeUsuariosAgregar.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="_Manager\ControlAsistenciaAdministracionDeSupervisoresMedico.aspx.designer.vb">
+      <DependentUpon>ControlAsistenciaAdministracionDeSupervisoresMedico.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="_Manager\ControlAsistenciaAdministracionDeSupervisoresMedico.aspx.vb">
+      <DependentUpon>ControlAsistenciaAdministracionDeSupervisoresMedico.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="_Manager\ControlAsistenciaAdministracionSupervisoresMedicoAgregar.aspx.designer.vb">
+      <DependentUpon>ControlAsistenciaAdministracionSupervisoresMedicoAgregar.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="_Manager\ControlAsistenciaAdministracionSupervisoresMedicoAgregar.aspx.vb">
+      <DependentUpon>ControlAsistenciaAdministracionSupervisoresMedicoAgregar.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="_Manager\ControlAsistenciaAdministrarInterfasesAdam.aspx.vb">
       <DependentUpon>ControlAsistenciaAdministrarInterfasesAdam.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2882,6 +2896,8 @@
     <Content Include="_Manager\ControlAsistencia.aspx" />
     <Content Include="_Manager\ControlAsistenciaAdministracionDeUsuarios.aspx" />
     <Content Include="_Manager\ControlAsistenciaAdministracionDeUsuariosAgregar.aspx" />
+    <Content Include="_Manager\ControlAsistenciaAdministracionDeSupervisoresMedico.aspx" />
+    <Content Include="_Manager\ControlAsistenciaAdministracionSupervisoresMedicoAgregar.aspx" />
     <Content Include="_Manager\ControlAsistenciaAdministrarInterfasesAdam.aspx" />
     <Content Include="_Manager\ControlAsistenciaArchivoAdam.aspx" />
     <Content Include="_Manager\ControlAsistenciaAsignarSucursales.aspx" />
