@@ -44,10 +44,10 @@ Public Class SistemaAdministrarClientesRecetaEnLinea
     End Property
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        'If Benavides.CC.Business.clsConcentrador.clsControlAcceso. _
-        '        blnPermitirAccesoObjeto(intGrupoUsuarioId, strThisPageName, strConnectionString) = False Then
-        '    Call Response.Redirect("../Default.aspx")
-        'End If
+        If Benavides.CC.Business.clsConcentrador.clsControlAcceso. _
+                blnPermitirAccesoObjeto(intGrupoUsuarioId, strThisPageName, strConnectionString) = False Then
+            Call Response.Redirect("../Default.aspx")
+        End If
 
         Select Case strCmd2
 

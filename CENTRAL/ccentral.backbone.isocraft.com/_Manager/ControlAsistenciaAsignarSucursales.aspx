@@ -114,13 +114,13 @@ function cboDireccion_onchange() {
           </tr>
           <tr>
           <td class="tdtexttablebold">Direcci&oacute;n:</td>
-          <td class="tdpadleft5"><select name="cboDireccion" class="field" onchange="return cboDireccion_onchange()">
+          <td class="tdpadleft5"><select id="cboDireccion" name="cboDireccion" class="field" onchange="return cboDireccion_onchange()">
               <option value="0">Elija una direcci&oacute;n</option>
             </select></td>
         </tr>
         <tr>
           <td class="tdtexttablebold">Zona:</td>
-          <td class="tdpadleft5"><select name="cboZona" class="field" >
+          <td class="tdpadleft5"><select id="cboZona" name="cboZona" class="field" >
               <option value="0">Elija una zona</option>
               <option value="-1">Todas las zonas</option>
             </select></td>
