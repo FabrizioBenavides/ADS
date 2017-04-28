@@ -2336,6 +2336,7 @@ Public Class clsControlDeAsistencia
     '                '====================================================================
     Public Shared Function strBuscarUsuarioConcentrador(ByVal intGrupoUsuarioId As Integer, _
                                                         ByVal intEmpleadoId As Integer, _
+                                                        ByVal intTipoUsuarioId As Integer, _
                                                         ByVal strConnectionString As String) As Array
 
         ' Constantes locales
@@ -2353,9 +2354,11 @@ Public Class clsControlDeAsistencia
             Call strSQLStatement.Append(intGrupoUsuarioId)
             Call strSQLStatement.Append(",")
             Call strSQLStatement.Append(intEmpleadoId)
+            Call strSQLStatement.Append(",")
+            Call strSQLStatement.Append(intTipoUsuarioId)
 
             ' Ejecutamos el comando
-            strBuscarUsuarioConcentrador = clsSQLOperation.strExecuteQuery(strSQLStatement.ToString, strConnectionString)
+            strBuscarUsuarioConcentrador = clsSQLOperation3.aobjExecuteQuery(strSQLStatement.ToString, strConnectionString)
             strSQLStatement = Nothing
 
         Catch objException As Exception
