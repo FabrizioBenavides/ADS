@@ -3,7 +3,6 @@
 Public Class ControlAsistenciaAsignarSucursales
     Inherits System.Web.UI.Page
 
-
 #Region " Web Form Designer Generated Code "
 
     'This call is required by the Web Form Designer.
@@ -127,7 +126,6 @@ Public Class ControlAsistenciaAsignarSucursales
         End Get
     End Property
 
-
     '====================================================================
     ' Name       : strLlenarDireccionComboBox
     ' Description: Regresa una cadena de texto con el código Javascript
@@ -150,7 +148,6 @@ Public Class ControlAsistenciaAsignarSucursales
     '====================================================================
     Public Function strLlenarZonaComboBox() As String
         If intDireccionId > 0 Then
-            'Return isocraft.commons.clsWeb.strCreateJavascriptComboBoxOptions("cboZona", intZonaId, Benavides.CC.Business.clsConcentrador.clsSucursal.strBuscarAgrupacion(intDireccionId, 0, strConnectionString), 0, 1, 1)
             Return isocraft.commons.clsWeb.strCreateJavascriptComboBoxOptions("cboZona", intZonaId, Benavides.CC.Business.clsConcentrador.clsSucursal.strBuscarAgrupacion(intDireccionId, 0, strConnectionString), 0, 1, 2)
         End If
     End Function
@@ -164,13 +161,12 @@ Public Class ControlAsistenciaAsignarSucursales
     ' Output     : String
     '====================================================================
     Public Function strLlenarSucursalComboBox() As String
+        Dim strSucursales As New StringBuilder
+        Dim arraySucursales As Array
+        Dim objSucursalItem As String() = Nothing
+        Dim i As Integer
 
         If intDireccionId > 0 AndAlso intZonaId > 0 Then
-
-            Dim strSucursales As New StringBuilder
-            Dim arraySucursales As Array
-            Dim objSucursalItem As String() = Nothing
-            Dim i As Integer
 
             arraySucursales = Benavides.CC.Data.clsExhibicionesAdicionales.strBuscarSucursalesPorAsignar(intDireccionId, intZonaId, strConnectionString)
 
@@ -180,11 +176,15 @@ Public Class ControlAsistenciaAsignarSucursales
 
                     objSucursalItem = CType(arraySucursales.GetValue(i), String())
 
-                    strSucursales.AppendFormat("<option value=""{0}"">{1}</option>", objSucursalItem(0).ToString().Trim() & "|" & objSucursalItem(1).ToString().Trim(), objSucursalItem(2).ToString().Trim() & " - " & objSucursalItem(3).ToString().Trim())
+                    strSucursales.AppendFormat("<option value=""{0}|{1}|{2}|{3}"">{2}-{3}</option>", _
+                                                objSucursalItem(0).ToString().Trim(), _
+                                                objSucursalItem(1).ToString().Trim(), _
+                                                objSucursalItem(2).ToString().Trim(), _
+                                                objSucursalItem(3).ToString().Trim())
                 Next
             End If
 
-            Return strSucursales.ToString
+            Return strSucursales.ToString()
 
         End If
 
@@ -311,15 +311,15 @@ Public Class ControlAsistenciaAsignarSucursales
                     Call Response.Write("<html>" & vbCrLf)
                     Call Response.Write("<head>" & vbCrLf)
                     Call Response.Write("<script language=""javascript"">" & vbCrLf)
-                    Call Response.Write("window.opener.document.forms[0].elements[""txtSucursales""].value=""" & Request.Form("cboSucursal") & """;" & vbCrLf)
-                    Call Response.Write("window.opener.document.forms[0].elements[""txtCmd""].value=""Vincular"";" & vbCrLf)
-                    Call Response.Write("window.opener.document.forms[0].submit();" & vbCrLf)
+                    'Call Response.Write("window.opener.document.forms[0].elements[""txtSucursales""].value=""" & Request.Form("cboSucursal") & """;" & vbCrLf)
+                    'Call Response.Write("window.opener.document.forms[0].elements[""txtCmd""].value=""Vincular"";" & vbCrLf)
+                    'Call Response.Write("window.opener.document.forms[0].submit();" & vbCrLf)
+                    Call Response.Write("window.opener.document.getElementById(""sucursales"").innerHTML =""" & FormarTablaSucursales() & """;" & vbCrLf)
                     Call Response.Write("window.close();" & vbCrLf)
                     Call Response.Write("</script>" & vbCrLf)
                     Call Response.Write("</head>" & vbCrLf)
                     Call Response.Write("</html>" & vbCrLf)
                     Call Response.End()
-
                 End If
 
                 ' Si se ha seleccionado toda la direccion
@@ -339,26 +339,81 @@ Public Class ControlAsistenciaAsignarSucursales
                     Call Response.End()
 
                 End If
-
-                ' Si se han seleccionado todas las sucursales de una zona
-                'If Len(Trim(Request("chkTodo"))) > 0 Then
-
-                '    ' Regresamos a la página padre con las sucursales seleccionadas
-                '    Call Response.Write("<html>" & vbCrLf)
-                '    Call Response.Write("<head>" & vbCrLf)
-                '    Call Response.Write("<script language=""javascript"">" & vbCrLf)
-                '    Call Response.Write("window.opener.document.forms[0].elements[""txtSucursales""].value=""" & Request.Form("cboSucursal") & """;" & vbCrLf)
-                '    Call Response.Write("window.opener.document.forms[0].elements[""txtCmd""].value=""Vincular"";" & vbCrLf)
-                '    Call Response.Write("window.opener.document.forms[0].submit();" & vbCrLf)
-                '    Call Response.Write("window.close();" & vbCrLf)
-                '    Call Response.Write("</script>" & vbCrLf)
-                '    Call Response.Write("</head>" & vbCrLf)
-                '    Call Response.Write("</html>" & vbCrLf)
-                '    Call Response.End()
-
-                'End If
         End Select
 
     End Sub
+
+    Private Function FormarTablaSucursales() As String
+        Dim strResultadoTablaSucursales As New StringBuilder
+        Dim strSucursalesSeparadas As String()
+
+        strSucursalesSeparadas = FormarRenglonesSucursales()
+
+        strResultadoTablaSucursales.Append("<table id='tablaSucursalesAsignadas' width='100%' border='0' cellpadding='0' cellspacing='0'>")
+
+        strResultadoTablaSucursales.Append("<tr class='trtitulos'>")
+        strResultadoTablaSucursales.Append("<th class='rayita' align='left' valign='top'>Compañia</th>")
+        strResultadoTablaSucursales.Append("<th class='rayita' align='left' valign='top'>Sucursal</th>")
+        strResultadoTablaSucursales.Append("<th class='rayita' align='left' valign='top'>Nombre</th>")
+        strResultadoTablaSucursales.Append("<th class='rayita' align='left' valign='top'>Acción</th>")
+        strResultadoTablaSucursales.Append("</tr>")
+
+        strResultadoTablaSucursales.Append(CrearRegistrosSucursales(strSucursalesSeparadas))
+
+        strResultadoTablaSucursales.Append("</table>")
+
+        Return strResultadoTablaSucursales.ToString()
+    End Function
+
+    Private Function CrearRegistrosSucursales(ByVal strSucursalesSeparadas As String()) As String
+        Dim resultadoSucursales As New StringBuilder
+        Dim imgDeshabilitarUsuario As String = "<img src='../static/images/imgNRDesasignar.gif' width='17' height='17' border='0' align='absMiddle' alt='Haga clic aquí para desasignar la sucursal'>"
+        Dim intIndice As Integer = 0
+        Dim colorRegistro As String = String.Empty
+        Dim renglonSucursal As String
+        Dim renglonSucursalSeparado As String()
+
+        For intIndice = 0 To strSucursalesSeparadas.Length - 1
+
+            If (intIndice Mod 2) <> 0 Then
+                colorRegistro = "tdceleste"
+            Else
+                colorRegistro = "tdblanco"
+            End If
+
+            renglonSucursal = strSucursalesSeparadas(intIndice)
+
+            renglonSucursalSeparado = renglonSucursal.Split(New Char() {"|"c})
+
+            resultadoSucursales.Append("<tr>")
+            resultadoSucursales.AppendFormat("<td class='{0}' style='text-align:left'>{1}</td>", colorRegistro, renglonSucursalSeparado(0))
+            resultadoSucursales.AppendFormat("<td class='{0}' style='text-align:left'>{1}</td>", colorRegistro, renglonSucursalSeparado(1))
+            resultadoSucursales.AppendFormat("<td class='{0}' style='text-align:left'>{1}</td>", colorRegistro, _
+                                                                                                 String.Format("{0}-{1}", renglonSucursalSeparado(2), _
+                                                                                                                          renglonSucursalSeparado(3)))
+
+            resultadoSucursales.AppendFormat("<td align='center' style='width: 50px;' class='{0}'>" & _
+                                             "<a href='#' onClick='eliminarSucursal(this)'>" & _
+                                             "{1}</a></td>", _
+                                              colorRegistro, _
+                                              imgDeshabilitarUsuario)
+
+            resultadoSucursales.Append("</tr>")
+        Next
+
+        Return resultadoSucursales.ToString()
+    End Function
+
+    Private Function FormarRenglonesSucursales() As String()
+        Dim strResultado As String = String.Empty
+        Dim strSucursales As String = String.Empty
+        Dim strSucursalesSeparadas As String()
+
+        strSucursales = Request.Form("cboSucursal").ToString()
+
+        strSucursalesSeparadas = strSucursales.Split(New Char() {","c})
+
+        Return strSucursalesSeparadas
+    End Function
 
 End Class

@@ -20,22 +20,158 @@
         strFechaHora = "<%= strHTMLFechaHora %>";
 
         function window_onload() {
+            <%= strJavascriptWindowOnLoadCommands %>
 
+            document.forms[0].elements["txtUsuarioExpiracion"].value = "<%= dtmFechaUsuarioExpiracion.ToString("dd/MM/yyyy")%>";
+        }
+
+        function cmdBuscarEmpleado_onclick() {
+            var strEmpleado = trim(document.forms[0].elements["txtEmpleadoNombre"].value);
+
+            if (strEmpleado == '') {
+                return (false);
+            }
+
+            return Pop("popSistemaBuscarEmpleado.aspx?strEmpleado=" + strEmpleado, "400", "548")
         }
 
         function cmdCancelar_onclick() {
             window.location.href = "ControlAsistenciaAdministracionDeUsuarios.aspx";
         }
 
+        function txtEmpleadoNombre_onKeyPress(e) {
+            //No se permiten caracteres especiales ni letras.
+            var key = window.event ? e.keyCode : e.which;
+            if ((key > 47 && key < 58) || (key > 64 && key < 91) || (key > 96 && key < 123) || key == 13 || key == 32) {
+                return true;
+            }
+            else {
+                return false
+            }
+        }
+
+        function txtUsuarioContrasena_onKeyPress(e) {
+            //No se permiten caracteres especiales ni letras.
+            var key = window.event ? e.keyCode : e.which;
+            if ((key > 47 && key < 58) || (key > 64 && key < 91) || (key > 96 && key < 123) || key == 13) {
+                return true;
+            }
+            else {
+                return false
+            }
+        }
+
+        function trim(stringToTrim) {
+            return stringToTrim.replace(/^\s+|\s+$/g, "");
+        }
+
+        function blnFormValidator(theForm) {
+            var blnReturn = false;
+
+            /* Validaci贸n del campo "Empleado" */
+            if (trim(document.getElementById("txtEmpleadoNombre").value) == '') {
+                alert('Seleccione un empleado por favor');
+                return (false);
+            }
+
+            /* Validaci贸n del campo "txtUsuarioNombre" */
+            if (blnValidarCampo(document.forms[0].elements["txtUsuarioNombre"], true, "Empleado", cintTipoCampoAlfanumerico, 20, 1, "") == true) {
+
+                /* Validaci贸n del campo "txtContrase帽a" */
+                if (blnValidarCampo(document.forms[0].elements["txtUsuarioContrasena"], true, "Contrase帽a", cintTipoCampoAlfanumerico, 35, 1, "") == true) {
+
+                    blnReturn = blnValidarCampo(document.forms[0].elements["txtUsuarioExpiracion"], true, "Fecha de Expiraci贸n", cintTipoCampoFecha, 10, 10, "");
+                }
+            }
+
+            if (blnReturn == true) {
+                if (document.forms[0].elements["cboGrupoUsuario"].value == 0) {
+
+                    blnReturn = false;
+                    alert("Es necesario seleccionar un Grupo \n\r para realizar la operaci贸n del usuario");
+
+                    document.forms[0].elements["cboGrupoUsuario"].focus();
+                }
+            }
+
+            return (blnReturn);
+        }
+
+        function cmdSalvar_onclick() {
+            var intEmpleadoId = document.getElementById("txtUsuarioNombre").value;
+            var intTipoUsuarioId = document.getElementById("cboTipoUsuario").value;
+            var strUsuarioContrasena = document.getElementById("txtUsuarioContrasena").value;
+
+            var chkUsuarioHabilitado = document.getElementsByName("chkUsuarioHabilitado");
+            var blnUsuarioHabilitado;
+
+            var optCuentaBloqueada = document.getElementsByName("optCuentaBloqueada");
+            var blnUsuarioBloqueado;
+
+            for (var i = 0; i < chkUsuarioHabilitado.length; i++) {
+                if (chkUsuarioHabilitado[i].checked == true) {
+                    blnUsuarioHabilitado = chkUsuarioHabilitado[i].value;
+                    break;
+                }
+            }
+
+            for (var i = 0; i < optCuentaBloqueada.length; i++) {
+                if (optCuentaBloqueada[i].checked == true) {
+                    blnUsuarioBloqueado = optCuentaBloqueada[i].value;
+                    break;
+                }
+            }
+
+            document.forms[0].action = "ControlAsistenciaAdministracionDeUsuariosAgregar.aspx?strCmd2=Guardar" +
+                                       "&intEmpleadoId=" + intEmpleadoId +
+                                       "&intTipoUsuarioId=" + intTipoUsuarioId +
+                                       "&strUsuarioContrasena=" + strUsuarioContrasena +
+                                       "&blnUsuarioHabilitado=" + blnUsuarioHabilitado +
+                                       "&blnUsuarioBloqueado=" + blnUsuarioBloqueado;
+
+            document.forms(0).submit();
+        }
+
+        function cmdNavegadorRegistrosAgregar_onclick() {
+            var intEmpleadoId = trim(document.getElementById('txtUsuarioNombre').value);
+            var strEmpleadoNombre = trim(document.getElementById('txtEmpleadoNombre').value);
+            var intGrupoId = 28;
+            var strGrupoUsuarioNombre = "Control de Asistencia";
+
+            return Pop("ControlAsistenciaAsignarSucursales.aspx?intEmpleadoId=" + intEmpleadoId +
+                                                                "&strEmpleadoNombre=" + strEmpleadoNombre +
+                                                                "&intGrupoId=" + intGrupoId +
+                                                                "&strGrupoUsuarioNombre=" + strGrupoUsuarioNombre, "400", "600")
+        }
+
+        function eliminarSucursal(element) {
+            var borrarSucursal = false;
+            var nombreSucursal = element.parentNode.parentNode.cells[2].innerText;
+            var indiceRenglon = element.parentNode.parentNode.rowIndex;
+
+            borrarSucursal = confirm("緿esea desaginar la sucursal " + nombreSucursal + "?");
+
+            if (borrarSucursal) {
+                document.getElementById("tablaSucursalesAsignadas").deleteRow(indiceRenglon);
+            }
+        }
+
+        function btnEliminarSucursales_onclick() {
+            var borrarSucursales = false;
+            var tablaSucursalesAsignadas = document.getElementById("tablaSucursalesAsignadas");
+            borrarSucursales = confirm("緿esea desaginar todas las sucursales?");
+
+            if (borrarSucursales) {
+                tablaSucursalesAsignadas.innerHTML = "";
+            }
+        }
+
+
         new menu(MENU_ITEMS, MENU_POS);
     </script>
 </head>
 <body onload="return window_onload();">
     <form name="frmAgregarUsuarioControlAsistencia" method="post">
-        <input type="hidden" name="txtSucursales">
-        <input type="hidden" name="txtCmd">
-        <input type="hidden" name="txtUsuarioId">
-        <input type="hidden" name="txtActualizarContrasena" />
         <input type="hidden" id="dtmFechaActual" name="dtmFechaActual" value='<%= strFechaActual()%>' />
         <table width="780" border="0" cellspacing="0" cellpadding="0">
             <tr>
@@ -84,7 +220,9 @@
                         <tr>
                             <td class="tdtexttablebold">Rol Usuario:</td>
                             <td class="tdpadleft5">
-                                <select id="cboRolUsuario" class="field">
+                                <select id="cboTipoUsuario" class="field" style="width: 125px">
+                                    <option value="2">Coordinador RH</option>
+                                    <option value="3">Supervisor M閐ico</option>
                                 </select>
                             </td>
                         </tr>
@@ -102,7 +240,8 @@
                                 <input name="optCuentaBloqueada" type="radio" value="1" />
                                 S&iacute;&nbsp;
                                 <input name="optCuentaBloqueada" type="radio" value="0" />
-                                No</td>
+                                No
+                            </td>
                         </tr>
                         <tr>
                             <td class="tdtexttablebold">Fecha de expiraci髇 :&nbsp;&nbsp;&nbsp; </td>
@@ -116,19 +255,24 @@
                         <tr>
                             <td colspan="2" class="tdtexttablebold"><span class="tdtexttablereg">
                                 <input type="checkbox" name="chkUsuarioAlcance" value="1" disabled>
-                                Operar s髄o en el 醡bito del Concentrador Central</span></td>
+                                Operar s髄o en el 醡bito del Concentrador Central</span>
+                            </td>
                         </tr>
                         <tr class="txaccion">
                             <td colspan="2">&nbsp;</td>
                         </tr>
                     </table>
-                    <input name="cmdSalvar" type="submit" class="button" id="cmdSalvar" value="Guardar usuario">
+                    <input name="cmdSalvar" type="button" class="button" id="cmdSalvar" value="Guardar usuario" onclick="cmdSalvar_onclick();">
                     &nbsp;&nbsp;
                     <input name="cmdNavegadorRegistrosAgregar" class="boton" id="cmdNavegadorRegistrosAgregar" onclick="cmdNavegadorRegistrosAgregar_onclick();" type="button" value="Vincular sucursales" />
                     &nbsp;&nbsp;
-                    <input name="cmdCancelar" type="button" class="button" id="cmdCancelar" onclick="return cmdCancelar_onclick()" value="Cancelar">
-                    <br>
-                    <%=strRecordBrowserHTML%>
+                    <input name="cmdCancelar" type="button" class="button" id="cmdCancelar" onclick="return cmdCancelar_onclick();" value="Cancelar">
+                    <br /><br />
+                    <input id="btnEliminarSucursales" type="button" class="button" style="margin-left:600px;"
+                        onclick="return btnEliminarSucursales_onclick();" value="Eliminar Sucursales" />
+                    <div id="sucursales">
+
+                    </div>
                     <br>
                 </td>
             </tr>
