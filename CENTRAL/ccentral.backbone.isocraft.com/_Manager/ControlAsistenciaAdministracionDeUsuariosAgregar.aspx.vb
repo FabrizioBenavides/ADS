@@ -11,6 +11,11 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
     Private _intUsuarioExistenteId As Integer
     Private Const GRUPO_USUARIO_ID As Integer = 28
 
+    Public Enum TipoUsuario
+        CoordinadorRh = 2
+        SupervisorMedico = 3
+    End Enum
+
     'This call is required by the Web Form Designer.
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
 
@@ -65,7 +70,13 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
     '====================================================================
     Public ReadOnly Property strUsuarioContrasena() As String
         Get
-            Return CStr(GetPageParameter("strUsuarioContrasena", "0"))
+            Return CStr(GetPageParameter("strUsuarioContrasena", ""))
+        End Get
+    End Property
+
+    Public ReadOnly Property intTipoUsuarioId() As TipoUsuario
+        Get
+            Return CType(GetPageParameter("intTipoUsuarioId", "0"), TipoUsuario)
         End Get
     End Property
 
@@ -95,12 +106,6 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
         End Get
     End Property
 
-    Public ReadOnly Property strCmd2() As String
-        Get
-            Return isocraft.commons.clsWeb.strGetPageParameter("strCmd2", "")
-        End Get
-    End Property
-
     '====================================================================
     ' Name       : intUsuarioExistenteId
     ' Description: Indica si el usuario existe
@@ -111,6 +116,18 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
     Public ReadOnly Property intUsuarioExistenteId() As Integer
         Get
             Return _intUsuarioExistenteId
+        End Get
+    End Property
+
+    Public ReadOnly Property strCompaniasSucursalesSeleccionadas() As String
+        Get
+            Return CStr(GetPageParameter("strCompaniasSucursalesSeleccionadas", ""))
+        End Get
+    End Property
+
+    Public ReadOnly Property strCmd2() As String
+        Get
+            Return isocraft.commons.clsWeb.strGetPageParameter("strCmd2", "")
         End Get
     End Property
 
@@ -139,38 +156,79 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
 
     Private Sub GuardarUsuario()
         Dim strContrasenaEncriptada As String = String.Empty
-        Dim intUsuario As Integer
+        Dim intUsuarioId As Integer
+        Dim intMembresiaUsuario As Integer
         Dim fechaActual As Date
+        Dim companiaSucursalSeparadaPorPipe As String()
+        Dim companiaSucursalSeparadaPorComa As String()
+        Dim intIndice As Integer = 0
+        Dim intExito As Integer = 0
+        Dim intAsignada As Integer = 0
+        Dim arrayRespuesta As Array = Nothing
 
         strContrasenaEncriptada = (New Hash.DataProtector).HashString(strUsuarioContrasena, Hash.DataProtector.CryptoServiceProvider.SHA1)
         fechaActual = Date.Now
 
-        intUsuario = clsUsuario.intAgregarEnConcentrador(intEmpleadoId, _
-                                                         0, _
-                                                         intEmpleadoId.ToString(), _
-                                                         strContrasenaEncriptada, _
-                                                         blnUsuarioHabilitado, _
-                                                         dtmFechaUsuarioExpiracion, _
-                                                         fechaActual, _
-                                                         fechaActual, _
-                                                         strUsuarioNombre, _
-                                                         0, _
-                                                         0, _
-                                                         blnUsuarioBloqueado, _
-                                                         0, _
-                                                         strConnectionString)
+        intUsuarioId = clsUsuario.intAgregarEnConcentrador(intEmpleadoId, _
+                                                           0, _
+                                                           intEmpleadoId.ToString(), _
+                                                           strContrasenaEncriptada, _
+                                                           blnUsuarioHabilitado, _
+                                                           dtmFechaUsuarioExpiracion, _
+                                                           fechaActual, _
+                                                           fechaActual, _
+                                                           strUsuarioNombre, _
+                                                           0, _
+                                                           0, _
+                                                           blnUsuarioBloqueado, _
+                                                           0, _
+                                                           strConnectionString)
 
-        If intUsuario > 0 Then
-            _intUsuarioExistenteId = 1
-            clstblMembresiaUsuario.intAgregar(intEmpleadoId,
-                                              intUsuario,
-                                              GRUPO_USUARIO_ID,
-                                              fechaActual,
-                                              strUsuarioNombre,
-                                              strConnectionString)
+        If intUsuarioId > 0 Then
+            _intUsuarioExistenteId = 1 ' Quitar
+            intMembresiaUsuario = clstblMembresiaUsuario.intAgregar(intEmpleadoId,
+                                                                    intUsuarioId,
+                                                                    GRUPO_USUARIO_ID,
+                                                                    fechaActual,
+                                                                    strUsuarioNombre,
+                                                                    strConnectionString)
         End If
 
-        If intUsuario > 0 Then
+        If intMembresiaUsuario > 0 Then
+
+            companiaSucursalSeparadaPorPipe = strCompaniasSucursalesSeleccionadas.Split(New Char() {"|"c})
+
+            For intIndice = 0 To companiaSucursalSeparadaPorPipe.Length - 1
+
+                companiaSucursalSeparadaPorComa = companiaSucursalSeparadaPorPipe.GetValue(intIndice).ToString().Split(New Char() {","c})
+
+                arrayRespuesta = clsControlDeAsistencia.strAsignarSucursales2(intEmpleadoId, _
+                                                                              CInt(companiaSucursalSeparadaPorComa.GetValue(0)), _
+                                                                              CInt(companiaSucursalSeparadaPorComa.GetValue(1)), _
+                                                                              intTipoUsuarioId, _
+                                                                              strConnectionString)
+
+                If arrayRespuesta.Length > 0 AndAlso IsArray(arrayRespuesta) Then
+
+                    ' Recorremos los pares identificadores
+                    Dim strResultadosAsignacionSucursal As Array
+
+                    For Each strResultadosAsignacionSucursal In arrayRespuesta
+
+                        If Not (strResultadosAsignacionSucursal.GetValue(0) Is Nothing) AndAlso Not (CInt(strResultadosAsignacionSucursal.GetValue(0)) = -1) Then
+                            intExito = CInt(strResultadosAsignacionSucursal.GetValue(0))
+                        End If
+
+                        If Not (strResultadosAsignacionSucursal.GetValue(1) Is Nothing) AndAlso Not CBool(strResultadosAsignacionSucursal.GetValue(1)) = False Then
+                            intAsignada = 1
+                        End If
+                    Next
+
+                End If
+            Next
+        End If
+
+        If intUsuarioId > 0 And intMembresiaUsuario > 0 Then
             strJavascriptWindowOnLoadCommands = "window.alert(""Usuario guardada correctamente."");"
         Else
             strJavascriptWindowOnLoadCommands = "window.alert(""Error al guardar usuario."");"

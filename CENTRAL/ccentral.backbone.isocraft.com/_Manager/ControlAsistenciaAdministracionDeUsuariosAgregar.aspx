@@ -97,6 +97,31 @@
             return (blnReturn);
         }
 
+        function validarGuardarUsuario(mensajeError) {
+            var esInvalido = false;
+
+            if (document.getElementById("txtEmpleadoNombre").value == '') {
+                mensajeError = "Seleccione un empleado por favor.";
+                esInvalido = true;
+            }
+
+            if (document.getElementById("txtUsuarioContrasena").value == '') {
+                mensajeError = "Escriba una contraseña por favor.";
+                esInvalido = true;
+            }
+
+            if (document.getElementById("cboTipoUsuario").value == '') {
+                mensajeError = "Seleccione el rol del usuario.";
+                esInvalido = true;
+            }
+            
+            if (document.getElementById["cboGrupoUsuario"].value == 0) {
+
+            }
+
+            return esInvalido;
+        }
+
         function cmdSalvar_onclick() {
             var intEmpleadoId = document.getElementById("txtUsuarioNombre").value;
             var intTipoUsuarioId = document.getElementById("cboTipoUsuario").value;
@@ -107,6 +132,8 @@
 
             var optCuentaBloqueada = document.getElementsByName("optCuentaBloqueada");
             var blnUsuarioBloqueado;
+
+            var companiaSucursal = obtenerCompaniaSucursal();
 
             for (var i = 0; i < chkUsuarioHabilitado.length; i++) {
                 if (chkUsuarioHabilitado[i].checked == true) {
@@ -124,10 +151,11 @@
 
             document.forms[0].action = "ControlAsistenciaAdministracionDeUsuariosAgregar.aspx?strCmd2=Guardar" +
                                        "&intEmpleadoId=" + intEmpleadoId +
-                                       "&intTipoUsuarioId=" + intTipoUsuarioId +
                                        "&strUsuarioContrasena=" + strUsuarioContrasena +
+                                       "&intTipoUsuarioId=" + intTipoUsuarioId +
                                        "&blnUsuarioHabilitado=" + blnUsuarioHabilitado +
-                                       "&blnUsuarioBloqueado=" + blnUsuarioBloqueado;
+                                       "&blnUsuarioBloqueado=" + blnUsuarioBloqueado +
+                                       "&strCompaniasSucursalesSeleccionadas=" + companiaSucursal;
 
             document.forms(0).submit();
         }
@@ -165,6 +193,29 @@
                 tablaSucursalesAsignadas.innerHTML = "";
             }
         }
+
+        function obtenerCompaniaSucursal() {
+            var tablaSucursalesAsignadas = document.getElementById("tablaSucursalesAsignadas");
+            var companiaSucursal = "";
+
+            if (tablaSucursalesAsignadas != null) {
+
+                if (tablaSucursalesAsignadas.rows.length > 0) {
+
+                    for (var i = 1, renglon; renglon = tablaSucursalesAsignadas.rows[i]; i++) {
+                        companiaSucursal = companiaSucursal + renglon.cells[0].innerText + "," + renglon.cells[1].innerText + "|";
+                    }
+                }
+            }
+
+            return companiaSucursal;
+        }
+
+        function cboTipoUsuario_onchange() {
+
+        }
+
+
 
 
         new menu(MENU_ITEMS, MENU_POS);
@@ -220,7 +271,8 @@
                         <tr>
                             <td class="tdtexttablebold">Rol Usuario:</td>
                             <td class="tdpadleft5">
-                                <select id="cboTipoUsuario" class="field" style="width: 125px">
+                                <select id="cboTipoUsuario" class="field" style="width: 125px" onchange="cboTipoUsuario_onchange()">
+                                    <option value="0"></option>
                                     <option value="2">Coordinador RH</option>
                                     <option value="3">Supervisor Médico</option>
                                 </select>
@@ -237,7 +289,7 @@
                         <tr>
                             <td class="tdtexttablebold">&iquest;Cuenta bloqueada? </td>
                             <td class="tdtexttablereg">
-                                <input name="optCuentaBloqueada" type="radio" value="1" />
+                                <input name="optCuentaBloqueada" type="radio" value="1" checked/>
                                 S&iacute;&nbsp;
                                 <input name="optCuentaBloqueada" type="radio" value="0" />
                                 No
@@ -262,16 +314,18 @@
                             <td colspan="2">&nbsp;</td>
                         </tr>
                     </table>
+
                     <input name="cmdSalvar" type="button" class="button" id="cmdSalvar" value="Guardar usuario" onclick="cmdSalvar_onclick();">
                     &nbsp;&nbsp;
                     <input name="cmdNavegadorRegistrosAgregar" class="boton" id="cmdNavegadorRegistrosAgregar" onclick="cmdNavegadorRegistrosAgregar_onclick();" type="button" value="Vincular sucursales" />
                     &nbsp;&nbsp;
                     <input name="cmdCancelar" type="button" class="button" id="cmdCancelar" onclick="return cmdCancelar_onclick();" value="Cancelar">
                     <br /><br />
-                    <input id="btnEliminarSucursales" type="button" class="button" style="margin-left:600px;"
+                    <input id="btnEliminarSucursales" type="button" class="button" style="margin-left: 650px;"
                         onclick="return btnEliminarSucursales_onclick();" value="Eliminar Sucursales" />
-                    <div id="sucursales">
+                    <br /><br />
 
+                    <div id="sucursales">
                     </div>
                     <br>
                 </td>
