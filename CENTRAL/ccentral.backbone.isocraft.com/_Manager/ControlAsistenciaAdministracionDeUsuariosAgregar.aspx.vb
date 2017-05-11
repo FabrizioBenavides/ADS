@@ -3,6 +3,7 @@ Imports Isocraft.Security
 Imports Isocraft.Web.Http
 Imports System.Text
 Imports Benavides.CC.Data
+Imports System.Collections
 
 Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
     Inherits PaginaBase
@@ -162,9 +163,9 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
         Dim companiaSucursalSeparadaPorPipe As String()
         Dim companiaSucursalSeparadaPorComa As String()
         Dim intIndice As Integer = 0
-        Dim intExito As Integer = 0
+        Dim intExitoGuardarSucursales As Integer = 0
         Dim intAsignada As Integer = 0
-        Dim arrayRespuesta As Array = Nothing
+        Dim resultadoAsignarSucursales As Array = Nothing
 
         strContrasenaEncriptada = (New Hash.DataProtector).HashString(strUsuarioContrasena, Hash.DataProtector.CryptoServiceProvider.SHA1)
         fechaActual = Date.Now
@@ -194,32 +195,39 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
                                                                     strConnectionString)
         End If
 
+        ' Guardar sucursales.
         If intMembresiaUsuario > 0 Then
 
-            companiaSucursalSeparadaPorPipe = strCompaniasSucursalesSeleccionadas.Split(New Char() {"|"c})
+            companiaSucursalSeparadaPorPipe = strCompaniasSucursalesSeleccionadas.Split(New Char() {"|"c}, StringSplitOptions.RemoveEmptyEntries)
 
             For intIndice = 0 To companiaSucursalSeparadaPorPipe.Length - 1
 
                 companiaSucursalSeparadaPorComa = companiaSucursalSeparadaPorPipe.GetValue(intIndice).ToString().Split(New Char() {","c})
 
-                arrayRespuesta = clsControlDeAsistencia.strAsignarSucursales2(intEmpleadoId, _
+                resultadoAsignarSucursales = clsControlDeAsistencia.strAsignarSucursales2( _
+                                                                              intEmpleadoId, _
                                                                               CInt(companiaSucursalSeparadaPorComa.GetValue(0)), _
                                                                               CInt(companiaSucursalSeparadaPorComa.GetValue(1)), _
                                                                               intTipoUsuarioId, _
                                                                               strConnectionString)
 
-                If arrayRespuesta.Length > 0 AndAlso IsArray(arrayRespuesta) Then
+                If resultadoAsignarSucursales.Length > 0 AndAlso IsArray(resultadoAsignarSucursales) Then
 
                     ' Recorremos los pares identificadores
                     Dim strResultadosAsignacionSucursal As Array
 
-                    For Each strResultadosAsignacionSucursal In arrayRespuesta
+                    For Each strResultadosAsignacionSucursal In resultadoAsignarSucursales
 
-                        If Not (strResultadosAsignacionSucursal.GetValue(0) Is Nothing) AndAlso Not (CInt(strResultadosAsignacionSucursal.GetValue(0)) = -1) Then
-                            intExito = CInt(strResultadosAsignacionSucursal.GetValue(0))
+                        If Not (strResultadosAsignacionSucursal.GetValue(0) Is Nothing) AndAlso _
+                           Not (CInt(strResultadosAsignacionSucursal.GetValue(0)) = -1) Then
+                            intExitoGuardarSucursales = CInt(strResultadosAsignacionSucursal.GetValue(0))
+                        Else
+                            intExitoGuardarSucursales = 0
+                            Exit For
                         End If
 
-                        If Not (strResultadosAsignacionSucursal.GetValue(1) Is Nothing) AndAlso Not CBool(strResultadosAsignacionSucursal.GetValue(1)) = False Then
+                        If Not (strResultadosAsignacionSucursal.GetValue(1) Is Nothing) AndAlso _
+                           Not CBool(strResultadosAsignacionSucursal.GetValue(1)) = False Then
                             intAsignada = 1
                         End If
                     Next
@@ -228,8 +236,12 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
             Next
         End If
 
-        If intUsuarioId > 0 And intMembresiaUsuario > 0 Then
+        If intMembresiaUsuario > 0 And intExitoGuardarSucursales > 0 Then
             strJavascriptWindowOnLoadCommands = "window.alert(""Usuario guardada correctamente."");"
+
+            If intAsignada = 1 Then
+                strJavascriptWindowOnLoadCommands = "window.alert(""Sucursal asignada a otro Coordinador ó Supervisor Médico, de cualquier forma se guardó correctamente."");"
+            End If
         Else
             strJavascriptWindowOnLoadCommands = "window.alert(""Error al guardar usuario."");"
         End If
@@ -237,12 +249,48 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
 
     Protected Function strObtenerSucursalesPorCoordinadorRH() As String
         Dim strResultadoTablaSucursales As New StringBuilder
+        Dim objSucursales As Array
 
+        objSucursales = clsControlDeAsistencia.strObtenerSucursalesPorTipoUsuario(intEmpleadoId, strConnectionString)
 
+        If IsArray(objSucursales) AndAlso objSucursales.Length > 0 Then
+            strResultadoTablaSucursales.Append("<table id='tablaSucursalesAsignadas' width='100%' border='0' cellpadding='0' cellspacing='0'>")
+            strResultadoTablaSucursales.Append("<tr class='trtitulos'>")
+            strResultadoTablaSucursales.Append("<th class='rayita' align='left' valign='top'>Compañia</th>")
+            strResultadoTablaSucursales.Append("<th class='rayita' align='left' valign='top'>Sucursal</th>")
+            strResultadoTablaSucursales.Append("<th class='rayita' align='left' valign='top'>Nombre</th>")
+            strResultadoTablaSucursales.Append("<th class='rayita' align='left' valign='top'>Acción</th>")
+            strResultadoTablaSucursales.Append("</tr>")
+
+            strResultadoTablaSucursales.Append(CrearRegistrosSucursal(objSucursales))
+
+            strResultadoTablaSucursales.Append("</table>")
+        End If
 
         Return strResultadoTablaSucursales.ToString()
     End Function
 
+    Private Function CrearRegistrosSucursal(ByVal registrosSucursal As Array) As String
+        Dim contadorRegistros As Integer = 0
+        Dim colorRegistro As String = String.Empty
+        Dim resultadoUsuarios As New StringBuilder
+        Dim imgDeshabilitarUsuario As String = "<img src='../static/images/imgNRDesasignar.gif' width='17' height='17' border='0' align='absMiddle' alt='Haga clic aquí para desasignar la sucursal'>"
+
+        For Each renglon As SortedList In registrosSucursal
+            contadorRegistros += 1
+
+            If (contadorRegistros Mod 2) <> 0 Then
+                colorRegistro = "tdceleste"
+            Else
+                colorRegistro = "tdblanco"
+            End If
+
+
+        Next
+
+
+        Return resultadoUsuarios.ToString()
+    End Function
 
 
 End Class

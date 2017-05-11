@@ -66,63 +66,96 @@
         }
 
         function blnFormValidator(theForm) {
-            var blnReturn = false;
+            //var blnReturn = false;
 
-            /* Validaci贸n del campo "Empleado" */
-            if (trim(document.getElementById("txtEmpleadoNombre").value) == '') {
-                alert('Seleccione un empleado por favor');
-                return (false);
-            }
+            ///* Validaci贸n del campo "Empleado" */
+            //if (trim(document.getElementById("txtEmpleadoNombre").value) == '') {
+            //    alert('Seleccione un empleado por favor');
+            //    return (false);
+            //}
 
-            /* Validaci贸n del campo "txtUsuarioNombre" */
-            if (blnValidarCampo(document.forms[0].elements["txtUsuarioNombre"], true, "Empleado", cintTipoCampoAlfanumerico, 20, 1, "") == true) {
+            ///* Validaci贸n del campo "txtUsuarioNombre" */
+            //if (blnValidarCampo(document.forms[0].elements["txtUsuarioNombre"], true, "Empleado", cintTipoCampoAlfanumerico, 20, 1, "") == true) {
 
-                /* Validaci贸n del campo "txtContrase帽a" */
-                if (blnValidarCampo(document.forms[0].elements["txtUsuarioContrasena"], true, "Contrase帽a", cintTipoCampoAlfanumerico, 35, 1, "") == true) {
+            //    /* Validaci贸n del campo "txtContrase帽a" */
+            //    if (blnValidarCampo(document.forms[0].elements["txtUsuarioContrasena"], true, "Contrase帽a", cintTipoCampoAlfanumerico, 35, 1, "") == true) {
 
-                    blnReturn = blnValidarCampo(document.forms[0].elements["txtUsuarioExpiracion"], true, "Fecha de Expiraci贸n", cintTipoCampoFecha, 10, 10, "");
-                }
-            }
+            //        blnReturn = blnValidarCampo(document.forms[0].elements["txtUsuarioExpiracion"], true, "Fecha de Expiraci贸n", cintTipoCampoFecha, 10, 10, "");
+            //    }
+            //}
 
-            if (blnReturn == true) {
-                if (document.forms[0].elements["cboGrupoUsuario"].value == 0) {
+            //if (blnReturn == true) {
+            //    if (document.forms[0].elements["cboGrupoUsuario"].value == 0) {
 
-                    blnReturn = false;
-                    alert("Es necesario seleccionar un Grupo \n\r para realizar la operaci贸n del usuario");
+            //        blnReturn = false;
+            //        alert("Es necesario seleccionar un Grupo \n\r para realizar la operaci贸n del usuario");
 
-                    document.forms[0].elements["cboGrupoUsuario"].focus();
-                }
-            }
+            //        document.forms[0].elements["cboGrupoUsuario"].focus();
+            //    }
+            //}
 
-            return (blnReturn);
-        }
-
-        function validarGuardarUsuario(mensajeError) {
-            var esInvalido = false;
-
-            if (document.getElementById("txtEmpleadoNombre").value == '') {
-                mensajeError = "Seleccione un empleado por favor.";
-                esInvalido = true;
-            }
-
-            if (document.getElementById("txtUsuarioContrasena").value == '') {
-                mensajeError = "Escriba una contrase馻 por favor.";
-                esInvalido = true;
-            }
-
-            if (document.getElementById("cboTipoUsuario").value == '') {
-                mensajeError = "Seleccione el rol del usuario.";
-                esInvalido = true;
-            }
-            
-            if (document.getElementById["cboGrupoUsuario"].value == 0) {
-
-            }
-
-            return esInvalido;
+            //return (blnReturn);
         }
 
         function cmdSalvar_onclick() {
+            var objValidar = {
+                mensajeError: "",
+                esInvalido: false
+            };
+
+            objValidar= validarGuardarUsuario();
+
+            if (objValidar.esInvalido == false) {
+                salvarUsuario();
+            }
+            else {
+                window.alert(objValidar.mensajeError);
+            }
+        }
+
+        function validarGuardarUsuario() {
+            var objValidar = {
+                mensajeError: "",
+                esInvalido: false
+            };
+
+            var tablaSucursalesAsignadas = document.getElementById("tablaSucursalesAsignadas");
+
+            if (document.getElementById("txtEmpleadoNombre").value == "") {
+                objValidar.mensajeError = "Seleccione un empleado por favor.";
+                objValidar.esInvalido = true;
+            }
+
+            else if (document.getElementById("txtUsuarioContrasena").value == "") {
+                objValidar.mensajeError = "Escriba una contrase馻 por favor.";
+                objValidar.esInvalido = true;
+            }
+
+            else if (document.getElementById("cboTipoUsuario").value == "0") {
+                objValidar.mensajeError = "Seleccione el rol del usuario.";
+                objValidar.esInvalido = true;
+            }
+
+            else if (document.getElementById("txtUsuarioExpiracion").value == "") {
+                objValidar.mensajeError = "Seleccione la fecha de expiraci髇 por favor.";
+                objValidar.esInvalido = true;
+            }
+
+            else if (tablaSucursalesAsignadas != null) {
+                if (tablaSucursalesAsignadas.rows.length < 2) {
+                    objValidar.mensajeError = "Seleccione las sucursales a vincular.";
+                    objValidar.esInvalido = true;
+                }
+            }
+            else {
+                objValidar.mensajeError = "Seleccione las sucursales a vincular.";
+                objValidar.esInvalido = true;
+            }
+
+            return objValidar;
+        }
+
+        function salvarUsuario() {
             var intEmpleadoId = document.getElementById("txtUsuarioNombre").value;
             var intTipoUsuarioId = document.getElementById("cboTipoUsuario").value;
             var strUsuarioContrasena = document.getElementById("txtUsuarioContrasena").value;
@@ -133,7 +166,7 @@
             var optCuentaBloqueada = document.getElementsByName("optCuentaBloqueada");
             var blnUsuarioBloqueado;
 
-            var companiaSucursal = obtenerCompaniaSucursal();
+            var companiasSucursales;
 
             for (var i = 0; i < chkUsuarioHabilitado.length; i++) {
                 if (chkUsuarioHabilitado[i].checked == true) {
@@ -149,13 +182,15 @@
                 }
             }
 
+            var companiasSucursales = obtenerCompaniasSucursales();
+
             document.forms[0].action = "ControlAsistenciaAdministracionDeUsuariosAgregar.aspx?strCmd2=Guardar" +
                                        "&intEmpleadoId=" + intEmpleadoId +
                                        "&strUsuarioContrasena=" + strUsuarioContrasena +
                                        "&intTipoUsuarioId=" + intTipoUsuarioId +
                                        "&blnUsuarioHabilitado=" + blnUsuarioHabilitado +
                                        "&blnUsuarioBloqueado=" + blnUsuarioBloqueado +
-                                       "&strCompaniasSucursalesSeleccionadas=" + companiaSucursal;
+                                       "&strCompaniasSucursalesSeleccionadas=" + companiasSucursales;
 
             document.forms(0).submit();
         }
@@ -187,32 +222,46 @@
         function btnEliminarSucursales_onclick() {
             var borrarSucursales = false;
             var tablaSucursalesAsignadas = document.getElementById("tablaSucursalesAsignadas");
-            borrarSucursales = confirm("緿esea desaginar todas las sucursales?");
+   
+            if (tablaSucursalesAsignadas != null) {
 
-            if (borrarSucursales) {
-                tablaSucursalesAsignadas.innerHTML = "";
+                if (tablaSucursalesAsignadas.rows.length > 1) {
+
+                    borrarSucursales = confirm("緿esea desaginar todas las sucursales?");
+
+                    if (borrarSucursales) {
+
+                        for (var i = 1; i < tablaSucursalesAsignadas.rows.length;) {
+                            tablaSucursalesAsignadas.deleteRow(i);
+                        }
+                    }
+                }
             }
         }
 
-        function obtenerCompaniaSucursal() {
+        function obtenerCompaniasSucursales() {
             var tablaSucursalesAsignadas = document.getElementById("tablaSucursalesAsignadas");
-            var companiaSucursal = "";
+            var companiasSucursales = "";
 
             if (tablaSucursalesAsignadas != null) {
 
                 if (tablaSucursalesAsignadas.rows.length > 0) {
 
                     for (var i = 1, renglon; renglon = tablaSucursalesAsignadas.rows[i]; i++) {
-                        companiaSucursal = companiaSucursal + renglon.cells[0].innerText + "," + renglon.cells[1].innerText + "|";
+                        companiasSucursales = companiasSucursales + renglon.cells[0].innerText + "," + renglon.cells[1].innerText + "|";
                     }
                 }
             }
 
-            return companiaSucursal;
+            return companiasSucursales;
         }
 
         function cboTipoUsuario_onchange() {
+            var tablaSucursalesAsignadas = document.getElementById("tablaSucursalesAsignadas");
 
+            if (tablaSucursalesAsignadas != null) {
+                tablaSucursalesAsignadas.innerHTML = "";
+            }
         }
 
 
@@ -246,27 +295,32 @@
                     <table border="0" cellspacing="0" cellpadding="0">
                         <tr>
                             <td class="tdtexttablebold">Empleado:</td>
-                            <td class="tdcontentableblue"><span class="tdpadleft5">
+                            <td class="tdcontentableblue">
+                                <span class="tdpadleft5">
                                 <input name="txtEmpleadoNombre" type="text" class="field" id="txtEmpleadoNombre" size="50"
                                     maxlength="50" onkeypress=" return txtEmpleadoNombre_onKeyPress(event);">
                                 &nbsp;
                                 <input name="cmdBuscarEmpleado" type="button" class="button" id="cmdBuscarEmpleado" value="Buscar empleado"
                                     onclick="cmdBuscarEmpleado_onclick();">
-                            </span>
+                                </span>
                             </td>
                         </tr>
                         <tr>
                             <td class="tdtexttablebold">Nombre de usuario:</td>
-                            <td class="tdcontentableblue"><span class="tdpadleft5">
+                            <td class="tdcontentableblue">
+                                <span class="tdpadleft5">
                                 <input name="txtUsuarioNombre" type="text" class="fieldborderless" id="txtUsuarioNombre" size="35"
                                     maxlength="35" readonly>
-                            </span></td>
+                                </span>
+                            </td>
                         </tr>
                         <tr>
                             <td class="tdtexttablebold">Contrase馻:</td>
                             <td class="tdpadleft5">
                                 <input name="txtUsuarioContrasena" type="password" class="field" id="txtUsuarioContrasena"
-                                    size="35" maxlength="35" language="javascript" onchange="return txtUsuarioContrasena_onchange()" onkeypress=" return txtUsuarioContrasena_onKeyPress(event);"></td>
+                                    size="35" maxlength="35" language="javascript" onchange="return txtUsuarioContrasena_onchange()" 
+                                    onkeypress=" return txtUsuarioContrasena_onKeyPress(event);">
+                            </td>
                         </tr>
                         <tr>
                             <td class="tdtexttablebold">Rol Usuario:</td>
@@ -305,7 +359,8 @@
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="2" class="tdtexttablebold"><span class="tdtexttablereg">
+                            <td colspan="2" class="tdtexttablebold">
+                                <span class="tdtexttablereg">
                                 <input type="checkbox" name="chkUsuarioAlcance" value="1" disabled>
                                 Operar s髄o en el 醡bito del Concentrador Central</span>
                             </td>
@@ -315,9 +370,11 @@
                         </tr>
                     </table>
 
-                    <input name="cmdSalvar" type="button" class="button" id="cmdSalvar" value="Guardar usuario" onclick="cmdSalvar_onclick();">
+                    <input name="cmdSalvar" type="button" class="button" id="cmdSalvar" value="Guardar usuario" 
+                        onclick="cmdSalvar_onclick();">
                     &nbsp;&nbsp;
-                    <input name="cmdNavegadorRegistrosAgregar" class="boton" id="cmdNavegadorRegistrosAgregar" onclick="cmdNavegadorRegistrosAgregar_onclick();" type="button" value="Vincular sucursales" />
+                    <input name="cmdNavegadorRegistrosAgregar" class="boton" id="cmdNavegadorRegistrosAgregar" 
+                        onclick="cmdNavegadorRegistrosAgregar_onclick();" type="button" value="Vincular sucursales" />
                     &nbsp;&nbsp;
                     <input name="cmdCancelar" type="button" class="button" id="cmdCancelar" onclick="return cmdCancelar_onclick();" value="Cancelar">
                     <br /><br />
@@ -326,6 +383,7 @@
                     <br /><br />
 
                     <div id="sucursales">
+                        <%=strObtenerSucursalesPorCoordinadorRH()%>
                     </div>
                     <br>
                 </td>
