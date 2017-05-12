@@ -2416,7 +2416,7 @@ Public Class clsControlDeAsistencia
             Call strSQLStatement.Append(intEmpleadoId)
 
             ' Ejecutamos el comando
-            strObtenerSucursalesPorTipoUsuario = clsSQLOperation.strExecuteQuery(strSQLStatement.ToString, strConnectionString)
+            strObtenerSucursalesPorTipoUsuario = clsSQLOperation3.aobjExecuteQuery(strSQLStatement.ToString, strConnectionString)
             strSQLStatement = Nothing
 
         Catch objException As Exception
