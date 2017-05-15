@@ -135,7 +135,11 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
     Private Sub Page_Init(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Init
         InitializeComponent()
 
-        _dtmFechaUsuarioExpiracion = CDate(clsCommons.strDMYtoMDY(GetPageParameter("txtUsuarioExpiracion", DateAdd(DateInterval.Day, 30, Date.Now).ToString("dd/MM/yyyy"))))
+        If strCmd2 = "Agregar" Then
+            _dtmFechaUsuarioExpiracion = CDate(clsCommons.strDMYtoMDY(GetPageParameter("txtUsuarioExpiracion", DateAdd(DateInterval.Day, 30, Date.Now).ToString("dd/MM/yyyy"))))
+        End If
+
+
     End Sub
 
     Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -149,6 +153,7 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
 
             Case "Guardar"
                 Call GuardarUsuario()
+       
 
 
         End Select
@@ -251,7 +256,9 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
         Dim strResultadoTablaSucursales As New StringBuilder
         Dim objSucursales As Array
 
-        objSucursales = clsControlDeAsistencia.strObtenerSucursalesPorTipoUsuario(intEmpleadoId, strConnectionString)
+        If strCmd2 = "Editar" Then
+            objSucursales = clsControlDeAsistencia.strObtenerSucursalesPorTipoUsuario(intEmpleadoId, strConnectionString)
+        End If
 
         If IsArray(objSucursales) AndAlso objSucursales.Length > 0 Then
             strResultadoTablaSucursales.Append("<table id='tablaSucursalesAsignadas' width='100%' border='0' cellpadding='0' cellspacing='0'>")
@@ -274,7 +281,7 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
         Dim contadorRegistros As Integer = 0
         Dim colorRegistro As String = String.Empty
         Dim resultadoUsuarios As New StringBuilder
-        Dim imgDeshabilitarUsuario As String = "<img src='../static/images/imgNRDesasignar.gif' width='17' height='17' border='0' align='absMiddle' alt='Haga clic aquí para desasignar la sucursal'>"
+        Dim imgDeshabilitarUsuario As String = "<img src='../static/images/imgNRDesasignar.gif' width='17' height='17' border='0' align='absMiddle' alt='Haga clic aquí para desasignar la sucursal' >"
 
         For Each renglon As SortedList In registrosSucursal
             contadorRegistros += 1
@@ -285,12 +292,23 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
                 colorRegistro = "tdblanco"
             End If
 
+            resultadoUsuarios.Append("<tr>")
+            resultadoUsuarios.AppendFormat("<td class='{0}' style='text-align:left'>{1}</td>", colorRegistro, renglon.Item("intCompaniaId").ToString())
+            resultadoUsuarios.AppendFormat("<td class='{0}' style='text-align:left'>{1}</td>", colorRegistro, renglon.Item("intSucursalId").ToString())
+            resultadoUsuarios.AppendFormat("<td class='{0}' style='text-align:left'>{1}</td>", colorRegistro, renglon.Item("Sucursal").ToString())
 
+            resultadoUsuarios.AppendFormat("<td align='center' style='width: 50px;' class='{0}'>" & _
+                                             "<a href='#' onClick='eliminarSucursal(this)'>" & _
+                                             "{1}</a></td>", _
+                                              colorRegistro, _
+                                              imgDeshabilitarUsuario)
+
+            resultadoUsuarios.Append("</tr>")
         Next
-
 
         Return resultadoUsuarios.ToString()
     End Function
+
 
 
 End Class

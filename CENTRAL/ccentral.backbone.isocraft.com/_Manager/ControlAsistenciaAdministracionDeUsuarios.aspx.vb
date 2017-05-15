@@ -74,10 +74,10 @@ Public Class ControlAsistenciaAdministracionDeUsuarios
 
         Select Case strCmd2
             Case "Buscar"
-                Call MantenerValorControles()
+                'Call MantenerValorControles()
                 Call strConsultarUsuarios()
-            Case "Desasignar"
-                Call DesasignarUsuario()
+            Case "Deshabilitar"
+                Call DeshabilitarUsuario()
             Case "Editar"
                 Call EditarUsuario()
 
@@ -130,7 +130,7 @@ Public Class ControlAsistenciaAdministracionDeUsuarios
 
             resultadoUsuarios.Append("<tr>")
 
-            resultadoUsuarios.AppendFormat("<td class='{0}' style='text-align:left'>{1}</td>", colorRegistro, renglon.Item("intEmpleadoId").ToString())
+            resultadoUsuarios.AppendFormat("<td class='{0}' style='text-align:left'>{1}</td>", colorRegistro, renglon.Item("strUsuarioNombre").ToString())
             resultadoUsuarios.AppendFormat("<td class='{0}' style='text-align:left'>{1}</td>", colorRegistro, renglon.Item("Nombre").ToString())
             resultadoUsuarios.AppendFormat("<td class='{0}' style='text-align:left'>{1}</td>", colorRegistro, renglon.Item("Estatus").ToString())
 
@@ -138,17 +138,23 @@ Public Class ControlAsistenciaAdministracionDeUsuarios
                                          "<a href='#' onClick='cmdDeshabilitarUsuario_onclick(""{1}"", ""{2}"");return false;'>" & _
                                          "{3}</a></td>", _
                                           colorRegistro, _
-                                          renglon.Item("intEmpleadoId").ToString(), _
-                                          renglon.Item("intUsuarioId").ToString(), _
+                                          renglon.Item("strUsuarioNombre").ToString(), _
+                                          renglon.Item("strUsuarioNombre").ToString(), _
                                           imgDeshabilitarUsuario)
 
             resultadoUsuarios.AppendFormat("<td align='center' style='width: 50px;' class='{0}'>" & _
-                                         "<a href='#' onClick='cmdEditarUsuario_onclick(""{1}"", ""{2}"");return false;'>" & _
-                                         "{3}</a></td>", _
-                                          colorRegistro, _
-                                          renglon.Item("intEmpleadoId").ToString(), _
-                                          renglon.Item("intUsuarioId").ToString(), _
-                                          imgEditarUsuario)
+                                           "<a href='#' " & _
+                                           "onClick='cmdEditarUsuario_onclick(""{1}"",""{2}"",""{3}"",""{4}"",""{5}"",""{6}"")" & _
+                                           ";return false;'>" & _
+                                           "{7}</a></td>", _
+                                            colorRegistro, _
+                                            renglon.Item("strUsuarioNombre").ToString(), _
+                                            renglon.Item("strUsuarioContrasena").ToString(), _
+                                            renglon.Item("dtmUsuarioExpiracion").ToString(), _
+                                            renglon.Item("blnUsuarioBloqueado").ToString(), _
+                                            renglon.Item("intTipoUsuarioId").ToString(), _
+                                            renglon.Item("blnUsuarioHabilitado").ToString(), _
+                                            imgEditarUsuario)
 
             resultadoUsuarios.Append("</tr>")
         Next
@@ -156,7 +162,7 @@ Public Class ControlAsistenciaAdministracionDeUsuarios
         Return resultadoUsuarios.ToString()
     End Function
 
-    Private Sub DesasignarUsuario()
+    Private Sub DeshabilitarUsuario()
         Dim intResultado As Integer = 0
 
         intResultado = clsUsuario.intActualizarEstatus(intEmpleadoId, intUsuarioId, strUsuarioNombre, strConnectionString)

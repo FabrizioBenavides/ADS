@@ -21,8 +21,24 @@
 
         function window_onload() {
             <%= strJavascriptWindowOnLoadCommands %>
+            var strCmd2 = "<%= strCmd2%>";
 
-            document.forms[0].elements["txtUsuarioExpiracion"].value = "<%= dtmFechaUsuarioExpiracion.ToString("dd/MM/yyyy")%>";
+            if (strCmd2 == "Agregar") {
+                document.forms[0].elements["txtUsuarioExpiracion"].value = "<%= dtmFechaUsuarioExpiracion.ToString("dd/MM/yyyy")%>";
+            }
+            
+            if (strCmd2 == "Editar") {
+                cargarValoresControles();
+            }
+        }
+
+        function cargarValoresControles() {
+            document.getElementById("txtUsuarioNombre").value = "<%=strUsuarioNombre%>";
+            document.getElementById("txtUsuarioContrasena").value = "<%=strUsuarioContrasena%>";
+            document.getElementById("cboTipoUsuario").value = "<%=intTipoUsuarioId%>";
+            document.getElementsByName("chkUsuarioHabilitado").value = "<%=blnUsuarioHabilitado%>";
+            document.getElementsByName("optCuentaBloqueada").value = "<%=blnUsuarioBloqueado%>";
+            document.getElementById("txtUsuarioExpiracion").value = "<%= dtmFechaUsuarioExpiracion.ToString("dd/MM/yyyy")%>";
         }
 
         function cmdBuscarEmpleado_onclick() {
@@ -32,7 +48,7 @@
                 return (false);
             }
 
-            return Pop("popSistemaBuscarEmpleado.aspx?strEmpleado=" + strEmpleado, "400", "548")
+            return Pop("popSistemaBuscarEmpleado.aspx?strEmpleado=" + strEmpleado, "400", "548");
         }
 
         function cmdCancelar_onclick() {
@@ -46,7 +62,7 @@
                 return true;
             }
             else {
-                return false
+                return false;
             }
         }
 
@@ -57,7 +73,7 @@
                 return true;
             }
             else {
-                return false
+                return false;
             }
         }
 
@@ -207,10 +223,10 @@
                                                                 "&strGrupoUsuarioNombre=" + strGrupoUsuarioNombre, "400", "600")
         }
 
-        function eliminarSucursal(element) {
+        function eliminarSucursal(elemento) {
             var borrarSucursal = false;
-            var nombreSucursal = element.parentNode.parentNode.cells[2].innerText;
-            var indiceRenglon = element.parentNode.parentNode.rowIndex;
+            var nombreSucursal = elemento.parentNode.parentNode.cells[2].innerText;
+            var indiceRenglon = elemento.parentNode.parentNode.rowIndex;
 
             borrarSucursal = confirm("¿Desea desaginar la sucursal " + nombreSucursal + "?");
 

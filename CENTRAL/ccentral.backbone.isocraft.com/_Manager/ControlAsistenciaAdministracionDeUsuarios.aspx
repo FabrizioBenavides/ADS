@@ -32,7 +32,7 @@
                 return true;
             }
             else {
-                return false
+                return false;
             }
         }
 
@@ -50,17 +50,25 @@
 
         function cmdDeshabilitarUsuario_onclick(intEmpleadoId, intUsuarioId) {
             window.location.href = 'ControlAsistenciaAdministracionDeUsuarios.aspx?' +
-                                   'strCmd2=Desasignar' +
+                                   'strCmd2=Deshabilitar' +
                                    '&intEmpleadoId=' + intEmpleadoId +
                                    '&intUsuarioId=' + intUsuarioId;
         }
 
-        function cmdEditarUsuario_onclick(intEmpleadoId, intUsuarioId) {
+        function cmdEditarUsuario_onclick(strUsuarioNombre, strUsuarioContrasena, dtmUsuarioExpiracion,
+                                          blnUsuarioBloqueado, intTipoUsuarioId, blnUsuarioHabilitado) {
+
             window.location.href = 'ControlAsistenciaAdministracionDeUsuariosAgregar.aspx?' +
                                    'strCmd2=Editar' +
-                                   '&intEmpleadoId=' + intEmpleadoId +
-                                   '&intUsuarioId=' + intUsuarioId;
+                                   '&strUsuarioNombre=' + strUsuarioNombre +
+                                   '&strUsuarioContrasena=' + strUsuarioContrasena +
+                                   "&dtmUsuarioExpiracion=" + dtmUsuarioExpiracion +
+                                   "&blnUsuarioBloqueado=" + blnUsuarioBloqueado +
+                                   "&intTipoUsuarioId=" + intTipoUsuarioId +
+                                   "&blnUsuarioHabilitado=" + blnUsuarioHabilitado;
         }
+
+
 
         new menu(MENU_ITEMS, MENU_POS);
     </script>
@@ -114,7 +122,7 @@
                                 <br>
                                 <br>
                                 <input id="btnRealizarConsulta" type="button" class="boton" value="Realizar Consulta" onclick="btnRealizarConsulta_onclick();">
-                                <input id="btnAgregarUsuario" type="button" class="boton" onclick="window.location = 'ControlAsistenciaAdministracionDeUsuariosAgregar.aspx?strCmd=Agregar'" value="Agregar Usuario" />
+                                <input id="btnAgregarUsuario" type="button" class="boton" onclick="window.location = 'ControlAsistenciaAdministracionDeUsuariosAgregar.aspx?strCmd2=Agregar'" value="Agregar Usuario" />
                             </td>
                         </tr>
                     </table>
