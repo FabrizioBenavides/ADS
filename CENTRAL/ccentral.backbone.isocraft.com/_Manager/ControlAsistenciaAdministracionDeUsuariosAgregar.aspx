@@ -33,11 +33,24 @@
         }
 
         function cargarValoresControles() {
-            document.getElementById("txtUsuarioNombre").value = "<%=strUsuarioNombre%>";
+            document.getElementById("txtUsuarioNombre").value = "<%=intEmpleadoId%>";
             document.getElementById("txtUsuarioContrasena").value = "<%=strUsuarioContrasena%>";
             document.getElementById("cboTipoUsuario").value = "<%=intTipoUsuarioId%>";
-            document.getElementsByName("chkUsuarioHabilitado").value = "<%=blnUsuarioHabilitado%>";
-            document.getElementsByName("optCuentaBloqueada").value = "<%=blnUsuarioBloqueado%>";
+
+            if("<%=blnUsuarioHabilitado%>" == "True"){
+                document.forms[0].elements['chkUsuarioHabilitado'][0].checked = true;
+            }
+            else{
+                document.forms[0].elements['chkUsuarioHabilitado'][1].checked = true;
+            }
+            
+            if ("<%=blnUsuarioBloqueado%>" == "True") {
+                document.forms[0].elements['optCuentaBloqueada'][0].checked = true;
+            }
+            else {
+                document.forms[0].elements['optCuentaBloqueada'][1].checked = true;
+            }
+
             document.getElementById("txtUsuarioExpiracion").value = "<%= dtmFechaUsuarioExpiracion.ToString("dd/MM/yyyy")%>";
         }
 

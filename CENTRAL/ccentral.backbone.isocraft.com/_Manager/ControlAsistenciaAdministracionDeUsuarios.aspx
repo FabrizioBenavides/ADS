@@ -41,7 +41,8 @@
             var intEmpleadoId = document.getElementById("txtNumeroEmpleado").value;
             var intTipoUsuarioId = document.getElementById("cboTipoUsuario").value;
 
-            document.forms[0].action = "ControlAsistenciaAdministracionDeUsuarios.aspx?strCmd2=Buscar" +
+            document.forms[0].action = "ControlAsistenciaAdministracionDeUsuarios.aspx?" +
+                                       "strCmd2=Buscar" +
                                        "&intEmpleadoId=" + intEmpleadoId +
                                        "&intTipoUsuarioId=" + intTipoUsuarioId;
 
@@ -49,25 +50,26 @@
         }
 
         function cmdDeshabilitarUsuario_onclick(intEmpleadoId, intUsuarioId) {
-            window.location.href = 'ControlAsistenciaAdministracionDeUsuarios.aspx?' +
-                                   'strCmd2=Deshabilitar' +
-                                   '&intEmpleadoId=' + intEmpleadoId +
-                                   '&intUsuarioId=' + intUsuarioId;
+
+            window.location.href = "ControlAsistenciaAdministracionDeUsuarios.aspx?" +
+                                   "strCmd2=Deshabilitar" +
+                                   "&intEmpleadoId=" + intEmpleadoId +
+                                   "&intUsuarioId=" + intUsuarioId;
         }
 
-        function cmdEditarUsuario_onclick(strUsuarioNombre, strUsuarioContrasena, dtmUsuarioExpiracion,
+        function cmdEditarUsuario_onclick(intEmpleadoId, intUsuarioId, strUsuarioContrasena, dtmUsuarioExpiracion,
                                           blnUsuarioBloqueado, intTipoUsuarioId, blnUsuarioHabilitado) {
 
-            window.location.href = 'ControlAsistenciaAdministracionDeUsuariosAgregar.aspx?' +
-                                   'strCmd2=Editar' +
-                                   '&strUsuarioNombre=' + strUsuarioNombre +
-                                   '&strUsuarioContrasena=' + strUsuarioContrasena +
+            window.location.href = "ControlAsistenciaAdministracionDeUsuariosAgregar.aspx?" +
+                                   "strCmd2=Editar" +
+                                   "&intEmpleadoId=" + intEmpleadoId +
+                                   "&intUsuarioId=" + intUsuarioId +
+                                   "&strUsuarioContrasena=" + strUsuarioContrasena +
                                    "&dtmUsuarioExpiracion=" + dtmUsuarioExpiracion +
                                    "&blnUsuarioBloqueado=" + blnUsuarioBloqueado +
                                    "&intTipoUsuarioId=" + intTipoUsuarioId +
                                    "&blnUsuarioHabilitado=" + blnUsuarioHabilitado;
         }
-
 
 
         new menu(MENU_ITEMS, MENU_POS);

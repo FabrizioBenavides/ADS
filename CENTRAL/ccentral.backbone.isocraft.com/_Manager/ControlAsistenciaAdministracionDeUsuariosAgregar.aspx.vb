@@ -13,7 +13,7 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
     Private Const GRUPO_USUARIO_ID As Integer = 28
 
     Public Enum TipoUsuario
-        CoordinadorRh = 2
+        CoordinadorRH = 2
         SupervisorMedico = 3
     End Enum
 
@@ -43,6 +43,12 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
     Public ReadOnly Property intEmpleadoId() As Integer
         Get
             Return CInt(GetPageParameter("intEmpleadoId", "0"))
+        End Get
+    End Property
+
+    Public ReadOnly Property intUsuarioId() As Integer
+        Get
+            Return CInt(GetPageParameter("intUsuarioId", "0"))
         End Get
     End Property
 
@@ -88,9 +94,9 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
     ' Throws     : Ninguna
     ' Output     : Byte
     '====================================================================
-    Public ReadOnly Property blnUsuarioHabilitado() As Byte
+    Public ReadOnly Property blnUsuarioHabilitado() As Boolean
         Get
-            Return CByte(GetPageParameter("blnUsuarioHabilitado", "0"))
+            Return CBool(GetPageParameter("blnUsuarioHabilitado", "False"))
         End Get
     End Property
 
@@ -101,9 +107,9 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
     ' Throws     : Ninguna
     ' Output     : Byte
     '====================================================================
-    Public ReadOnly Property blnUsuarioBloqueado() As Byte
+    Public ReadOnly Property blnUsuarioBloqueado() As Boolean
         Get
-            Return CByte(GetPageParameter("blnUsuarioBloqueado", "0"))
+            Return CBool(GetPageParameter("blnUsuarioBloqueado", "False"))
         End Get
     End Property
 
@@ -137,6 +143,8 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
 
         If strCmd2 = "Agregar" Then
             _dtmFechaUsuarioExpiracion = CDate(clsCommons.strDMYtoMDY(GetPageParameter("txtUsuarioExpiracion", DateAdd(DateInterval.Day, 30, Date.Now).ToString("dd/MM/yyyy"))))
+        ElseIf strCmd2 = "Editar" Then
+            _dtmFechaUsuarioExpiracion = CDate(clsCommons.strDMYtoMDY(GetPageParameter("dtmUsuarioExpiracion", "")))
         End If
 
 
@@ -179,14 +187,14 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
                                                            0, _
                                                            intEmpleadoId.ToString(), _
                                                            strContrasenaEncriptada, _
-                                                           blnUsuarioHabilitado, _
+                                                           CByte(blnUsuarioHabilitado), _
                                                            dtmFechaUsuarioExpiracion, _
                                                            fechaActual, _
                                                            fechaActual, _
                                                            strUsuarioNombre, _
                                                            0, _
                                                            0, _
-                                                           blnUsuarioBloqueado, _
+                                                           CByte(blnUsuarioBloqueado), _
                                                            0, _
                                                            strConnectionString)
 
