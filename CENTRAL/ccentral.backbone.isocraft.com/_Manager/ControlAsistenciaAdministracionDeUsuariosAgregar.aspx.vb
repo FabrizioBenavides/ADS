@@ -1,9 +1,9 @@
-﻿Imports Benavides.POSAdmin.Commons
+﻿Imports Benavides.CC.Data
+Imports Benavides.POSAdmin.Commons
 Imports Isocraft.Security
 Imports Isocraft.Web.Http
-Imports System.Text
-Imports Benavides.CC.Data
 Imports System.Collections
+Imports System.Text
 
 Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
     Inherits PaginaBase
@@ -81,6 +81,19 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
         End Get
     End Property
 
+    '====================================================================
+    ' Name       : strUsuarioContrasena2
+    ' Description: Obtiene o establece la contraseña del usuario
+    ' Accessor   : Read, Write
+    ' Throws     : Ninguna
+    ' Output     : String
+    '====================================================================
+    Public ReadOnly Property strUsuarioContrasena2() As String
+        Get
+            Return CStr(GetPageParameter("strUsuarioContrasena2", ""))
+        End Get
+    End Property
+
     Public ReadOnly Property intTipoUsuarioId() As TipoUsuario
         Get
             Return CType(GetPageParameter("intTipoUsuarioId", "0"), TipoUsuario)
@@ -143,10 +156,9 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
 
         If strCmd2 = "Agregar" Then
             _dtmFechaUsuarioExpiracion = CDate(clsCommons.strDMYtoMDY(GetPageParameter("txtUsuarioExpiracion", DateAdd(DateInterval.Day, 30, Date.Now).ToString("dd/MM/yyyy"))))
-        ElseIf strCmd2 = "Editar" Then
+        ElseIf strCmd2 = "Editar" Or strCmd2 = "Guardar" Then
             _dtmFechaUsuarioExpiracion = CDate(clsCommons.strDMYtoMDY(GetPageParameter("dtmUsuarioExpiracion", "")))
         End If
-
 
     End Sub
 
@@ -162,7 +174,8 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
             Case "Guardar"
                 Call GuardarUsuario()
        
-
+            Case "Modificar"
+                Call EditarUsuario()
 
         End Select
 
@@ -181,6 +194,7 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
         Dim resultadoAsignarSucursales As Array = Nothing
 
         strContrasenaEncriptada = (New Hash.DataProtector).HashString(strUsuarioContrasena, Hash.DataProtector.CryptoServiceProvider.SHA1)
+
         fechaActual = Date.Now
 
         intUsuarioId = clsUsuario.intAgregarEnConcentrador(intEmpleadoId, _
@@ -199,7 +213,7 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
                                                            strConnectionString)
 
         If intUsuarioId > 0 Then
-            _intUsuarioExistenteId = 1 ' Quitar
+            _intUsuarioExistenteId = 1 ' Quitar linea de codigo
             intMembresiaUsuario = clstblMembresiaUsuario.intAgregar(intEmpleadoId,
                                                                     intUsuarioId,
                                                                     GRUPO_USUARIO_ID,
@@ -317,6 +331,15 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
         Return resultadoUsuarios.ToString()
     End Function
 
+    Private Sub EditarUsuario()
+        Dim contrasena1 As String
+        Dim contrasena2 As String
 
+        contrasena1 = strUsuarioContrasena
+        contrasena2 = strUsuarioContrasena2
+
+        'strContrasenaEncriptada = (New Hash.DataProtector).HashString(strUsuarioContrasena, Hash.DataProtector.CryptoServiceProvider.SHA1)
+
+    End Sub
 
 End Class

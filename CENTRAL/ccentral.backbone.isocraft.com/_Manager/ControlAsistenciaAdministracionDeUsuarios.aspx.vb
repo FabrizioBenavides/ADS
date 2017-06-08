@@ -1,8 +1,8 @@
 ﻿Imports Benavides.CC.Data
 Imports Benavides.POSAdmin.Commons
 Imports Isocraft.Web.Http
-Imports System.Text
 Imports System.Collections
+Imports System.Text
 
 Public Class ControlAsistenciaAdministracionDeUsuarios
     Inherits PaginaBase
@@ -32,9 +32,9 @@ Public Class ControlAsistenciaAdministracionDeUsuarios
         End Get
     End Property
 
-    Public ReadOnly Property intEmpleadoId() As Integer
+    Public ReadOnly Property intEmpleadoId() As String
         Get
-            Return CInt(GetPageParameter("intEmpleadoId", "0"))
+            Return GetPageParameter("intEmpleadoId", "")
         End Get
     End Property
 
@@ -74,24 +74,29 @@ Public Class ControlAsistenciaAdministracionDeUsuarios
 
         Select Case strCmd2
             Case "Buscar"
-                'Call MantenerValorControles()
+                Call GuardarValorControles()
                 Call strConsultarUsuarios()
             Case "Deshabilitar"
                 Call DeshabilitarUsuario()
-            Case "Editar"
-                Call EditarUsuario()
 
         End Select
+
     End Sub
 
     Protected Function strConsultarUsuarios() As String
         Dim strResultadoTablaUsuarios As New StringBuilder
         Dim objUsuarios As Array
-        Dim strAux As String = String.Empty
+        Dim intEmpleadoIdParametro As Integer
+
+        If intEmpleadoId Is String.Empty Then
+            intEmpleadoIdParametro = 0
+        Else
+            intEmpleadoIdParametro = CInt(intEmpleadoId)
+        End If
 
         objUsuarios = clsControlDeAsistencia. _
                       strBuscarUsuarioConcentrador(intGrupoUsuarioSeleccionadoId, _
-                                                   intEmpleadoId, _
+                                                   intEmpleadoIdParametro, _
                                                    intTipoUsuarioId, _
                                                    strConnectionString)
 
@@ -166,22 +171,16 @@ Public Class ControlAsistenciaAdministracionDeUsuarios
     Private Sub DeshabilitarUsuario()
         Dim intResultado As Integer = 0
 
-        intResultado = clsUsuario.intActualizarEstatus(intEmpleadoId, intUsuarioId, strUsuarioNombre, strConnectionString)
+        intResultado = clsUsuario.intActualizarEstatus(CInt(intEmpleadoId), intUsuarioId, strUsuarioNombre, strConnectionString)
 
-        ' poner window.alert()
-    End Sub
-
-    Private Sub EditarUsuario()
-
-    End Sub
-
-    Private Sub MantenerValorControles()
-        ViewState("cboTipoUsuario") = intTipoUsuarioId
-
-        If intEmpleadoId > 0 Then
-            ViewState("txtNumeroEmpleado") = intEmpleadoId
+        If intResultado > 0 Then
+            strJavascriptWindowOnLoadCommands = "window.alert(""Estatus actualizado correctamente."");"
         End If
     End Sub
 
-End Class
+    Private Sub GuardarValorControles()
+        ViewState("txtNumeroEmpleado") = intEmpleadoId
+        ViewState("cboTipoUsuario") = intTipoUsuarioId
+    End Sub
 
+End Class

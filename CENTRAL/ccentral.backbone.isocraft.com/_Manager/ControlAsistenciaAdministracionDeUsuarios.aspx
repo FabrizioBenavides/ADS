@@ -1,4 +1,4 @@
-<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="ControlAsistenciaAdministracionDeUsuarios.aspx.vb" Inherits="com.isocraft.backbone.ccentral.ControlAsistenciaAdministracionDeUsuarios" %>
+<%@ Page Language="vb" AutoEventWireup="false" EnableViewState="true" CodeBehind="ControlAsistenciaAdministracionDeUsuarios.aspx.vb" Inherits="com.isocraft.backbone.ccentral.ControlAsistenciaAdministracionDeUsuarios" %>
 
 <html>
 <head>
@@ -17,12 +17,18 @@
 
         function window_onload() {
 	    <%= strJavascriptWindowOnLoadCommands %>
-            //cargarValoresControles();
+            cargarValoresControles();
         }
 
         function cargarValoresControles() {
-            document.getElementById("cboTipoUsuario").value = "<%=cboTipoUsuario%>";
-            document.getElementById("txtNumeroEmpleado").value = "<%=txtNumeroEmpleado%>";
+            var strCmd2;
+
+            strCmd2 = "<%=strCmd2%>";
+
+            if (strCmd2 == "Buscar") {
+                document.getElementById("txtNumeroEmpleado").value = "<%=txtNumeroEmpleado%>";
+                document.getElementById("cboTipoUsuario").value = "<%=cboTipoUsuario%>"; 
+            }
         }
 
         function txtNumeroEmpleado_onKeyPress(e) {
@@ -71,7 +77,6 @@
                                    "&blnUsuarioHabilitado=" + blnUsuarioHabilitado;
         }
 
-
         new menu(MENU_ITEMS, MENU_POS);
     </script>
 </head>
@@ -105,7 +110,7 @@
                         <tr>
                             <td width="25%" class="tdtexttablebold">Rol Usuario:</td>
                             <td class="tdpadleft5">
-                                <select id="cboTipoUsuario" class="field" style="width: 125px">
+                                <select id="cboTipoUsuario"  name="cboTipoUsuario" class="field" style="width: 125px">
                                     <option value="2">Coordinador RH</option>
                                     <option value="3">Supervisor Médico</option>
                                 </select>

@@ -37,6 +37,8 @@
             document.getElementById("txtUsuarioContrasena").value = "<%=strUsuarioContrasena%>";
             document.getElementById("cboTipoUsuario").value = "<%=intTipoUsuarioId%>";
 
+            document.getElementById("cmdBuscarEmpleado").disabled = true;
+
             if("<%=blnUsuarioHabilitado%>" == "True"){
                 document.forms[0].elements['chkUsuarioHabilitado'][0].checked = true;
             }
@@ -150,7 +152,7 @@
 
             var tablaSucursalesAsignadas = document.getElementById("tablaSucursalesAsignadas");
 
-            if (document.getElementById("txtEmpleadoNombre").value == "") {
+            if (document.getElementById("txtUsuarioNombre").value == "") {
                 objValidar.mensajeError = "Seleccione un empleado por favor.";
                 objValidar.esInvalido = true;
             }
@@ -188,12 +190,15 @@
             var intEmpleadoId = document.getElementById("txtUsuarioNombre").value;
             var intTipoUsuarioId = document.getElementById("cboTipoUsuario").value;
             var strUsuarioContrasena = document.getElementById("txtUsuarioContrasena").value;
-
+            var strUsuarioContrasena2 = "<%=strUsuarioContrasena%>";
+            var strCmd2 = "<%= strCmd2%>";
             var chkUsuarioHabilitado = document.getElementsByName("chkUsuarioHabilitado");
             var blnUsuarioHabilitado;
 
             var optCuentaBloqueada = document.getElementsByName("optCuentaBloqueada");
             var blnUsuarioBloqueado;
+
+            var txtUsuarioExpiracion = document.getElementsByName("txtUsuarioExpiracion");
 
             var companiasSucursales;
 
@@ -213,14 +218,28 @@
 
             var companiasSucursales = obtenerCompaniasSucursales();
 
-            document.forms[0].action = "ControlAsistenciaAdministracionDeUsuariosAgregar.aspx?strCmd2=Guardar" +
+            if (strCmd2 == "Agregar") {
+                document.forms[0].action = "ControlAsistenciaAdministracionDeUsuariosAgregar.aspx?strCmd2=Guardar" +
                                        "&intEmpleadoId=" + intEmpleadoId +
                                        "&strUsuarioContrasena=" + strUsuarioContrasena +
                                        "&intTipoUsuarioId=" + intTipoUsuarioId +
                                        "&blnUsuarioHabilitado=" + blnUsuarioHabilitado +
                                        "&blnUsuarioBloqueado=" + blnUsuarioBloqueado +
+                                       "&dtmUsuarioExpiracion=" + txtUsuarioExpiracion +
                                        "&strCompaniasSucursalesSeleccionadas=" + companiasSucursales;
-
+            }
+            else if (strCmd2 == "Editar") {
+                document.forms[0].action = "ControlAsistenciaAdministracionDeUsuariosAgregar.aspx?strCmd2=Modificar" +
+                                       "&intEmpleadoId=" + intEmpleadoId +
+                                       "&strUsuarioContrasena=" + strUsuarioContrasena +
+                                       "&strUsuarioContrasena2=" + strUsuarioContrasena2 +
+                                       "&intTipoUsuarioId=" + intTipoUsuarioId +
+                                       "&blnUsuarioHabilitado=" + blnUsuarioHabilitado +
+                                       "&blnUsuarioBloqueado=" + blnUsuarioBloqueado +
+                                       "&dtmUsuarioExpiracion=" + txtUsuarioExpiracion +
+                                       "&strCompaniasSucursalesSeleccionadas=" + companiasSucursales;
+            }
+            
             document.forms(0).submit();
         }
 
@@ -293,9 +312,6 @@
             }
         }
 
-
-
-
         new menu(MENU_ITEMS, MENU_POS);
     </script>
 </head>
@@ -329,7 +345,7 @@
                                 <input name="txtEmpleadoNombre" type="text" class="field" id="txtEmpleadoNombre" size="50"
                                     maxlength="50" onkeypress=" return txtEmpleadoNombre_onKeyPress(event);">
                                 &nbsp;
-                                <input name="cmdBuscarEmpleado" type="button" class="button" id="cmdBuscarEmpleado" value="Buscar empleado"
+                                <input name="cmdBuscarEmpleado" type="button" class="button" id="cmdBuscarEmpleado" value="Buscar empleado" 
                                     onclick="cmdBuscarEmpleado_onclick();">
                                 </span>
                             </td>
