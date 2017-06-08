@@ -3079,7 +3079,7 @@ Public Class clsControlDeAsistencia
 
                 ' Creamos estatuto de SQL
                 Call strSQLStatement.Append("EXECUTE spConsultarCalendarioNomina ")
-         
+
                 ' Ejecutamos el comando
                 strConsultarCalendarioNomina = Benavides.Data.SQL.MSSQL.clsSQLOperation3.aobjExecuteQuery(strSQLStatement.ToString(), strConnectionString)
                 strSQLStatement = Nothing
