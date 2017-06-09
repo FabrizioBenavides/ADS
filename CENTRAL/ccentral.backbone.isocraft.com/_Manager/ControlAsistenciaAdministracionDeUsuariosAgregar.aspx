@@ -187,19 +187,18 @@
         }
 
         function salvarUsuario() {
+            var intUsuarioId = "<%=intUsuarioId%>";
             var intEmpleadoId = document.getElementById("txtUsuarioNombre").value;
             var intTipoUsuarioId = document.getElementById("cboTipoUsuario").value;
             var strUsuarioContrasena = document.getElementById("txtUsuarioContrasena").value;
-            var strUsuarioContrasena2 = "<%=strUsuarioContrasena%>";
+            var strUsuarioContrasenaAnterior = "<%=strUsuarioContrasena%>";
             var strCmd2 = "<%= strCmd2%>";
             var chkUsuarioHabilitado = document.getElementsByName("chkUsuarioHabilitado");
             var blnUsuarioHabilitado;
-
             var optCuentaBloqueada = document.getElementsByName("optCuentaBloqueada");
             var blnUsuarioBloqueado;
 
-            var txtUsuarioExpiracion = document.getElementsByName("txtUsuarioExpiracion");
-
+            var txtUsuarioExpiracion = document.getElementById("txtUsuarioExpiracion").value;
             var companiasSucursales;
 
             for (var i = 0; i < chkUsuarioHabilitado.length; i++) {
@@ -220,24 +219,25 @@
 
             if (strCmd2 == "Agregar") {
                 document.forms[0].action = "ControlAsistenciaAdministracionDeUsuariosAgregar.aspx?strCmd2=Guardar" +
-                                       "&intEmpleadoId=" + intEmpleadoId +
-                                       "&strUsuarioContrasena=" + strUsuarioContrasena +
-                                       "&intTipoUsuarioId=" + intTipoUsuarioId +
-                                       "&blnUsuarioHabilitado=" + blnUsuarioHabilitado +
-                                       "&blnUsuarioBloqueado=" + blnUsuarioBloqueado +
-                                       "&dtmUsuarioExpiracion=" + txtUsuarioExpiracion +
-                                       "&strCompaniasSucursalesSeleccionadas=" + companiasSucursales;
+                                           "&intEmpleadoId=" + intEmpleadoId +
+                                           "&strUsuarioContrasena=" + strUsuarioContrasena +
+                                           "&intTipoUsuarioId=" + intTipoUsuarioId +
+                                           "&blnUsuarioHabilitado=" + blnUsuarioHabilitado +
+                                           "&blnUsuarioBloqueado=" + blnUsuarioBloqueado +
+                                           "&dtmUsuarioExpiracion=" + txtUsuarioExpiracion +
+                                           "&strCompaniasSucursalesSeleccionadas=" + companiasSucursales;
             }
             else if (strCmd2 == "Editar") {
                 document.forms[0].action = "ControlAsistenciaAdministracionDeUsuariosAgregar.aspx?strCmd2=Modificar" +
-                                       "&intEmpleadoId=" + intEmpleadoId +
-                                       "&strUsuarioContrasena=" + strUsuarioContrasena +
-                                       "&strUsuarioContrasena2=" + strUsuarioContrasena2 +
-                                       "&intTipoUsuarioId=" + intTipoUsuarioId +
-                                       "&blnUsuarioHabilitado=" + blnUsuarioHabilitado +
-                                       "&blnUsuarioBloqueado=" + blnUsuarioBloqueado +
-                                       "&dtmUsuarioExpiracion=" + txtUsuarioExpiracion +
-                                       "&strCompaniasSucursalesSeleccionadas=" + companiasSucursales;
+                                           "&intUsuarioId=" + intUsuarioId +
+                                           "&intEmpleadoId=" + intEmpleadoId +
+                                           "&strUsuarioContrasena=" + strUsuarioContrasena +
+                                           "&strUsuarioContrasenaAnterior=" + strUsuarioContrasenaAnterior +
+                                           "&intTipoUsuarioId=" + intTipoUsuarioId +
+                                           "&blnUsuarioHabilitado=" + blnUsuarioHabilitado +
+                                           "&blnUsuarioBloqueado=" + blnUsuarioBloqueado +
+                                           "&dtmUsuarioExpiracion=" + txtUsuarioExpiracion +
+                                           "&strCompaniasSucursalesSeleccionadas=" + companiasSucursales;
             }
             
             document.forms(0).submit();

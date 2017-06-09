@@ -88,9 +88,9 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
     ' Throws     : Ninguna
     ' Output     : String
     '====================================================================
-    Public ReadOnly Property strUsuarioContrasena2() As String
+    Public ReadOnly Property strUsuarioContrasenaAnterior() As String
         Get
-            Return CStr(GetPageParameter("strUsuarioContrasena2", ""))
+            Return CStr(GetPageParameter("strUsuarioContrasenaAnterior", ""))
         End Get
     End Property
 
@@ -156,7 +156,7 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
 
         If strCmd2 = "Agregar" Then
             _dtmFechaUsuarioExpiracion = CDate(clsCommons.strDMYtoMDY(GetPageParameter("txtUsuarioExpiracion", DateAdd(DateInterval.Day, 30, Date.Now).ToString("dd/MM/yyyy"))))
-        ElseIf strCmd2 = "Editar" Or strCmd2 = "Guardar" Then
+        ElseIf strCmd2 = "Editar" Or strCmd2 = "Guardar" Or strCmd2 = "Modificar" Then
             _dtmFechaUsuarioExpiracion = CDate(clsCommons.strDMYtoMDY(GetPageParameter("dtmUsuarioExpiracion", "")))
         End If
 
@@ -186,12 +186,8 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
         Dim intUsuarioId As Integer
         Dim intMembresiaUsuario As Integer
         Dim fechaActual As Date
-        Dim companiaSucursalSeparadaPorPipe As String()
-        Dim companiaSucursalSeparadaPorComa As String()
-        Dim intIndice As Integer = 0
         Dim intExitoGuardarSucursales As Integer = 0
         Dim intAsignada As Integer = 0
-        Dim resultadoAsignarSucursales As Array = Nothing
 
         strContrasenaEncriptada = (New Hash.DataProtector).HashString(strUsuarioContrasena, Hash.DataProtector.CryptoServiceProvider.SHA1)
 
@@ -209,7 +205,7 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
                                                            0, _
                                                            0, _
                                                            CByte(blnUsuarioBloqueado), _
-                                                           0, _
+                                                           1, _
                                                            strConnectionString)
 
         If intUsuarioId > 0 Then
@@ -224,43 +220,7 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
 
         ' Guardar sucursales.
         If intMembresiaUsuario > 0 Then
-
-            companiaSucursalSeparadaPorPipe = strCompaniasSucursalesSeleccionadas.Split(New Char() {"|"c}, StringSplitOptions.RemoveEmptyEntries)
-
-            For intIndice = 0 To companiaSucursalSeparadaPorPipe.Length - 1
-
-                companiaSucursalSeparadaPorComa = companiaSucursalSeparadaPorPipe.GetValue(intIndice).ToString().Split(New Char() {","c})
-
-                resultadoAsignarSucursales = clsControlDeAsistencia.strAsignarSucursales2( _
-                                                                              intEmpleadoId, _
-                                                                              CInt(companiaSucursalSeparadaPorComa.GetValue(0)), _
-                                                                              CInt(companiaSucursalSeparadaPorComa.GetValue(1)), _
-                                                                              intTipoUsuarioId, _
-                                                                              strConnectionString)
-
-                If resultadoAsignarSucursales.Length > 0 AndAlso IsArray(resultadoAsignarSucursales) Then
-
-                    ' Recorremos los pares identificadores
-                    Dim strResultadosAsignacionSucursal As Array
-
-                    For Each strResultadosAsignacionSucursal In resultadoAsignarSucursales
-
-                        If Not (strResultadosAsignacionSucursal.GetValue(0) Is Nothing) AndAlso _
-                           Not (CInt(strResultadosAsignacionSucursal.GetValue(0)) = -1) Then
-                            intExitoGuardarSucursales = CInt(strResultadosAsignacionSucursal.GetValue(0))
-                        Else
-                            intExitoGuardarSucursales = 0
-                            Exit For
-                        End If
-
-                        If Not (strResultadosAsignacionSucursal.GetValue(1) Is Nothing) AndAlso _
-                           Not CBool(strResultadosAsignacionSucursal.GetValue(1)) = False Then
-                            intAsignada = 1
-                        End If
-                    Next
-
-                End If
-            Next
+            AsignarSucursales(intExitoGuardarSucursales, intAsignada)
         End If
 
         If intMembresiaUsuario > 0 And intExitoGuardarSucursales > 0 Then
@@ -332,14 +292,94 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
     End Function
 
     Private Sub EditarUsuario()
-        Dim contrasena1 As String
-        Dim contrasena2 As String
+        Dim strContrasenaNuevaEncriptada As String = String.Empty
+        Dim contrasenaGuardar As String = String.Empty
+        Dim intResultadoActualizar As Integer = 0
+        Dim intResultadoEliminarSucursales As Integer = 0
+        Dim intExitoGuardarSucursales As Integer = 0
+        Dim intAsignada As Integer = 0
 
-        contrasena1 = strUsuarioContrasena
-        contrasena2 = strUsuarioContrasena2
+        If strUsuarioContrasenaAnterior <> strUsuarioContrasena Then
+            contrasenaGuardar = (New Hash.DataProtector).HashString(strUsuarioContrasena, Hash.DataProtector.CryptoServiceProvider.SHA1)
+        Else
+            contrasenaGuardar = strUsuarioContrasenaAnterior
+        End If
 
-        'strContrasenaEncriptada = (New Hash.DataProtector).HashString(strUsuarioContrasena, Hash.DataProtector.CryptoServiceProvider.SHA1)
+        intResultadoActualizar = clstblUsuario.intActualizar2(intEmpleadoId, _
+                                                              intUsuarioId, _
+                                                              contrasenaGuardar, _
+                                                              intTipoUsuarioId, _
+                                                              CByte(blnUsuarioHabilitado), _
+                                                              CByte(blnUsuarioBloqueado), _
+                                                              dtmFechaUsuarioExpiracion, _
+                                                              strUsuarioNombre, _
+                                                              strConnectionString)
 
+        ' Eliminar sucursales para evitar repetidos.
+        If intResultadoActualizar > -1 Then
+            intResultadoEliminarSucursales = clsControlDeAsistencia.intEliminarSucursales(intEmpleadoId, strConnectionString)
+        End If
+
+        ' Guardar sucursales.
+        If intResultadoEliminarSucursales = 0 Or intResultadoEliminarSucursales > 0 Then
+            AsignarSucursales(intExitoGuardarSucursales, intAsignada)
+        End If
+
+        If intExitoGuardarSucursales > 0 Then
+
+            If intAsignada = 1 Then
+                strJavascriptWindowOnLoadCommands = "window.alert(""Sucursal asignada a otro Coordinador ó Supervisor Médico, de cualquier forma se modificó correctamente."");"
+            Else
+                strJavascriptWindowOnLoadCommands = "window.alert(""Usuario modificado correctamente."");"
+            End If
+        Else
+            strJavascriptWindowOnLoadCommands = "window.alert(""Error al modificar usuario."");"
+        End If
     End Sub
+
+    Private Function AsignarSucursales(ByRef intExitoGuardarSucursales As Integer, ByRef intAsignada As Integer) As Integer
+        Dim companiaSucursalSeparadaPorPipe As String()
+        Dim companiaSucursalSeparadaPorComa As String()
+        Dim resultadoAsignarSucursales As Array = Nothing
+        Dim intIndice As Integer = 0
+
+        companiaSucursalSeparadaPorPipe = strCompaniasSucursalesSeleccionadas.Split(New Char() {"|"c}, StringSplitOptions.RemoveEmptyEntries)
+
+        For intIndice = 0 To companiaSucursalSeparadaPorPipe.Length - 1
+
+            companiaSucursalSeparadaPorComa = companiaSucursalSeparadaPorPipe.GetValue(intIndice).ToString().Split(New Char() {","c})
+
+            resultadoAsignarSucursales = clsControlDeAsistencia.strAsignarSucursales2( _
+                                                                          intEmpleadoId, _
+                                                                          CInt(companiaSucursalSeparadaPorComa.GetValue(0)), _
+                                                                          CInt(companiaSucursalSeparadaPorComa.GetValue(1)), _
+                                                                          intTipoUsuarioId, _
+                                                                          strConnectionString)
+
+            If resultadoAsignarSucursales.Length > 0 AndAlso IsArray(resultadoAsignarSucursales) Then
+
+                ' Recorremos los pares identificadores
+                Dim strResultadosAsignacionSucursal As Array
+
+                For Each strResultadosAsignacionSucursal In resultadoAsignarSucursales
+
+                    If Not (strResultadosAsignacionSucursal.GetValue(0) Is Nothing) AndAlso _
+                       Not (CInt(strResultadosAsignacionSucursal.GetValue(0)) = -1) Then
+                        intExitoGuardarSucursales = CInt(strResultadosAsignacionSucursal.GetValue(0))
+                    Else
+                        intExitoGuardarSucursales = 0
+                        Exit For
+                    End If
+
+                    If Not (strResultadosAsignacionSucursal.GetValue(1) Is Nothing) AndAlso _
+                       Not CBool(strResultadosAsignacionSucursal.GetValue(1)) = False Then
+                        intAsignada = 1
+                    End If
+                Next
+
+            End If
+        Next
+
+    End Function
 
 End Class
