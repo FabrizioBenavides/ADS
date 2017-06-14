@@ -182,6 +182,101 @@ Public NotInheritable Class clstblUsuario
 
     End Function
 
+    Public Shared Function intActualizar2(ByVal intEmpleadoId As Integer, _
+                                          ByVal intUsuarioId As Integer, _
+                                          ByVal strUsuarioContrasena As String, _
+                                          ByVal intTipoUsuarioId As Integer, _
+                                          ByVal blnUsuarioHabilitado As Byte, _
+                                          ByVal blnUsuarioBloqueado As Byte, _
+                                          ByVal dtmUsuarioExpiracion As Date, _
+                                          ByVal strUsuarioModificadoPor As String, _
+                                          ByVal strConnectionString As String) As Integer
+
+        ' Constantes locales
+        Const strmThisMemberName As String = "intActualizar2"
+
+        ' Variables locales
+        Dim strSQLStatement As StringBuilder = Nothing
+        Dim intRowsAffected As Integer = 0
+        Dim strRegistros As Array = Nothing
+        Dim strRowsAffected As String() = Nothing
+
+        Try
+
+            ' Inicializamos las varialbes locales
+            strSQLStatement = New StringBuilder
+
+            ' Creamos es estatuto de SQL
+            Call strSQLStatement.AppendFormat("EXECUTE spActualizartblUsuario2 " & _
+                                              "{0}, {1}, '{2}', {3}, {4}, {5}, '{6}', '{7}'", _
+                                              intEmpleadoId, _
+                                              intUsuarioId, _
+                                              strUsuarioContrasena, _
+                                              intTipoUsuarioId, _
+                                              blnUsuarioHabilitado, _
+                                              blnUsuarioBloqueado, _
+                                              dtmUsuarioExpiracion.ToString("MM/dd/yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture), _
+                                              strUsuarioModificadoPor)
+
+            ' Ejecutamos el comando
+            strRegistros = clsSQLOperation.strExecuteQuery(strSQLStatement.ToString(), strConnectionString)
+
+            For Each strRowsAffected In strRegistros
+                intRowsAffected = CInt(strRowsAffected.GetValue(0))
+            Next
+
+            ' Regresamos la información
+            strSQLStatement = Nothing
+            intActualizar2 = intRowsAffected
+
+        Catch objException As Exception
+
+            ' Variables locales
+            Dim strErrorString As StringBuilder : strErrorString = New StringBuilder
+            Dim objApplicationEventLog As System.Diagnostics.EventLog : objApplicationEventLog = New System.Diagnostics.EventLog
+            Dim strProductName As String : strProductName = System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly.Location).ProductName
+            Dim strApplicationName As String : strApplicationName = System.Reflection.Assembly.GetExecutingAssembly.Location
+            Dim strVersion As String : strVersion = System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly.Location).FileMajorPart & "." & System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly.Location).FileMinorPart & "." & System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly.Location).FileBuildPart
+            Dim strSource As String : strSource = objException.Source
+            Dim strMessage As String : strMessage = objException.Message
+            Dim strStackTrace As String : strStackTrace = objException.StackTrace
+            Dim intLineNumber As Integer : intLineNumber = Erl()
+            Dim intErrorNumber As Integer : intErrorNumber = Err.Number
+            Dim intCategoryNumber As Short : intCategoryNumber = 100
+
+            ' Creamos el mensaje de error
+            Call strErrorString.Append("Product name:" & vbCrLf & vbTab & strProductName & "." & strmThisClassName & "." & strmThisMemberName & vbCrLf & vbCrLf)
+            Call strErrorString.Append("Application name:" & vbCrLf & vbTab & strApplicationName & vbCrLf & vbCrLf)
+            Call strErrorString.Append("Version:" & vbCrLf & vbTab & strVersion & vbCrLf & vbCrLf)
+            Call strErrorString.Append("Source:" & vbCrLf & vbTab & strSource & vbCrLf & vbCrLf)
+            Call strErrorString.Append("Error number:" & vbCrLf & vbTab & "0x" & Hex(intErrorNumber) & vbCrLf & vbCrLf)
+            Call strErrorString.Append("Line number:" & vbCrLf & vbTab & intLineNumber & vbCrLf & vbCrLf)
+            Call strErrorString.Append("Message:" & vbCrLf & vbTab & strMessage & vbCrLf & vbCrLf)
+            Call strErrorString.Append("SQLStatement:" & vbCrLf & vbTab & strSQLStatement.ToString() & vbCrLf & vbCrLf)
+            Call strErrorString.Append("StackTrace:" & vbCrLf & strStackTrace & vbCrLf & vbCrLf)
+
+            ' Creamos un evento para registrar el mensaje de error
+            If Not EventLog.SourceExists(strProductName) Then
+
+                Call EventLog.CreateEventSource(strProductName, "Application")
+
+            End If
+
+            ' Establecemos la fuente del evento
+            objApplicationEventLog.Source = strProductName
+
+            ' Escribimos el evento en el Visor de Eventos
+            Call objApplicationEventLog.WriteEntry(strErrorString.ToString(), EventLogEntryType.Error, Err.Number, intCategoryNumber)
+
+            ' Regresamos la información
+            intActualizar2 = 0
+
+            ' Notificamos el error
+            Throw
+
+        End Try
+    End Function
+
     '====================================================================
     ' Name       : intAgregar
     ' Description: Adición de registros.
