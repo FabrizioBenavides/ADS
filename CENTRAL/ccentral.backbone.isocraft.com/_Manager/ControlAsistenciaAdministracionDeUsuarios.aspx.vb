@@ -140,12 +140,12 @@ Public Class ControlAsistenciaAdministracionDeUsuarios
             resultadoUsuarios.AppendFormat("<td class='{0}' style='text-align:left'>{1}</td>", colorRegistro, renglon.Item("Estatus").ToString())
 
             resultadoUsuarios.AppendFormat("<td align='center' style='width: 50px;' class='{0}'>" & _
-                                         "<a href='#' onClick='cmdDeshabilitarUsuario_onclick(""{1}"", ""{2}"");return false;'>" & _
-                                         "{3}</a></td>", _
-                                          colorRegistro, _
-                                          renglon.Item("intEmpleadoId").ToString(), _
-                                          renglon.Item("intUsuarioId").ToString(), _
-                                          imgDeshabilitarUsuario)
+                                           "<a href='#' onClick='cmdDeshabilitarUsuario_onclick(""{1}"", ""{2}"");return false;'>" & _
+                                           "{3}</a></td>", _
+                                           colorRegistro, _
+                                           renglon.Item("intEmpleadoId").ToString(), _
+                                           renglon.Item("intUsuarioId").ToString(), _
+                                           imgDeshabilitarUsuario)
 
             resultadoUsuarios.AppendFormat("<td align='center' style='width: 50px;' class='{0}'>" & _
                                            "<a href='#' " & _

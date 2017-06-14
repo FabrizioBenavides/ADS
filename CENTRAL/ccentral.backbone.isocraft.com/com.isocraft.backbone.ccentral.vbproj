@@ -297,6 +297,13 @@
       <DependentUpon>ControlAsistenciaDetalle.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="_Manager\ControlAsistenciaMovimientosEmpleadosMedicos.aspx.designer.vb">
+      <DependentUpon>ControlAsistenciaMovimientosEmpleadosMedicos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="_Manager\ControlAsistenciaMovimientosEmpleadosMedicos.aspx.vb">
+      <DependentUpon>ControlAsistenciaMovimientosEmpleadosMedicos.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="_Manager\ControlAsistenciaReporte.aspx.vb">
       <DependentUpon>ControlAsistenciaReporte.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1155,6 +1162,13 @@
     <Compile Include="_Manager\SucursalEditarPoliticaDePosDeUnaSucursal.aspx.vb">
       <DependentUpon>SucursalEditarPoliticaDePosDeUnaSucursal.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="_Manager\ControlAsistenciaAdministraciondeEmpleadosMedicos.aspx.designer.vb">
+      <DependentUpon>ControlAsistenciaAdministraciondeEmpleadosMedicos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="_Manager\ControlAsistenciaAdministraciondeEmpleadosMedicos.aspx.vb">
+      <DependentUpon>ControlAsistenciaAdministraciondeEmpleadosMedicos.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="_Manager\SucursalEmpresasServiciosAdministrarEmpresas.aspx.vb">
       <DependentUpon>SucursalEmpresasServiciosAdministrarEmpresas.aspx</DependentUpon>
@@ -2886,6 +2900,7 @@
     <Content Include="_Manager\ControlAsistenciaArchivoAdam.aspx" />
     <Content Include="_Manager\ControlAsistenciaAsignarSucursales.aspx" />
     <Content Include="_Manager\ControlAsistenciaDetalle.aspx" />
+    <Content Include="_Manager\ControlAsistenciaMovimientosEmpleadosMedicos.aspx" />
     <Content Include="_Manager\ControlAsistenciaReporte.aspx" />
     <Content Include="_Manager\ControlAsistenciaReportePorCoordinador.aspx" />
     <Content Include="_Manager\css\calendario.css" />
@@ -3126,6 +3141,7 @@
     <Content Include="_Manager\SucursalEditarFormatoEmpresaServicios.aspx" />
     <Content Include="_Manager\SucursalEditarGastosDeSucursal.aspx" />
     <Content Include="_Manager\SucursalEditarPoliticaDePosDeUnaSucursal.aspx" />
+    <Content Include="_Manager\ControlAsistenciaAdministraciondeEmpleadosMedicos.aspx" />
     <Content Include="_Manager\SucursalEmpresasServiciosAdministrarEmpresas.aspx" />
     <Content Include="_Manager\SucursalEmpresasServiciosAgregarEmpresa.aspx" />
     <Content Include="_Manager\SucursalEmpresasServiciosAsignarAutorizador.aspx" />

@@ -260,7 +260,7 @@
             var nombreSucursal = elemento.parentNode.parentNode.cells[2].innerText;
             var indiceRenglon = elemento.parentNode.parentNode.rowIndex;
 
-            borrarSucursal = confirm("¿Desea desaginar la sucursal " + nombreSucursal + "?");
+            borrarSucursal = confirm("¿Desea desasignar la sucursal " + nombreSucursal + "?");
 
             if (borrarSucursal) {
                 document.getElementById("tablaSucursalesAsignadas").deleteRow(indiceRenglon);
@@ -275,7 +275,7 @@
 
                 if (tablaSucursalesAsignadas.rows.length > 1) {
 
-                    borrarSucursales = confirm("¿Desea desaginar todas las sucursales?");
+                    borrarSucursales = confirm("¿Desea desasignar todas las sucursales?");
 
                     if (borrarSucursales) {
 
