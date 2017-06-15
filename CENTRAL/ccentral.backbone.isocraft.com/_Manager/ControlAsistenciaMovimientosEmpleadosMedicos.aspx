@@ -19,7 +19,46 @@
 
         function window_onload() {
 
+            cargarDatosFiltro();
         }
+
+        function cargarDatosFiltro() {
+            var strCmd2;
+
+            strCmd2 = "<%= strCmd2 %>";
+            
+            if (strCmd2 == "mostrarPaginaMovimientos") {
+                document.getElementById("txtNombreEmpleado").value = "<%=NombreEmpleado%>";
+                document.getElementById("dtmFechaInicio").value =  "<%=dtmFechaActualPrimerDiaMes%>";
+                document.getElementById("dtmFechaFin").value = "<%=dtmFechaHoy%>";
+            }
+
+        }
+
+        function btnRegresar_onclick() {
+            window.location.href = "ControlAsistenciaAdministraciondeEmpleadosMedicos.aspx";
+
+        }
+
+        function btnBuscar_onclick() {
+
+            // validar campos vacios
+            var intEmpleadoId = "<%=intEmpleadoId%>";
+            var dtmFechaInicio = document.getElementById("dtmFechaInicio").value;
+            var dtmFechaFin = document.getElementById("dtmFechaFin").value;
+
+            document.forms[0].action = "ControlAsistenciaMovimientosEmpleadosMedicos.aspx?strCmd2=Buscar" +
+                                       "&intEmpleadoId=" + intEmpleadoId +
+                                       "&dtmFechaInicio=" + dtmFechaInicio +
+                                       "&dtmFechaFin=" + dtmFechaFin;
+
+            document.forms(0).submit();
+        }
+
+        function validarCamposVacios() {
+
+        }
+
 
         new menu(MENU_ITEMS, MENU_POS);
     </script>
@@ -48,14 +87,14 @@
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                         <tr>
                             <td width="25%" class="tdtexttablebold">Empleado:</td>
-                            <td class="tdpadleft5">
-                                <input id="txtNumeroEmpleado" type="text" class="field" size="15" maxlength="12" onkeypress="return txtNumeroEmpleado_onKeyPress(event);">
+                            <td>
+                                <input id="txtNombreEmpleado" type="text" class="field" size="60" maxlength="12" onkeypress="return txtNumeroEmpleado_onKeyPress(event);" readonly="readonly">
                             </td>
                         </tr>
                         <tr>
                             <td width="25%" class="tdtexttablebold">Fecha Inicial:</td>
                             <td>
-                                <input id="dtmFechaInicio" name="dtmFechaInicio" class="campotabla" size="10" maxlength="10">
+                                <input id="dtmFechaInicio" name="dtmFechaInicio" class="campotabla" size="15" maxlength="10">
                                 <a href="javascript:dtmFechaInicio.popup();">
                                     <img onclick="" height="13" alt="Clic para seleccionar la fecha."
                                         src="../static/images/icono_calendario.gif" width="20" border="0">
@@ -65,7 +104,7 @@
                         <tr>
                             <td width="25%" class="tdtexttablebold">Fecha Final:</td>
                             <td>
-                                <input id="dtmFechaFin" name="dtmFechaFin" class="campotabla" size="10" maxlength="10">
+                                <input id="dtmFechaFin" name="dtmFechaFin" class="campotabla" size="15" maxlength="10">
                                 <a href="javascript:dtmFechaFin.popup();">
                                     <img onclick="" height="13" alt="Clic para seleccionar la fecha." src="../static/images/icono_calendario.gif"
                                         width="20" border="0">
@@ -79,14 +118,14 @@
                         </tr>
                         <tr>
                             <td>
-                                <input id="btnRegresar" type="button" class="boton" value="Regresar" onclick="window.location = ''">
+                                <input id="btnRegresar" type="button" class="boton" value="Regresar" onclick="return btnRegresar_onclick();">
                                 <input id="btnImprimir" type="button" class="boton" value="Imprimir" onclick="">
-                                <input id="btnBuscar" type="button" class="boton" value="Buscar" onclick="">
+                                <input id="btnBuscar" type="button" class="boton" value="Buscar" onclick="return btnBuscar_onclick();">
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <%--<%= strConsultarMovimientosEmpleadosMedicos()%>--%>
+                                <%= strConsultarMovimientosEmpleadosMedicos()%>
                             </td>
                         </tr>
                     </table>

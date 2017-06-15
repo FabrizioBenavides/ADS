@@ -20,10 +20,10 @@
             <%= strJavascriptWindowOnLoadCommands %>
         }
 
-        function mostrarPaginaMovimientos_onclick(intEmpleadoId, Nombre) {
-            window.location.href = "ControlAsistenciaMovimientosEmpleadosMedicos.aspx?" +
-                                   "intEmpleadoId=" + intEmpleadoId +
-                                   "&Nombre=" + Nombre;
+        function mostrarPaginaMovimientos_onclick(intEmpleadoId, NombreEmpleado) {
+            window.location.href = "ControlAsistenciaMovimientosEmpleadosMedicos.aspx?strCmd2=mostrarPaginaMovimientos" +
+                                   "&intEmpleadoId=" + intEmpleadoId +
+                                   "&NombreEmpleado=" + NombreEmpleado;
         }
 
         function mostrarPaginaAsignacionDias_onclick(intEmpleadoId) {

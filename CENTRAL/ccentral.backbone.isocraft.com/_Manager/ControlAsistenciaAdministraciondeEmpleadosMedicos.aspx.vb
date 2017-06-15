@@ -28,7 +28,7 @@ Public Class ControlAsistenciaAdministraciondeEmpleadosMedicos
             strResultadoTablaMedicos.Append("<th class='rayita' colspan='3'>Acciónes</th>")
             strResultadoTablaMedicos.Append("</tr>")
 
-            strResultadoTablaMedicos.Append(CrearRegistrosMedico(objMedicos))
+            strResultadoTablaMedicos.Append(strCrearRegistrosMedico(objMedicos))
 
             strResultadoTablaMedicos.Append("</table>")
         End If
@@ -36,7 +36,7 @@ Public Class ControlAsistenciaAdministraciondeEmpleadosMedicos
         Return strResultadoTablaMedicos.ToString()
     End Function
 
-    Private Function CrearRegistrosMedico(ByVal registrosMedicos As Array) As String
+    Private Function strCrearRegistrosMedico(ByVal registrosMedicos As Array) As String
         Dim contadorRegistros As Integer = 0
         Dim colorRegistro As String = String.Empty
         Dim imgVerMovimientos As String = "<img src='../static/images/imgNRVerTodo.gif' width='17' height='17' border='0' align='absMiddle' alt='Ver movimientos' title='Ver movimientos'>"
@@ -56,7 +56,7 @@ Public Class ControlAsistenciaAdministraciondeEmpleadosMedicos
             resultadoMedicos.Append("<tr>")
 
             resultadoMedicos.AppendFormat("<td class='{0}' style='text-align:left'>{1}</td>", colorRegistro, renglon.Item("intEmpleadoId").ToString())
-            resultadoMedicos.AppendFormat("<td class='{0}' style='text-align:left'>{1}</td>", colorRegistro, renglon.Item("Nombre").ToString())
+            resultadoMedicos.AppendFormat("<td class='{0}' style='text-align:left'>{1}</td>", colorRegistro, renglon.Item("NombreEmpleado").ToString())
             resultadoMedicos.AppendFormat("<td class='{0}' style='text-align:left'>{1}</td>", colorRegistro, renglon.Item("Sucursal").ToString())
 
             resultadoMedicos.AppendFormat("<td align='center' style='width: 50px;' class='{0}'>" & _
@@ -64,7 +64,7 @@ Public Class ControlAsistenciaAdministraciondeEmpleadosMedicos
                                           "{3}</a></td>", _
                                           colorRegistro, _
                                           renglon.Item("intEmpleadoId").ToString(), _
-                                          renglon.Item("Nombre").ToString(), _
+                                          renglon.Item("NombreEmpleado").ToString(), _
                                           imgVerMovimientos)
 
             resultadoMedicos.AppendFormat("<td align='center' style='width: 50px;' class='{0}'>" & _
