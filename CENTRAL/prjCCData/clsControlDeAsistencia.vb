@@ -3298,8 +3298,8 @@ Public Class clsControlDeAsistencia
                 ' Creamos estatuto de SQL
                 Call strSQLStatement.AppendFormat("EXECUTE spConsultarMovimientosEmpleadosMedicos {0}, '{1}', '{2}'", _
                                                   intEmpleadoId, _
-                                                  dtmFechaInicio.ToString("MM/dd/yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture), _
-                                                  dtmFechaFin.ToString("MM/dd/yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture))
+                                                  dtmFechaInicio.ToString("MM/dd/yyyy", System.Globalization.CultureInfo.InvariantCulture), _
+                                                  dtmFechaFin.ToString("MM/dd/yyyy", System.Globalization.CultureInfo.InvariantCulture))
      
                 ' Ejecutamos el comando
                 strConsultarMovimientosEmpleadosMedicos = clsSQLOperation3.aobjExecuteQuery(strSQLStatement.ToString, strConnectionString)
