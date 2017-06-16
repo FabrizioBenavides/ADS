@@ -37,9 +37,6 @@ Public Class ControlAsistenciaMovimientosEmpleadosMedicos
     End Property
 
     Public ReadOnly Property dtmFechaInicio() As Date
-        'Get
-        '    Return CDate(GetPageParameter("dtmFechaInicio", ""))
-        'End Get
         Get
             Dim fechaInicio As String = GetPageParameter("dtmFechaInicio", "")
 
@@ -53,9 +50,6 @@ Public Class ControlAsistenciaMovimientosEmpleadosMedicos
     End Property
 
     Public ReadOnly Property dtmFechaFin() As Date
-        'Get
-        '    Return CDate(GetPageParameter("dtmFechaFin", ""))
-        'End Get
         Get
             Dim fechaInicio As String = GetPageParameter("dtmFechaFin", "")
 
@@ -65,6 +59,18 @@ Public Class ControlAsistenciaMovimientosEmpleadosMedicos
                 Return New Date(CInt(fechaSeparada(2)), CInt(fechaSeparada(1)), CInt(fechaSeparada(0)))
 
             End If
+        End Get
+    End Property
+
+    Public ReadOnly Property dtmFechaInicioValorBusqueda() As String
+        Get
+            Return CStr(ViewState("dtmFechaInicioValorBusqueda"))
+        End Get
+    End Property
+
+    Public ReadOnly Property dtmFechaFinValorBusqueda() As String
+        Get
+            Return CStr(ViewState("dtmFechaFinValorBusqueda"))
         End Get
     End Property
 
@@ -90,6 +96,8 @@ Public Class ControlAsistenciaMovimientosEmpleadosMedicos
         Dim objMovimientosMedicos As Array
 
         If strCmd2 = "Buscar" Then
+
+            Call GuardarValorControles()
 
             objMovimientosMedicos = clsControlDeAsistencia.clsRolMedico _
                                     .strConsultarMovimientosEmpleadosMedicos(intEmpleadoId, _
@@ -120,7 +128,7 @@ Public Class ControlAsistenciaMovimientosEmpleadosMedicos
     Private Function strCrearRegistrosMovimientosMedico(ByVal registrosMovimientosMedicos As Array) As String
         Dim contadorRegistros As Integer = 0
         Dim colorRegistro As String = String.Empty
-        Dim resultadoMovimientosMedicos As New StringBuilder
+        Dim resultadoTabla As New StringBuilder
 
         For Each renglon As SortedList In registrosMovimientosMedicos
             contadorRegistros += 1
@@ -131,13 +139,24 @@ Public Class ControlAsistenciaMovimientosEmpleadosMedicos
                 colorRegistro = "tdblanco"
             End If
 
-            resultadoMovimientosMedicos.Append("<tr>")
+            resultadoTabla.Append("<tr>")
 
+            resultadoTabla.AppendFormat("<td class='{0}' style='text-align:left'>{1}</td>", colorRegistro, renglon.Item("fechaMovimiento").ToString())
+            resultadoTabla.AppendFormat("<td class='{0}' style='text-align:left'>{1}</td>", colorRegistro, renglon.Item("intEmpleadoId").ToString())
+            resultadoTabla.AppendFormat("<td class='{0}' style='text-align:left'>{1}</td>", colorRegistro, renglon.Item("NombreEmpleado").ToString())
+            resultadoTabla.AppendFormat("<td class='{0}' style='text-align:left'>{1}</td>", colorRegistro, renglon.Item("dtmHoraEntrada").ToString())
+            resultadoTabla.AppendFormat("<td class='{0}' style='text-align:left'>{1}</td>", colorRegistro, renglon.Item("dtmHoraSalida").ToString())
+            resultadoTabla.AppendFormat("<td class='{0}' style='text-align:left'>{1}</td>", colorRegistro, renglon.Item("strMovimientoNombre").ToString())
 
-
+            resultadoTabla.Append("</tr>")
         Next
 
-        Return resultadoMovimientosMedicos.ToString()
+        Return resultadoTabla.ToString()
     End Function
+
+    Private Sub GuardarValorControles()
+        ViewState("dtmFechaInicioValorBusqueda") = dtmFechaInicio
+        ViewState("dtmFechaFinValorBusqueda") = dtmFechaFin
+    End Sub
 
 End Class

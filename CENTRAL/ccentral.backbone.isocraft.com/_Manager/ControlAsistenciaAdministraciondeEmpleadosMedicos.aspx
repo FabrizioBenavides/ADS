@@ -70,7 +70,6 @@
                         <tr>
                             <td>
                                 <input id="btnImprimir" type="button" class="boton" value="Imprimir" onclick="">
-                                <input id="btnRegresar" type="button" class="boton" value="Regresar" onclick="window.location = ''">
                             </td>
                         </tr>
                     </table>

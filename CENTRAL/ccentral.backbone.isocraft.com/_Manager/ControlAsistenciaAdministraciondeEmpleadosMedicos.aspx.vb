@@ -80,6 +80,8 @@ Public Class ControlAsistenciaAdministraciondeEmpleadosMedicos
                                           colorRegistro, _
                                           renglon.Item("intEmpleadoId").ToString(), _
                                           imgAsignacionHorario)
+
+            resultadoMedicos.Append("</tr>")
         Next
 
         Return resultadoMedicos.ToString()

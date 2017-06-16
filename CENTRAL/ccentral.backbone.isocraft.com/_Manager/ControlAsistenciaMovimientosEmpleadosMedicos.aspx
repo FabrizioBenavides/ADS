@@ -1,5 +1,4 @@
-﻿<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="ControlAsistenciaMovimientosEmpleadosMedicos.aspx.vb" Inherits="com.isocraft.backbone.ccentral.ControlAsistenciaMovimientosEmpleadosMedicos" %>
-
+﻿<%@ Page Language="vb" AutoEventWireup="false" EnableViewState="true" CodeBehind="ControlAsistenciaMovimientosEmpleadosMedicos.aspx.vb" Inherits="com.isocraft.backbone.ccentral.ControlAsistenciaMovimientosEmpleadosMedicos" %>
 
 <html>
 <head>
@@ -26,28 +25,33 @@
             var strCmd2;
 
             strCmd2 = "<%= strCmd2 %>";
-            
+
+            document.getElementById("txtNombreEmpleado").value = "<%=NombreEmpleado%>";
+
             if (strCmd2 == "mostrarPaginaMovimientos") {
-                document.getElementById("txtNombreEmpleado").value = "<%=NombreEmpleado%>";
-                document.getElementById("dtmFechaInicio").value =  "<%=dtmFechaActualPrimerDiaMes%>";
+                document.getElementById("dtmFechaInicio").value = "<%=dtmFechaActualPrimerDiaMes%>";
                 document.getElementById("dtmFechaFin").value = "<%=dtmFechaHoy%>";
             }
-
+            else
+                if (strCmd2 == "Buscar") {
+                    document.getElementById("dtmFechaInicio").value = "<%=dtmFechaInicioValorBusqueda%>";
+                    document.getElementById("dtmFechaFin").value = "<%=dtmFechaFinValorBusqueda%>";
+                }
         }
 
         function btnRegresar_onclick() {
             window.location.href = "ControlAsistenciaAdministraciondeEmpleadosMedicos.aspx";
-
         }
 
         function btnBuscar_onclick() {
 
-            // validar campos vacios
+            var nombreEmpleado = "<%=NombreEmpleado%>";
             var intEmpleadoId = "<%=intEmpleadoId%>";
             var dtmFechaInicio = document.getElementById("dtmFechaInicio").value;
             var dtmFechaFin = document.getElementById("dtmFechaFin").value;
 
             document.forms[0].action = "ControlAsistenciaMovimientosEmpleadosMedicos.aspx?strCmd2=Buscar" +
+                                       "&NombreEmpleado=" + nombreEmpleado +
                                        "&intEmpleadoId=" + intEmpleadoId +
                                        "&dtmFechaInicio=" + dtmFechaInicio +
                                        "&dtmFechaFin=" + dtmFechaFin;
@@ -58,7 +62,6 @@
         function validarCamposVacios() {
 
         }
-
 
         new menu(MENU_ITEMS, MENU_POS);
     </script>
@@ -86,13 +89,13 @@
                     <p>Consulta de Movimientos Empleados Médicos</p>
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                         <tr>
-                            <td width="25%" class="tdtexttablebold">Empleado:</td>
+                            <td width="15%" class="tdtexttablebold">Empleado:</td>
                             <td>
                                 <input id="txtNombreEmpleado" type="text" class="field" size="60" maxlength="12" onkeypress="return txtNumeroEmpleado_onKeyPress(event);" readonly="readonly">
                             </td>
                         </tr>
                         <tr>
-                            <td width="25%" class="tdtexttablebold">Fecha Inicial:</td>
+                            <td width="15%" class="tdtexttablebold">Fecha Inicial:</td>
                             <td>
                                 <input id="dtmFechaInicio" name="dtmFechaInicio" class="campotabla" size="15" maxlength="10">
                                 <a href="javascript:dtmFechaInicio.popup();">
@@ -102,7 +105,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td width="25%" class="tdtexttablebold">Fecha Final:</td>
+                            <td width="15%" class="tdtexttablebold">Fecha Final:</td>
                             <td>
                                 <input id="dtmFechaFin" name="dtmFechaFin" class="campotabla" size="15" maxlength="10">
                                 <a href="javascript:dtmFechaFin.popup();">
@@ -117,12 +120,19 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>
+                            <td colspan='3'>
                                 <input id="btnRegresar" type="button" class="boton" value="Regresar" onclick="return btnRegresar_onclick();">
                                 <input id="btnImprimir" type="button" class="boton" value="Imprimir" onclick="">
                                 <input id="btnBuscar" type="button" class="boton" value="Buscar" onclick="return btnBuscar_onclick();">
                             </td>
                         </tr>
+                        <tr>
+                            <td>
+                                <br />
+                            </td>
+                        </tr>
+                    </table>
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
                         <tr>
                             <td>
                                 <%= strConsultarMovimientosEmpleadosMedicos()%>
