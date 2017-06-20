@@ -68,7 +68,7 @@ Public Class ControlAsistenciaAdministraciondeEmpleadosMedicos
                                           imgVerMovimientos)
 
             resultadoMedicos.AppendFormat("<td align='center' style='width: 50px;' class='{0}'>" & _
-                                          "<a href='#' onClick='mostrarPaginaAsignacionDias_onclick(""{1}"");return false;'>" & _
+                                          "<a href='#' onClick='mostrarPaginaAdministracionEmpleados_onclick(""{1}"");return false;'>" & _
                                           "{2}</a></td>", _
                                           colorRegistro, _
                                           renglon.Item("intEmpleadoId").ToString(), _

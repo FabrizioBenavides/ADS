@@ -281,6 +281,13 @@
       <DependentUpon>ControlAsistenciaAdministracionDeUsuariosAgregar.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="_Manager\ControlAsistenciaAdministracionEmpleadosModificaciones.aspx.designer.vb">
+      <DependentUpon>ControlAsistenciaAdministracionEmpleadosModificaciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="_Manager\ControlAsistenciaAdministracionEmpleadosModificaciones.aspx.vb">
+      <DependentUpon>ControlAsistenciaAdministracionEmpleadosModificaciones.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="_Manager\ControlAsistenciaAdministrarInterfasesAdam.aspx.vb">
       <DependentUpon>ControlAsistenciaAdministrarInterfasesAdam.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2896,6 +2903,7 @@
     <Content Include="_Manager\ControlAsistencia.aspx" />
     <Content Include="_Manager\ControlAsistenciaAdministracionDeUsuarios.aspx" />
     <Content Include="_Manager\ControlAsistenciaAdministracionDeUsuariosAgregar.aspx" />
+    <Content Include="_Manager\ControlAsistenciaAdministracionEmpleadosModificaciones.aspx" />
     <Content Include="_Manager\ControlAsistenciaAdministrarInterfasesAdam.aspx" />
     <Content Include="_Manager\ControlAsistenciaArchivoAdam.aspx" />
     <Content Include="_Manager\ControlAsistenciaAsignarSucursales.aspx" />

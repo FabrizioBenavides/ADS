@@ -26,8 +26,10 @@
                                    "&NombreEmpleado=" + NombreEmpleado;
         }
 
-        function mostrarPaginaAsignacionDias_onclick(intEmpleadoId) {
-
+        function mostrarPaginaAdministracionEmpleados_onclick(intEmpleadoId) {
+            window.location.href = "ControlAsistenciaAdministracionEmpleadosModificaciones.aspx?strCmd=Editar" +
+                                   "&intEmpleadoId=" + intEmpleadoId +
+                                   "&blnUsuarioLocal=0";
         }
 
         function mostrarPaginaAsignacionHorario_onclick(intEmpleadoId) {
