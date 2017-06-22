@@ -26,27 +26,28 @@
     <script language="JavaScript" src="../static/scripts/Tools.js"></script>
     <script language="JavaScript" src="../static/scripts/calendar1.js"></script>
     <script language="JavaScript" src="../static/scripts/HeaderFooter.js"></script>
+
     <script language="javascript" id="clientEventHandlersJS">
-<!--
 
-    var strPaginaAyuda
-    strPaginaAyuda = "<%=strThisPageName%>";
+        var strPaginaAyuda;
+        strPaginaAyuda = "<%=strThisPageName%>";
 
-function window_onload() {
-    MM_preloadImages('../static/images/bayuda_on.gif', '../static/images/bayuda_off.gif');
-    document.forms[0].action = "<%=strFormAction%>";
-		document.forms[0].elements['txaIncapacidadMedica'].style.visible = false
+        function window_onload() {
 
-		calculadiasVacacionesdesdeLoad();
-		calculadiasPermisodesdeLoad();
-		calculadiasCapacitaciondesdeLoad();
+            MM_preloadImages('../static/images/bayuda_on.gif', '../static/images/bayuda_off.gif');
+            document.forms[0].action = "<%=strFormAction%>";
+            document.forms[0].elements['txaIncapacidadMedica'].style.visible = false;
 
-		<% If Trim(strMensaje) <> "" Then%>
-    alert('<%=strMensaje%>');
-    <% End If%>		
+		    calculadiasVacacionesdesdeLoad();
+		    calculadiasPermisodesdeLoad();
+		    calculadiasCapacitaciondesdeLoad();
 
-    return (true);
-}
+		    <% If Trim(strMensaje) <> "" Then%>
+                alert('<%=strMensaje%>');
+            <% End If%>		
+
+            return (true);
+        }
 
 function strCompaniaSucursal() {
     document.write("<%=intCompaniaId%>" + " - " + "<%=intSucursalId%>");
@@ -82,9 +83,7 @@ function strllenarComboEmpleados() {
 }
 
 function cboEmpleados_onchange() {
-    //var i=document.forms[0].elements['cboEmpleados'].selectedIndex-1;
-    //document.forms[0].elements['hdnElegido'].value=document.forms[0].elements['hdnElegido'+i].value
-    var intEmpId = document.forms[0].elements["cboEmpleados"].value
+    var intEmpId = document.forms[0].elements["cboEmpleados"].value;
     document.location.href = "SucursalEmpleadosControlAsistenciaAdministracionEmpleadosModificaciones.aspx?intEmpleadoId=" + intEmpId;
 }
 
@@ -167,11 +166,11 @@ function strVacacionesFechaFin() {
 }
 
 function cambioIncapacidadFechaInicio() {
-    var fIni = document.forms[0].elements["txtIncapacidadMedicaInicio"].value
+    var fIni = document.forms[0].elements["txtIncapacidadMedicaInicio"].value;
 
     if (fIni != "") {
         if (blnValidarCampo(document.forms('SucursalEmpleadoControlAsistenciaAdministracionEmpleadosModificaciones').elements('txtIncapacidadMedicaInicio'), false, 'IncapacidadMedica Fecha inicio', cintTipoCampoFecha, 10, 10, '')) {
-            var fFin = document.forms[0].elements["txtIncapacidadMedicaFinal"].value
+            var fFin = document.forms[0].elements["txtIncapacidadMedicaFinal"].value;
             if (fFin != "") {
                 if (fIni > fFin) {
                     alert("La fecha de inicio de incapacidad médica no puede ser mayor a la fecha final de incapacidad médica");
@@ -184,8 +183,8 @@ function cambioIncapacidadFechaInicio() {
 }
 
 function cambioIncapacidadFechaFin() {
-    var fIni = document.forms[0].elements["txtIncapacidadMedicaInicio"].value
-    var fFin = document.forms[0].elements["txtIncapacidadMedicaFinal"].value
+    var fIni = document.forms[0].elements["txtIncapacidadMedicaInicio"].value;
+    var fFin = document.forms[0].elements["txtIncapacidadMedicaFinal"].value;
     if (fFin != "") {
         if (fIni != "") {
             if ((blnValidarCampo(document.forms('SucursalEmpleadoControlAsistenciaAdministracionEmpleadosModificaciones').elements('txtIncapacidadMedicaInicio'), false, 'IncapacidadMedica Fecha inicio', cintTipoCampoFecha, 10, 10, '')) && (blnValidarCampo(document.forms('SucursalEmpleadoControlAsistenciaAdministracionEmpleadosModificaciones').elements('txtIncapacidadMedicaFinal'), false, 'IncapacidadMedica Fecha Final', cintTipoCampoFecha, 10, 10, ''))) {
@@ -249,14 +248,14 @@ function cambioPermisoEspecialFechaInicio() {
 
             var fFin = new Date(strMes + "/" + strDia + "/" + strAno);
 
-            var diaDescanso = document.forms[0].elements["cmdDiaDescanso"].value // se obtiene el dia de descanso de lo que diga el combo dia de descanso
+            var diaDescanso = document.forms[0].elements["cmdDiaDescanso"].value; // se obtiene el dia de descanso de lo que diga el combo dia de descanso
             var parrafo = document.getElementById("lblDiasPermiso");
             parrafo.innerHTML = 0;
 
             var diasEntreFechas = eval(((((fFin - fIni) / 60) / 60) / 24) / 1000) + 1;//segundos,minutos,horas...
-            var diaSemana = 0
+            var diaSemana = 0;
             var UnDiaEnMiliSegundos = parseInt(1 * 24 * 60 * 60 * 1000);//milisegundos de un dia										
-            var diafIni = 0
+            var diafIni = 0;
             var contDiasDescanso = 0;
 
             for (var i = 0; i < diasEntreFechas; i++) {
@@ -321,11 +320,12 @@ function cambioPermisoEspecialFechaFin() {
 	        if (fIni != "") {
 	            if (fIni <= fFin) {
 	                //dias a descontar por ser dias de descanso
-	                var diaSemana = 0
+	                var diaSemana = 0;
 	                var UnDiaEnMiliSegundos = parseInt(1 * 24 * 60 * 60 * 1000);//milisegundos de un dia										
-	                var diafIni = 0
+	                var diafIni = 0;
 	                var contDiasDescanso = 0;
-	                diasEntreFechas = eval(((((fFin - fIni) / 60) / 60) / 24) / 1000) + 1
+	                diasEntreFechas = eval(((((fFin - fIni) / 60) / 60) / 24) / 1000) + 1;
+
 	                for (var i = 0; i < diasEntreFechas; i++) {
 	                    diaSemana = 1 + fIni.getDay();
 	                    if (diaSemana == diaDescanso)
@@ -345,8 +345,6 @@ function cambioPermisoEspecialFechaFin() {
 	                    lblDias.innerHTML = dias;
 	                else
 	                    lblDias.innerHTML = 0;
-
-
 	            }
 	            else {
 	                alert("La fecha final de vacaciones no puede ser menor a la fecha inicial");
@@ -362,8 +360,8 @@ function cambioPermisoEspecialFechaFin() {
 function cambioVacacionesFechaInicio() {
 
     if ((document.forms[0].elements["txtVacacionesInicio"].value != "") && (document.forms[0].elements["txtVacacionesFin"].value != "")) {
-        var fIni = document.forms[0].elements["txtVacacionesInicio"].value
-        var fFin = document.forms[0].elements["txtVacacionesFin"].value
+        var fIni = document.forms[0].elements["txtVacacionesInicio"].value;
+        var fFin = document.forms[0].elements["txtVacacionesFin"].value;
 
         var strDia = fIni.substring(0, 2);
         var strMes = fIni.substring(3, 5);
@@ -385,8 +383,7 @@ function cambioVacacionesFechaInicio() {
 
 			var i = 0;
 			var fecha = new Array();
-			var parrafo = document.getElementById("lblDias");
-     //parrafo.innerHTML=0;								
+			var parrafo = document.getElementById("lblDias");							
 			var posComas = 0;
 			var contador = 0;
 			var ini = 0;
@@ -430,9 +427,9 @@ function cambioVacacionesFechaInicio() {
 			                }
 			            }
 			            //dias a descontar por ser dias de descanso
-			            var diaSemana = 0
+			            var diaSemana = 0;
 			            var UnDiaEnMiliSegundos = parseInt(1 * 24 * 60 * 60 * 1000);//milisegundos de un dia										
-			            var diafIni = 0
+			            var diafIni = 0;
 			            var contDiasDescanso = 0;
 
 			            for (var i = 0; i < diasEntreFechas; i++) {
@@ -474,7 +471,6 @@ function fnValidaDiasCapacitacion() {
 function cambioDiaDescanso() {
     var diaDescanso = document.forms[0].elements["cmdDiaDescanso"].value; // se obtiene el dia de descanso de lo que diga el combo dia de descanso
 
-
     var strGrupo = "<%= strGrupoDescripcion()%>";
      if ((strGrupo == 'ADMINISTRATIVO') && (diaDescanso != '1')) {
 
@@ -487,8 +483,8 @@ function cambioDiaDescanso() {
      document.forms[0].elements["hdnDiaDescanso"].value = diaDescanso;
 
      if ((document.forms[0].elements["txtVacacionesInicio"].value != "") && (document.forms[0].elements["txtVacacionesFin"].value != "")) {
-         var fIni = document.forms[0].elements["txtVacacionesInicio"].value
-         var fFin = document.forms[0].elements["txtVacacionesFin"].value
+         var fIni = document.forms[0].elements["txtVacacionesInicio"].value;
+         var fFin = document.forms[0].elements["txtVacacionesFin"].value;
 
          var strDia = fIni.substring(0, 2);
          var strMes = fIni.substring(3, 5);
@@ -553,9 +549,9 @@ function cambioDiaDescanso() {
 			            }
 			        }
 			        //dias a descontar por ser dias de descanso
-			        var diaSemana = 0
+			        var diaSemana = 0;
 			        var UnDiaEnMiliSegundos = parseInt(1 * 24 * 60 * 60 * 1000);//milisegundos de un dia										
-			        var diafIni = 0
+			        var diafIni = 0;
 			        var contDiasDescanso = 0;
 
 			        for (var i = 0; i < diasEntreFechas; i++) {
@@ -588,8 +584,8 @@ function cambioDiaDescanso() {
 
         if (document.forms[0].elements["txtPermisoEspecialFin"].value != "" && document.forms[0].elements["txtPermisoEspecialInicio"].value != "") {
 
-            var fIniPermiso = document.forms[0].elements["txtPermisoEspecialInicio"].value
-            var fFinPermiso = document.forms[0].elements["txtPermisoEspecialFin"].value
+            var fIniPermiso = document.forms[0].elements["txtPermisoEspecialInicio"].value;
+            var fFinPermiso = document.forms[0].elements["txtPermisoEspecialFin"].value;
 
             var strDiaP = fIniPermiso.substring(0, 2);
             var strMesP = fIniPermiso.substring(3, 5);
@@ -632,8 +628,8 @@ function cambioDiaDescanso() {
 
         if ((document.forms[0].elements["txtVacacionesInicio"].value != "") && (document.forms[0].elements["txtVacacionesFin"].value != "")) {
 
-            var fIni = document.forms[0].elements["txtVacacionesInicio"].value
-            var fFin = document.forms[0].elements["txtVacacionesFin"].value
+            var fIni = document.forms[0].elements["txtVacacionesInicio"].value;
+            var fFin = document.forms[0].elements["txtVacacionesFin"].value;
 
             var strDia = fIni.substring(0, 2);
             var strMes = fIni.substring(3, 5);
@@ -655,7 +651,6 @@ function cambioDiaDescanso() {
                 document.forms[0].elements["txtVacacionesFin"].focus();
                 document.forms[0].elements["txtVacacionesFin"].value = "";
                 return false;
-
             }
 
             //  diaDescanso="<%=ConsultaArray(1)%>";				
@@ -710,9 +705,9 @@ function cambioDiaDescanso() {
 			                }
 			            }
 			            //dias a descontar por ser dias de descanso
-			            var diaSemana = 0
+			            var diaSemana = 0;
 			            var UnDiaEnMiliSegundos = parseInt(1 * 24 * 60 * 60 * 1000);//milisegundos de un dia										
-			            var diafIni = 0
+			            var diafIni = 0;
 			            var contDiasDescanso = 0;
 
 			            for (var i = 0; i < diasEntreFechas; i++) {
@@ -745,15 +740,13 @@ function cambioDiaDescanso() {
 }
 
 function cambioMotivos() {
-
-    document.forms[0].elements["hdnMotivo"].value = document.forms[0].elements["cboMotivos"].value //motivo
-
+    document.forms[0].elements["hdnMotivo"].value = document.forms[0].elements["cboMotivos"].value; //motivo
 }
 
 function calculadiasVacacionesdesdeLoad() {
     var diaDescanso = "<%=ConsultaArray(1)%>";
-    document.forms[0].elements["hdnDiaDescanso"].value = diaDescanso
-    document.forms[0].elements["hdnDiaDescansoOriginal"].value = diaDescanso
+    document.forms[0].elements["hdnDiaDescanso"].value = diaDescanso;
+    document.forms[0].elements["hdnDiaDescansoOriginal"].value = diaDescanso;
     document.forms[0].elements["hdnMotivo"].value = "<%=ConsultaArray(14)%>"; //motivo
     if ((document.forms[0].elements["txtVacacionesInicio"].value != "") && (document.forms[0].elements["txtVacacionesFin"].value != "")) {
         var fIni = document.forms[0].elements["txtVacacionesInicio"].value;
@@ -819,10 +812,10 @@ function calculadiasVacacionesdesdeLoad() {
 			        }
 			    }
 
-			    var diaSemana = 0
+			    var diaSemana = 0;
 			    var UnDiaEnMiliSegundos = parseInt(1 * 24 * 60 * 60 * 1000);//milisegundos de un dia					
 
-			    var diafIni = 0
+			    var diafIni = 0;
 			    var contDiasDescanso = 0;
 
 			    for (var i = 0; i < diasEntreFechas; i++) {
@@ -848,7 +841,6 @@ function calculadiasVacacionesdesdeLoad() {
 
             }
         }
-
 
         function calculadiasPermisodesdeLoad() {
 
@@ -902,10 +894,9 @@ function calculadiasVacacionesdesdeLoad() {
     //inicio de carga de vacaciones
 
     function calculadiasCapacitaciondesdeLoad() {
-
         var diaDescanso = "<%=ConsultaArray(1)%>";
-        document.forms[0].elements["hdnDiaDescanso"].value = diaDescanso
-        document.forms[0].elements["hdnDiaDescansoOriginal"].value = diaDescanso
+        document.forms[0].elements["hdnDiaDescanso"].value = diaDescanso;
+        document.forms[0].elements["hdnDiaDescansoOriginal"].value = diaDescanso;
         document.forms[0].elements["hdnMotivo"].value = "<%=ConsultaArray(14)%>"; //motivo
 
         if ((document.forms[0].elements["txtCapacitacionInicio"].value != "") && (document.forms[0].elements["txtCapacitacionFin"].value != "")) {
@@ -976,10 +967,10 @@ function calculadiasVacacionesdesdeLoad() {
                 }
             }
 
-            var diaSemana = 0
+            var diaSemana = 0;
             var UnDiaEnMiliSegundos = parseInt(1 * 24 * 60 * 60 * 1000);//milisegundos de un dia					
 
-            var diafIni = 0
+            var diafIni = 0;
             var contDiasDescanso = 0;
 
             for (var i = 0; i < diasEntreFechas; i++) {
@@ -1029,24 +1020,19 @@ function cmdAplicar_onclick() {
     }
 
     //Validar Dia Descanso
-    var diaDescanso = document.forms[0].elements["cmdDiaDescanso"].value // se obtiene el dia de descanso de lo que diga el combo dia de descanso
+    var diaDescanso = document.forms[0].elements["cmdDiaDescanso"].value; // se obtiene el dia de descanso de lo que diga el combo dia de descanso
     if (diaDescanso == "0") {
         alert("Debe seleccionar un día de descanso para continuar");
         document.forms[0].elements["cmdDiaDescanso"].focus();
         return false;
     }
     else {
-
-        //
         var strGrupo = "<%= strGrupoDescripcion()%>";
 	    if ((strGrupo == 'ADMINISTRATIVO') && (diaDescanso != '1')) {
-
-	        //document.forms[0].elements["cmdDiaDescanso"].value = '1';
 	        alert('El dia de descanso para el empleado administrativo siempre debe de ser el domingo.');
 	        document.forms[0].elements["cmdDiaDescanso"].focus();
 	        return (false);
 	    }
-	    //
 	}
 
     //Validar Incapacidad Medica
@@ -1113,7 +1099,6 @@ function cmdAplicar_onclick() {
     }
 
     if (fnValidarFechasCapacitacion() == true) {
-
         document.forms[0].action = "<%=strFormAction%>?strCmd=Aplicar&intEmpleadoId=" + intEmpId;
 	    document.forms[0].submit();
 	    document.forms[0].target = '';
@@ -1131,7 +1116,6 @@ function cmdTurnos_onclick() {
 function cmdRegresar_onclick() {
     document.location.href = "SucursalEmpleadosControlAsistenciasAdministraciondeEmpleados.aspx";
 }
-
 
 function mostrarCalendario(nombreText) {
     //Validacion del dia de descanso.
@@ -1153,7 +1137,6 @@ function mostrarCalendario(nombreText) {
                     //perder tiempo		  
                 }
                 cambioPermisoEspecialFechaInicio()
-
             }
         }
     }
@@ -1180,7 +1163,6 @@ function mostrarCalendario(nombreText) {
                     //perder tiempo		  
                 }
                 cambioIncapacidadFechaFin()
-
             }
         }
     }
@@ -1261,8 +1243,8 @@ function mostrarCalendario(nombreText) {
 function cambioCapacitacionFechaInicio() {
 
     if ((document.forms[0].elements["txtCapacitacionInicio"].value != "") && (document.forms[0].elements["txtCapacitacionFin"].value != "")) {
-        var fIni = document.forms[0].elements["txtCapacitacionInicio"].value
-        var fFin = document.forms[0].elements["txtCapacitacionFin"].value
+        var fIni = document.forms[0].elements["txtCapacitacionInicio"].value;
+        var fFin = document.forms[0].elements["txtCapacitacionFin"].value;
 
         var strDia = fIni.substring(0, 2);
         var strMes = fIni.substring(3, 5);
@@ -1345,16 +1327,8 @@ function cambioCapacitacionFechaInicio() {
                     //Actualizando pantalla
                     var lblDiasCapacitacion = document.getElementById("lblDiasCapacitacion");
                     var dias = Math.floor(diasEntreFechas - contDiasDescanso - contDiasFestivos);
-                    //    var diasDisponibles = "<=ConsultaArray(0)%>";
-                    //if(diasDisponibles >= dias && dias >= 0)					
+             				
                     lblDiasCapacitacion.innerHTML = dias;
-                    //else
-                    //{
-                    //    alert("El número de días ha excedido a los disponibles");
-                    //    lblDiasCapacitacion.innerHTML = 0;	
-                    //    document.forms[0].elements["txtCapacitacionInicio"].value = "";					  
-                    //    document.forms[0].elements["txtCapacitacionInicio"].focus();					  
-                    //}							
                 }
                 else {
                     alert("La fecha final de capacitacion no puede ser menor a la fecha inicial");
@@ -1367,9 +1341,7 @@ function cambioCapacitacionFechaInicio() {
     }
     else if (document.forms[0].elements["txtCapacitacionInicio"].value != "") {
 
-        //var fIni = document.forms[0].elements["txtCapacitacionInicio"].value
         var dtmInicio = document.forms[0].elements["txtCapacitacionInicio"].value;
-        //var dtmInicio = document.getElementById(txtCapacitacionInicio).value;
         var diaIni = dtmInicio.substring(0, 2)
         var mesIni = dtmInicio.substring(3, 5);
         var anioIni = dtmInicio.substring(6, 10);
@@ -1381,7 +1353,6 @@ function cambioCapacitacionFechaInicio() {
         var anioActual = dtmActual.substring(6, 10);
 
         var date1 = (anioIni + mesIni + diaIni);
-        //var date2 = (anioFin + mesFin + diaFin);
         var date3 = (anioActual + mesActual + diaActual);
 
         //Validaciones si no es el dia de descanso.
@@ -1410,15 +1381,10 @@ function cambioCapacitacionFechaInicio() {
             document.forms[0].elements["txtCapacitacionInicio"].focus;
             return (false);
         }
-        //else if(dateIniDay  <= ){
-
-        //}
-
     }
 }
 
 function fnValidarFechasCapacitacion() {
-
     //Fechas de Vacaciones
     var dtVacacionesInicio = trim(document.getElementById("txtVacacionesInicio").value);
     var dtVacacionesFin = trim(document.getElementById("txtVacacionesFin").value);
@@ -1435,7 +1401,6 @@ function fnValidarFechasCapacitacion() {
         var anioVacacionesFin = dtVacacionesFin.substring(6, 10);
         var dateVacaciones2 = (anioVacacionesFin + mesVacacionesFin + diaVacacionesFin);
     }
-
 
     //Fechas de Incapacidad
     var dtIncapacidadInicio = trim(document.getElementById("txtIncapacidadMedicaInicio").value);
@@ -1546,8 +1511,8 @@ function cambioCapacitacionFin() {
 
     if ((document.forms[0].elements["txtCapacitacionInicio"].value != "") && (document.forms[0].elements["txtCapacitacionFin"].value != "")) {
 
-        var fIni = document.forms[0].elements["txtCapacitacionInicio"].value
-        var fFin = document.forms[0].elements["txtCapacitacionFin"].value
+        var fIni = document.forms[0].elements["txtCapacitacionInicio"].value;
+        var fFin = document.forms[0].elements["txtCapacitacionFin"].value;
 
         var strDia = fIni.substring(0, 2);
         var strMes = fIni.substring(3, 5);
@@ -1573,7 +1538,7 @@ function cambioCapacitacionFin() {
         }
 
         //  diaDescanso="<%=ConsultaArray(1)%>";				
-            var diaDescanso = document.forms[0].elements["cmdDiaDescanso"].value // se obtiene el dia de descanso de lo que diga el combo dia de descanso
+        var diaDescanso = document.forms[0].elements["cmdDiaDescanso"].value; // se obtiene el dia de descanso de lo que diga el combo dia de descanso
 
             var diaFestivoArray = new Array();
             var diaFestivo = "<%=ConsultarDiasFestivos()%>";
@@ -1624,9 +1589,9 @@ function cambioCapacitacionFin() {
 	                    }
 	                }
 	                //dias a descontar por ser dias de descanso
-	                var diaSemana = 0
+	                var diaSemana = 0;
 	                var UnDiaEnMiliSegundos = parseInt(1 * 24 * 60 * 60 * 1000);//milisegundos de un dia										
-	                var diafIni = 0
+	                var diafIni = 0;
 	                var contDiasDescanso = 0;
 
 	                for (var i = 0; i < diasEntreFechas; i++) {
@@ -1637,16 +1602,7 @@ function cambioCapacitacionFin() {
 	                }
 	                //Actualizando pantalla
 	                var dias = Math.floor(diasEntreFechas - contDiasDescanso - contDiasFestivos);
-	                //    var diasDisponibles="<=ConsultaArray(0)%>";
-	                //if(diasDisponibles>=dias && dias>=0)					
 	                parrafo.innerHTML = dias;
-	                //else
-	                //{
-	                //    alert("El número de días ha excedido a los disponibles");
-	                //    parrafo.innerHTML=0;
-	                //    document.forms[0].elements["txtCapacitacionFin"].value="";					  
-	                //    document.forms[0].elements["txtCapacitacionFin"].focus();
-	                //}				
 	            }
 	            else {
 	                alert("La fecha final de capacitacion no puede ser menor a la fecha inicial");
@@ -1658,11 +1614,8 @@ function cambioCapacitacionFin() {
 	    }
     }
     else if (document.forms[0].elements["txtCapacitacionFin"].value != "") {
-
-        //var fIni = document.forms[0].elements["txtCapacitacionFin"].value
         var dtmFin = document.forms[0].elements["txtCapacitacionFin"].value;
-        //var dtmFin = document.getElementById(txtCapacitacionFin).value;
-        var diaFin = dtmFin.substring(0, 2)
+        var diaFin = dtmFin.substring(0, 2);
         var mesFin = dtmFin.substring(3, 5);
         var anioFin = dtmFin.substring(6, 10);
 
@@ -1679,7 +1632,7 @@ function cambioCapacitacionFin() {
         //Validaciones si no es el dia de descanso.
         var dateFin = new Date(anioFin + "/" + mesFin + "/" + diaFin);
         var dateFinDay = dateFin.getDay();
-        var diaDescanso = document.forms[0].elements["cmdDiaDescanso"].value // se obtiene el dia de descanso de lo que diga el combo dia de descanso
+        var diaDescanso = document.forms[0].elements["cmdDiaDescanso"].value; // se obtiene el dia de descanso de lo que diga el combo dia de descanso
 
         if (date2 < date3) {
 
@@ -1702,10 +1655,6 @@ function cambioCapacitacionFin() {
             document.forms[0].elements["txtCapacitacionFin"].focus;
             return (false);
         }
-        //else if(dateIniDay  <= ){
-
-        //}
-
     }
 
 }
@@ -1732,7 +1681,8 @@ function trim(stringToTrim) {
             </tr>
             <tr>
                 <td valign="top" height="34" width="100%">
-                    <img src="../static/images/pixel.gif" width="1" height="34"></td>
+                    <img src="../static/images/pixel.gif" width="1" height="34">
+                </td>
             </tr>
             <tr>
                 <td width="100%">
@@ -1742,11 +1692,11 @@ function trim(stringToTrim) {
                                 <img height="8" src="../static/images/pixel.gif" width="10"></td>
                             <td width="538" class="tdmigaja">
                                 <div id="ToPrintTxtMigaja">
-                                    <span class="txdmigaja">Está 
-                en :<a class="txdmigaja" href="Sucursal.aspx">Sucursal</a> : <a class="txdmigaja" href="SucursalEmpleados.aspx">Empleado</a>
+                                    <span class="txdmigaja">Está en :<a class="txdmigaja" href="Sucursal.aspx">Sucursal</a> : <a class="txdmigaja" href="SucursalEmpleados.aspx">Empleado</a>
                                         : <a class="txdmigaja" href="SucursalEmpleadosControlAsistencias.aspx">Control 
-                Asistencias</a> : <a class="txdmigaja" href="SucursalEmpleadosControlAsistenciasAdministraciondeEmpleados.aspx">Administración 
-                de Empleados</a> : Modificaciones</span>
+                                        Asistencias</a> : <a class="txdmigaja" href="SucursalEmpleadosControlAsistenciasAdministraciondeEmpleados.aspx">Administración 
+                                        de Empleados</a> : Modificaciones
+                                    </span>
                                 </div>
                             </td>
                             <td width="182" class="tdfechahora">
@@ -1762,8 +1712,7 @@ function trim(stringToTrim) {
                                             <td class="tdtablacont" valign="top" width="584">
                                                 <p>
                                                     <span class="txtitulo">
-                                                        <img src="../static/images/bullet_subtitulos.gif" align="middle">&nbsp;Administración 
-                      de Empleados</span>
+                                                        <img src="../static/images/bullet_subtitulos.gif" align="middle">&nbsp;Administración de Empleados</span>
                                                 </p>
                                                 <script language="JavaScript">crearDatosSucursal()</script>
                                                 <br>
@@ -1776,12 +1725,10 @@ function trim(stringToTrim) {
                                                                         <script language="javascript">strllenarComboEmpleados()
                                                                         </script>
                                                                     </td>
-                                                                    <td class="tdtittablas3" valign="top" align="left">Día 
-                                de descanso<br>
+                                                                    <td class="tdtittablas3" valign="top" align="left">Día de descanso<br>
                                                                         <script language="javascript">strDiadeDescanso()</script>
                                                                     </td>
-                                                                    <td class="tdtittablas3" valign="top" align="center" bgcolor="#ffcccc">Baja 
-                                Temporal<br>
+                                                                    <td class="tdtittablas3" valign="top" align="center" bgcolor="#ffcccc">Baja Temporal<br>
                                                                         <script language="javascript">strBajaTemporal()</script>
                                                                     </td>
                                                                 </tr>
@@ -1790,29 +1737,25 @@ function trim(stringToTrim) {
                                                             <div class="txsubtitulo">Vacaciones</div>
                                                             <table class="tdenvolventetablas" id="Table2" height="19" cellspacing="0" cellpadding="0" width="100%">
                                                                 <tr>
-                                                                    <td class="tdtittablas3" align="left" width="100" height="20">Fecha 
-                                Inicio:</td>
+                                                                    <td class="tdtittablas3" align="left" width="100" height="20">Fecha Inicio:</td>
                                                                     <td class="tdtittablas3" align="left" height="20">
                                                                         <script language="javascript">strVacacionesFechaInicio()</script>
                                                                         <img style="cursor: hand" onclick="mostrarCalendario('txtVacacionesInicio')" src="../static/images/icono_calendario.gif">
                                                                     </td>
                                                                     <td class="tdtittablas3" align="left" colspan="2" height="26"></td>
-                                                                    <td class="tdtittablas3" align="right" width="100" height="20">Días 
-                                Disponibles:</td>
+                                                                    <td class="tdtittablas3" align="right" width="100" height="20">Días Disponibles:</td>
                                                                     <td class="tdtittablas3" align="left" height="20">
                                                                         <script language="javascript">strDiasDisponiblesVacaciones()</script>
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td class="tdtittablas3" align="left" width="100" height="20">Fecha 
-                                Fin:</td>
+                                                                    <td class="tdtittablas3" align="left" width="100" height="20">Fecha Fin:</td>
                                                                     <td class="tdtittablas3" align="left" height="20">
                                                                         <script language="javascript">strVacacionesFechaFin()</script>
                                                                         <img style="cursor: hand" onclick="mostrarCalendario('txtVacacionesFin')" src="../static/images/icono_calendario.gif">
                                                                     </td>
                                                                     <td class="tdtittablas3" align="left" colspan="2" height="20"></td>
-                                                                    <td class="tdtittablas3" align="right" height="20">Días 
-                                Requeridos:</td>
+                                                                    <td class="tdtittablas3" align="right" height="20">Días Requeridos:</td>
                                                                     <td class="tdtittablas3" align="left" width="20" height="20">
                                                                         <div id="lblDias">0</div>
                                                                     </td>
@@ -1824,13 +1767,11 @@ function trim(stringToTrim) {
                                                         <td valign="top">
                                                             <br>
                                                             <div class="txsubtitulo">
-                                                                Incapacidad 
-                            Médica
+                                                                Incapacidad Médica
                                                             </div>
                                                             <table class="tdenvolventetablas" id="tblBusqueda" cellspacing="0" cellpadding="0" width="100%">
                                                                 <tr>
-                                                                    <td class="tdtittablas3" align="left" width="100" height="20">Fecha 
-                                Inicio:</td>
+                                                                    <td class="tdtittablas3" align="left" width="100" height="20">Fecha Inicio:</td>
                                                                     <td class="tdtittablas3" align="left" height="20">
                                                                         <script language="javascript">strIncapacidadMedicaFechaInicio()</script>
                                                                         <img style="cursor: hand" onclick="mostrarCalendario('txtIncapacidadMedicaInicio')" src="../static/images/icono_calendario.gif">
@@ -1841,8 +1782,7 @@ function trim(stringToTrim) {
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td class="tdtittablas3" align="left" width="100" height="20">Fecha 
-                                Fin:</td>
+                                                                    <td class="tdtittablas3" align="left" width="100" height="20">Fecha Fin:</td>
                                                                     <td class="tdtittablas3" align="left" height="20">
                                                                         <script language="javascript">strIncapacidadMedicaFechaFin()</script>
                                                                         <img style="cursor: hand" onclick="mostrarCalendario('txtIncapacidadMedicaFinal')" src="../static/images/icono_calendario.gif">
@@ -1869,13 +1809,11 @@ function trim(stringToTrim) {
                                                         <td valign="top">
                                                             <br>
                                                             <div class="txsubtitulo">
-                                                                Permiso 
-                            Especial
+                                                                Permiso Especial
                                                             </div>
                                                             <table class="tdenvolventetablas" id="tblBusqueda" cellspacing="0" cellpadding="0" width="100%">
                                                                 <tr>
-                                                                    <td class="tdtittablas3" align="left" width="100" height="20">Fecha 
-                                Inicio:</td>
+                                                                    <td class="tdtittablas3" align="left" width="100" height="20">Fecha  Inicio:</td>
                                                                     <td class="tdtittablas3" align="left" height="20">
                                                                         <script language="javascript">strPermisoEspecialFechaInicio()</script>
                                                                         <img style="cursor: hand" onclick="mostrarCalendario('txtPermisoEspecialInicio')" src="../static/images/icono_calendario.gif">
@@ -1886,14 +1824,12 @@ function trim(stringToTrim) {
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td class="tdtittablas3" align="left" width="100" height="20">Fecha 
-                                Fin:</td>
+                                                                    <td class="tdtittablas3" align="left" width="100" height="20">Fecha Fin:</td>
                                                                     <td class="tdtittablas3" align="left" height="20">
                                                                         <script language="javascript">strPermisoEspecialFechaFin()</script>
                                                                         <img style="cursor: hand" onclick="mostrarCalendario('txtPermisoEspecialFin')" src="../static/images/icono_calendario.gif">
                                                                     </td>
-                                                                    <td class="tdtittablas3" align="right" height="20">Con 
-                                sueldo:</td>
+                                                                    <td class="tdtittablas3" align="right" height="20">Con sueldo:</td>
                                                                     <td class="tdtittablas3" align="left" height="60">
                                                                         <script language="javascript">strPermisoEspecialConSueldo()</script>
                                                                     </td>
@@ -1923,8 +1859,7 @@ function trim(stringToTrim) {
                                                             <div class="txsubtitulo">Capacitación y/o Junta Operacional </div>
                                                             <table class="tdenvolventetablas" id="TABLE4" cellspacing="0" cellpadding="0" width="100%">
                                                                 <tr>
-                                                                    <td class="tdtittablas3" align="left" width="100" height="20">Fecha 
-                                Inicio:</td>
+                                                                    <td class="tdtittablas3" align="left" width="100" height="20">Fecha Inicio:</td>
                                                                     <td class="tdtittablas3" align="left" height="20">
                                                                         <script language="javascript">strCapacitacionFechaInicio()</script>
                                                                         <img style="cursor: hand" onclick="mostrarCalendario('txtCapacitacionInicio')" src="../static/images/icono_calendario.gif">
@@ -1935,8 +1870,7 @@ function trim(stringToTrim) {
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td class="tdtittablas3" align="left" width="100" height="20">Fecha 
-                                Fin:</td>
+                                                                    <td class="tdtittablas3" align="left" width="100" height="20">Fecha Fin:</td>
                                                                     <td class="tdtittablas3" align="left" height="20">
                                                                         <script language="javascript">strCapacitacionFechaFin()</script>
                                                                         <img style="cursor: hand" onclick="mostrarCalendario('txtCapacitacionFin')" src="../static/images/icono_calendario.gif">
@@ -1956,8 +1890,6 @@ function trim(stringToTrim) {
                                                                     </td>
                                                                 </tr>
                                                             </table>
-                                                            <%--<input type="hidden" name="hdnDiaDescansoOriginal"> 
-                          <input type="hidden" name="hdnDiaDescanso"> <input type="hidden" name="hdnMotivo"> --%>
                                                         </td>
                                                     </tr>
                                                     <!--Fin cambio Control Asistencia II-->
@@ -1994,21 +1926,18 @@ function trim(stringToTrim) {
             </tr>
         </table>
         <script language="JavaScript">
-	<!--
-    new menu(MENU_ITEMS, MENU_POS);
-    new menu(MENU_ITEMS2, MENU_POS2);
-    var objCalendarVacacionesInicio = new calendar1(document.forms['SucursalEmpleadoControlAsistenciaAdministracionEmpleadosModificaciones'].elements['txtVacacionesInicio']);
-    var objCalendarVacacionesFin = new calendar1(document.forms['SucursalEmpleadoControlAsistenciaAdministracionEmpleadosModificaciones'].elements['txtVacacionesFin']);
-    var objCalendarIncapacidadMedicaInicio = new calendar1(document.forms['SucursalEmpleadoControlAsistenciaAdministracionEmpleadosModificaciones'].elements['txtIncapacidadMedicaInicio']);
-    var objCalendarIncapacidadMedicaFin = new calendar1(document.forms['SucursalEmpleadoControlAsistenciaAdministracionEmpleadosModificaciones'].elements['txtIncapacidadMedicaFinal']);
-    var objCalendarPermisoEspecialInicio = new calendar1(document.forms['SucursalEmpleadoControlAsistenciaAdministracionEmpleadosModificaciones'].elements['txtPermisoEspecialInicio']);
-    var objCalendarPermisoEspecialFin = new calendar1(document.forms['SucursalEmpleadoControlAsistenciaAdministracionEmpleadosModificaciones'].elements['txtPermisoEspecialFin']);
-    var objCalendarCapacitacionInicio = new calendar1(document.forms['SucursalEmpleadoControlAsistenciaAdministracionEmpleadosModificaciones'].elements['txtCapacitacionInicio']);
-    var objCalendarCapacitacionFin = new calendar1(document.forms['SucursalEmpleadoControlAsistenciaAdministracionEmpleadosModificaciones'].elements['txtCapacitacionFin']);
-    //-->
+            new menu(MENU_ITEMS, MENU_POS);
+            new menu(MENU_ITEMS2, MENU_POS2);
+            var objCalendarVacacionesInicio = new calendar1(document.forms['SucursalEmpleadoControlAsistenciaAdministracionEmpleadosModificaciones'].elements['txtVacacionesInicio']);
+            var objCalendarVacacionesFin = new calendar1(document.forms['SucursalEmpleadoControlAsistenciaAdministracionEmpleadosModificaciones'].elements['txtVacacionesFin']);
+            var objCalendarIncapacidadMedicaInicio = new calendar1(document.forms['SucursalEmpleadoControlAsistenciaAdministracionEmpleadosModificaciones'].elements['txtIncapacidadMedicaInicio']);
+            var objCalendarIncapacidadMedicaFin = new calendar1(document.forms['SucursalEmpleadoControlAsistenciaAdministracionEmpleadosModificaciones'].elements['txtIncapacidadMedicaFinal']);
+            var objCalendarPermisoEspecialInicio = new calendar1(document.forms['SucursalEmpleadoControlAsistenciaAdministracionEmpleadosModificaciones'].elements['txtPermisoEspecialInicio']);
+            var objCalendarPermisoEspecialFin = new calendar1(document.forms['SucursalEmpleadoControlAsistenciaAdministracionEmpleadosModificaciones'].elements['txtPermisoEspecialFin']);
+            var objCalendarCapacitacionInicio = new calendar1(document.forms['SucursalEmpleadoControlAsistenciaAdministracionEmpleadosModificaciones'].elements['txtCapacitacionInicio']);
+            var objCalendarCapacitacionFin = new calendar1(document.forms['SucursalEmpleadoControlAsistenciaAdministracionEmpleadosModificaciones'].elements['txtCapacitacionFin']);
         </script>
     </form>
     <iframe name="ifrPageToPrint" src="../static/PageToPrint.htm" width="0" height="0"></iframe>
 </body>
 </html>
-
