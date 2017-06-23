@@ -233,7 +233,6 @@ Public Class ControlAsistenciaAdministracionEmpleadosModificaciones
                 strHtmlCode.Append("<OPTION value='5'>Jueves</OPTION>")
                 strHtmlCode.Append("<OPTION value='6'>Viernes</OPTION>")
                 strHtmlCode.Append("<OPTION value='7'>Sabado</OPTION>")
-
             End If
 
             If (intDia = "1") Then
@@ -265,7 +264,6 @@ Public Class ControlAsistenciaAdministracionEmpleadosModificaciones
                 strHtmlCode.Append("<OPTION value='5'>Jueves</OPTION>")
                 strHtmlCode.Append("<OPTION value='6'>Viernes</OPTION>")
                 strHtmlCode.Append("<OPTION value='7'>Sabado</OPTION>")
-
             End If
 
             If (intDia = "4") Then
@@ -287,7 +285,6 @@ Public Class ControlAsistenciaAdministracionEmpleadosModificaciones
                 strHtmlCode.Append("<OPTION value='5' selected>Jueves</OPTION>")
                 strHtmlCode.Append("<OPTION value='6'>Viernes</OPTION>")
                 strHtmlCode.Append("<OPTION value='7'>Sabado</OPTION>")
-
             End If
 
             If (intDia = "6") Then
@@ -298,7 +295,6 @@ Public Class ControlAsistenciaAdministracionEmpleadosModificaciones
                 strHtmlCode.Append("<OPTION value='5'>Jueves</OPTION>")
                 strHtmlCode.Append("<OPTION value='6' selected>Viernes</OPTION>")
                 strHtmlCode.Append("<OPTION value='7'>Sabado</OPTION>")
-
             End If
 
             If (intDia = "7") Then
@@ -309,7 +305,6 @@ Public Class ControlAsistenciaAdministracionEmpleadosModificaciones
                 strHtmlCode.Append("<OPTION value='5'>Jueves</OPTION>")
                 strHtmlCode.Append("<OPTION value='6'>Viernes</OPTION>")
                 strHtmlCode.Append("<OPTION value='7' selected>Sabado</OPTION>")
-
             End If
 
             Return strHtmlCode.ToString()
@@ -448,7 +443,7 @@ Public Class ControlAsistenciaAdministracionEmpleadosModificaciones
             Dim strHtmlCode As StringBuilder
             strHtmlCode = New StringBuilder
 
-            strMotivosIncapacidad = clsTienda.clsSucursal.strBuscarMotivosIncapacidad(strConnectionString)
+            strMotivosIncapacidad = clsControlDeAsistencia.clsRolMedico.strBuscarMotivosIncapacidad(strConnectionString)
 
             Dim i As Integer = 0
             'llenando combo con los motivos de incapacidad
@@ -576,7 +571,6 @@ Public Class ControlAsistenciaAdministracionEmpleadosModificaciones
 
             Return strHtmlCode.ToString()
         End Get
-
     End Property
 
     '====================================================================
@@ -636,11 +630,10 @@ Public Class ControlAsistenciaAdministracionEmpleadosModificaciones
         Dim resString As String
         Dim i As Integer = 0
 
-        strDiasFestivos = clsTienda.clsSucursal.strBuscarDiasFestivos(strConnectionString)
+        strDiasFestivos = clsControlDeAsistencia.clsRolMedico.strBuscarDiasFestivos(strConnectionString)
 
         While i <= strDiasFestivos.Length - 1
             Dim res As String() = DirectCast(strDiasFestivos.GetValue(i), String())
-            'resString = resString + clsCommons.strFormatearFechaPresentacion(CStr(res(0))) + ","
             resString = resString + res(0) + ","
             i = i + 1
         End While
@@ -669,7 +662,6 @@ Public Class ControlAsistenciaAdministracionEmpleadosModificaciones
 
         objArrayConsulta = clsControlDeAsistencia. _
                            clsRolMedico.strBuscarEmpleadosMedicos(CInt(strUsuarioNombre), strConnectionString)
-
 
         If IsArray(objArrayConsulta) AndAlso objArrayConsulta.Length > 0 Then
 
@@ -774,7 +766,6 @@ Public Class ControlAsistenciaAdministracionEmpleadosModificaciones
 
             Return strHtmlCode.ToString()
         End Get
-
     End Property
 
     '====================================================================
@@ -786,7 +777,6 @@ Public Class ControlAsistenciaAdministracionEmpleadosModificaciones
     ' Output     : String
     '====================================================================
     Public ReadOnly Property strCapacitacionFechaFin() As String
-
         Get
             Dim strHtmlCode As StringBuilder
             strHtmlCode = New StringBuilder
@@ -808,7 +798,6 @@ Public Class ControlAsistenciaAdministracionEmpleadosModificaciones
 
             Return strHtmlCode.ToString()
         End Get
-
     End Property
 
     '====================================================================
@@ -840,7 +829,6 @@ Public Class ControlAsistenciaAdministracionEmpleadosModificaciones
     '====================================================================
     Public ReadOnly Property strFechaActual() As String
         Get
-
             Dim dtmFechaActual As Date
 
             dtmFechaActual = New Date(Date.Today.Year, Date.Today.Month, Date.Today.Day)
@@ -870,15 +858,12 @@ Public Class ControlAsistenciaAdministracionEmpleadosModificaciones
     ' Output     : String
     '====================================================================
     Public Property strEstadoOperativo() As String
-
         Get
-
             Return Request.QueryString("strEstadoOperativo")
         End Get
         Set(ByVal strValue As String)
             strEstadoOperativo = strValue
         End Set
-
     End Property
 
     '====================================================================
@@ -928,7 +913,7 @@ Public Class ControlAsistenciaAdministracionEmpleadosModificaciones
 
         Try
 
-            resultArray = clsControlDeAsistencia. _
+            resultArray = clsControlDeAsistencia.clsRolMedico. _
                           strObtenerInformacionControlAsistencia(Convert.ToInt32(Request.QueryString("intEmpleadoId")), _
                                                                  strConnectionString)
             Select Case Trim(UCase(strCmd))
@@ -977,7 +962,7 @@ Public Class ControlAsistenciaAdministracionEmpleadosModificaciones
                     'para tomar del resultArray los datos, ya que los text html estan deshabilitados                    
                     Dim dtmFechaIncapacidadInicio As Date
                     Dim dtmFechaIncapacidadFin As Date
-                    'Convert.ToDateTime(clsCommons.strDMYtoMDY(strFechaDefaultInicial)
+
                     If Convert.ToDateTime(resultArray.GetValue(12)) <= Date.Today And Convert.ToDateTime(resultArray.GetValue(12)) <> Convert.ToDateTime(clsCommons.strDMYtoMDY(strFechaDefaultInicial)) Then
                         dtmFechaIncapacidadInicio = Convert.ToDateTime(DirectCast(resultArray.GetValue(12), String))
                         dtmFechaIncapacidadFin = Convert.ToDateTime(DirectCast(resultArray.GetValue(13), String))
@@ -1042,30 +1027,31 @@ Public Class ControlAsistenciaAdministracionEmpleadosModificaciones
                     Dim intDiaDescanso As Int16 = Convert.ToInt16(Request.Form("hdnDiaDescanso"))
                     Dim resultGuardar As String
 
-                    'resultGuardar = _
-                    'Business.clsSucursal.clsEmpleado.strGuardarConfiguracionControlAsistencia((Convert.ToDouble(Request.QueryString("intEmpleadoId"))), _
-                    '    Me.strUsuarioNombre, _
-                    '    strVacacionId, _
-                    '    strPermisoEspecialId, _
-                    '    strIncapacidadId, _
-                    '    strCapacitacionId, _
-                    '    blnBajaTemporal, _
-                    '    dtmFechaVacacionesFin, _
-                    '    dtmVacacionesInicio, _
-                    '    dtmFechaIncapacidadInicio, _
-                    '    dtmFechaIncapacidadFin, _
-                    '    intMotivoIncapacidad, _
-                    '    strFolioIncapacidad, _
-                    '    strObservacionesIncapacidadMedica, _
-                    '    strObservacionesPermisoEspecial, _
-                    '    blnPermisoConsueldo, _
-                    '    dtmFechaPermisoInicio, _
-                    '    dtmFechaPermisoFin, _
-                    '    intDiaDescanso, _
-                    '    dtmCapacitacionInicio, _
-                    '    dtmFechaCapacitacionFin, _
-                    '    strObservacionesCapacitacion, _
-                    '    strConnectionString)
+                    resultGuardar = clsControlDeAsistencia. _
+                                    clsRolMedico. _
+                                    strGuardarConfiguracionControlAsistencia((Convert.ToDouble(Request.QueryString("intEmpleadoId"))), _
+                                                                              Me.strUsuarioNombre, _
+                                                                              strVacacionId, _
+                                                                              strPermisoEspecialId, _
+                                                                              strIncapacidadId, _
+                                                                              strCapacitacionId, _
+                                                                              blnBajaTemporal, _
+                                                                              dtmFechaVacacionesFin, _
+                                                                              dtmVacacionesInicio, _
+                                                                              dtmFechaIncapacidadInicio, _
+                                                                              dtmFechaIncapacidadFin, _
+                                                                              intMotivoIncapacidad, _
+                                                                              strFolioIncapacidad, _
+                                                                              strObservacionesIncapacidadMedica, _
+                                                                              strObservacionesPermisoEspecial, _
+                                                                              blnPermisoConsueldo, _
+                                                                              dtmFechaPermisoInicio, _
+                                                                              dtmFechaPermisoFin, _
+                                                                              intDiaDescanso, _
+                                                                              dtmCapacitacionInicio, _
+                                                                              dtmFechaCapacitacionFin, _
+                                                                              strObservacionesCapacitacion, _
+                                                                              strConnectionString)
 
                     If diaDescansoOriginal <> intDiaDescanso Then
                         diaDescansoOriginalCambio = True
