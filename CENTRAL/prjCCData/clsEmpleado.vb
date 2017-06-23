@@ -293,5 +293,4 @@ Public NotInheritable Class clsEmpleado
 
     End Function
 
-
 End Class

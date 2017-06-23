@@ -1,3 +1,6 @@
+Imports System.Text
+Imports Benavides.Data.SQL.MSSQL
+
 '====================================================================
 ' Class         : clsTienda
 ' Title         : Grupo Benavides. Administrador POS y Backoffice.
@@ -1357,6 +1360,9 @@ Public NotInheritable Class clsTienda
             End Function
 
         End Class
+
+        
+        
 
     End Class
 
