@@ -1,7 +1,10 @@
 ﻿Imports Benavides.CC.Data
 Imports Benavides.POSAdmin.Commons
-Imports System.Text
+Imports Isocraft.Web.Http
+Imports Microsoft.VisualBasic.Collection
+Imports prjFotolabBusiness.Benavides.Fotolab.Utils
 Imports System.Diagnostics
+Imports System.Text
 
 Public Class ControlAsistenciaAdministracionEmpleadosModificaciones
     Inherits System.Web.UI.Page
@@ -194,7 +197,6 @@ Public Class ControlAsistenciaAdministracionEmpleadosModificaciones
     ' Output     : String
     '====================================================================
     Public ReadOnly Property strDiadeDescanso() As String
-
         Get
             Dim strSucursalEmpleadoRol As String()
             Dim blnEsGodinez As Boolean = False
@@ -661,7 +663,7 @@ Public Class ControlAsistenciaAdministracionEmpleadosModificaciones
         strGeneraTabla = New StringBuilder
 
         objArrayConsulta = clsControlDeAsistencia. _
-                           clsRolMedico.strBuscarEmpleadosMedicos(CInt(strUsuarioNombre), strConnectionString)
+                           clsRolMedico.strBuscarEmpleadosMedicos2(CInt(strUsuarioNombre), strConnectionString)
 
         If IsArray(objArrayConsulta) AndAlso objArrayConsulta.Length > 0 Then
 
@@ -675,7 +677,9 @@ Public Class ControlAsistenciaAdministracionEmpleadosModificaciones
                 ' Agregamos nuevo option al combo 
                 strGeneraTabla.Append("<OPTION value='" & strTablaEmpleado & "'>" & strTablaNombre & "</OPTION>")
             Next
+
             strGeneraTabla.Append("</SELECT>")
+
             For i = 0 To objArrayConsulta.Length - 1
 
                 ' Sacamos del arreglo la cadena con el nombre del empleado
@@ -735,7 +739,6 @@ Public Class ControlAsistenciaAdministracionEmpleadosModificaciones
 
             Return htmlCode.ToString
         End Get
-
     End Property
 
 #Region "Capacitacion y/o Junta Operacional"
@@ -902,20 +905,31 @@ Public Class ControlAsistenciaAdministracionEmpleadosModificaciones
     '    End If
     'End Function
 
+    Public ReadOnly Property strNombreDeEmpleado() As String
+        Get
+        End Get
+    End Property
+
+    Public ReadOnly Property strHTMLFechaHora() As String
+        Get
+            Return Benavides.POSAdmin.Commons.clsCommons.strGetCustomDateTime(clsDateUtil.DATE_HOUR_FORMAT)
+        End Get
+    End Property
+
 #End Region
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         ' Control de Acceso de la página
-        If Benavides.CC.Business.clsConcentrador.clsControlAcceso.blnPermitirAccesoObjeto(intGrupoUsuarioId, strThisPageName, strConnectionString) = False Then
-            Call Response.Redirect("../Default.aspx")
-        End If
+        'If Benavides.CC.Business.clsConcentrador.clsControlAcceso.blnPermitirAccesoObjeto(intGrupoUsuarioId, strThisPageName, strConnectionString) = False Then
+        '    Call Response.Redirect("../Default.aspx")
+        'End If
 
         Try
 
             resultArray = clsControlDeAsistencia.clsRolMedico. _
-                          strObtenerInformacionControlAsistencia(Convert.ToInt32(Request.QueryString("intEmpleadoId")), _
-                                                                 strConnectionString)
+                          strObtenerConfiguracionControlAsistencia(Convert.ToInt32(Request.QueryString("intEmpleadoId")), _
+                                                                   strConnectionString)
             Select Case Trim(UCase(strCmd))
 
                 Case "APLICAR"
@@ -1111,7 +1125,7 @@ Public Class ControlAsistenciaAdministracionEmpleadosModificaciones
             ' Notificamos el error
             Throw
         End Try
-
     End Sub
+
 
 End Class

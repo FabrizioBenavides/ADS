@@ -2944,6 +2944,7 @@
     <Content Include="_Manager\ImprimirDocumento.aspx" />
     <Content Include="_Manager\InicioHome.aspx" />
     <Content Include="_Manager\js\async.js" />
+    <Content Include="_Manager\js\calendar1.js" />
     <Content Include="_Manager\js\calendario.js" />
     <Content Include="_Manager\js\cal_format00.js" />
     <Content Include="_Manager\js\FotolabUtils.js" />
