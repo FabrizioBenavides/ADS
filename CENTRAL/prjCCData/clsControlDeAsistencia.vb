@@ -3283,6 +3283,86 @@ Public Class clsControlDeAsistencia
             End Try
         End Function
 
+        ''' <summary>
+        ''' Cambiar Nombre metodo
+        ''' </summary>
+        ''' <param name="intUsuarioId"></param>
+        ''' <param name="strConnectionString"></param>
+        ''' <returns></returns>
+        ''' <remarks></remarks>
+        Public Shared Function strBuscarEmpleadosMedicos2(ByVal intUsuarioId As Integer, _
+                                                         ByVal strConnectionString As String) As Array
+
+            Dim aobjReturnedData As Array
+            ' Constantes locales
+            Const strmThisMemberName As String = "strBuscarEmpleadosMedicos"
+
+            ' Variables locales
+            Dim strSQLStatement As StringBuilder = Nothing
+
+            Try
+                ' Inicialización de las variables locales
+                strSQLStatement = New StringBuilder
+
+                ' Creamos estatuto de SQL
+                Call strSQLStatement.Append("EXECUTE spBuscarEmpleadosMedicos ")
+                Call strSQLStatement.Append(intUsuarioId)
+
+                ' Ejecutamos el comando
+                aobjReturnedData = clsSQLOperation.strExecuteQuery(strSQLStatement.ToString, strConnectionString)
+                strSQLStatement = Nothing
+
+                Return aobjReturnedData
+            Catch objException As Exception
+
+                ' Variables locales
+                Dim strErrorString As StringBuilder : strErrorString = New StringBuilder
+                Dim objApplicationEventLog As System.Diagnostics.EventLog : objApplicationEventLog = New System.Diagnostics.EventLog
+                Dim strProductName As String : strProductName = System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly.Location).ProductName
+                Dim strApplicationName As String : strApplicationName = System.Reflection.Assembly.GetExecutingAssembly.Location
+                Dim strVersion As String : strVersion = System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly.Location).FileMajorPart & "." & System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly.Location).FileMinorPart & "." & System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly.Location).FileBuildPart
+                Dim strSource As String : strSource = objException.Source
+                Dim strMessage As String : strMessage = objException.Message
+                Dim strStackTrace As String : strStackTrace = objException.StackTrace
+                Dim intLineNumber As Integer : intLineNumber = Erl()
+                Dim intErrorNumber As Integer : intErrorNumber = Err.Number
+                Dim intCategoryNumber As Short : intCategoryNumber = 100
+
+                ' Creamos el mensaje de error
+                Call strErrorString.Append("Product name:" & vbCrLf & vbTab & strProductName & "." & strmThisClassName & "." & strmThisMemberName & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Application name:" & vbCrLf & vbTab & strApplicationName & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Version:" & vbCrLf & vbTab & strVersion & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Source:" & vbCrLf & vbTab & strSource & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Error number:" & vbCrLf & vbTab & "0x" & Hex(intErrorNumber) & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Line number:" & vbCrLf & vbTab & intLineNumber & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Message:" & vbCrLf & vbTab & strMessage & vbCrLf & vbCrLf)
+                Call strErrorString.Append("SQLStatement:" & vbCrLf & vbTab & strSQLStatement.ToString() & vbCrLf & vbCrLf)
+                Call strErrorString.Append("StackTrace:" & vbCrLf & strStackTrace & vbCrLf & vbCrLf)
+
+                ' Creamos un evento para registrar el mensaje de error
+                If Not EventLog.SourceExists(strProductName) Then
+
+                    Call EventLog.CreateEventSource(strProductName, "Application")
+
+                End If
+
+                ' Establecemos la fuente del evento
+                objApplicationEventLog.Source = strProductName
+
+                ' Escribimos el evento en el Visor de Eventos
+                Call objApplicationEventLog.WriteEntry(strErrorString.ToString(), EventLogEntryType.Error, Err.Number, intCategoryNumber)
+
+                ' Regresamos la información
+                strSQLStatement = Nothing
+                strBuscarEmpleadosMedicos2 = Nothing
+
+                ' Notificamos el error
+                Call Err.Raise(intErrorNumber + 1001, "Product name: " & strProductName & "." & strmThisClassName & "." & strmThisMemberName, strMessage)
+            End Try
+        End Function
+
+
+
         Public Shared Function strConsultarMovimientosEmpleadosMedicos(ByVal intEmpleadoId As Integer, _
                                                                        ByVal dtmFechaInicio As Date, _
                                                                        ByVal dtmFechaFin As Date, _
@@ -3465,29 +3545,78 @@ Public Class clsControlDeAsistencia
             End Try
         End Function
 
-        Public Shared Function strObtenerInformacionControlAsistencia(ByVal intEmpleadoId As Integer, _
-                                                                  ByVal strConnectionString As String) As Array
+        Public Shared Function strObtenerConfiguracionControlAsistencia(ByVal intEmpleadoId As Integer, _
+                                                                        ByVal strConnectionString As String) As Array
 
-            Dim aobjReturnedData As Array
             ' Constantes locales
             Const strmThisMemberName As String = "strObtenerInformacionControlAsistencia"
 
             ' Variables locales
             Dim strSQLStatement As StringBuilder = Nothing
+            Dim objEmpleadoArray, objVacacionesArray, objIncapacidadMedicaArray, objPermisoEspecialArray, objCapacitacionArray As Array
+            Dim objResultArray(24) As String
+            Dim intDiaDescanso As Integer = 0
 
             Try
-                ' Inicialización de las variables locales
-                strSQLStatement = New StringBuilder
+                
+                ' EMPLEADO                   
+                objEmpleadoArray = strObtenerInformacionControlAsistencia(intEmpleadoId, strConnectionString)
 
-                ' Creamos estatuto de SQL
-                Call strSQLStatement.Append("EXECUTE spObtenerInformacionControlAsistencia ")
-                Call strSQLStatement.Append(intEmpleadoId)
+                ' Regresa la informacion sobre VACACIONES
+                objVacacionesArray = strBuscarVacaciones(intEmpleadoId, strConnectionString)
 
-                ' Ejecutamos el comando
-                aobjReturnedData = clsSQLOperation.strExecuteQuery(strSQLStatement.ToString, strConnectionString)
-                strSQLStatement = Nothing
+                ' Regresa la informacion sobre PERMISO
+                objPermisoEspecialArray = strBuscarPermisoEspecial(intEmpleadoId, strConnectionString)
 
-                Return aobjReturnedData
+                ' Regresa la informacion sobre INCAPACIDAD
+                objIncapacidadMedicaArray = strBuscarIncapacidad(intEmpleadoId, strConnectionString)
+
+                ' Capacitacion
+                objCapacitacionArray = strBuscarCapacitacion(intEmpleadoId, strConnectionString)
+
+                ' Todo lo almaceno en un solo array y lo regreso a vista     
+                Dim strCamposEmpleado As String() = DirectCast(objEmpleadoArray.GetValue(0), String())
+
+                objResultArray(0) = strCamposEmpleado(0) 'dias de Vacaciones Disponibles
+                objResultArray(1) = strCamposEmpleado(1) 'Dia de Descanso
+                objResultArray(2) = strCamposEmpleado(2) 'baja temporal
+                objResultArray(16) = strCamposEmpleado(3) 'Apellido Paterno de Empleado
+                objResultArray(17) = strCamposEmpleado(4) 'Apellido Materno de Empleado
+                objResultArray(18) = strCamposEmpleado(5) 'Nombre Empleado
+
+                Dim strCamposVacaciones As String() = DirectCast(objVacacionesArray.GetValue(0), String())
+
+                objResultArray(3) = strCamposVacaciones(0) 'Vacaciones Id
+                objResultArray(4) = strCamposVacaciones(1) 'Fecha Inicio Vacaciones
+                objResultArray(5) = strCamposVacaciones(2) 'Fecha fin Vacaciones
+
+                Dim strCamposPermisoEspecial As String() = DirectCast(objPermisoEspecialArray.GetValue(0), String())
+
+                objResultArray(6) = strCamposPermisoEspecial(0)  'Permiso Especial Id
+                objResultArray(7) = strCamposPermisoEspecial(1)  'Fecha Inicio Permiso
+                objResultArray(8) = strCamposPermisoEspecial(2)  'Fecha fin Permiso
+                objResultArray(9) = strCamposPermisoEspecial(3)  'blnSueldo
+                objResultArray(10) = strCamposPermisoEspecial(4) 'Dias
+                objResultArray(19) = strCamposPermisoEspecial(5) 'Observaciones
+
+                Dim strCamposIncapacidadMedica As String() = DirectCast(objIncapacidadMedicaArray.GetValue(0), String())
+
+                objResultArray(11) = strCamposIncapacidadMedica(0)  'intIncapacidadId
+                objResultArray(12) = strCamposIncapacidadMedica(1)  'dtmIncapacidadInicio
+                objResultArray(13) = strCamposIncapacidadMedica(2)  'dtmIncapacidadFin 
+                objResultArray(14) = strCamposIncapacidadMedica(3)  'intMotivoIncapacidadId
+                objResultArray(15) = strCamposIncapacidadMedica(4)  'strFolio
+                objResultArray(20) = strCamposIncapacidadMedica(5)    'Observaciones
+
+                Dim strCamposCapacitacion As String() = DirectCast(objCapacitacionArray.GetValue(0), String())
+
+                objResultArray(21) = strCamposCapacitacion(0) 'Capacitacion Id
+                objResultArray(22) = strCamposCapacitacion(1) 'Fecha Inicio Capacitacion
+                objResultArray(23) = strCamposCapacitacion(2) 'Fecha fin Capacitacion
+                objResultArray(24) = strCamposCapacitacion(3) 'Observaciones
+
+                strObtenerConfiguracionControlAsistencia = objResultArray
+
             Catch objException As Exception
 
                 ' Variables locales
@@ -3527,13 +3656,343 @@ Public Class clsControlDeAsistencia
 
                 ' Regresamos la información
                 strSQLStatement = Nothing
-                strObtenerInformacionControlAsistencia = Nothing
+                strObtenerConfiguracionControlAsistencia = Nothing
 
                 ' Notificamos el error
                 Call Err.Raise(intErrorNumber + 1001, "Product name: " & strProductName & "." & strmThisClassName & "." & strmThisMemberName, strMessage)
             End Try
-
         End Function
+
+        Private Shared Function strObtenerInformacionControlAsistencia(ByVal intEmpleadoId As Integer, _
+                                                                      ByVal strConnectionString As String) As Array
+            ' Constantes locales
+            Const strmThisMemberName As String = "strObtenerInformacionControlAsistencia"
+
+            ' Variables locales
+            Dim strSQLStatement As StringBuilder
+
+            Try
+
+                ' Inicializamos las varialbes locales
+                strSQLStatement = New StringBuilder
+
+                ' Creamos es estatuto de SQL
+                Call strSQLStatement.Append("EXECUTE spObtenerInformacionControlAsistencia ")
+                Call strSQLStatement.Append(intEmpleadoId)
+
+                ' Ejecutamos el comando
+                strObtenerInformacionControlAsistencia = clsSQLOperation.strExecuteQuery(strSQLStatement.ToString(), strConnectionString)
+                strSQLStatement = Nothing
+
+            Catch objException As Exception
+
+                ' Variables locales
+                Dim strErrorString As StringBuilder = New StringBuilder
+                Dim objApplicationEventLog As System.Diagnostics.EventLog = New System.Diagnostics.EventLog
+                Dim strProductName As String = System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly.Location).ProductName
+                Dim strApplicationName As String = System.Reflection.Assembly.GetExecutingAssembly.Location
+                Dim strVersion As String = System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly.Location).FileMajorPart & "." & System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly.Location).FileMinorPart & "." & System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly.Location).FileBuildPart
+                Dim strSource As String = objException.Source
+                Dim strMessage As String = objException.Message
+                Dim strStackTrace As String = objException.StackTrace
+                Dim intLineNumber As Integer = Erl()
+                Dim intErrorNumber As Integer = Err.Number
+                Dim intCategoryNumber As Short = 0
+
+                ' Creamos el mensaje de error
+                Call strErrorString.Append("Product name:" & vbCrLf & vbTab & strProductName & "." & strmThisClassName & "." & strmThisMemberName & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Application name:" & vbCrLf & vbTab & strApplicationName & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Version:" & vbCrLf & vbTab & strVersion & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Source:" & vbCrLf & vbTab & strSource & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Error number:" & vbCrLf & vbTab & "0x" & Hex(intErrorNumber) & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Line number:" & vbCrLf & vbTab & intLineNumber & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Message:" & vbCrLf & vbTab & strMessage & vbCrLf & vbCrLf)
+                Call strErrorString.Append("SQLStatement:" & vbCrLf & vbTab & strSQLStatement.ToString() & vbCrLf & vbCrLf)
+                Call strErrorString.Append("StackTrace:" & vbCrLf & strStackTrace & vbCrLf & vbCrLf)
+
+                ' Creamos un evento para registrar el mensaje de error
+                If Not EventLog.SourceExists(strProductName) Then
+
+                    Call EventLog.CreateEventSource(strProductName, "Application")
+
+                End If
+
+                ' Establecemos la fuente del evento
+                objApplicationEventLog.Source = strProductName
+
+                ' Escribimos el evento en el Visor de Eventos
+                Call objApplicationEventLog.WriteEntry(strErrorString.ToString(), EventLogEntryType.Error, Err.Number, intCategoryNumber)
+
+                ' Regresamos la información
+                strObtenerInformacionControlAsistencia = Nothing
+            End Try
+        End Function
+
+        Private Shared Function strBuscarVacaciones(ByVal intEmpleadoId As Integer, ByVal strConnectionString As String) As Array
+            ' Constantes locales
+            Const strmThisMemberName As String = "strBuscarVacaciones"
+            Const strmThisClassName As String = "clsRolMedico"
+            ' Variables locales
+            Dim strSQLStatement As StringBuilder
+
+            Try
+
+                ' Inicializamos las varialbes locales
+                strSQLStatement = New StringBuilder
+
+                ' Creamos es estatuto de SQL
+                Call strSQLStatement.Append("EXECUTE spBuscartblVacaciones ")
+
+                Call strSQLStatement.Append(intEmpleadoId)
+
+                ' Ejecutamos el comando
+                strBuscarVacaciones = clsSQLOperation.strExecuteQuery(strSQLStatement.ToString(), strConnectionString)
+                strSQLStatement = Nothing
+
+            Catch objException As Exception
+
+                ' Variables locales
+                Dim strErrorString As StringBuilder = New StringBuilder
+                Dim objApplicationEventLog As System.Diagnostics.EventLog = New System.Diagnostics.EventLog
+                Dim strProductName As String = System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly.Location).ProductName
+                Dim strApplicationName As String = System.Reflection.Assembly.GetExecutingAssembly.Location
+                Dim strVersion As String = System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly.Location).FileMajorPart & "." & System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly.Location).FileMinorPart & "." & System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly.Location).FileBuildPart
+                Dim strSource As String = objException.Source
+                Dim strMessage As String = objException.Message
+                Dim strStackTrace As String = objException.StackTrace
+                Dim intLineNumber As Integer = Erl()
+                Dim intErrorNumber As Integer = Err.Number
+                Dim intCategoryNumber As Short = 0
+
+                ' Creamos el mensaje de error
+                Call strErrorString.Append("Product name:" & vbCrLf & vbTab & strProductName & "." & strmThisClassName & "." & strmThisMemberName & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Application name:" & vbCrLf & vbTab & strApplicationName & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Version:" & vbCrLf & vbTab & strVersion & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Source:" & vbCrLf & vbTab & strSource & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Error number:" & vbCrLf & vbTab & "0x" & Hex(intErrorNumber) & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Line number:" & vbCrLf & vbTab & intLineNumber & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Message:" & vbCrLf & vbTab & strMessage & vbCrLf & vbCrLf)
+                Call strErrorString.Append("SQLStatement:" & vbCrLf & vbTab & strSQLStatement.ToString() & vbCrLf & vbCrLf)
+                Call strErrorString.Append("StackTrace:" & vbCrLf & strStackTrace & vbCrLf & vbCrLf)
+
+                ' Creamos un evento para registrar el mensaje de error
+                If Not EventLog.SourceExists(strProductName) Then
+
+                    Call EventLog.CreateEventSource(strProductName, "Application")
+
+                End If
+
+                ' Establecemos la fuente del evento
+                objApplicationEventLog.Source = strProductName
+
+                ' Escribimos el evento en el Visor de Eventos
+                Call objApplicationEventLog.WriteEntry(strErrorString.ToString(), EventLogEntryType.Error, Err.Number, intCategoryNumber)
+
+                ' Regresamos la información
+                strBuscarVacaciones = Nothing
+
+            End Try
+        End Function
+
+        Private Shared Function strBuscarPermisoEspecial(ByVal intEmpleadoId As Integer, ByVal strConnectionString As String) As Array
+
+            ' Constantes locales
+            Const strmThisMemberName As String = "strBuscarPermisoEspecial"
+            Const strmThisClassName As String = "clsRolMedico"
+            ' Variables locales
+            Dim strSQLStatement As StringBuilder
+
+            Try
+
+                ' Inicializamos las varialbes locales
+                strSQLStatement = New StringBuilder
+
+                ' Creamos es estatuto de SQL
+                Call strSQLStatement.Append("EXECUTE spBuscartblPermisoEspecial ")
+
+                Call strSQLStatement.Append(intEmpleadoId)
+
+                ' Ejecutamos el comando
+                strBuscarPermisoEspecial = clsSQLOperation.strExecuteQuery(strSQLStatement.ToString(), strConnectionString)
+                strSQLStatement = Nothing
+
+            Catch objException As Exception
+
+                ' Variables locales
+                Dim strErrorString As StringBuilder = New StringBuilder
+                Dim objApplicationEventLog As System.Diagnostics.EventLog = New System.Diagnostics.EventLog
+                Dim strProductName As String = System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly.Location).ProductName
+                Dim strApplicationName As String = System.Reflection.Assembly.GetExecutingAssembly.Location
+                Dim strVersion As String = System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly.Location).FileMajorPart & "." & System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly.Location).FileMinorPart & "." & System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly.Location).FileBuildPart
+                Dim strSource As String = objException.Source
+                Dim strMessage As String = objException.Message
+                Dim strStackTrace As String = objException.StackTrace
+                Dim intLineNumber As Integer = Erl()
+                Dim intErrorNumber As Integer = Err.Number
+                Dim intCategoryNumber As Short = 0
+
+                ' Creamos el mensaje de error
+                Call strErrorString.Append("Product name:" & vbCrLf & vbTab & strProductName & "." & strmThisClassName & "." & strmThisMemberName & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Application name:" & vbCrLf & vbTab & strApplicationName & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Version:" & vbCrLf & vbTab & strVersion & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Source:" & vbCrLf & vbTab & strSource & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Error number:" & vbCrLf & vbTab & "0x" & Hex(intErrorNumber) & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Line number:" & vbCrLf & vbTab & intLineNumber & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Message:" & vbCrLf & vbTab & strMessage & vbCrLf & vbCrLf)
+                Call strErrorString.Append("SQLStatement:" & vbCrLf & vbTab & strSQLStatement.ToString() & vbCrLf & vbCrLf)
+                Call strErrorString.Append("StackTrace:" & vbCrLf & strStackTrace & vbCrLf & vbCrLf)
+
+                ' Creamos un evento para registrar el mensaje de error
+                If Not EventLog.SourceExists(strProductName) Then
+
+                    Call EventLog.CreateEventSource(strProductName, "Application")
+
+                End If
+
+                ' Establecemos la fuente del evento
+                objApplicationEventLog.Source = strProductName
+
+                ' Escribimos el evento en el Visor de Eventos
+                Call objApplicationEventLog.WriteEntry(strErrorString.ToString(), EventLogEntryType.Error, Err.Number, intCategoryNumber)
+
+                ' Regresamos la información
+                strBuscarPermisoEspecial = Nothing
+            End Try
+        End Function
+
+        Private Shared Function strBuscarIncapacidad(ByVal intEmpleadoId As Integer, ByVal strConnectionString As String) As Array
+            ' Constantes locales
+            Const strmThisMemberName As String = "strBuscarIncapacidad"
+            Const strmThisClassName As String = "clsRolMedico"
+
+            ' Variables locales
+            Dim strSQLStatement As StringBuilder
+
+            Try
+
+                ' Inicializamos las varialbes locales
+                strSQLStatement = New StringBuilder
+
+                ' Creamos es estatuto de SQL
+                Call strSQLStatement.Append("EXECUTE spBuscartblIncapacidad ")
+                Call strSQLStatement.Append(intEmpleadoId)
+
+                ' Ejecutamos el comando
+                strBuscarIncapacidad = clsSQLOperation.strExecuteQuery(strSQLStatement.ToString(), strConnectionString)
+                strSQLStatement = Nothing
+
+            Catch objException As Exception
+
+                ' Variables locales
+                Dim strErrorString As StringBuilder = New StringBuilder
+                Dim objApplicationEventLog As System.Diagnostics.EventLog = New System.Diagnostics.EventLog
+                Dim strProductName As String = System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly.Location).ProductName
+                Dim strApplicationName As String = System.Reflection.Assembly.GetExecutingAssembly.Location
+                Dim strVersion As String = System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly.Location).FileMajorPart & "." & System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly.Location).FileMinorPart & "." & System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly.Location).FileBuildPart
+                Dim strSource As String = objException.Source
+                Dim strMessage As String = objException.Message
+                Dim strStackTrace As String = objException.StackTrace
+                Dim intLineNumber As Integer = Erl()
+                Dim intErrorNumber As Integer = Err.Number
+                Dim intCategoryNumber As Short = 0
+
+                ' Creamos el mensaje de error
+                Call strErrorString.Append("Product name:" & vbCrLf & vbTab & strProductName & "." & strmThisClassName & "." & strmThisMemberName & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Application name:" & vbCrLf & vbTab & strApplicationName & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Version:" & vbCrLf & vbTab & strVersion & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Source:" & vbCrLf & vbTab & strSource & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Error number:" & vbCrLf & vbTab & "0x" & Hex(intErrorNumber) & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Line number:" & vbCrLf & vbTab & intLineNumber & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Message:" & vbCrLf & vbTab & strMessage & vbCrLf & vbCrLf)
+                Call strErrorString.Append("SQLStatement:" & vbCrLf & vbTab & strSQLStatement.ToString() & vbCrLf & vbCrLf)
+                Call strErrorString.Append("StackTrace:" & vbCrLf & strStackTrace & vbCrLf & vbCrLf)
+
+                ' Creamos un evento para registrar el mensaje de error
+                If Not EventLog.SourceExists(strProductName) Then
+
+                    Call EventLog.CreateEventSource(strProductName, "Application")
+
+                End If
+
+                ' Establecemos la fuente del evento
+                objApplicationEventLog.Source = strProductName
+
+                ' Escribimos el evento en el Visor de Eventos
+                Call objApplicationEventLog.WriteEntry(strErrorString.ToString(), EventLogEntryType.Error, Err.Number, intCategoryNumber)
+
+                ' Regresamos la información
+                strBuscarIncapacidad = Nothing
+
+            End Try
+        End Function
+
+        Private Shared Function strBuscarCapacitacion(ByVal intEmpleadoId As Integer, ByVal strConnectionString As String) As Array
+
+            ' Constantes locales
+            Const strmThisMemberName As String = "strBuscarCapacitacion"
+            Const strmThisClassName As String = "clsRolMedico"
+
+            ' Variables locales
+            Dim strSQLStatement As StringBuilder
+
+            Try
+
+                ' Inicializamos las varialbes locales
+                strSQLStatement = New StringBuilder
+
+                ' Creamos es estatuto de SQL
+                Call strSQLStatement.Append("EXECUTE spBuscartblCapacitacion ")
+                Call strSQLStatement.Append(intEmpleadoId)
+
+                ' Ejecutamos el comando
+                strBuscarCapacitacion = clsSQLOperation.strExecuteQuery(strSQLStatement.ToString(), strConnectionString)
+                strSQLStatement = Nothing
+
+            Catch objException As Exception
+
+                ' Variables locales
+                Dim strErrorString As StringBuilder = New StringBuilder
+                Dim objApplicationEventLog As System.Diagnostics.EventLog = New System.Diagnostics.EventLog
+                Dim strProductName As String = System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly.Location).ProductName
+                Dim strApplicationName As String = System.Reflection.Assembly.GetExecutingAssembly.Location
+                Dim strVersion As String = System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly.Location).FileMajorPart & "." & System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly.Location).FileMinorPart & "." & System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly.Location).FileBuildPart
+                Dim strSource As String = objException.Source
+                Dim strMessage As String = objException.Message
+                Dim strStackTrace As String = objException.StackTrace
+                Dim intLineNumber As Integer = Erl()
+                Dim intErrorNumber As Integer = Err.Number
+                Dim intCategoryNumber As Short = 0
+
+                ' Creamos el mensaje de error
+                Call strErrorString.Append("Product name:" & vbCrLf & vbTab & strProductName & "." & strmThisClassName & "." & strmThisMemberName & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Application name:" & vbCrLf & vbTab & strApplicationName & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Version:" & vbCrLf & vbTab & strVersion & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Source:" & vbCrLf & vbTab & strSource & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Error number:" & vbCrLf & vbTab & "0x" & Hex(intErrorNumber) & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Line number:" & vbCrLf & vbTab & intLineNumber & vbCrLf & vbCrLf)
+                Call strErrorString.Append("Message:" & vbCrLf & vbTab & strMessage & vbCrLf & vbCrLf)
+                Call strErrorString.Append("SQLStatement:" & vbCrLf & vbTab & strSQLStatement.ToString() & vbCrLf & vbCrLf)
+                Call strErrorString.Append("StackTrace:" & vbCrLf & strStackTrace & vbCrLf & vbCrLf)
+
+                ' Creamos un evento para registrar el mensaje de error
+                If Not EventLog.SourceExists(strProductName) Then
+                    Call EventLog.CreateEventSource(strProductName, "Application")
+                End If
+
+                ' Establecemos la fuente del evento
+                objApplicationEventLog.Source = strProductName
+
+                ' Escribimos el evento en el Visor de Eventos
+                Call objApplicationEventLog.WriteEntry(strErrorString.ToString(), EventLogEntryType.Error, Err.Number, intCategoryNumber)
+
+                ' Regresamos la información
+                strBuscarCapacitacion = Nothing
+
+            End Try
+        End Function
+
+
+
 
         Public Shared Function strGuardarConfiguracionControlAsistencia(ByVal intEmpleadoId As Double, _
                                                                         ByVal strModificadoPor As String, _
