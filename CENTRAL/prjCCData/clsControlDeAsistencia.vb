@@ -3291,7 +3291,7 @@ Public Class clsControlDeAsistencia
         ''' <returns></returns>
         ''' <remarks></remarks>
         Public Shared Function strBuscarEmpleadosMedicos2(ByVal intUsuarioId As Integer, _
-                                                         ByVal strConnectionString As String) As Array
+                                                          ByVal strConnectionString As String) As Array
 
             Dim aobjReturnedData As Array
             ' Constantes locales
