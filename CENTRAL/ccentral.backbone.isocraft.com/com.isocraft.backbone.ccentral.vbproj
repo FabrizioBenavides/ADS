@@ -281,6 +281,13 @@
       <DependentUpon>ControlAsistenciaAdministracionDeUsuariosAgregar.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="_Manager\ControlAsistenciaAdministracionEmpleadosMedicosTurnos.aspx.designer.vb">
+      <DependentUpon>ControlAsistenciaAdministracionEmpleadosMedicosTurnos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="_Manager\ControlAsistenciaAdministracionEmpleadosMedicosTurnos.aspx.vb">
+      <DependentUpon>ControlAsistenciaAdministracionEmpleadosMedicosTurnos.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="_Manager\ControlAsistenciaAdministracionEmpleadosModificaciones.aspx.designer.vb">
       <DependentUpon>ControlAsistenciaAdministracionEmpleadosModificaciones.aspx</DependentUpon>
     </Compile>
@@ -2903,6 +2910,7 @@
     <Content Include="_Manager\ControlAsistencia.aspx" />
     <Content Include="_Manager\ControlAsistenciaAdministracionDeUsuarios.aspx" />
     <Content Include="_Manager\ControlAsistenciaAdministracionDeUsuariosAgregar.aspx" />
+    <Content Include="_Manager\ControlAsistenciaAdministracionEmpleadosMedicosTurnos.aspx" />
     <Content Include="_Manager\ControlAsistenciaAdministracionEmpleadosModificaciones.aspx" />
     <Content Include="_Manager\ControlAsistenciaAdministrarInterfasesAdam.aspx" />
     <Content Include="_Manager\ControlAsistenciaArchivoAdam.aspx" />

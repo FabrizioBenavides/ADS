@@ -50,6 +50,7 @@
             document.write("&nbsp;" + "<%=strDiadeDescanso%>");
             return (true);
         }
+
         function strBajaTemporal() {
             document.write("&nbsp;" + "<%=strBajaTemporal%>");
             return (true);
@@ -69,7 +70,7 @@
 
         function cboEmpleados_onchange() {
             var intEmpId = document.forms[0].elements["cboEmpleados"].value;
-            document.location.href = "SucursalEmpleadosControlAsistenciaAdministracionEmpleadosModificaciones.aspx?intEmpleadoId=" + intEmpId;
+            document.location.href = "ControlAsistenciaAdministracionEmpleadosModificaciones.aspx?intEmpleadoId=" + intEmpId;
         }
 
         function strObservacionesIncapacidad() {

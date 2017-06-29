@@ -1,4 +1,4 @@
-﻿<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="ControlAsistenciaAdministraciondeEmpleadosMedicos.aspx.vb" Inherits="com.isocraft.backbone.ccentral.ControlAsistenciaAdministraciondeEmpleadosMedicos" %>
+﻿<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="ControlAsistenciaAdministracionEmpleadosMedicosTurnos.aspx.vb" Inherits="com.isocraft.backbone.ccentral.ControlAsistenciaAdministracionEmpleadosMedicosTurnos" %>
 
 <html>
 <head>
@@ -20,29 +20,19 @@
             <%= strJavascriptWindowOnLoadCommands %>
         }
 
-        function mostrarPaginaMovimientos_onclick(intEmpleadoId, NombreEmpleado) {
-            window.location.href = "ControlAsistenciaMovimientosEmpleadosMedicos.aspx?strCmd2=mostrarPaginaMovimientos" +
-                                   "&intEmpleadoId=" + intEmpleadoId +
-                                   "&NombreEmpleado=" + NombreEmpleado;
+
+        function cboEmpleados_onchange() {
+            var intEmpId = document.forms[0].elements["cboEmpleados"].value;
+            document.location.href = "ControlAsistenciaAdministracionEmpleadosMedicosTurnos.aspx?intEmpleadoId=" + intEmpId;
         }
 
-        function mostrarPaginaAdministracionEmpleados_onclick(intEmpleadoId) {
-            window.location.href = "ControlAsistenciaAdministracionEmpleadosModificaciones.aspx?strCmd=Editar" +
-                                   "&intEmpleadoId=" + intEmpleadoId +
-                                   "&blnUsuarioLocal=0";
-        }
-
-        function mostrarPaginaAsignacionHorario_onclick(intEmpleadoId) {
-            window.location.href = "ControlAsistenciaAdministracionEmpleadosMedicosTurnos.aspx?strCmd=detalle" +
-                                   "&intEmpleadoId=" + intEmpleadoId;
-        }
 
 
         new menu(MENU_ITEMS, MENU_POS);
     </script>
 </head>
 <body onload="return window_onload()">
-    <form method="post" action="about:blank" name="frmControlAsistenciasAdministraciondeEmpleadosMedicos">
+    <form method="post" action="about:blank" name="frmControlAsistenciaAdministracionEmpleadosMedicosTurnos">
         <table width="780" border="0" cellspacing="0" cellpadding="0">
             <tr>
                 <td>
@@ -59,23 +49,16 @@
         <table width="780" border="0" cellpadding="0" cellspacing="0">
             <tr>
                 <td class="tdgeneralcontent">
-                    <h1>Administración de Empleados Médicos</h1>
-                    <p>Administración de empleados médicos asignados a sucursales.</p>
-                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                        <tr>
-                            <td>
-                                <%= strConsultarEmpleadosMedicos()%>
-                            </td>
+                    <h1>Asignación de Horario Médico</h1>
+                    <table class="tdenvolventetablas" height="38" cellSpacing="0" cellPadding="0" width="90%">
+                        <tr> 
+                          <td class="tdtittablas3" valign="top" align="left" colspan="2">Empleado<br>
+                            <select id="cboEmpleados" name="cboEmpleados" class='campotabla' onChange='javascript:cboEmpleados_onchange()'>
+                                <%= LLenarComboEmpleados()%> 
+                            </select>
+                          </td>
                         </tr>
-                        <tr>
-                            <td><br /></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input id="btnImprimir" type="button" class="boton" value="Imprimir" onclick="">
-                            </td>
-                        </tr>
-                    </table>
+                      </table>
                 </td>
             </tr>
         </table>
