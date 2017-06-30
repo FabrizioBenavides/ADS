@@ -18,8 +18,23 @@
 
         function window_onload() {
             <%= strJavascriptWindowOnLoadCommands %>
+
+            ValidarDiaDescanso();
         }
 
+        function ValidarDiaDescanso() {
+            var tieneDiaDescanso = '<%=strTieneDiaDescanso%>';
+            var intEmpleadoId = '<%=intEmpleadoId%>';
+
+            if(tieneDiaDescanso == "False"){
+                window.alert("Debe seleccionar un día de descanso para continuar");
+
+                window.location.href = "ControlAsistenciaAdministracionEmpleadosModificaciones.aspx?strCmd=Editar" +
+                                       "&intEmpleadoId=" + intEmpleadoId +
+                                       "&blnUsuarioLocal=0";
+            }
+
+        }
 
         function cboEmpleados_onchange() {
             var intEmpId = document.forms[0].elements["cboEmpleados"].value;

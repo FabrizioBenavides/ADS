@@ -33,7 +33,7 @@
         }
 
         function mostrarPaginaAsignacionHorario_onclick(intEmpleadoId) {
-            window.location.href = "ControlAsistenciaAdministracionEmpleadosMedicosTurnos.aspx?strCmd=detalle" +
+            window.location.href = "ControlAsistenciaAdministracionEmpleadosMedicosTurnos.aspx?strCmd2=detalle" +
                                    "&intEmpleadoId=" + intEmpleadoId;
         }
 
