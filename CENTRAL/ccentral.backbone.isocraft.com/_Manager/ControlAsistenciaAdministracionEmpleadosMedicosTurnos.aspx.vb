@@ -42,6 +42,7 @@ Public Class ControlAsistenciaAdministracionEmpleadosMedicosTurnos
         If resultadoConsulta IsNot Nothing AndAlso resultadoConsulta.Length > 0 Then
 
             For i As Integer = 0 To resultadoConsulta.Length - 1
+
                 objMedicos = CType(resultadoConsulta.GetValue(i), Collections.SortedList)
 
                 controlEmpleados.AppendFormat("<option value=""{0}"">{1}</option>", _
@@ -123,7 +124,110 @@ Public Class ControlAsistenciaAdministracionEmpleadosMedicosTurnos
         End If
     End Sub
 
+    Public Function strGeneraTablaHorarioHTML() As String
+        Dim strResultadoTablaHorario As New StringBuilder
 
+        strResultadoTablaHorario.Append("<table id='Table2' class='tdenvolventetablas' cellspacing='0' cellpadding='0' valign='top'>")
+        strResultadoTablaHorario.Append("<tr>")
+        strResultadoTablaHorario.Append("<th height='25' align='center' class='txsubtitulo' colspan='2'>Horario</th>")
+        strResultadoTablaHorario.Append("<th height='25' align='center' class='txsubtitulo'>&nbsp;Domingo&nbsp;</th>")
+        strResultadoTablaHorario.Append("<th height='25' align='center' class='txsubtitulo'>&nbsp;Lunes&nbsp;</th>")
+        strResultadoTablaHorario.Append("<th height='25' align='center' class='txsubtitulo'>&nbsp;Martes&nbsp;</th>")
+        strResultadoTablaHorario.Append("<th height='25' align='center' class='txsubtitulo'>&nbsp;Miércoles&nbsp;</th>")
+        strResultadoTablaHorario.Append("<th height='25' align='center' class='txsubtitulo'>&nbsp;Jueves&nbsp;</th>")
+        strResultadoTablaHorario.Append("<th height='25' align='center' class='txsubtitulo'>&nbsp;Viernes&nbsp;</th>")
+        strResultadoTablaHorario.Append("<th height='25' align='center' class='txsubtitulo'>&nbsp;Sábado&nbsp;</th>")
+        strResultadoTablaHorario.Append("</tr>")
+
+        strResultadoTablaHorario.Append(strCrearRenglonesHorario())
+
+        strResultadoTablaHorario.Append("</table>")
+
+        Return strResultadoTablaHorario.ToString()
+    End Function
+
+    Private Function strCrearRenglonesHorario() As String
+        Dim objHorarioLaboralEmpleado As Array
+        Dim strRenglonesTablaHorario As New StringBuilder
+        Dim intCantidadRenglonesTabla As Integer
+        Dim intIndiceRenglones As Integer
+        Dim renglonEmpleado As SortedList
+        Dim idConsecutivoRadio As Integer = 1
+        Dim intValorRadio As Integer = 1
+        Dim intDiaSemanaHoy As Integer = Date.Today.DayOfWeek
+        Dim objHorarioAsignadoEmpleado As Array
+
+        objHorarioLaboralEmpleado = clsControlDeAsistencia.clsRolMedico.strBuscarHorarioLaboralPorEmpleadoId(intEmpleadoId, strConnectionString)
+
+        objHorarioAsignadoEmpleado = clsControlDeAsistencia. _
+                                     clsRolMedico. _
+                                     strBuscarAsignacionHorarioLaboralPorEmpleadoId(intEmpleadoId, strConnectionString)
+
+        intCantidadRenglonesTabla = objHorarioLaboralEmpleado.Length - 1
+
+        For intIndiceRenglones = 0 To intCantidadRenglonesTabla
+
+            renglonEmpleado = DirectCast(objHorarioLaboralEmpleado.GetValue(intIndiceRenglones), SortedList)
+
+            strRenglonesTablaHorario.Append("<tr>")
+
+            strRenglonesTablaHorario.Append(strGenerarDiasSemana(idConsecutivoRadio, _
+                                                                 intValorRadio, _
+                                                                 CInt(renglonEmpleado.Item("intHorarioLaboralId").ToString()), _
+                                                                 renglonEmpleado.Item("strHorarioLaboralNombre").ToString(), _
+                                                                 intDiaSemanaHoy, _
+                                                                 objHorarioAsignadoEmpleado))
+
+            strRenglonesTablaHorario.Append("</tr>")
+        Next
+
+        Return strRenglonesTablaHorario.ToString()
+    End Function
+
+    Private Function strGenerarDiasSemana(ByRef idConsecutivoRadio As Integer, _
+                                          ByRef intValorRadio As Integer, _
+                                          ByRef intHorarioLaboralId As Integer, _
+                                          ByVal strHorarioLaboralNombre As String, _
+                                          ByVal intDiaSemanaHoy As Integer, _
+                                          ByVal objHorarioAsignadoEmpleado As Array) As String
+
+        Const intCantidadDiasSemana As Integer = 7
+        Dim intDomingo As Integer = 1
+        Dim strRenglonesHorarioDiasAsignados As New StringBuilder
+        Dim strBotonDeshabilitado As String = String.Empty
+        Dim valorControl As String = String.Empty
+
+        strRenglonesHorarioDiasAsignados.AppendFormat("<td height='21' class='tdtittablas3' colspan='2'>{0}&nbsp;</td>", strHorarioLaboralNombre)
+
+        For intDomingo = 1 To intCantidadDiasSemana
+
+            If (intDiaSemanaHoy + 1) = intDomingo Then
+                strBotonDeshabilitado = "disabled=''"
+            Else
+                strBotonDeshabilitado = String.Empty
+            End If
+
+            strRenglonesHorarioDiasAsignados.Append("<td height='21' align='center' class='tdtittablas3'>")
+
+            valorControl = strEstablecerValorControlDiaSemana(objHorarioAsignadoEmpleado) ' unchecked=''
+
+            strRenglonesHorarioDiasAsignados. _
+                AppendFormat("<input name='dia{0}' id='rb{1}' type='radio' value='{2}' {3}  {4} unchecked=''></td>", intDomingo, _
+                                                                                                                     idConsecutivoRadio, _
+                                                                                                                     intHorarioLaboralId, _
+                                                                                                                     strBotonDeshabilitado, _
+                                                                                                                      valorControl)
+            idConsecutivoRadio = idConsecutivoRadio + 1
+        Next
+
+        intValorRadio = intValorRadio + 1
+
+        Return strRenglonesHorarioDiasAsignados.ToString()
+    End Function
+
+    Private Function strEstablecerValorControlDiaSemana(ByVal objHorarioAsignadoEmpleado As Array) As String
+
+    End Function
 
 
 End Class

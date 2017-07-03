@@ -10,7 +10,7 @@
     <script language="JavaScript" type="text/JavaScript" src="js/menu_tpl.js"></script>
     <script language="JavaScript" type="text/JavaScript" src="js/headerfooter.js"></script>
     <script language="JavaScript" type="text/JavaScript" src="../static/scripts/Tools.js"></script>
-    
+
     <script language="JavaScript" type="text/JavaScript">
 
         strUsuarioNombre = "<%= strUsuarioNombre %>";
@@ -26,14 +26,13 @@
             var tieneDiaDescanso = '<%=strTieneDiaDescanso%>';
             var intEmpleadoId = '<%=intEmpleadoId%>';
 
-            if(tieneDiaDescanso == "False"){
+            if (tieneDiaDescanso == "False") {
                 window.alert("Debe seleccionar un día de descanso para continuar");
 
                 window.location.href = "ControlAsistenciaAdministracionEmpleadosModificaciones.aspx?strCmd=Editar" +
                                        "&intEmpleadoId=" + intEmpleadoId +
                                        "&blnUsuarioLocal=0";
             }
-
         }
 
         function cboEmpleados_onchange() {
@@ -41,7 +40,11 @@
             document.location.href = "ControlAsistenciaAdministracionEmpleadosMedicosTurnos.aspx?intEmpleadoId=" + intEmpId;
         }
 
-
+        function btnRegresar_onclick() {
+            window.location.href = "ControlAsistenciaAdministracionEmpleadosModificaciones.aspx?strCmd=Editar" +
+                                   "&intEmpleadoId=" + intEmpleadoId +
+                                   "&blnUsuarioLocal=0";
+        }
 
         new menu(MENU_ITEMS, MENU_POS);
     </script>
@@ -65,15 +68,31 @@
             <tr>
                 <td class="tdgeneralcontent">
                     <h1>Asignación de Horario Médico</h1>
-                    <table class="tdenvolventetablas" height="38" cellSpacing="0" cellPadding="0" width="90%">
+                    <table class="tdenvolventetablas" height="38" cellspacing="0" cellpadding="0" width="90%">
+                        <tr>
+                            <td class="tdtittablas3" valign="top" align="left" colspan="2">Empleado<br>
+                                <select id="cboEmpleados" name="cboEmpleados" class='campotabla' onchange='javascript:cboEmpleados_onchange()'>
+                                    <%= LLenarComboEmpleados()%>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                    <br />
+                    <br />
+                     <%= strGeneraTablaHorarioHTML()%>
+                    <br />
+                    <table cellSpacing="0" cellPadding="0" width="100%" border="0">
                         <tr> 
-                          <td class="tdtittablas3" valign="top" align="left" colspan="2">Empleado<br>
-                            <select id="cboEmpleados" name="cboEmpleados" class='campotabla' onChange='javascript:cboEmpleados_onchange()'>
-                                <%= LLenarComboEmpleados()%> 
-                            </select>
+                          <td class="tdtittablas3"  width="100%"> 
+                              <input class="boton" id="btnRegresar" style="width: 64px; height: 20px" 
+                                  onclick="return btnRegresar_onclick()" type="button" value="Regresar" name="btnRegresar">&nbsp;  
+                              <input class="boton" id="btnImprimir" style="width: 64px; height: 20px"
+                                  onclick="return btnImprimir_onclick()" type="button" value="Imprimir" name="btnImprimir"> &nbsp;
+                              <input class="boton" id="btnAplicar" style="width: 64px; height: 20px" 
+                                  onclick="return btnAplicar_onclick()" type="button" value="Aplicar" name="btnAplicar"> 
                           </td>
                         </tr>
-                      </table>
+                    </table>
                 </td>
             </tr>
         </table>
