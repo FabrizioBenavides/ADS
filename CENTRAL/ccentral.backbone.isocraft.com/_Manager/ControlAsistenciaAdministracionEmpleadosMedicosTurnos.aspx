@@ -36,14 +36,27 @@
         }
 
         function cboEmpleados_onchange() {
-            var intEmpId = document.forms[0].elements["cboEmpleados"].value;
-            document.location.href = "ControlAsistenciaAdministracionEmpleadosMedicosTurnos.aspx?intEmpleadoId=" + intEmpId;
+            var intEmpleadoId = document.forms[0].elements["cboEmpleados"].value;
+            document.location.href = "ControlAsistenciaAdministracionEmpleadosMedicosTurnos.aspx?intEmpleadoId=" + intEmpleadoId;
         }
 
         function btnRegresar_onclick() {
             window.location.href = "ControlAsistenciaAdministracionEmpleadosModificaciones.aspx?strCmd=Editar" +
                                    "&intEmpleadoId=" + intEmpleadoId +
                                    "&blnUsuarioLocal=0";
+        }
+
+        function btnAplicar_onclick() {
+            var intEmpleadoId = document.forms[0].elements["cboEmpleados"].value;
+
+            document.forms[0].action = "ControlAsistenciaAdministracionEmpleadosMedicosTurnos.aspx?strCmd2=Aplicar" + 
+                                       "&intEmpleadoId=" + intEmpleadoId;
+
+            document.forms(0).submit();
+        }
+
+        function validarAplicarHorario() {
+
         }
 
         new menu(MENU_ITEMS, MENU_POS);
