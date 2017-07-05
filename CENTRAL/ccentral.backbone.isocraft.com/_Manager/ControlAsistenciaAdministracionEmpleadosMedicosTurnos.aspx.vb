@@ -61,6 +61,48 @@ Public Class ControlAsistenciaAdministracionEmpleadosMedicosTurnos
         End Get
     End Property
 
+    Public ReadOnly Property intDomingo() As Integer
+        Get
+            Return CInt(Request.QueryString("intDomingo"))
+        End Get
+    End Property
+
+    Public ReadOnly Property intLunes() As Integer
+        Get
+            Return CInt(Request.QueryString("intLunes"))
+        End Get
+    End Property
+
+    Public ReadOnly Property intMartes() As Integer
+        Get
+            Return CInt(Request.QueryString("intMartes"))
+        End Get
+    End Property
+
+    Public ReadOnly Property intMiercoles() As Integer
+        Get
+            Return CInt(Request.QueryString("intMiercoles"))
+        End Get
+    End Property
+
+    Public ReadOnly Property intJueves() As Integer
+        Get
+            Return CInt(Request.QueryString("intJueves"))
+        End Get
+    End Property
+
+    Public ReadOnly Property intViernes() As Integer
+        Get
+            Return CInt(Request.QueryString("intViernes"))
+        End Get
+    End Property
+
+    Public ReadOnly Property intSabado() As Integer
+        Get
+            Return CInt(Request.QueryString("intSabado"))
+        End Get
+    End Property
+
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         Call ValidarExistenciaDiaDescanso()
@@ -89,7 +131,7 @@ Public Class ControlAsistenciaAdministracionEmpleadosMedicosTurnos
             Dim intCategoryNumber As Short : intCategoryNumber = 0
 
             ' Identificador de la clase
-            Dim strmThisClassName As String = "com.isocraft.backbone.SucursalEmpleadosControlAsistenciasConfirmacionAsistencias.aspx"
+            Dim strmThisClassName As String = "com.isocraft.backbone.central.ControlAsistenciaAdministracionEmpleadosMedicosTurnos.aspx"
             Dim strmThisMemberName As String = "Load"
 
             ' Creamos el mensaje de error
@@ -162,6 +204,7 @@ Public Class ControlAsistenciaAdministracionEmpleadosMedicosTurnos
         Dim objHorarioAsignadoEmpleado As Array
         Dim intDiaDescanso As Integer
 
+        ' Mover hacia arriba
         objHorarioLaboralEmpleado = clsControlDeAsistencia.clsRolMedico.strBuscarHorarioLaboralPorEmpleadoId(intEmpleadoId, strConnectionString)
 
         objHorarioAsignadoEmpleado = clsControlDeAsistencia. _
@@ -283,27 +326,37 @@ Public Class ControlAsistenciaAdministracionEmpleadosMedicosTurnos
     Private Function intEncontrarDiaSemanaDescanso(ByVal objHorarioAsignadoEmpleado As Array) As Integer
         Dim intDiaSemanaDescanso As Integer
 
-        For Each renglon As SortedList In objHorarioAsignadoEmpleado
+        If Not objHorarioAsignadoEmpleado Is Nothing AndAlso objHorarioAsignadoEmpleado.Length > 0 Then
 
-            If CInt(renglon.Item("intHorarioLaboralId")) = VALOR_DIA_DESCANSO Then
-                intDiaSemanaDescanso = CInt(renglon.Item("intDiaSemanaId"))
-            End If
-        Next
+            For Each renglon As SortedList In objHorarioAsignadoEmpleado
+
+                If CInt(renglon.Item("intHorarioLaboralId")) = VALOR_DIA_DESCANSO Then
+                    intDiaSemanaDescanso = CInt(renglon.Item("intDiaSemanaId"))
+                End If
+            Next
+        End If
 
         Return intDiaSemanaDescanso
     End Function
 
     Private Sub AplicarHorarioAMedico()
-        Dim intDomingo As Integer = CInt(Request.Form("dia1"))
-        Dim intLunes As Integer = CInt(Request.Form("dia2"))
-        Dim intMartes As Integer = CInt(Request.Form("dia3"))
-        Dim intMiercoles As Integer = CInt(Request.Form("dia4"))
-        Dim intJueves As Integer = CInt(Request.Form("dia5"))
-        Dim intViernes As Integer = CInt(Request.Form("dia6"))
-        Dim intSabado As Integer = CInt(Request.Form("dia7"))
+        Dim intResultado As Integer
 
-
-
+        intResultado = clsControlDeAsistencia.clsRolMedico.intGuardarAsignacionTurnos(intEmpleadoId, _
+                                                                                      intDomingo, _
+                                                                                      intLunes, _
+                                                                                      intMartes, _
+                                                                                      intMiercoles, _
+                                                                                      intJueves, _
+                                                                                      intViernes, _
+                                                                                      intSabado, _
+                                                                                      strUsuarioNombre, _
+                                                                                      strConnectionString)
+        If intResultado > -1 Then
+            strJavascriptWindowOnLoadCommands = "window.alert(""Turnos asignados correctamente."");"
+        Else
+            strJavascriptWindowOnLoadCommands = "window.alert(""Error al asignar turnos."");"
+        End If
     End Sub
 
 

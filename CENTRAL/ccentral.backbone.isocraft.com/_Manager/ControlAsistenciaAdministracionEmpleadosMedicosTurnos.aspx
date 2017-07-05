@@ -41,19 +41,61 @@
         }
 
         function btnRegresar_onclick() {
-            window.location.href = "ControlAsistenciaAdministracionEmpleadosModificaciones.aspx?strCmd=Editar" +
-                                   "&intEmpleadoId=" + intEmpleadoId +
-                                   "&blnUsuarioLocal=0";
+            document.location.href = "ControlAsistenciaAdministraciondeEmpleadosMedicos.aspx";
         }
 
         function btnAplicar_onclick() {
-            var intEmpleadoId = document.forms[0].elements["cboEmpleados"].value;
+            var intEmpleadoId;
+            var domingo;
+            var lunes;
+            var martes;
+            var miercoles;
+            var jueves;
+            var viernes;
+            var sabado;
 
-            document.forms[0].action = "ControlAsistenciaAdministracionEmpleadosMedicosTurnos.aspx?strCmd2=Aplicar" + 
-                                       "&intEmpleadoId=" + intEmpleadoId;
+            domingo = obtenerTurnoSeleccionadoPorDia('dia1');
+            lunes = obtenerTurnoSeleccionadoPorDia('dia2');
+            martes = obtenerTurnoSeleccionadoPorDia('dia3');
+            miercoles = obtenerTurnoSeleccionadoPorDia('dia4');
+            jueves = obtenerTurnoSeleccionadoPorDia('dia5');
+            viernes = obtenerTurnoSeleccionadoPorDia('dia6');
+            sabado = obtenerTurnoSeleccionadoPorDia('dia7');
+
+            intEmpleadoId = document.forms[0].elements["cboEmpleados"].value;
+
+            document.forms[0].action = "ControlAsistenciaAdministracionEmpleadosMedicosTurnos.aspx?strCmd2=Aplicar" +
+                                       "&intEmpleadoId=" + intEmpleadoId +
+                                       "&intDomingo=" + domingo +
+                                       "&intLunes=" + lunes +
+                                       "&intMartes=" + martes +
+                                       "&intMiercoles=" + miercoles +
+                                       "&intJueves=" + jueves +
+                                       "&intViernes=" + viernes +
+                                       "&intSabado=" + sabado;
 
             document.forms(0).submit();
         }
+
+        function obtenerTurnoSeleccionadoPorDia(grupoNombreId) {
+            var botones = document.getElementsByName(grupoNombreId);
+            var botonSeleccionado;
+            var valorDiaDescanso = 0;
+
+            for (i = 0; i < botones.length; i++) {
+                if (botones[i].checked) {
+                    botonSeleccionado = botones[i].value;
+                    break;
+                }
+            }
+
+            if (botonSeleccionado == undefined) {
+                botonSeleccionado = valorDiaDescanso;
+            }
+
+            return botonSeleccionado;
+        }
+
 
         function validarAplicarHorario() {
 
