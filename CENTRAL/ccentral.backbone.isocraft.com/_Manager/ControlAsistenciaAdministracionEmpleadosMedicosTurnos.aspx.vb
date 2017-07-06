@@ -19,6 +19,7 @@ Public Class ControlAsistenciaAdministracionEmpleadosMedicosTurnos
     Private designerPlaceholderDeclaration As System.Object
     Private _blnTieneDiaDescanso As Boolean = False
     Private Const VALOR_DIA_DESCANSO As Integer = 0
+    Private Const CANTIDAD_DIAS_SEMANA As Integer = 7
 
     Public ReadOnly Property intEmpleadoId() As Integer
         Get
@@ -172,6 +173,14 @@ Public Class ControlAsistenciaAdministracionEmpleadosMedicosTurnos
 
     Public Function strGeneraTablaHorarioHTML() As String
         Dim strResultadoTablaHorario As New StringBuilder
+        Dim objHorarioLaboralEmpleado As Array
+        Dim objHorarioAsignadoEmpleado As Array
+
+        objHorarioLaboralEmpleado = clsControlDeAsistencia.clsRolMedico.strBuscarHorarioLaboralPorEmpleadoId(intEmpleadoId, strConnectionString)
+
+        objHorarioAsignadoEmpleado = clsControlDeAsistencia. _
+                                     clsRolMedico. _
+                                     strBuscarAsignacionHorarioLaboralPorEmpleadoId(intEmpleadoId, strConnectionString)
 
         strResultadoTablaHorario.Append("<table id='Table2' class='tdenvolventetablas' cellspacing='0' cellpadding='0' valign='top'>")
         strResultadoTablaHorario.Append("<tr>")
@@ -185,15 +194,20 @@ Public Class ControlAsistenciaAdministracionEmpleadosMedicosTurnos
         strResultadoTablaHorario.Append("<th height='25' align='center' class='txsubtitulo'>&nbsp;Sábado&nbsp;</th>")
         strResultadoTablaHorario.Append("</tr>")
 
-        strResultadoTablaHorario.Append(strCrearRenglonesHorario())
+        If (Not objHorarioLaboralEmpleado Is Nothing AndAlso objHorarioLaboralEmpleado.Length > 0) AndAlso _
+           (Not objHorarioAsignadoEmpleado Is Nothing AndAlso objHorarioAsignadoEmpleado.Length > 0) Then
+
+            strResultadoTablaHorario.Append(strCrearRenglonesHorarioConHorarioAsignadoEmpleado(objHorarioLaboralEmpleado, objHorarioAsignadoEmpleado))
+        Else
+            strResultadoTablaHorario.Append(strCrearRenglonesHorarioSinHorarioAsignadoEmpleado(objHorarioLaboralEmpleado))
+        End If
 
         strResultadoTablaHorario.Append("</table>")
 
         Return strResultadoTablaHorario.ToString()
     End Function
 
-    Private Function strCrearRenglonesHorario() As String
-        Dim objHorarioLaboralEmpleado As Array
+    Private Function strCrearRenglonesHorarioConHorarioAsignadoEmpleado(ByVal objHorarioLaboralEmpleado As Array, ByVal objHorarioAsignadoEmpleado As Array) As String
         Dim strRenglonesTablaHorario As New StringBuilder
         Dim intCantidadRenglonesTabla As Integer
         Dim intIndiceRenglones As Integer
@@ -201,25 +215,17 @@ Public Class ControlAsistenciaAdministracionEmpleadosMedicosTurnos
         Dim intIdConsecutivoBoton As Integer = 1
         Dim intValorBoton As Integer = 1
         Dim intDiaSemanaHoy As Integer = Date.Today.DayOfWeek
-        Dim objHorarioAsignadoEmpleado As Array
         Dim intDiaDescanso As Integer
-
-        ' Mover hacia arriba
-        objHorarioLaboralEmpleado = clsControlDeAsistencia.clsRolMedico.strBuscarHorarioLaboralPorEmpleadoId(intEmpleadoId, strConnectionString)
-
-        objHorarioAsignadoEmpleado = clsControlDeAsistencia. _
-                                     clsRolMedico. _
-                                     strBuscarAsignacionHorarioLaboralPorEmpleadoId(intEmpleadoId, strConnectionString)
 
         intDiaDescanso = intEncontrarDiaSemanaDescanso(objHorarioAsignadoEmpleado)
 
         intCantidadRenglonesTabla = objHorarioLaboralEmpleado.Length - 1
 
         For intIndiceRenglones = 0 To intCantidadRenglonesTabla
+
             renglonEmpleado = DirectCast(objHorarioLaboralEmpleado.GetValue(intIndiceRenglones), SortedList)
 
             strRenglonesTablaHorario.Append("<tr>")
-
             strRenglonesTablaHorario.Append(strGenerarDiasSemana(intIdConsecutivoBoton, _
                                                                  intValorBoton, _
                                                                  CInt(renglonEmpleado.Item("intHorarioLaboralId").ToString()), _
@@ -227,7 +233,6 @@ Public Class ControlAsistenciaAdministracionEmpleadosMedicosTurnos
                                                                  intDiaSemanaHoy, _
                                                                  objHorarioAsignadoEmpleado, _
                                                                  intDiaDescanso))
-
             strRenglonesTablaHorario.Append("</tr>")
         Next
 
@@ -242,7 +247,6 @@ Public Class ControlAsistenciaAdministracionEmpleadosMedicosTurnos
                                           ByVal objHorarioAsignadoEmpleado As Array, _
                                           ByVal intDiaDescanso As Integer) As String
 
-        Const intCantidadDiasSemana As Integer = 7
         Dim intContadorDiaSemana As Integer = 1
         Dim strRenglonesHorarioDiasAsignados As New StringBuilder
         Dim strBotonDeshabilitado As String = String.Empty
@@ -250,7 +254,7 @@ Public Class ControlAsistenciaAdministracionEmpleadosMedicosTurnos
 
         strRenglonesHorarioDiasAsignados.AppendFormat("<td height='21' class='tdtittablas3' colspan='2'>{0}&nbsp;</td>", strHorarioLaboralNombre)
 
-        For intContadorDiaSemana = 1 To intCantidadDiasSemana
+        For intContadorDiaSemana = 1 To CANTIDAD_DIAS_SEMANA
 
             strBotonDeshabilitado = strValidarDeshabilitarBoton(intDiaSemanaHoy, intContadorDiaSemana, intDiaDescanso)
 
@@ -358,6 +362,70 @@ Public Class ControlAsistenciaAdministracionEmpleadosMedicosTurnos
             strJavascriptWindowOnLoadCommands = "window.alert(""Error al asignar turnos."");"
         End If
     End Sub
+
+    Private Function strCrearRenglonesHorarioSinHorarioAsignadoEmpleado(ByVal objHorarioLaboralEmpleado As Array) As String
+        Dim intCantidadRenglonesTabla As Integer
+        Dim intIndiceRenglones As Integer
+        Dim strRenglonesTablaHorario As New StringBuilder
+        Dim intContadorDiaSemana As Integer = 1
+        Dim renglonEmpleado As SortedList
+        Dim intIdConsecutivoBoton As Integer = 0
+        Dim intHorarioLaboralId As String
+        Dim resultadoDiaDescanso As Array = Nothing
+        Dim intDiaSemanaDescanso As Integer
+        Dim strBotonDeshabilitado As String = String.Empty
+
+        intCantidadRenglonesTabla = objHorarioLaboralEmpleado.Length - 1
+
+        intDiaSemanaDescanso = intObtenerDiaSemanaDescanso()
+
+        For intIndiceRenglones = 0 To intCantidadRenglonesTabla
+
+            renglonEmpleado = DirectCast(objHorarioLaboralEmpleado.GetValue(intIndiceRenglones), SortedList)
+
+            strRenglonesTablaHorario.Append("<tr>")
+            strRenglonesTablaHorario.AppendFormat("<td height='21' class='tdtittablas3' colspan='2'>{0}&nbsp;</td>", _
+                                                  renglonEmpleado.Item("strHorarioLaboralNombre").ToString())
+
+
+            intHorarioLaboralId = renglonEmpleado.Item("intHorarioLaboralId").ToString()
+
+            For intContadorDiaSemana = 1 To CANTIDAD_DIAS_SEMANA
+
+                intIdConsecutivoBoton = intIdConsecutivoBoton + 1
+
+                strRenglonesTablaHorario.Append("<td height='21' align='center' class='tdtittablas3'>")
+
+                If intContadorDiaSemana = intDiaSemanaDescanso Then
+                    strBotonDeshabilitado = "DISABLED"
+                End If
+
+                strRenglonesTablaHorario.AppendFormat("<input name='dia{0}' id='rb{1}' type='radio' value='{2}' {3} ></td>", intContadorDiaSemana, _
+                                                                                                                             intIdConsecutivoBoton, _
+                                                                                                                             intHorarioLaboralId, _
+                                                                                                                             strBotonDeshabilitado)
+                strBotonDeshabilitado = String.Empty
+            Next
+
+            strRenglonesTablaHorario.Append("</tr>")
+        Next
+
+        Return strRenglonesTablaHorario.ToString()
+    End Function
+
+    Private Function intObtenerDiaSemanaDescanso() As Integer
+        Dim intDiaSemanaDescanso As Integer
+        Dim objResultado As Array
+        Dim renglonEmpleado As SortedList
+
+         objResultado = clsControlDeAsistencia.clsRolMedico.strObtenerDiaDescanso(intEmpleadoId, strConnectionString)
+
+        renglonEmpleado = DirectCast(objResultado.GetValue(0), SortedList)
+
+        intDiaSemanaDescanso = CInt(renglonEmpleado.Item("intDiaSemanaId"))
+
+        Return intDiaSemanaDescanso
+    End Function
 
 
 End Class

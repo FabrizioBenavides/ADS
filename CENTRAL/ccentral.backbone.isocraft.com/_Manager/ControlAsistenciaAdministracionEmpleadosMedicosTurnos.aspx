@@ -54,27 +54,30 @@
             var viernes;
             var sabado;
 
-            domingo = obtenerTurnoSeleccionadoPorDia('dia1');
-            lunes = obtenerTurnoSeleccionadoPorDia('dia2');
-            martes = obtenerTurnoSeleccionadoPorDia('dia3');
-            miercoles = obtenerTurnoSeleccionadoPorDia('dia4');
-            jueves = obtenerTurnoSeleccionadoPorDia('dia5');
-            viernes = obtenerTurnoSeleccionadoPorDia('dia6');
-            sabado = obtenerTurnoSeleccionadoPorDia('dia7');
+            if (validarAplicarHorario()) {
+                
+                domingo = obtenerTurnoSeleccionadoPorDia('dia1');
+                lunes = obtenerTurnoSeleccionadoPorDia('dia2');
+                martes = obtenerTurnoSeleccionadoPorDia('dia3');
+                miercoles = obtenerTurnoSeleccionadoPorDia('dia4');
+                jueves = obtenerTurnoSeleccionadoPorDia('dia5');
+                viernes = obtenerTurnoSeleccionadoPorDia('dia6');
+                sabado = obtenerTurnoSeleccionadoPorDia('dia7');
 
-            intEmpleadoId = document.forms[0].elements["cboEmpleados"].value;
+                intEmpleadoId = document.forms[0].elements["cboEmpleados"].value;
 
-            document.forms[0].action = "ControlAsistenciaAdministracionEmpleadosMedicosTurnos.aspx?strCmd2=Aplicar" +
-                                       "&intEmpleadoId=" + intEmpleadoId +
-                                       "&intDomingo=" + domingo +
-                                       "&intLunes=" + lunes +
-                                       "&intMartes=" + martes +
-                                       "&intMiercoles=" + miercoles +
-                                       "&intJueves=" + jueves +
-                                       "&intViernes=" + viernes +
-                                       "&intSabado=" + sabado;
+                document.forms[0].action = "ControlAsistenciaAdministracionEmpleadosMedicosTurnos.aspx?strCmd2=Aplicar" +
+                                           "&intEmpleadoId=" + intEmpleadoId +
+                                           "&intDomingo=" + domingo +
+                                           "&intLunes=" + lunes +
+                                           "&intMartes=" + martes +
+                                           "&intMiercoles=" + miercoles +
+                                           "&intJueves=" + jueves +
+                                           "&intViernes=" + viernes +
+                                           "&intSabado=" + sabado;
 
-            document.forms(0).submit();
+                document.forms(0).submit();
+            }
         }
 
         function obtenerTurnoSeleccionadoPorDia(grupoNombreId) {
@@ -96,10 +99,35 @@
             return botonSeleccionado;
         }
 
-
         function validarAplicarHorario() {
+            var esValido = false;
+            var cantidadDiasSemana = 7;
+            var botones;
+            var cantidadBotonesValidos = 6;
+            var cantidadBotonesSeleccionados = 0;
 
+            for (var i = 1; i <= cantidadDiasSemana; i++) {
+
+                botones = document.getElementsByName("dia" + i);
+
+                for (var j = 0; j < botones.length -1; j++) {
+                
+                    if (botones[j].checked == true && botones[j].disabled == false) {
+                        cantidadBotonesSeleccionados = cantidadBotonesSeleccionados + 1;
+                        break;
+                    }
+                }
+            }
+
+            if (cantidadBotonesSeleccionados == cantidadBotonesValidos) {
+                esValido = true;
+            }
+
+            return esValido;
         }
+
+
+
 
         new menu(MENU_ITEMS, MENU_POS);
     </script>
