@@ -4706,9 +4706,7 @@ Public Class clsControlDeAsistencia
                 strRegistros = clsSQLOperation.strExecuteQuery(strSQLStatement.ToString(), strConnectionString)
 
                 For Each strRowsAffected In strRegistros
-
                     intRowsAffected = CInt(strRowsAffected.GetValue(0))
-
                 Next
 
                 ' Regresamos la información
@@ -4762,14 +4760,14 @@ Public Class clsControlDeAsistencia
         End Function
 
         Private Shared Function intGuardarInformacionIncapacidad(ByVal intIncapacidadId As Integer, _
-                                                            ByVal intEmpleadoId As Integer, _
-                                                            ByVal intMotivoIncapacidadId As Integer, _
-                                                            ByVal dtmIncapacidadInicio As Date, _
-                                                            ByVal dtmIncapacidadFin As Date, _
-                                                            ByVal strFolio As String, _
-                                                            ByVal strObservacionesIncapacidad As String, _
-                                                            ByVal strModificadoPor As String, _
-                                                            ByVal strConnectionString As String) As Integer
+                                                                 ByVal intEmpleadoId As Integer, _
+                                                                 ByVal intMotivoIncapacidadId As Integer, _
+                                                                 ByVal dtmIncapacidadInicio As Date, _
+                                                                 ByVal dtmIncapacidadFin As Date, _
+                                                                 ByVal strFolio As String, _
+                                                                 ByVal strObservacionesIncapacidad As String, _
+                                                                 ByVal strModificadoPor As String, _
+                                                                 ByVal strConnectionString As String) As Integer
 
             ' Constantes locales
             Const strmThisMemberName As String = "intGuardarInformacionIncapacidad"
