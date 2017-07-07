@@ -19,15 +19,15 @@
         function window_onload() {
             <%= strJavascriptWindowOnLoadCommands %>
 
-            ValidarDiaDescanso();
+            validarDiaDescanso();
         }
 
-        function ValidarDiaDescanso() {
+        function validarDiaDescanso() {
             var tieneDiaDescanso = '<%=strTieneDiaDescanso%>';
             var intEmpleadoId = '<%=intEmpleadoId%>';
 
             if (tieneDiaDescanso == "False") {
-                window.alert("Debe seleccionar un día de descanso para continuar");
+                window.alert("Debe seleccionar un día de descanso para continuar.");
 
                 window.location.href = "ControlAsistenciaAdministracionEmpleadosModificaciones.aspx?strCmd=Editar" +
                                        "&intEmpleadoId=" + intEmpleadoId +
@@ -55,7 +55,7 @@
             var sabado;
 
             if (validarAplicarHorario()) {
-                
+
                 domingo = obtenerTurnoSeleccionadoPorDia('dia1');
                 lunes = obtenerTurnoSeleccionadoPorDia('dia2');
                 martes = obtenerTurnoSeleccionadoPorDia('dia3');
@@ -78,6 +78,9 @@
 
                 document.forms(0).submit();
             }
+            else {
+                window.alert("Favor de asignar todos los turnos por día.");
+            }
         }
 
         function obtenerTurnoSeleccionadoPorDia(grupoNombreId) {
@@ -91,7 +94,7 @@
                     break;
                 }
             }
-
+            
             if (botonSeleccionado == undefined) {
                 botonSeleccionado = valorDiaDescanso;
             }
@@ -103,14 +106,24 @@
             var esValido = false;
             var cantidadDiasSemana = 7;
             var botones;
-            var cantidadBotonesValidos = 6;
+            var cantidadBotonesAValidar;
             var cantidadBotonesSeleccionados = 0;
+            var yaTieneHorarioAsignado;
+
+            yaTieneHorarioAsignado = validarYaTieneHorarioAsignado();
+    
+            if (yaTieneHorarioAsignado == true) {
+                cantidadBotonesAValidar = 5;
+            }
+            else {
+                cantidadBotonesAValidar = 6;
+            }
 
             for (var i = 1; i <= cantidadDiasSemana; i++) {
 
                 botones = document.getElementsByName("dia" + i);
 
-                for (var j = 0; j < botones.length -1; j++) {
+                for (var j = 0; j < botones.length; j++) {
                 
                     if (botones[j].checked == true && botones[j].disabled == false) {
                         cantidadBotonesSeleccionados = cantidadBotonesSeleccionados + 1;
@@ -119,15 +132,41 @@
                 }
             }
 
-            if (cantidadBotonesSeleccionados == cantidadBotonesValidos) {
+            if (cantidadBotonesSeleccionados == cantidadBotonesAValidar) {
                 esValido = true;
             }
 
             return esValido;
         }
 
+        function validarYaTieneHorarioAsignado() {
+            var yaTieneHorarioAsignado = false;
+            var cantidadDiasSemana = 7;
+            var botones;
+            var cantidadBotonesDeshabilitadosPorDia = 0;
 
+            for (var i = 1; i <= cantidadDiasSemana; i++) {
 
+                botones = document.getElementsByName("dia" + i);
+
+                for (var j = 0; j < botones.length; j++) {
+
+                    if (botones[j].disabled) {
+                        cantidadDeshabilitados = cantidadBotonesDeshabilitadosPorDia + 1;
+                        break;
+                    }
+                }
+            }
+
+            if (cantidadBotonesDeshabilitadosPorDia == 1) {
+                yaTieneHorarioAsignado = false;
+            }
+            else if (cantidadBotonesDeshabilitadosPorDia == 2) {
+                yaTieneHorarioAsignado = true;
+            }
+
+            return yaTieneHorarioAsignado;
+        }
 
         new menu(MENU_ITEMS, MENU_POS);
     </script>

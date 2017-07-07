@@ -1073,9 +1073,10 @@ Public Class ControlAsistenciaAdministracionEmpleadosModificaciones
 
                     If (resultGuardar = "") Then
                         If (diaDescansoOriginalCambio) Then
-                            Response.Redirect("SucursalEmpleadosControlAsistenciasAdministracionEmpleadosTurnos.aspx?&intEmpleadoId=" + Request.QueryString("intEmpleadoId") + "&strEmpleadoNombre=" + strEmpleadoNombre)
+                            'Response.Redirect("ControlAsistenciaAdministracionEmpleadosMedicosTurnos.aspx?&intEmpleadoId=" + Request.QueryString("intEmpleadoId") + "&strEmpleadoNombre=" + strEmpleadoNombre)
+                            Response.Redirect("ControlAsistenciaAdministracionEmpleadosMedicosTurnos.aspx?&intEmpleadoId=" + Request.QueryString("intEmpleadoId"))
                         End If
-                        Response.Redirect("SucursalEmpleadosControlAsistenciasAdministraciondeEmpleados.aspx")
+                        Response.Redirect("ControlAsistenciaAdministraciondeEmpleadosMedicos.aspx")
                     Else
                         strMensaje = resultGuardar.ToString
                     End If

@@ -37,6 +37,7 @@ Public Class ControlAsistenciaAdministracionEmpleadosMedicosTurnos
         Dim controlEmpleados As New StringBuilder
         Dim resultadoConsulta As Array = Nothing
         Dim objMedicos As New Collections.SortedList
+        Dim strSeleccionado As String = String.Empty
 
         resultadoConsulta = clsControlDeAsistencia.clsRolMedico. _
                             strBuscarEmpleadosMedicos(CInt(strUsuarioNombre), strConnectionString)
@@ -47,9 +48,16 @@ Public Class ControlAsistenciaAdministracionEmpleadosMedicosTurnos
 
                 objMedicos = CType(resultadoConsulta.GetValue(i), Collections.SortedList)
 
-                controlEmpleados.AppendFormat("<option value=""{0}"">{1}</option>", _
+                If CInt(objMedicos.Item("intEmpleadoId")) = intEmpleadoId Then
+                    strSeleccionado = "selected"
+                End If
+
+                controlEmpleados.AppendFormat("<option value=""{0}"" {1} >{2}</option>", _
                                                   objMedicos.Item("intEmpleadoId").ToString(), _
+                                                  strSeleccionado, _
                                                   objMedicos.Item("NombreEmpleado").ToString())
+
+                strSeleccionado = String.Empty
             Next
         End If
 
@@ -199,6 +207,7 @@ Public Class ControlAsistenciaAdministracionEmpleadosMedicosTurnos
 
             strResultadoTablaHorario.Append(strCrearRenglonesHorarioConHorarioAsignadoEmpleado(objHorarioLaboralEmpleado, objHorarioAsignadoEmpleado))
         Else
+
             strResultadoTablaHorario.Append(strCrearRenglonesHorarioSinHorarioAsignadoEmpleado(objHorarioLaboralEmpleado))
         End If
 
