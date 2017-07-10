@@ -37,6 +37,7 @@ Public Class ControlAsistenciaAdministracionEmpleadosModificaciones
     Dim strResultArray As String
     Dim strHtmlCode As StringBuilder
     Public strmMensaje As String
+    Private _strDiaDescansoOriginalCambio As String = String.Empty
 
     '====================================================================
     ' Name       : strRedirectPage
@@ -918,6 +919,12 @@ Public Class ControlAsistenciaAdministracionEmpleadosModificaciones
 
 #End Region
 
+    Public ReadOnly Property strDiaDescansoOriginalCambio() As String
+        Get
+            Return _strDiaDescansoOriginalCambio
+        End Get
+    End Property
+
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         ' Control de Acceso de la página
@@ -1067,18 +1074,15 @@ Public Class ControlAsistenciaAdministracionEmpleadosModificaciones
                                                                               strObservacionesCapacitacion, _
                                                                               strConnectionString)
 
-                    If diaDescansoOriginal <> intDiaDescanso Then
-                        diaDescansoOriginalCambio = True
-                    End If
 
                     If (resultGuardar = "") Then
-                        If (diaDescansoOriginalCambio) Then
-                            'Response.Redirect("ControlAsistenciaAdministracionEmpleadosMedicosTurnos.aspx?&intEmpleadoId=" + Request.QueryString("intEmpleadoId") + "&strEmpleadoNombre=" + strEmpleadoNombre)
-                            Response.Redirect("ControlAsistenciaAdministracionEmpleadosMedicosTurnos.aspx?&intEmpleadoId=" + Request.QueryString("intEmpleadoId"))
+                        If diaDescansoOriginal <> intDiaDescanso Then
+                            _strDiaDescansoOriginalCambio = "True"
+                        Else
+                            _strDiaDescansoOriginalCambio = "False"
                         End If
-                        Response.Redirect("ControlAsistenciaAdministraciondeEmpleadosMedicos.aspx")
                     Else
-                        strMensaje = resultGuardar.ToString
+                        strMensaje = resultGuardar
                     End If
 
             End Select
@@ -1127,6 +1131,5 @@ Public Class ControlAsistenciaAdministracionEmpleadosModificaciones
             Throw
         End Try
     End Sub
-
 
 End Class

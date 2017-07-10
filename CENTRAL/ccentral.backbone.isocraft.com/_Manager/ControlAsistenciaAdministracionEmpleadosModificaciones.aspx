@@ -28,12 +28,28 @@
             calculadiasVacacionesdesdeLoad();
             calculadiasPermisodesdeLoad();
             calculadiasCapacitaciondesdeLoad();
+            redireccionarPagina();
 
 		    <% If Trim(strMensaje) <> "" Then%>
                 alert('<%=strMensaje%>');
             <% End If%>
 
             return (true);
+        }
+
+        function redireccionarPagina(){
+            var strDiaDescansoOriginalCambio;
+            var intEmpleadoId;
+
+            strDiaDescansoOriginalCambio = "<%=strDiaDescansoOriginalCambio%>";
+            intEmpleadoId = "<%=intEmpleadoId%>";
+
+            if(strDiaDescansoOriginalCambio == "True"){
+                document.location.href = "ControlAsistenciaAdministracionEmpleadosMedicosTurnos.aspx?strCmd2=detalle&intEmpleadoId=" + intEmpleadoId;
+            }
+            else if (strDiaDescansoOriginalCambio == "False"){
+                document.location.href = "ControlAsistenciaAdministraciondeEmpleadosMedicos.aspx";
+            }
         }
 
         function strCompaniaSucursal() {

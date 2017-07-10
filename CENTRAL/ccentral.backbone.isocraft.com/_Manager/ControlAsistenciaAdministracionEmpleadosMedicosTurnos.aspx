@@ -103,38 +103,39 @@
         }
 
         function validarAplicarHorario() {
-            var esValido = false;
-            var cantidadDiasSemana = 7;
-            var botones;
-            var cantidadBotonesAValidar;
-            var cantidadBotonesSeleccionados = 0;
-            var yaTieneHorarioAsignado;
+            var esValido = true;
+            //var esValido = false;
+            //var cantidadDiasSemana = 7;
+            //var botones;
+            //var cantidadBotonesAValidar;
+            //var cantidadBotonesSeleccionados = 0;
+            //var yaTieneHorarioAsignado;
 
-            yaTieneHorarioAsignado = validarYaTieneHorarioAsignado();
+            //yaTieneHorarioAsignado = validarYaTieneHorarioAsignado();
     
-            if (yaTieneHorarioAsignado == true) {
-                cantidadBotonesAValidar = 5;
-            }
-            else {
-                cantidadBotonesAValidar = 6;
-            }
+            //if (yaTieneHorarioAsignado == true) {
+            //    cantidadBotonesAValidar = 5;
+            //}
+            //else {
+            //    cantidadBotonesAValidar = 6;
+            //}
 
-            for (var i = 1; i <= cantidadDiasSemana; i++) {
+            //for (var i = 1; i <= cantidadDiasSemana; i++) {
 
-                botones = document.getElementsByName("dia" + i);
+            //    botones = document.getElementsByName("dia" + i);
 
-                for (var j = 0; j < botones.length; j++) {
+            //    for (var j = 0; j < botones.length; j++) {
                 
-                    if (botones[j].checked == true && botones[j].disabled == false) {
-                        cantidadBotonesSeleccionados = cantidadBotonesSeleccionados + 1;
-                        break;
-                    }
-                }
-            }
+            //        if (botones[j].checked == true && botones[j].disabled == false) {
+            //            cantidadBotonesSeleccionados = cantidadBotonesSeleccionados + 1;
+            //            break;
+            //        }
+            //    }
+            //}
 
-            if (cantidadBotonesSeleccionados == cantidadBotonesAValidar) {
-                esValido = true;
-            }
+            //if (cantidadBotonesSeleccionados == cantidadBotonesAValidar) {
+            //    esValido = true;
+            //}
 
             return esValido;
         }
