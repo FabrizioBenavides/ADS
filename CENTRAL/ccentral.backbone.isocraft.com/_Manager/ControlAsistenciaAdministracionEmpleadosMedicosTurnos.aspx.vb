@@ -435,7 +435,7 @@ Public Class ControlAsistenciaAdministracionEmpleadosMedicosTurnos
         Dim objResultado As Array
         Dim renglonEmpleado As SortedList
 
-         objResultado = clsControlDeAsistencia.clsRolMedico.strObtenerDiaDescanso(intEmpleadoId, strConnectionString)
+        objResultado = clsControlDeAsistencia.clsRolMedico.strObtenerDiaDescanso(intEmpleadoId, strConnectionString)
 
         renglonEmpleado = DirectCast(objResultado.GetValue(0), SortedList)
 

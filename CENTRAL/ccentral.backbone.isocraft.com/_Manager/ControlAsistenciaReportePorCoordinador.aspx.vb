@@ -291,9 +291,9 @@ Public Class ControlAsistenciaReportePorCoordinador
         Const strComitasDobles As String = """"
 
         ' Enviamos al usuario actual a la página de acceso, si no tiene privilegios de acceder a esta página
-        If Benavides.CC.Business.clsConcentrador.clsControlAcceso.blnPermitirAccesoObjeto(intGrupoUsuarioId, strThisPageName, strConnectionString) = False Then
-            Call Response.Redirect("../Default.aspx")
-        End If
+        'If Benavides.CC.Business.clsConcentrador.clsControlAcceso.blnPermitirAccesoObjeto(intGrupoUsuarioId, strThisPageName, strConnectionString) = False Then
+        '    Call Response.Redirect("../Default.aspx")
+        'End If
 
 
         If (strCmd = "cmdImprimir") Then

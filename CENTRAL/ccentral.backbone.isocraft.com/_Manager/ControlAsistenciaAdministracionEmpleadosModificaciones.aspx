@@ -985,12 +985,13 @@ function calculadiasCapacitaciondesdeLoad() {
     function strGetCustomDateTime() {
         document.write("<%=clsCommons.strGetCustomDateTime("dd/MM/yyyy - hh:mm:ss")%>");
         return (true);
-}
+    }
 
-function strUsuarioNombre() {
-    document.write("<%=strUsuarioNombre%>");
+    function strUsuarioNombre() {
+        document.write("<%=strUsuarioNombre%>");
         return (true);
     }
+
     function cmdAplicar_onclick() {
         var intEmpId = "<%=Convert.ToDouble(Request.QueryString("intEmpleadoId"))%>";
         //validar Vacaciones
@@ -1099,12 +1100,12 @@ function strUsuarioNombre() {
     }
 }
 
-function cmdTurnos_onclick() {
-
-    var intEmpId =<%=Convert.ToDouble(Request.QueryString("intEmpleadoId"))%>;
-        // Cambiar dirección href
-	//document.location.href = "SucursalEmpleadosControlAsistenciasAdministracionEmpleadosTurnos.aspx?intEmpleadoId=" + intEmpId;
-      //  return true;
+    function cmdHorario_onclick() {
+        var intEmpleadoId = <%=Convert.ToDouble(Request.QueryString("intEmpleadoId"))%>;
+        
+        document.location.href= "ControlAsistenciaAdministracionEmpleadosMedicosTurnos.aspx?strCmd2=detalle" +
+                            "&intEmpleadoId=" + intEmpleadoId;
+        return true;
     }
 
     function cmdRegresar_onclick() {
@@ -1813,8 +1814,8 @@ function cmdTurnos_onclick() {
                     <input class="boton" id="cmdImprimir" style="width: 64px; height: 20px" onclick="cmdImprimir_onclick()"
                         type="button" value="Imprimir" name="cmdImprimir">
                     &nbsp; &nbsp;
-                    <input class="boton" id="cmdTurnos" style="width: 64px; height: 20px" onclick="return cmdTurnos_onclick()"
-                        type="button" value="Turnos" name="cmdTurnos">
+                    <input class="boton" id="cmdHorario" style="width: 64px; height: 20px" onclick="return cmdHorario_onclick()"
+                        type="button" value="Horario" name="cmdHorario">
                     &nbsp;&nbsp;&nbsp;
                     <input class="boton" style="width: 64px; height: 20px" onclick="return cmdAplicar_onclick()"
                         type="button" value="Aplicar" name="cmdAplicar">
