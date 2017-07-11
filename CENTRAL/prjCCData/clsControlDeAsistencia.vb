@@ -3664,7 +3664,7 @@ Public Class clsControlDeAsistencia
         End Function
 
         Private Shared Function strObtenerInformacionControlAsistencia(ByVal intEmpleadoId As Integer, _
-                                                                      ByVal strConnectionString As String) As Array
+                                                                       ByVal strConnectionString As String) As Array
             ' Constantes locales
             Const strmThisMemberName As String = "strObtenerInformacionControlAsistencia"
 
@@ -3993,7 +3993,6 @@ Public Class clsControlDeAsistencia
 
 
 
-
         Public Shared Function strBuscarAsignacionHorarioLaboralPorEmpleadoId(ByVal intEmpleadoId As Integer, ByVal strConnectionString As String) As Array
             ' Constantes locales
             Const strmThisMemberName As String = "strBuscarAsignacionHorarioLaboralPorEmpleadoId"
@@ -4281,10 +4280,6 @@ Public Class clsControlDeAsistencia
                 intGuardarAsignacionTurnos = 0
             End Try
         End Function
-
-
-
-
 
 
 
