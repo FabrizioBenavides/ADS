@@ -295,6 +295,9 @@ Public Class ControlAsistenciaReportePorCoordinador
         '    Call Response.Redirect("../Default.aspx")
         'End If
 
+        'If intTipoUsuarioId <> 3 Then
+        '    Call Response.Redirect("../Default.aspx")
+        'End If
 
         If (strCmd = "cmdImprimir") Then
 

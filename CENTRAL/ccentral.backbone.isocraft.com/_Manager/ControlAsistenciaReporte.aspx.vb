@@ -296,6 +296,8 @@ Public Class ControlAsistenciaReporte
         '    Call Response.Redirect("../Default.aspx")
         'End If
 
+        
+
 
         If (strCmd = "cmdImprimir") Then
 
