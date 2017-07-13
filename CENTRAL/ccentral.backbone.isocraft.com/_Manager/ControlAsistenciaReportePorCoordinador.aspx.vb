@@ -299,6 +299,8 @@ Public Class ControlAsistenciaReportePorCoordinador
         '    Call Response.Redirect("../Default.aspx")
         'End If
 
+        'checar login con diferentes usuarios para ver que tipo de consulta es
+
         If (strCmd = "cmdImprimir") Then
 
             Dim strHTML As New StringBuilder

@@ -1,14 +1,14 @@
-﻿Imports Benavides.POSAdmin
+﻿Imports Benavides.CC.Business
+Imports Benavides.CC.Data
+Imports Benavides.POSAdmin
 Imports Benavides.POSAdmin.Commons
 Imports Benavides.POSAdmin.Commons.clsCommons.clsMSMQ
-Imports Benavides.CC.Business
-Imports Benavides.CC.Data
-Imports System.Text
-Imports System.Configuration
-Imports Isocraft.Web.Http
 Imports Isocraft.Web.Convert
+Imports Isocraft.Web.Http
 Imports Isocraft.Web.Javascript
+Imports System.Configuration
 Imports System.IO
+Imports System.Text
 Imports System.Web.Caching
 
 Public Class ControlAsistenciaReporte
@@ -133,7 +133,7 @@ Public Class ControlAsistenciaReporte
     ' Throws     : Ninguna
     ' Output     : String
     '====================================================================
-    Protected Function LlenarControlCoordinadoresRH() As String
+    Public Function LlenarControlCoordinadoresRH(ByVal intPrueba As Integer) As String
 
 
         'Dim returnedData As Array = Nothing
@@ -147,7 +147,9 @@ Public Class ControlAsistenciaReporte
 
         'End If
 
-        Return CreateJavascriptComboBoxOptions("cboCoordinadoresRH", CStr(intEmpleadoId), Benavides.CC.Data.clsControlDeAsistencia.strBuscarCoordinadoresRH(strConnectionString), "intEmpleadoId", "strCoordinadorNombre", 2)
+        Return CreateJavascriptComboBoxOptions("cboCoordinadoresRH",
+                                               CStr(intEmpleadoId),
+                                               Benavides.CC.Data.clsControlDeAsistencia.strBuscarCoordinadoresRH(intPrueba, strConnectionString), "intEmpleadoId", "strCoordinadorNombre", 2)
 
     End Function
 
