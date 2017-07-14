@@ -85,9 +85,29 @@ Public Class ControlAsistenciaReporte
     '====================================================================
     Public ReadOnly Property intTipoUsuarioId() As Integer
         Get
-            Return Benavides.CC.Data.clsControlDeAsistencia.intObtenerTipoUsuarioId(strUsuarioNombre, strConnectionString)
+            Return CInt(GetPageParameter("intTipoUsuarioId", 0))
         End Get
     End Property
+
+    '====================================================================
+    ' Name       : LlenarControlCoordinadoresRH
+    ' Description: Regresa el codigo necesario en Javascript que permita
+    '              llenar el control cboCoordinadoresRH
+    ' Accessor   : Read, write
+    ' Throws     : Ninguna
+    ' Output     : String
+    '====================================================================
+    Public Function LlenarControlCoordinadoresRH() As String
+        If intTipoUsuarioId > 0 Then
+            Return CreateJavascriptComboBoxOptions("cboCoordinadoresRH", _
+                                                   CStr(intEmpleadoId), _
+                                                   Benavides.CC.Data.clsControlDeAsistencia.strBuscarCoordinadoresRH(intTipoUsuarioId, strConnectionString), _
+                                                   "intEmpleadoId", _
+                                                   "strCoordinadorNombre", _
+                                                    2)
+        End If
+
+    End Function
 
     '====================================================================
     ' Name       : strFormAction
@@ -124,34 +144,6 @@ Public Class ControlAsistenciaReporte
             Return Benavides.POSAdmin.Commons.clsCommons.strGetPageName(Request)
         End Get
     End Property
-
-    '====================================================================
-    ' Name       : LlenarControlCoordinadoresRH
-    ' Description: Regresa el codigo necesario en Javascript que permita
-    '              llenar el control cboCoordinadoresRH
-    ' Accessor   : Read, write
-    ' Throws     : Ninguna
-    ' Output     : String
-    '====================================================================
-    Public Function LlenarControlCoordinadoresRH(ByVal intPrueba As Integer) As String
-
-
-        'Dim returnedData As Array = Nothing
-        'Dim objResultados As Array = Nothing
-
-        'returnedData = Benavides.CC.Data.clsControlDeAsistencia.strBuscarCoordinadoresRH(strConnectionString)
-
-        'If IsArray(returnedData) AndAlso returnedData.Length > 0 Then
-
-        '    objResultados = DirectCast(returnedData, Object())
-
-        'End If
-
-        Return CreateJavascriptComboBoxOptions("cboCoordinadoresRH",
-                                               CStr(intEmpleadoId),
-                                               Benavides.CC.Data.clsControlDeAsistencia.strBuscarCoordinadoresRH(intPrueba, strConnectionString), "intEmpleadoId", "strCoordinadorNombre", 2)
-
-    End Function
 
     '====================================================================
     ' Name       : strFirstDayOfMonth
@@ -293,13 +285,13 @@ Public Class ControlAsistenciaReporte
         Const strComitasDobles As String = """"
 
         ' Enviamos al usuario actual a la página de acceso, si no tiene privilegios de acceder a esta página
+
         'If Benavides.CC.Business.clsConcentrador.clsControlAcceso.blnPermitirAccesoObjeto(intGrupoUsuarioId, strThisPageName, strConnectionString) = False Or _
         '    Not intTipoUsuarioId = 1 Or CInt(strUsuarioNombre) = 40014547 Then
         '    Call Response.Redirect("../Default.aspx")
         'End If
 
-        
-
+        'crear otra propiedad intTipoUsuarioId con Benavides.CC.Data.clsControlDeAsistencia.intObtenerTipoUsuarioId(strUsuarioNombre, strConnectionString)
 
         If (strCmd = "cmdImprimir") Then
 
@@ -457,8 +449,6 @@ Public Class ControlAsistenciaReporte
         strTablaReporteHTML.Append("</table>")
         strTablaReporteHTML.AppendFormat("<input type=""hidden"" id=""txtCurrentPage"" name=""txtCurrentPage"" value=""{0}"">", intPage)
         strTablaConsultaReporteHTML = strTablaReporteHTML.ToString
-
-
     End Function
 
 #Region "Imprimir"

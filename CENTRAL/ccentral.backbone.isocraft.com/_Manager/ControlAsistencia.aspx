@@ -38,6 +38,7 @@
             if (intTipoUsuarioId == "1") {
                 document.getElementById('divTitulo').innerHTML = '<h1>Asistencia - Administrador</h1>';
             }
+             // Hacer cambio de else
             else {
                 document.getElementById('divTitulo').innerHTML = '<h1>Asistencia - Coordinador RH</h1>';
                 var trPerfil = document.getElementById('trPerfil');

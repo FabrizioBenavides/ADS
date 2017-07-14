@@ -27,9 +27,29 @@
         function window_onload() {
             document.forms[0].action = "<%= strFormAction %>";
 
-            //Llenado de Combos
-     <%--   <%= LlenarControlCoordinadoresRH()%>--%>
+            <%= LlenarControlCoordinadoresRH()%>
 
+            mantenerValorTipo();
+        }
+
+        function mantenerValorTipo() {
+            var strCmd;
+            var intTipoUsuarioId;
+
+            intTipoUsuarioId = "<%= intTipoUsuarioId%>";
+            strCmd = "<%=strCmd%>";
+
+            if (strCmd == "Buscar" && intTipoUsuarioId > 0) {
+
+                if (intTipoUsuarioId == 2) {
+                    document.forms[0].elements["cboTipo"].selectedIndex = 1;
+                }
+                else {
+                    if (intTipoUsuarioId == 3) {
+                        document.forms[0].elements["cboTipo"].selectedIndex = 2;
+                    }
+                }
+            }
         }
 
         function strGetCustomDateTime() {
@@ -42,32 +62,34 @@
         }
 
         function cmdRegresar_onclick() {
-
             //Redirecciona a usuario al "home" de Control de Asistencia.
             window.location = "AsistenciaNomina.aspx";
-
         }
 
         function cboCoordinadoresRH_onchange() {
-
             document.getElementById("tblReporte").innerHTML = '';
             return (true);
         }
 
         function cboTipo_onchange() {
             document.getElementById("cboCoordinadoresRH").length = 0;
-            //document.forms[0].elements["cboCoordinadoresRH"].options[0] = new Option(">> Elija un coordinador <<", "0");
-            //document.forms[0].elements["cboCoordinadoresRH"].options[1] = new Option(">> Todos los coordinadores <<", "-1");
+            document.forms[0].elements["cboCoordinadoresRH"].options[0] = new Option(">> Elija un coordinador/supervisor <<", "0");
+            //document.forms[0].elements["cboCoordinadoresRH"].options[1] = new Option(">> Todos <<", "-1");
 
-            var intTipoUsuarioId;
+            if (document.forms[0].elements["cboTipo"].selectedIndex > 0) {
+                document.forms[0].elements["cboCoordinadoresRH"].selectedIndex = 0;
 
-            intTipoUsuarioId = document.getElementById("cboTipo").value;
+                var intTipoUsuarioId = document.forms[0].elements["cboTipo"].value;
 
-             <%= LlenarControlCoordinadoresRH(intTipoUsuarioId)%>;
+                document.forms[0].action = "ControlAsistenciaReporte.aspx?" +
+                                           "strCmd=Buscar" +
+                                           "&intTipoUsuarioId=" + intTipoUsuarioId;
+
+                document.forms[0].submit();
+            }
         }
 
         function cmdConsultar_onclick() {
-
             document.getElementById('tblReporte').innerHTML = '';
 
             //Variables.
@@ -77,172 +99,169 @@
             if (valida) {
 
                 document.forms[0].action = '<%= strThisPageName%>?strCmd=cmdConsultar';
-            document.forms[0].target = "ifrOculto";
-            document.forms[0].submit();
+                document.forms[0].target = "ifrOculto";
+                document.forms[0].submit();
+            }
+
+            return (valida);
         }
 
-        return (valida);
-    }
+        function fnValidaCampos() {
 
-    function fnValidaCampos() {
+            //Validaciones
+            if (document.getElementById('cboCoordinadoresRH').value == "0") {
 
-        //Validaciones
-        if (document.getElementById('cboCoordinadoresRH').value == "0") {
+                alert('Seleccione un Coordinador');
+                document.getElementById('cboCoordinadoresRH').focus();
+                return (false);
 
-            alert('Seleccione un Coordinador');
-            document.getElementById('cboCoordinadoresRH').focus();
-            return (false);
+            }
+            else if (trim(document.getElementById('dtmFechaIni').value) == '' || trim(document.getElementById('dtmFechaIni').value) == '') {
 
-        }
-        else if (trim(document.getElementById('dtmFechaIni').value) == '' || trim(document.getElementById('dtmFechaIni').value) == '') {
-
-            alert('Capture la fecha por favor');
-            return (false);
-        }
-        else if (ValidaFechas("dtmFechaIni", "dtmFechaFin") == false) {
-            return (false);
-        }
-        else {
-            return (true);
-        }
-    }
-
-    //Validacion de fechas.
-    function ValidaFechas(dtmFechaIni, dtmFechaFin) {
-        valida = true;
-
-        //Validacion de Fecha inicial
-        valida = blnValidarCampo(document.getElementById(dtmFechaIni), true, "Fecha Inicial", cintTipoCampoFecha, 10, 10, "");
-
-        //Validacion de Fecha final
-        if (valida) {
-            valida = blnValidarCampo(document.getElementById(dtmFechaFin), true, "Fecha Final", cintTipoCampoFecha, 10, 10, "");
-
-            //Valida que la fecha inicial NO sea mayor que la fecha final.	
-            if (valida) {
-
-                //Fecha inicial
-                var dtmInicio = document.getElementById(dtmFechaIni).value;
-                var diaIni = dtmInicio.substring(0, 2)
-                var mesIni = dtmInicio.substring(3, 5);
-                var anioIni = dtmInicio.substring(6, 10);
-
-                //Fecha final
-                var dtmFin = document.getElementById(dtmFechaFin).value;
-                var diaFin = dtmFin.substring(0, 2)
-                var mesFin = dtmFin.substring(3, 5);
-                var anioFin = dtmFin.substring(6, 10);
-
-                //Fecha hoy
-                var dtmActual = document.getElementById("dtmFechaActual").value;
-                var diaActual = dtmActual.substring(0, 2);
-                var mesActual = dtmActual.substring(3, 5);
-                var anioActual = dtmActual.substring(6, 10);
-
-                //Validacion
-                var date1 = (anioIni + mesIni + diaIni);
-                var date2 = (anioFin + mesFin + diaFin);
-                var date3 = (anioActual + mesActual + diaActual);
-
-                //Validaciones de fecha por Tipo de Nomina (Semana y Quncena).
-                var dateIni = new Date(anioIni + "/" + mesIni + "/" + diaIni);
-                var dateIniDay = dateIni.getDay();
-
-                var dateFin = new Date(anioFin + "/" + mesFin + "/" + diaFin);
-                var dateFinDay = dateFin.getDay();
-
-                //-Validaciones
-                if (date1 > date3) {
-                    alert('La fecha de inicio no debe ser mayor que la fecha de hoy');
-                    return (false);
-                }
-                else if (date2 > date3) {
-                    alert('La fecha final no debe ser mayor que la fecha de hoy');
-                    return (false);
-                }
-                else if (date1 > date2) {
-                    alert('La fecha de inicio no debe ser mayor que la fecha final');
-                    return (false);
-                }
-                else if ((anioIni != anioFin) && ((parseInt(mesFin) + 12) - parseInt(mesIni)) > 2) {
-                    alert('La diferencia entre Fecha de inicio y Fecha final NO debe ser mayor a 2 meses.');
-                    return (false);
-                }
-                else if ((anioIni == anioFin) && ((parseInt(mesFin) - parseInt(mesIni)) > 2)) {
-                    alert('La diferencia entre Fecha de inicio y Fecha final NO debe ser mayor a 2 meses.');
-                    return (false);
-                }
+                alert('Capture la fecha por favor');
+                return (false);
+            }
+            else if (ValidaFechas("dtmFechaIni", "dtmFechaFin") == false) {
+                return (false);
+            }
+            else {
+                return (true);
             }
         }
 
-        return (valida);
-    }
+        //Validacion de fechas.
+        function ValidaFechas(dtmFechaIni, dtmFechaFin) {
+            valida = true;
 
-    function trim(stringToTrim) {
-        return stringToTrim.replace(/^\s+|\s+$/g, "");
-    }
+            //Validacion de Fecha inicial
+            valida = blnValidarCampo(document.getElementById(dtmFechaIni), true, "Fecha Inicial", cintTipoCampoFecha, 10, 10, "");
 
-    function cmdImprimir_onclick() {
+            //Validacion de Fecha final
+            if (valida) {
+                valida = blnValidarCampo(document.getElementById(dtmFechaFin), true, "Fecha Final", cintTipoCampoFecha, 10, 10, "");
 
-        //Validacion de resultados
-        var tablaTotal = document.getElementById('tblReporte').innerHTML
-        if (trim(tablaTotal) == 'Consulta sin resultados' || trim(tablaTotal) == '') {
-            alert('No hay resultados de la consulta')
-            return (false);
+                //Valida que la fecha inicial NO sea mayor que la fecha final.	
+                if (valida) {
+
+                    //Fecha inicial
+                    var dtmInicio = document.getElementById(dtmFechaIni).value;
+                    var diaIni = dtmInicio.substring(0, 2)
+                    var mesIni = dtmInicio.substring(3, 5);
+                    var anioIni = dtmInicio.substring(6, 10);
+
+                    //Fecha final
+                    var dtmFin = document.getElementById(dtmFechaFin).value;
+                    var diaFin = dtmFin.substring(0, 2)
+                    var mesFin = dtmFin.substring(3, 5);
+                    var anioFin = dtmFin.substring(6, 10);
+
+                    //Fecha hoy
+                    var dtmActual = document.getElementById("dtmFechaActual").value;
+                    var diaActual = dtmActual.substring(0, 2);
+                    var mesActual = dtmActual.substring(3, 5);
+                    var anioActual = dtmActual.substring(6, 10);
+
+                    //Validacion
+                    var date1 = (anioIni + mesIni + diaIni);
+                    var date2 = (anioFin + mesFin + diaFin);
+                    var date3 = (anioActual + mesActual + diaActual);
+
+                    //Validaciones de fecha por Tipo de Nomina (Semana y Quncena).
+                    var dateIni = new Date(anioIni + "/" + mesIni + "/" + diaIni);
+                    var dateIniDay = dateIni.getDay();
+
+                    var dateFin = new Date(anioFin + "/" + mesFin + "/" + diaFin);
+                    var dateFinDay = dateFin.getDay();
+
+                    //-Validaciones
+                    if (date1 > date3) {
+                        alert('La fecha de inicio no debe ser mayor que la fecha de hoy');
+                        return (false);
+                    }
+                    else if (date2 > date3) {
+                        alert('La fecha final no debe ser mayor que la fecha de hoy');
+                        return (false);
+                    }
+                    else if (date1 > date2) {
+                        alert('La fecha de inicio no debe ser mayor que la fecha final');
+                        return (false);
+                    }
+                    else if ((anioIni != anioFin) && ((parseInt(mesFin) + 12) - parseInt(mesIni)) > 2) {
+                        alert('La diferencia entre Fecha de inicio y Fecha final NO debe ser mayor a 2 meses.');
+                        return (false);
+                    }
+                    else if ((anioIni == anioFin) && ((parseInt(mesFin) - parseInt(mesIni)) > 2)) {
+                        alert('La diferencia entre Fecha de inicio y Fecha final NO debe ser mayor a 2 meses.');
+                        return (false);
+                    }
+                }
+            }
+
+            return (valida);
         }
 
-        var confirmar = confirm('Desea imprimir la informacion?');
-        if (confirmar) {
-
-            document.forms[0].action = "<%=strFormAction%>?strCmd=cmdImprimir";
-            document.forms[0].target = "ifrOculto";
-            document.forms[0].submit();
-            document.forms[0].target = '';
+        function trim(stringToTrim) {
+            return stringToTrim.replace(/^\s+|\s+$/g, "");
         }
 
-        return (false);
-    }
-
-function fnImprimir(strReporteAsistencia) {
-
-    //Llamada desde el servidor para imprimir resultados de las consulta.
-    document.ifrPageToPrint.document.all.divBody.innerHTML = strReporteAsistencia;
-    document.ifrPageToPrint.focus();
-    window.print();
-}
-
-function dtmFecha_onKeyPress(e) {
-
-    //No se permiten caracteres especiales para la fecha.
-    var key = window.event ? e.keyCode : e.which;
-    if (key > 46 && key < 58) {
-        return true;
-    }
-    else {
-        return false
-    }
-}
-
-        function cmdExportar_onclick() {
+        function cmdImprimir_onclick() {
 
             //Validacion de resultados
-            var tablaTotal = document.getElementById('tblReporte').innerHTML;
-
+            var tablaTotal = document.getElementById('tblReporte').innerHTML
             if (trim(tablaTotal) == 'Consulta sin resultados' || trim(tablaTotal) == '') {
                 alert('No hay resultados de la consulta')
                 return (false);
             }
 
-            var confirmar = confirm('Desea exportar la informacion a Excel?');
-
+            var confirmar = confirm('Desea imprimir la informacion?');
             if (confirmar) {
-                document.forms[0].action = "<%=strFormAction%>?strCmd=cmdExportar";
+
+                document.forms[0].action = "<%=strFormAction%>?strCmd=cmdImprimir";
                 document.forms[0].target = "ifrOculto";
                 document.forms[0].submit();
-           }
+                document.forms[0].target = '';
+        }
 
+        return (false);
+    }
+
+    function fnImprimir(strReporteAsistencia) {
+        //Llamada desde el servidor para imprimir resultados de las consulta.
+        document.ifrPageToPrint.document.all.divBody.innerHTML = strReporteAsistencia;
+        document.ifrPageToPrint.focus();
+        window.print();
+    }
+
+    function dtmFecha_onKeyPress(e) {
+        //No se permiten caracteres especiales para la fecha.
+        var key = window.event ? e.keyCode : e.which;
+        if (key > 46 && key < 58) {
+            return true;
+        }
+        else {
+            return false
+        }
+    }
+
+    function cmdExportar_onclick() {
+        //Validacion de resultados
+        var tablaTotal = document.getElementById('tblReporte').innerHTML;
+
+        if (trim(tablaTotal) == 'Consulta sin resultados' || trim(tablaTotal) == '') {
+            alert('No hay resultados de la consulta')
             return (false);
         }
+
+        var confirmar = confirm('Desea exportar la informacion a Excel?');
+
+        if (confirmar) {
+            document.forms[0].action = "<%=strFormAction%>?strCmd=cmdExportar";
+            document.forms[0].target = "ifrOculto";
+            document.forms[0].submit();
+            }
+
+            return (false);
+     }
 
         function cmdCancelar_onclick() {
             window.location.href = "ControlAsistencia.aspx";
@@ -259,7 +278,7 @@ function dtmFecha_onKeyPress(e) {
             '<%= strThisPageName%>?strCmd=cmdConsultar&pager=true&p=' + p;
             document.forms[0].target = "ifrOculto";
             document.forms[0].submit();
-       }
+        }
     </script>
 
     <style type="text/css">
@@ -289,7 +308,7 @@ function dtmFecha_onKeyPress(e) {
             <tr>
                 <td class="tdgeneralcontent">
                     <h1>Control de Asistencia - Reporte</h1>
-                    <p>Elija primero el Coordinador RH y el periodo de asistencia presionando el boton Consultar.</p>
+                    <p>Elija primero el Coordinador RH / Supervisor Médico y el periodo de asistencia presionando el boton Consultar.</p>
 
                     <table width="100%" border="0" cellpadding="0" cellspacing="0">
                         <tr>
@@ -297,7 +316,7 @@ function dtmFecha_onKeyPress(e) {
                                 <table width="100%">
                                     <tr>
                                         <td class='txsubtitulo' colspan="2">
-                                            <img src="../static/images/bullet_subtitulos.gif" width="17" height="11" align="absmiddle">Coordinador RH
+                                            <img src="../static/images/bullet_subtitulos.gif" width="17" height="11" align="absmiddle">Coordinador RH / Supervisor Médico
                                         </td>
                                     </tr>
                                     <tr>
@@ -314,8 +333,8 @@ function dtmFecha_onKeyPress(e) {
                                         <td class="tdtexttablebold" style="width: 150px">Coordinadores ó Supervisores</td>
                                         <td class="tdpadleft5" style="width: 240px">
                                             <select id="cboCoordinadoresRH" name="cboCoordinadoresRH" class="campotabla" style="width: 220px" onchange="return cboCoordinadoresRH_onchange()">
-                                                <option selected="selected" value="0">&raquo; Elija un coordinador &laquo;</option>
-                                                <option value="-1">&raquo; Todos los coordinadores &laquo;</option>
+                                                <option selected="selected" value="0">&raquo; Elija un coordinador/supervisor &laquo;</option>
+                                                <option value="-1">&raquo; Todos &laquo;</option>
                                             </select>
                                         </td>
 
