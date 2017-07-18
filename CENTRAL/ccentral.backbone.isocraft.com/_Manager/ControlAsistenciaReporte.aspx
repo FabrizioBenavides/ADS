@@ -1,5 +1,4 @@
-<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="ControlAsistenciaReporte.aspx.vb" Inherits="com.isocraft.backbone.ccentral.ControlAsistenciaReporte" %>
-
+<%@ Page Language="vb" AutoEventWireup="false" EnableViewState="true" CodeBehind="ControlAsistenciaReporte.aspx.vb" Inherits="com.isocraft.backbone.ccentral.ControlAsistenciaReporte" %>
 <%@ Import Namespace="Benavides.POSAdmin.Commons" %>
 
 <html>
@@ -25,11 +24,24 @@
         strFechaHora = "<%= strHTMLFechaHora %>";
 
         function window_onload() {
-            document.forms[0].action = "<%= strFormAction %>";
+           
+           <%= LlenarControlCoordinadoresRH()%>
 
-            <%= LlenarControlCoordinadoresRH()%>
+           mantenerValorTipo();
+           cargarValoresControles();
+        }
 
-            mantenerValorTipo();
+        function cargarValoresControles() {
+            var strCmd;
+
+            strCmd = "<%=strCmd%>";
+
+            if (strCmd == "cmdConsultar") {
+                document.getElementById("cboTipo").value = "<%=cboTipo%>";
+                document.getElementById("cboCoordinadoresRH").value = "<%=cboCoordinadoresRH%>"; 
+                document.getElementById("cboEstatus").value = "<%=cboEstatus%>"; 
+                document.getElementById("cboTipoNomina").value = "<%=cboTipoNomina%>"; 
+            }
         }
 
         function mantenerValorTipo() {
@@ -73,9 +85,8 @@
 
         function cboTipo_onchange() {
             document.getElementById("cboCoordinadoresRH").length = 0;
-            document.forms[0].elements["cboCoordinadoresRH"].options[0] = new Option(">> Elija un coordinador/supervisor <<", "0");
-            //document.forms[0].elements["cboCoordinadoresRH"].options[1] = new Option(">> Todos <<", "-1");
-
+            document.forms[0].elements["cboCoordinadoresRH"].options[0] = new Option("» Elija un coordinador/supervisor «", "0");
+            
             if (document.forms[0].elements["cboTipo"].selectedIndex > 0) {
                 document.forms[0].elements["cboCoordinadoresRH"].selectedIndex = 0;
 
@@ -96,10 +107,12 @@
             var valida;
 
             valida = fnValidaCampos();
+
             if (valida) {
 
-                document.forms[0].action = '<%= strThisPageName%>?strCmd=cmdConsultar';
-                document.forms[0].target = "ifrOculto";
+                document.forms[0].action = "ControlAsistenciaReporte.aspx?" +
+                                           "strCmd=cmdConsultar";
+
                 document.forms[0].submit();
             }
 
@@ -111,10 +124,15 @@
             //Validaciones
             if (document.getElementById('cboCoordinadoresRH').value == "0") {
 
-                alert('Seleccione un Coordinador');
+                alert('Seleccione un Coordinador/Supervisor');
                 document.getElementById('cboCoordinadoresRH').focus();
                 return (false);
 
+            }
+            else if (document.getElementById('cboTipo').value == "0") {
+                alert('Elija un Coordinador/Supervisor');
+                document.getElementById('cboTipo').focus();
+                return (false);
             }
             else if (trim(document.getElementById('dtmFechaIni').value) == '' || trim(document.getElementById('dtmFechaIni').value) == '') {
 
@@ -267,18 +285,6 @@
             window.location.href = "ControlAsistencia.aspx";
         }
 
-        function doSubmit(c, t, p) {
-            if (p == null) {
-                p = document.getElementById('txtCurrentPage').value;
-            }
-            else {
-                document.getElementById('txtCurrentPage').value = p;
-            }
-            document.forms[0].action =
-            '<%= strThisPageName%>?strCmd=cmdConsultar&pager=true&p=' + p;
-            document.forms[0].target = "ifrOculto";
-            document.forms[0].submit();
-        }
     </script>
 
     <style type="text/css">
@@ -303,7 +309,6 @@
                 <td width="770" class="tdtab">Está en : <a href="../_Manager/InicioHome.aspx">Central</a> : Control de Asistencia : Reporte</td>
             </tr>
         </table>
-
         <table width="780" border="0" cellpadding="0" cellspacing="0">
             <tr>
                 <td class="tdgeneralcontent">
@@ -334,7 +339,6 @@
                                         <td class="tdpadleft5" style="width: 240px">
                                             <select id="cboCoordinadoresRH" name="cboCoordinadoresRH" class="campotabla" style="width: 220px" onchange="return cboCoordinadoresRH_onchange()">
                                                 <option selected="selected" value="0">&raquo; Elija un coordinador/supervisor &laquo;</option>
-                                                <option value="-1">&raquo; Todos &laquo;</option>
                                             </select>
                                         </td>
 

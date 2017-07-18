@@ -308,7 +308,7 @@ Public Class ControlAsistenciaReportePorCoordinador
             Dim strRecordBrowserImpresion As String = String.Empty
 
             'Resultados a mostrar en pantalla
-            objDataArrayReporte = Benavides.CC.Data.clsControlDeAsistencia.strObtenerReporteControlAsistencia(CInt(strUsuarioNombre), intEstatusId, intTipoNominaId, dtmFechaInicio, dtmFechaFin, strConnectionString)
+            ' objDataArrayReporte = Benavides.CC.Data.clsControlDeAsistencia.strObtenerReporteControlAsistencia(CInt(strUsuarioNombre), intEstatusId, intTipoNominaId, dtmFechaInicio, dtmFechaFin, strConnectionString)
 
             If IsArray(objDataArrayReporte) AndAlso objDataArrayReporte.Length > 0 Then
 
@@ -328,7 +328,7 @@ Public Class ControlAsistenciaReportePorCoordinador
         If (strCmd = "cmdExportar") Then
 
             Dim objArray As System.Array = Nothing
-            objArray = Benavides.CC.Data.clsControlDeAsistencia.strObtenerReporteControlAsistencia(CInt(strUsuarioNombre), intEstatusId, intTipoNominaId, dtmFechaInicio, dtmFechaFin, strConnectionString)
+            ' objArray = Benavides.CC.Data.clsControlDeAsistencia.strObtenerReporteControlAsistencia(CInt(strUsuarioNombre), intEstatusId, intTipoNominaId, dtmFechaInicio, dtmFechaFin, strConnectionString)
 
             ' Establecemos en la respuesta los parámetros de configuración del archivo
             Response.ContentType = "application/vnd.ms-excel"
@@ -357,7 +357,7 @@ Public Class ControlAsistenciaReportePorCoordinador
 
             If objArray Is Nothing Then
                 Cache.Remove("cacheReporte")
-                objArray = Benavides.CC.Data.clsControlDeAsistencia.strObtenerReporteControlAsistencia(CInt(strUsuarioNombre), intEstatusId, intTipoNominaId, dtmFechaInicio, dtmFechaFin, strConnectionString)
+                'objArray = Benavides.CC.Data.clsControlDeAsistencia.strObtenerReporteControlAsistencia(CInt(strUsuarioNombre), intEstatusId, intTipoNominaId, dtmFechaInicio, dtmFechaFin, strConnectionString)
             End If
 
             Dim strResult As New StringBuilder()

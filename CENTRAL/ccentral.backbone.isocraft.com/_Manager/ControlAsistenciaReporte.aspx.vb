@@ -85,7 +85,7 @@ Public Class ControlAsistenciaReporte
     '====================================================================
     Public ReadOnly Property intTipoUsuarioId() As Integer
         Get
-            Return CInt(GetPageParameter("intTipoUsuarioId", 0))
+            Return CInt(Request.Form("cboTipo"))
         End Get
     End Property
 
@@ -98,15 +98,24 @@ Public Class ControlAsistenciaReporte
     ' Output     : String
     '====================================================================
     Public Function LlenarControlCoordinadoresRH() As String
+        Dim strResultado As String = String.Empty
+        Dim opcionTodos As String = String.Empty
+        Dim strEmpleados As String = String.Empty
+
         If intTipoUsuarioId > 0 Then
-            Return CreateJavascriptComboBoxOptions("cboCoordinadoresRH", _
-                                                   CStr(intEmpleadoId), _
-                                                   Benavides.CC.Data.clsControlDeAsistencia.strBuscarCoordinadoresRH(intTipoUsuarioId, strConnectionString), _
-                                                   "intEmpleadoId", _
-                                                   "strCoordinadorNombre", _
-                                                    2)
+            opcionTodos = "document.forms[0].elements['cboCoordinadoresRH'].options[1] = new Option('» Todos «', '-1');"
+
+            strEmpleados = (CreateJavascriptComboBoxOptions("cboCoordinadoresRH", _
+                                                            CStr(intEmpleadoId), _
+                                                            Benavides.CC.Data.clsControlDeAsistencia.strBuscarCoordinadoresRH(intTipoUsuarioId, strConnectionString), _
+                                                           "intEmpleadoId", _
+                                                           "strCoordinadorNombre", _
+                                                            2))
+
+            strResultado = String.Format("{0}{1}", opcionTodos, strEmpleados)
         End If
 
+        Return strResultado
     End Function
 
     '====================================================================
@@ -280,6 +289,30 @@ Public Class ControlAsistenciaReporte
         End Get
     End Property
 
+    Public ReadOnly Property cboTipo() As String
+        Get
+            Return CStr(ViewState("cboTipo"))
+        End Get
+    End Property
+
+    Public ReadOnly Property cboCoordinadoresRH() As String
+        Get
+            Return CStr(ViewState("cboCoordinadoresRH"))
+        End Get
+    End Property
+
+    Public ReadOnly Property cboEstatus() As String
+        Get
+            Return CStr(ViewState("cboEstatus"))
+        End Get
+    End Property
+
+    Public ReadOnly Property cboTipoNomina() As String
+        Get
+            Return CStr(ViewState("cboTipoNomina"))
+        End Get
+    End Property
+
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         Const strComitasDobles As String = """"
@@ -299,9 +332,6 @@ Public Class ControlAsistenciaReporte
             Dim objDataArrayReporte As Array = Nothing
             Dim strRecordBrowserImpresion As String = String.Empty
 
-            'Resultados a mostrar en pantalla
-            objDataArrayReporte = Benavides.CC.Data.clsControlDeAsistencia.strObtenerReporteControlAsistencia(intCoordinadorRHId, intEstatusId, intTipoNominaId, dtmFechaInicio, dtmFechaFin, strConnectionString)
-
             If IsArray(objDataArrayReporte) AndAlso objDataArrayReporte.Length > 0 Then
 
                 'Se envia la informacion a imprimir para darle formato de acuerdo a la tabla seleccionada por el usuario.  
@@ -311,6 +341,7 @@ Public Class ControlAsistenciaReporte
                 strHTML.Append("<script language='Javascript'>parent.fnImprimir( " & _
                 strComitasDobles & strRecordBrowserImpresion.ToString & strComitasDobles & _
                 "); </script>")
+
                 Response.Write(strHTML.ToString)
                 Response.End()
 
@@ -320,7 +351,7 @@ Public Class ControlAsistenciaReporte
         If (strCmd = "cmdExportar") Then
 
             Dim objArray As System.Array = Nothing
-            objArray = Benavides.CC.Data.clsControlDeAsistencia.strObtenerReporteControlAsistencia(intCoordinadorRHId, intEstatusId, intTipoNominaId, dtmFechaInicio, dtmFechaFin, strConnectionString)
+            'objArray = Benavides.CC.Data.clsControlDeAsistencia.strObtenerReporteControlAsistencia(intCoordinadorRHId, intEstatusId, intTipoNominaId, dtmFechaInicio, dtmFechaFin, strConnectionString)
 
             ' Establecemos en la respuesta los parámetros de configuración del archivo
             Response.ContentType = "application/vnd.ms-excel"
@@ -331,45 +362,39 @@ Public Class ControlAsistenciaReporte
     End Sub
 
     Public Function strTablaConsultaReporte() As String
-
-        Dim objArray As System.Array = Nothing
+        Dim objResultadoConsulta As System.Array = Nothing
         Dim resultadoConsulta As String = String.Empty
         Dim strmRecordBrowserHTML As String = String.Empty
+        Dim strResultado As New StringBuilder()
 
         If (strCmd = "cmdConsultar") Then
 
-            If (Request.QueryString("pager") = "true") Then
-                If Not Cache("cacheReporte") Is Nothing Then
-                    objArray = CType(Cache("cacheReporte"), System.Array)
-                End If
+            If objResultadoConsulta Is Nothing Then
+
+                Call GuardarValorControles()
+
+                objResultadoConsulta = clsControlDeAsistencia.strObtenerReporteControlAsistencia(intCoordinadorRHId, _
+                                                                                                 intEstatusId, _
+                                                                                                 intTipoNominaId, _
+                                                                                                 dtmFechaInicio, _
+                                                                                                 dtmFechaFin, _
+                                                                                                 intTipoUsuarioId, _
+                                                                                                 strConnectionString)
             End If
 
-
-            'Reporte de Movimientos por Coordinador RH
-
-            If objArray Is Nothing Then
-                Cache.Remove("cacheReporte")
-                objArray = Benavides.CC.Data.clsControlDeAsistencia.strObtenerReporteControlAsistencia(intCoordinadorRHId, intEstatusId, intTipoNominaId, dtmFechaInicio, dtmFechaFin, strConnectionString)
-            End If
-
-            Dim strResult As New StringBuilder()
-            If Not objArray Is Nothing AndAlso IsArray(objArray) AndAlso objArray.Length > 0 Then
-
-                Cache.Add("cacheReporte", objArray, Nothing, Date.Today.AddHours(1), System.Web.Caching.Cache.NoSlidingExpiration, System.Web.Caching.CacheItemPriority.Normal, Nothing)
-
+            If Not objResultadoConsulta Is Nothing AndAlso IsArray(objResultadoConsulta) AndAlso objResultadoConsulta.Length > 0 Then
                 'Detalle
-                strResult.Append(strTablaConsultaReporteHTML(objArray))
-
+                strResultado.Append(strTablaConsultaReporteHTML(objResultadoConsulta))
             Else
                 'Tabla vacia sin resultados de consulta
                 Call Response.Write("<script language='Javascript'>alert('Busqueda sin resultados');</script>")
             End If
 
-            strResult.Append("<script language=""javascript"" type=""text/javascript"">")
-            strResult.Append("parent.document.getElementById('tblReporte').innerHTML = document.getElementById('divConsultaReporte').innerHTML;")
-            strResult.Append("</script>")
+            strResultado.Append("<script language=""javascript"" type=""text/javascript"">")
+            strResultado.Append("parent.document.getElementById('tblReporte').innerHTML = document.getElementById('divConsultaReporte').innerHTML;")
+            strResultado.Append("</script>")
 
-            Return strResult.ToString()
+            Return strResultado.ToString()
         End If
 
         Return String.Empty
@@ -379,41 +404,24 @@ Public Class ControlAsistenciaReporte
         Dim strTablaReporteHTML As StringBuilder
         Dim strColorRegistro As String
         Dim intContador As Integer
-        Dim intPage As Integer
-        Dim intTotal As Integer = 50
+
         Dim strConsultaReporte As String() = Nothing
 
-        If Trim(Request.QueryString("p")) = String.Empty Then
-            intPage = 1
-        Else
-            intPage = CInt(Request.QueryString("p"))
-        End If
-
         strTablaReporteHTML = New StringBuilder
-        strTablaReporteHTML.Append(Benavides.CC.Commons.clsRecordBrowserNew.displayScroll(objConsultaReporte.Length, intPage, intTotal, String.Empty, Nothing))
 
         strTablaReporteHTML.Append("<table width='100%' border='0' cellpadding='0' cellspacing='0'>")
-
         strTablaReporteHTML.Append("<tr class='trtitulos'>")
-        strTablaReporteHTML.Append("<th class='rayita' align='center' valign='top'>Coordinador RH</th>")
-        strTablaReporteHTML.Append("<th class='rayita' align='center' valign='top'>Centro Logistico</th>")
+        strTablaReporteHTML.Append("<th class='rayita' align='center' valign='top'>Coordinador/Supervisor</th>")
+        strTablaReporteHTML.Append("<th class='rayita' align='center' valign='top'>Centro Logístico</th>")
         strTablaReporteHTML.Append("<th class='rayita' align='center' valign='top'>Sucursal</th>")
         strTablaReporteHTML.Append("<th class='rayita' align='center' valign='top'>Movimiento</th>")
         strTablaReporteHTML.Append("<th class='rayita' align='center' valign='top'>Descripción</th>")
         strTablaReporteHTML.Append("<th class='rayita' align='center' valign='top'>Movimientos</th>")
         strTablaReporteHTML.Append("<th class='rayita' align='center' valign='top'>Ajustes</th>")
 
-        'strTablaReporteHTML.Append("<th class='rayita' align='center' valign='top'>Sin Confirmar</th>")
-
         strTablaReporteHTML.Append("</tr>")
 
-        intContador = 0
-
-        'Inicia el ciclo para generar el rsultado de la busqueda en la tabla.
-        For intContador = (intPage - 1) * intTotal To (intPage * intTotal) - 1
-            If (intContador >= objConsultaReporte.Length) Then
-                Exit For
-            End If
+        For intContador = 0 To objConsultaReporte.Length - 1
 
             strConsultaReporte = CType(objConsultaReporte.GetValue(intContador), String())
 
@@ -439,17 +447,20 @@ Public Class ControlAsistenciaReporte
             ' Ajustes
             strTablaReporteHTML.Append("<td align=center class=" & "tdceleste" & ">" & strConsultaReporte(7).ToString() & "</td>")
 
-            ' Sin Confirmar
-            'strTablaReporteHTML.Append("<td align=center class=" & "tdceleste" & ">" & intContador.ToString() & "</td>")
             strTablaReporteHTML.Append("</tr>")
-
         Next
 
         strTablaReporteHTML.Append("</tr>")
         strTablaReporteHTML.Append("</table>")
-        strTablaReporteHTML.AppendFormat("<input type=""hidden"" id=""txtCurrentPage"" name=""txtCurrentPage"" value=""{0}"">", intPage)
         strTablaConsultaReporteHTML = strTablaReporteHTML.ToString
     End Function
+
+    Private Sub GuardarValorControles()
+        ViewState("cboTipo") = intTipoUsuarioId
+        ViewState("cboCoordinadoresRH") = intCoordinadorRHId
+        ViewState("cboEstatus") = intEstatusId
+        ViewState("cboTipoNomina") = intTipoNominaId
+    End Sub
 
 #Region "Imprimir"
 
@@ -649,4 +660,5 @@ Public Class ControlAsistenciaReporte
         strTablaConsultaReporteExportar = strTablaExportarReporteHTML.ToString
     End Function
 #End Region
+
 End Class
