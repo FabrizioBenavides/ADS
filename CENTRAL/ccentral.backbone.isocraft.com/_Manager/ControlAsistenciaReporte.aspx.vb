@@ -16,6 +16,11 @@ Public Class ControlAsistenciaReporte
 
     Private intEmpleadoId As Integer
 
+    Private Enum TipoUsuario
+        CoordinadorRH = 2
+        SupervisorMedico = 3
+    End Enum
+
 #Region " Web Form Designer Generated Code "
 
     'This call is required by the Web Form Designer.
@@ -32,7 +37,7 @@ Public Class ControlAsistenciaReporte
         'Do not modify it using the code editor.
         InitializeComponent()
 
-        intEmpleadoId = GetPageParameter("cboCoordinadoresRH", 0)
+        'intEmpleadoId = GetPageParameter("cboCoordinadoresRH", 0)
     End Sub
 
 #End Region
@@ -173,7 +178,7 @@ Public Class ControlAsistenciaReporte
 
     '====================================================================
     ' Name       : intCoordinadorRHId
-    ' Description: Value of a HTML form field
+    ' Description:
     ' Accessor   : Read / Write
     ' Output     : String
     '====================================================================
@@ -326,39 +331,39 @@ Public Class ControlAsistenciaReporte
 
         'crear otra propiedad intTipoUsuarioId con Benavides.CC.Data.clsControlDeAsistencia.intObtenerTipoUsuarioId(strUsuarioNombre, strConnectionString)
 
-        If (strCmd = "cmdImprimir") Then
+        'If (strCmd = "cmdImprimir") Then
 
-            Dim strHTML As New StringBuilder
-            Dim objDataArrayReporte As Array = Nothing
-            Dim strRecordBrowserImpresion As String = String.Empty
+        '    Dim strHTML As New StringBuilder
+        '    Dim objDataArrayReporte As Array = Nothing
+        '    Dim strRecordBrowserImpresion As String = String.Empty
 
-            If IsArray(objDataArrayReporte) AndAlso objDataArrayReporte.Length > 0 Then
+        '    If IsArray(objDataArrayReporte) AndAlso objDataArrayReporte.Length > 0 Then
 
-                'Se envia la informacion a imprimir para darle formato de acuerdo a la tabla seleccionada por el usuario.  
-                strRecordBrowserImpresion = clsCommons.strGenerateJavascriptString(strImpresionReporte(objDataArrayReporte))
+        '        'Se envia la informacion a imprimir para darle formato de acuerdo a la tabla seleccionada por el usuario.  
+        '        strRecordBrowserImpresion = clsCommons.strGenerateJavascriptString(strImpresionReporte(objDataArrayReporte))
 
-                'Se ennvia a impresion.
-                strHTML.Append("<script language='Javascript'>parent.fnImprimir( " & _
-                strComitasDobles & strRecordBrowserImpresion.ToString & strComitasDobles & _
-                "); </script>")
+        '        'Se ennvia a impresion.
+        '        strHTML.Append("<script language='Javascript'>parent.fnImprimir( " & _
+        '        strComitasDobles & strRecordBrowserImpresion.ToString & strComitasDobles & _
+        '        "); </script>")
 
-                Response.Write(strHTML.ToString)
-                Response.End()
+        '        Response.Write(strHTML.ToString)
+        '        Response.End()
 
-            End If
-        End If
+        '    End If
+        'End If
 
-        If (strCmd = "cmdExportar") Then
+        'If (strCmd = "cmdExportar") Then
 
-            Dim objArray As System.Array = Nothing
-            'objArray = Benavides.CC.Data.clsControlDeAsistencia.strObtenerReporteControlAsistencia(intCoordinadorRHId, intEstatusId, intTipoNominaId, dtmFechaInicio, dtmFechaFin, strConnectionString)
+        '    Dim objArray As System.Array = Nothing
+        '    'objArray = Benavides.CC.Data.clsControlDeAsistencia.strObtenerReporteControlAsistencia(intCoordinadorRHId, intEstatusId, intTipoNominaId, dtmFechaInicio, dtmFechaFin, strConnectionString)
 
-            ' Establecemos en la respuesta los parámetros de configuración del archivo
-            Response.ContentType = "application/vnd.ms-excel"
-            Call Response.AddHeader("Content-Disposition", "attachment; filename=""Reporte de Coordinadores RH.xls""")
-            Call Response.Write(strTablaConsultaReporteExportar(objArray))
-            Call Response.End()
-        End If
+        '    ' Establecemos en la respuesta los parámetros de configuración del archivo
+        '    Response.ContentType = "application/vnd.ms-excel"
+        '    Call Response.AddHeader("Content-Disposition", "attachment; filename=""Reporte de Coordinadores RH.xls""")
+        '    Call Response.Write(strTablaConsultaReporteExportar(objArray))
+        '    Call Response.End()
+        'End If
     End Sub
 
     Public Function strTablaConsultaReporte() As String
@@ -404,14 +409,20 @@ Public Class ControlAsistenciaReporte
         Dim strTablaReporteHTML As StringBuilder
         Dim strColorRegistro As String
         Dim intContador As Integer
-
         Dim strConsultaReporte As String() = Nothing
+        Dim intValorTipoUsuario As String = String.Empty
 
         strTablaReporteHTML = New StringBuilder
 
-        strTablaReporteHTML.Append("<table width='100%' border='0' cellpadding='0' cellspacing='0'>")
+        If intTipoUsuarioId = TipoUsuario.CoordinadorRH Then
+            intValorTipoUsuario = "Coordinador RH"
+        ElseIf intTipoUsuarioId = TipoUsuario.SupervisorMedico Then
+            intValorTipoUsuario = "Supervisor Médico"
+        End If
+
+        strTablaReporteHTML.Append("<table id='tblAsistencia' width='100%' border='0' cellpadding='0' cellspacing='0'>")
         strTablaReporteHTML.Append("<tr class='trtitulos'>")
-        strTablaReporteHTML.Append("<th class='rayita' align='center' valign='top'>Coordinador/Supervisor</th>")
+        strTablaReporteHTML.AppendFormat("<th class='rayita' align='center' valign='top'>{0}</th>", intValorTipoUsuario)
         strTablaReporteHTML.Append("<th class='rayita' align='center' valign='top'>Centro Logístico</th>")
         strTablaReporteHTML.Append("<th class='rayita' align='center' valign='top'>Sucursal</th>")
         strTablaReporteHTML.Append("<th class='rayita' align='center' valign='top'>Movimiento</th>")
@@ -452,7 +463,7 @@ Public Class ControlAsistenciaReporte
 
         strTablaReporteHTML.Append("</tr>")
         strTablaReporteHTML.Append("</table>")
-        strTablaConsultaReporteHTML = strTablaReporteHTML.ToString
+        strTablaConsultaReporteHTML = strTablaReporteHTML.ToString()
     End Function
 
     Private Sub GuardarValorControles()
@@ -659,6 +670,7 @@ Public Class ControlAsistenciaReporte
         strTablaExportarReporteHTML.Append("</table>")
         strTablaConsultaReporteExportar = strTablaExportarReporteHTML.ToString
     End Function
+
 #End Region
 
 End Class

@@ -1,4 +1,5 @@
-<%@ Page Language="vb" AutoEventWireup="false" EnableViewState="true" CodeBehind="ControlAsistenciaReporte.aspx.vb" Inherits="com.isocraft.backbone.ccentral.ControlAsistenciaReporte" %>
+<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="ControlAsistenciaReporte.aspx.vb" Inherits="com.isocraft.backbone.ccentral.ControlAsistenciaReporte" %>
+
 <%@ Import Namespace="Benavides.POSAdmin.Commons" %>
 
 <html>
@@ -18,17 +19,17 @@
     <script language="JavaScript" type="text/JavaScript" src="js/menu_items.js"></script>
     <script language="JavaScript" type="text/JavaScript" src="js/menu_tpl.js"></script>
     <script language="JavaScript" type="text/JavaScript" src="js/headerfooter.js"></script>
-    <script id="clientEventHandlersJS" language="javascript">
+    <script language="JavaScript" type="text/JavaScript">
 
-        strUsuarioNombre = "<%= strUsuarioNombre() %>";
+        strUsuarioNombre = "<%= strUsuarioNombre%>";
         strFechaHora = "<%= strHTMLFechaHora %>";
 
         function window_onload() {
-           
+
            <%= LlenarControlCoordinadoresRH()%>
 
-           mantenerValorTipo();
-           cargarValoresControles();
+            mantenerValorTipo();
+            //cargarValoresControles();
         }
 
         function cargarValoresControles() {
@@ -38,29 +39,41 @@
 
             if (strCmd == "cmdConsultar") {
                 document.getElementById("cboTipo").value = "<%=cboTipo%>";
-                document.getElementById("cboCoordinadoresRH").value = "<%=cboCoordinadoresRH%>"; 
-                document.getElementById("cboEstatus").value = "<%=cboEstatus%>"; 
-                document.getElementById("cboTipoNomina").value = "<%=cboTipoNomina%>"; 
+                document.getElementById("cboCoordinadoresRH").value = "<%=cboCoordinadoresRH%>";
+                document.getElementById("cboEstatus").value = "<%=cboEstatus%>";
+                document.getElementById("cboTipoNomina").value = "<%=cboTipoNomina%>";
             }
         }
 
         function mantenerValorTipo() {
             var strCmd;
             var intTipoUsuarioId;
+            var intEstatusId;
+            var intTipoNominaId;
+            var intCoordinadorRHId;
 
             intTipoUsuarioId = "<%= intTipoUsuarioId%>";
+            intEstatusId = "<%= intEstatusId%>";
+            intTipoNominaId = "<%= intTipoNominaId%>";
+            intCoordinadorRHId = "<%= intCoordinadorRHId%>";
+
             strCmd = "<%=strCmd%>";
 
-            if (strCmd == "Buscar" && intTipoUsuarioId > 0) {
+            if ((strCmd == "Buscar" || strCmd == "cmdConsultar") && intTipoUsuarioId > 0) {
 
-                if (intTipoUsuarioId == 2) {
-                    document.forms[0].elements["cboTipo"].selectedIndex = 1;
-                }
-                else {
-                    if (intTipoUsuarioId == 3) {
-                        document.forms[0].elements["cboTipo"].selectedIndex = 2;
-                    }
-                }
+                //if (intTipoUsuarioId == 2) {
+                //    document.forms[0].elements["cboTipo"].selectedIndex = 1;
+                //}
+                //else {
+                //    if (intTipoUsuarioId == 3) {
+                //        document.forms[0].elements["cboTipo"].selectedIndex = 2;
+                //    }
+                //}
+
+                document.forms[0].elements["cboTipo"].value = intTipoUsuarioId;
+                document.forms[0].elements["cboEstatus"].value = intEstatusId;
+                document.forms[0].elements["cboTipoNomina"].value = intTipoNominaId;
+                document.forms[0].elements["cboCoordinadoresRH"].value = intCoordinadorRHId;
             }
         }
 
@@ -86,7 +99,7 @@
         function cboTipo_onchange() {
             document.getElementById("cboCoordinadoresRH").length = 0;
             document.forms[0].elements["cboCoordinadoresRH"].options[0] = new Option("» Elija un coordinador/supervisor «", "0");
-            
+
             if (document.forms[0].elements["cboTipo"].selectedIndex > 0) {
                 document.forms[0].elements["cboCoordinadoresRH"].selectedIndex = 0;
 
@@ -113,7 +126,7 @@
                 document.forms[0].action = "ControlAsistenciaReporte.aspx?" +
                                            "strCmd=cmdConsultar";
 
-                document.forms[0].submit();
+                document.forms(0).submit();
             }
 
             return (valida);
@@ -123,11 +136,9 @@
 
             //Validaciones
             if (document.getElementById('cboCoordinadoresRH').value == "0") {
-
                 alert('Seleccione un Coordinador/Supervisor');
                 document.getElementById('cboCoordinadoresRH').focus();
                 return (false);
-
             }
             else if (document.getElementById('cboTipo').value == "0") {
                 alert('Elija un Coordinador/Supervisor');
@@ -225,7 +236,7 @@
         function cmdImprimir_onclick() {
 
             //Validacion de resultados
-            var tablaTotal = document.getElementById('tblReporte').innerHTML
+            <%-- var tablaTotal = document.getElementById('tblReporte').innerHTML
             if (trim(tablaTotal) == 'Consulta sin resultados' || trim(tablaTotal) == '') {
                 alert('No hay resultados de la consulta')
                 return (false);
@@ -238,48 +249,122 @@
                 document.forms[0].target = "ifrOculto";
                 document.forms[0].submit();
                 document.forms[0].target = '';
-        }
-
-        return (false);
-    }
-
-    function fnImprimir(strReporteAsistencia) {
-        //Llamada desde el servidor para imprimir resultados de las consulta.
-        document.ifrPageToPrint.document.all.divBody.innerHTML = strReporteAsistencia;
-        document.ifrPageToPrint.focus();
-        window.print();
-    }
-
-    function dtmFecha_onKeyPress(e) {
-        //No se permiten caracteres especiales para la fecha.
-        var key = window.event ? e.keyCode : e.which;
-        if (key > 46 && key < 58) {
-            return true;
-        }
-        else {
-            return false
-        }
-    }
-
-    function cmdExportar_onclick() {
-        //Validacion de resultados
-        var tablaTotal = document.getElementById('tblReporte').innerHTML;
-
-        if (trim(tablaTotal) == 'Consulta sin resultados' || trim(tablaTotal) == '') {
-            alert('No hay resultados de la consulta')
-            return (false);
-        }
-
-        var confirmar = confirm('Desea exportar la informacion a Excel?');
-
-        if (confirmar) {
-            document.forms[0].action = "<%=strFormAction%>?strCmd=cmdExportar";
-            document.forms[0].target = "ifrOculto";
-            document.forms[0].submit();
             }
 
-            return (false);
-     }
+            return (false);--%>
+            imprimirReporte();
+        }
+
+        function fnImprimir(strReporteAsistencia) {
+            //Llamada desde el servidor para imprimir resultados de las consulta.
+            //document.ifrPageToPrint.document.all.divBody.innerHTML = strReporteAsistencia;
+            //document.ifrPageToPrint.focus();
+            //window.print();
+        }
+
+        function dtmFecha_onKeyPress(e) {
+            //No se permiten caracteres especiales para la fecha.
+            var key = window.event ? e.keyCode : e.which;
+            if (key > 46 && key < 58) {
+                return true;
+            }
+            else {
+                return false
+            }
+        }
+
+        function cmdExportar_onclick() {
+            var concatenacionExportacion;
+            var tablaReporte = document.getElementById('tblAsistencia');
+            var guardar;
+
+            var intTipoUsuarioId = "<%= intTipoUsuarioId%>";
+            var nombreTipoUsuario;
+
+            if (intTipoUsuarioId == 2) {
+                nombreTipoUsuario = "Coordinador RH";
+
+            } else if (intTipoUsuarioId == 3) {
+                nombreTipoUsuario = "Supervisor Médico";
+            }
+
+            if (tablaReporte != null) {
+                concatenacionExportacion = "<table border='2px'>";
+                concatenacionExportacion = concatenacionExportacion + "<tr bgcolor='#87AFC6'>";
+                concatenacionExportacion = concatenacionExportacion + "<th>" + nombreTipoUsuario + "</th>";
+                concatenacionExportacion = concatenacionExportacion + "<th>Centro Logístico</th>";
+                concatenacionExportacion = concatenacionExportacion + "<th>Sucursal</th>";
+                concatenacionExportacion = concatenacionExportacion + "<th>Movimiento</th>";
+                concatenacionExportacion = concatenacionExportacion + "<th>Descripción</th>";
+                concatenacionExportacion = concatenacionExportacion + "<th>Movimientos</th>";
+                concatenacionExportacion = concatenacionExportacion + "<th>Ajustes</th>";
+                concatenacionExportacion = concatenacionExportacion + "</tr>";
+
+                for (var i = 1, renglon; renglon = tablaReporte.rows[i]; i++) {
+                    concatenacionExportacion = concatenacionExportacion + "<tr>";
+
+                    for (var j = 0, columna; columna = renglon.cells[j]; j++) {
+
+                        concatenacionExportacion = concatenacionExportacion + "<td>" + columna.innerHTML + "</td>";
+                    }
+
+                    concatenacionExportacion = concatenacionExportacion + "</tr>";
+                }
+
+                concatenacionExportacion = concatenacionExportacion + "</table>";
+
+                var ua = window.navigator.userAgent;
+                var msie = ua.indexOf("MSIE");
+
+                if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) {
+                    iExportar.document.open("txt/html", "replace");
+                    iExportar.document.write(concatenacionExportacion);
+                    iExportar.document.close();
+                    iExportar.focus();
+                    guardar = iExportar.document.execCommand("SaveAs", true, "Reporte Control Asistencia.xls");
+                }
+            }
+        }
+
+        function imprimirReporte() {
+            var tablaReporte = document.getElementById('tblAsistencia');
+            var concatenacionImprimir;
+            var ventanaNueva = window.open('', '', 'height=800, width=1000');
+
+            concatenacionImprimir = "<H2>Reporte Control Asistencia</H2>";
+            concatenacionImprimir = concatenacionImprimir + "<table border='1px'>";
+            concatenacionImprimir = concatenacionImprimir + "<tr bgcolor='#87AFC6'>";
+            concatenacionImprimir = concatenacionImprimir + "<th>Coordinador/Supervisor</th>";
+            concatenacionImprimir = concatenacionImprimir + "<th>Centro Logístico</th>";
+            concatenacionImprimir = concatenacionImprimir + "<th>Sucursal</th>";
+            concatenacionImprimir = concatenacionImprimir + "<th>Movimiento</th>";
+            concatenacionImprimir = concatenacionImprimir + "<th>Descripción</th>";
+            concatenacionImprimir = concatenacionImprimir + "<th>Movimientos</th>";
+            concatenacionImprimir = concatenacionImprimir + "<th>Ajustes</th>";
+            concatenacionImprimir = concatenacionImprimir + "</tr>";
+
+            for (var i = 1, renglon; renglon = tablaReporte.rows[i]; i++) {
+                concatenacionImprimir = concatenacionImprimir + "<tr>";
+
+                for (var j = 0, columna; columna = renglon.cells[j]; j++) {
+
+                    concatenacionImprimir = concatenacionImprimir + "<td>" + columna.innerHTML + "</td>";
+                }
+
+                concatenacionImprimir = concatenacionImprimir + "</tr>";
+            }
+
+            concatenacionImprimir = concatenacionImprimir + "</table>";
+
+            ventanaNueva.document.write(concatenacionImprimir);
+
+            ventanaNueva.document.close();
+            ventanaNueva.focus();
+            ventanaNueva.print();
+            ventanaNueva.close();
+
+            return false;
+        }
 
         function cmdCancelar_onclick() {
             window.location.href = "ControlAsistencia.aspx";
@@ -325,7 +410,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="tdtexttablebold" style="width: 150px">Tipo</td>
+                                        <td class="tdtexttablebold" style="width: 150px">Tipo Usuario</td>
                                         <td class="tdpadleft5" style="width: 240px">
                                             <select id="cboTipo" name="cboTipo" class="campotabla" style="width: 220px" onchange="return cboTipo_onchange()">
                                                 <option selected="selected" value="0">&raquo; Elija un tipo &laquo;</option>
@@ -337,7 +422,8 @@
                                     <tr>
                                         <td class="tdtexttablebold" style="width: 150px">Coordinadores ó Supervisores</td>
                                         <td class="tdpadleft5" style="width: 240px">
-                                            <select id="cboCoordinadoresRH" name="cboCoordinadoresRH" class="campotabla" style="width: 220px" onchange="return cboCoordinadoresRH_onchange()">
+                                            <select id="cboCoordinadoresRH" name="cboCoordinadoresRH" class="campotabla" style="width: 220px" 
+                                                onchange="return cboCoordinadoresRH_onchange()">
                                                 <option selected="selected" value="0">&raquo; Elija un coordinador/supervisor &laquo;</option>
                                             </select>
                                         </td>
@@ -365,7 +451,6 @@
                                     </tr>
                                 </table>
                             </td>
-
                             <td width="50%" valign="top">
                                 <table width="100%">
                                     <tr>
@@ -420,7 +505,6 @@
                     </table>
             </tr>
         </table>
-
         <table width="780" border="0" cellspacing="0" cellpadding="0">
             <tr>
                 <td>
@@ -439,7 +523,8 @@
             <%= Me.strTablaConsultaReporte()%>
         </div>
     </div>
-    <iframe name="ifrOculto" src="" width="0" height="0"></iframe>
+    <iframe id="iExportar" style="display: none"></iframe>
+    <%--<iframe name="ifrOculto" src="" width="0" height="0"></iframe>--%>
     <iframe name="ifrPageToPrint" src="ifrImpresionDocumentos.aspx" width="0" height="0" marginheight="0" marginwidth="0"></iframe>
 </body>
 </html>
