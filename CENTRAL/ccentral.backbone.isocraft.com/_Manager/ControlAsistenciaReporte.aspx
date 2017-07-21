@@ -28,52 +28,39 @@
 
            <%= LlenarControlCoordinadoresRH()%>
 
-            mantenerValorTipo();
-            //cargarValoresControles();
+            mantenerValorControles();
         }
 
-        function cargarValoresControles() {
+        function mantenerValorControles() {
             var strCmd;
 
-            strCmd = "<%=strCmd%>";
-
-            if (strCmd == "cmdConsultar") {
-                document.getElementById("cboTipo").value = "<%=cboTipo%>";
-                document.getElementById("cboCoordinadoresRH").value = "<%=cboCoordinadoresRH%>";
-                document.getElementById("cboEstatus").value = "<%=cboEstatus%>";
-                document.getElementById("cboTipoNomina").value = "<%=cboTipoNomina%>";
-            }
-        }
-
-        function mantenerValorTipo() {
-            var strCmd;
             var intTipoUsuarioId;
+            var intCoordinadorRHId;
             var intEstatusId;
             var intTipoNominaId;
-            var intCoordinadorRHId;
-
-            intTipoUsuarioId = "<%= intTipoUsuarioId%>";
-            intEstatusId = "<%= intEstatusId%>";
-            intTipoNominaId = "<%= intTipoNominaId%>";
-            intCoordinadorRHId = "<%= intCoordinadorRHId%>";
-
+            var strFechaInicio;
+            var strFechaFin;
+            
             strCmd = "<%=strCmd%>";
 
-            if ((strCmd == "Buscar" || strCmd == "cmdConsultar") && intTipoUsuarioId > 0) {
+            intTipoUsuarioId = "<%= intTipoUsuarioId%>";
+            intCoordinadorRHId = "<%= intCoordinadorRHId%>";
+            intEstatusId = "<%= intEstatusId%>";
+            intTipoNominaId = "<%= intTipoNominaId%>";
+            strFechaInicio = "<%= strFechaInicio%>";
+            strFechaFin = "<%= strFechaFin%>";
+            
+            if (strCmd == "BuscarTipoUsuario" && intTipoUsuarioId > 0) {
+                document.forms[0].elements["cboTipoUsuario"].value = intTipoUsuarioId;
+            }
+            else if (strCmd == "cmdConsultar" && intTipoUsuarioId > 0) {
 
-                //if (intTipoUsuarioId == 2) {
-                //    document.forms[0].elements["cboTipo"].selectedIndex = 1;
-                //}
-                //else {
-                //    if (intTipoUsuarioId == 3) {
-                //        document.forms[0].elements["cboTipo"].selectedIndex = 2;
-                //    }
-                //}
-
-                document.forms[0].elements["cboTipo"].value = intTipoUsuarioId;
+                document.forms[0].elements["cboTipoUsuario"].value = intTipoUsuarioId;
+                document.forms[0].elements["cboCoordinadoresRH"].value = intCoordinadorRHId;
                 document.forms[0].elements["cboEstatus"].value = intEstatusId;
                 document.forms[0].elements["cboTipoNomina"].value = intTipoNominaId;
-                document.forms[0].elements["cboCoordinadoresRH"].value = intCoordinadorRHId;
+                document.forms[0].elements["dtmFechaIni"].value = strFechaInicio;
+                document.forms[0].elements["dtmFechaFin"].value = strFechaFin;
             }
         }
 
@@ -86,11 +73,6 @@
             return (true);
         }
 
-        function cmdRegresar_onclick() {
-            //Redirecciona a usuario al "home" de Control de Asistencia.
-            window.location = "AsistenciaNomina.aspx";
-        }
-
         function cboCoordinadoresRH_onchange() {
             document.getElementById("tblReporte").innerHTML = '';
             return (true);
@@ -100,13 +82,13 @@
             document.getElementById("cboCoordinadoresRH").length = 0;
             document.forms[0].elements["cboCoordinadoresRH"].options[0] = new Option("» Elija un coordinador/supervisor «", "0");
 
-            if (document.forms[0].elements["cboTipo"].selectedIndex > 0) {
+            if (document.forms[0].elements["cboTipoUsuario"].selectedIndex > 0) {
                 document.forms[0].elements["cboCoordinadoresRH"].selectedIndex = 0;
 
-                var intTipoUsuarioId = document.forms[0].elements["cboTipo"].value;
+                var intTipoUsuarioId = document.forms[0].elements["cboTipoUsuario"].value;
 
                 document.forms[0].action = "ControlAsistenciaReporte.aspx?" +
-                                           "strCmd=Buscar" +
+                                           "strCmd=BuscarTipoUsuario" +
                                            "&intTipoUsuarioId=" + intTipoUsuarioId;
 
                 document.forms[0].submit();
@@ -140,9 +122,9 @@
                 document.getElementById('cboCoordinadoresRH').focus();
                 return (false);
             }
-            else if (document.getElementById('cboTipo').value == "0") {
+            else if (document.getElementById('cboTipoUsuario').value == "0") {
                 alert('Elija un Coordinador/Supervisor');
-                document.getElementById('cboTipo').focus();
+                document.getElementById('cboTipoUsuario').focus();
                 return (false);
             }
             else if (trim(document.getElementById('dtmFechaIni').value) == '' || trim(document.getElementById('dtmFechaIni').value) == '') {
@@ -233,35 +215,6 @@
             return stringToTrim.replace(/^\s+|\s+$/g, "");
         }
 
-        function cmdImprimir_onclick() {
-
-            //Validacion de resultados
-            <%-- var tablaTotal = document.getElementById('tblReporte').innerHTML
-            if (trim(tablaTotal) == 'Consulta sin resultados' || trim(tablaTotal) == '') {
-                alert('No hay resultados de la consulta')
-                return (false);
-            }
-
-            var confirmar = confirm('Desea imprimir la informacion?');
-            if (confirmar) {
-
-                document.forms[0].action = "<%=strFormAction%>?strCmd=cmdImprimir";
-                document.forms[0].target = "ifrOculto";
-                document.forms[0].submit();
-                document.forms[0].target = '';
-            }
-
-            return (false);--%>
-            imprimirReporte();
-        }
-
-        function fnImprimir(strReporteAsistencia) {
-            //Llamada desde el servidor para imprimir resultados de las consulta.
-            //document.ifrPageToPrint.document.all.divBody.innerHTML = strReporteAsistencia;
-            //document.ifrPageToPrint.focus();
-            //window.print();
-        }
-
         function dtmFecha_onKeyPress(e) {
             //No se permiten caracteres especiales para la fecha.
             var key = window.event ? e.keyCode : e.which;
@@ -273,97 +226,80 @@
             }
         }
 
+        function cmdImprimir_onclick() {
+            var cadenaImprimir;
+            var tblReporteAsistencia = document.getElementById('tblReporteAsistencia');
+            var ventanaNueva = window.open('', '', 'height=800, width=1000');
+
+            if (tblReporteAsistencia != null) {
+                cadenaImprimir = obtenerTablaReporte(tblReporteAsistencia);
+                ventanaNueva.document.write(cadenaImprimir);
+
+                ventanaNueva.document.close();
+                ventanaNueva.focus();
+                ventanaNueva.print();
+                ventanaNueva.close();
+            }
+        }
+
         function cmdExportar_onclick() {
-            var concatenacionExportacion;
-            var tablaReporte = document.getElementById('tblAsistencia');
+            var cadenaExportar;
+            var tblReporteAsistencia = document.getElementById('tblReporteAsistencia');
             var guardar;
 
-            var intTipoUsuarioId = "<%= intTipoUsuarioId%>";
-            var nombreTipoUsuario;
-
-            if (intTipoUsuarioId == 2) {
-                nombreTipoUsuario = "Coordinador RH";
-
-            } else if (intTipoUsuarioId == 3) {
-                nombreTipoUsuario = "Supervisor Médico";
-            }
-
-            if (tablaReporte != null) {
-                concatenacionExportacion = "<table border='2px'>";
-                concatenacionExportacion = concatenacionExportacion + "<tr bgcolor='#87AFC6'>";
-                concatenacionExportacion = concatenacionExportacion + "<th>" + nombreTipoUsuario + "</th>";
-                concatenacionExportacion = concatenacionExportacion + "<th>Centro Logístico</th>";
-                concatenacionExportacion = concatenacionExportacion + "<th>Sucursal</th>";
-                concatenacionExportacion = concatenacionExportacion + "<th>Movimiento</th>";
-                concatenacionExportacion = concatenacionExportacion + "<th>Descripción</th>";
-                concatenacionExportacion = concatenacionExportacion + "<th>Movimientos</th>";
-                concatenacionExportacion = concatenacionExportacion + "<th>Ajustes</th>";
-                concatenacionExportacion = concatenacionExportacion + "</tr>";
-
-                for (var i = 1, renglon; renglon = tablaReporte.rows[i]; i++) {
-                    concatenacionExportacion = concatenacionExportacion + "<tr>";
-
-                    for (var j = 0, columna; columna = renglon.cells[j]; j++) {
-
-                        concatenacionExportacion = concatenacionExportacion + "<td>" + columna.innerHTML + "</td>";
-                    }
-
-                    concatenacionExportacion = concatenacionExportacion + "</tr>";
-                }
-
-                concatenacionExportacion = concatenacionExportacion + "</table>";
+            if (tblReporteAsistencia != null) {
+                cadenaExportar = obtenerTablaReporte(tblReporteAsistencia);
 
                 var ua = window.navigator.userAgent;
                 var msie = ua.indexOf("MSIE");
 
                 if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) {
                     iExportar.document.open("txt/html", "replace");
-                    iExportar.document.write(concatenacionExportacion);
+                    iExportar.document.write(cadenaExportar);
                     iExportar.document.close();
                     iExportar.focus();
-                    guardar = iExportar.document.execCommand("SaveAs", true, "Reporte Control Asistencia.xls");
+                    guardar = iExportar.document.execCommand("SaveAs", true, "Reporte de Coordinadores RH.xls");
                 }
             }
         }
 
-        function imprimirReporte() {
-            var tablaReporte = document.getElementById('tblAsistencia');
-            var concatenacionImprimir;
-            var ventanaNueva = window.open('', '', 'height=800, width=1000');
+        function obtenerTablaReporte(tblReporteAsistencia) {
+            var cadenaTabla;
 
-            concatenacionImprimir = "<H2>Reporte Control Asistencia</H2>";
-            concatenacionImprimir = concatenacionImprimir + "<table border='1px'>";
-            concatenacionImprimir = concatenacionImprimir + "<tr bgcolor='#87AFC6'>";
-            concatenacionImprimir = concatenacionImprimir + "<th>Coordinador/Supervisor</th>";
-            concatenacionImprimir = concatenacionImprimir + "<th>Centro Logístico</th>";
-            concatenacionImprimir = concatenacionImprimir + "<th>Sucursal</th>";
-            concatenacionImprimir = concatenacionImprimir + "<th>Movimiento</th>";
-            concatenacionImprimir = concatenacionImprimir + "<th>Descripción</th>";
-            concatenacionImprimir = concatenacionImprimir + "<th>Movimientos</th>";
-            concatenacionImprimir = concatenacionImprimir + "<th>Ajustes</th>";
-            concatenacionImprimir = concatenacionImprimir + "</tr>";
+            var intTipoUsuarioId = "<%= intTipoUsuarioId%>";
+            var nombreTipoUsuario;
 
-            for (var i = 1, renglon; renglon = tablaReporte.rows[i]; i++) {
-                concatenacionImprimir = concatenacionImprimir + "<tr>";
+            if (intTipoUsuarioId == 2) {
+                nombreTipoUsuario = "Coordinador RH";
+            } else if (intTipoUsuarioId == 3) {
+                nombreTipoUsuario = "Supervisor Médico";
+            }
+
+            cadenaTabla = "<H2>Reporte Control Asistencia</H2>";
+            cadenaTabla = cadenaTabla + "<table border='1px'>";
+            cadenaTabla = cadenaTabla + "<tr bgcolor='#87AFC6'>";
+            cadenaTabla = cadenaTabla + "<th>" + nombreTipoUsuario + "</th>";
+            cadenaTabla = cadenaTabla + "<th>Centro Logístico</th>";
+            cadenaTabla = cadenaTabla + "<th>Sucursal</th>";
+            cadenaTabla = cadenaTabla + "<th>Movimiento</th>";
+            cadenaTabla = cadenaTabla + "<th>Descripción</th>";
+            cadenaTabla = cadenaTabla + "<th>Movimientos</th>";
+            cadenaTabla = cadenaTabla + "<th>Ajustes</th>";
+            cadenaTabla = cadenaTabla + "</tr>";
+
+            for (var i = 1, renglon; renglon = tblReporteAsistencia.rows[i]; i++) {
+                cadenaTabla = cadenaTabla + "<tr>";
 
                 for (var j = 0, columna; columna = renglon.cells[j]; j++) {
 
-                    concatenacionImprimir = concatenacionImprimir + "<td>" + columna.innerHTML + "</td>";
+                    cadenaTabla = cadenaTabla + "<td>" + columna.innerHTML + "</td>";
                 }
-
-                concatenacionImprimir = concatenacionImprimir + "</tr>";
+                cadenaTabla = cadenaTabla + "</tr>";
             }
 
-            concatenacionImprimir = concatenacionImprimir + "</table>";
+            cadenaTabla = cadenaTabla + "</table>";
 
-            ventanaNueva.document.write(concatenacionImprimir);
-
-            ventanaNueva.document.close();
-            ventanaNueva.focus();
-            ventanaNueva.print();
-            ventanaNueva.close();
-
-            return false;
+            return cadenaTabla;
         }
 
         function cmdCancelar_onclick() {
@@ -398,7 +334,7 @@
             <tr>
                 <td class="tdgeneralcontent">
                     <h1>Control de Asistencia - Reporte</h1>
-                    <p>Elija primero el Coordinador RH / Supervisor Médico y el periodo de asistencia presionando el boton Consultar.</p>
+                    <p>Elija primero el Coordinador RH ó Supervisor Médico y el periodo de asistencia presionando el boton Consultar.</p>
 
                     <table width="100%" border="0" cellpadding="0" cellspacing="0">
                         <tr>
@@ -410,9 +346,9 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="tdtexttablebold" style="width: 150px">Tipo Usuario</td>
+                                        <td class="tdtexttablebold" style="width: 150px">Tipo Empleado</td>
                                         <td class="tdpadleft5" style="width: 240px">
-                                            <select id="cboTipo" name="cboTipo" class="campotabla" style="width: 220px" onchange="return cboTipo_onchange()">
+                                            <select id="cboTipoUsuario" name="cboTipoUsuario" class="campotabla" style="width: 220px" onchange="return cboTipo_onchange()">
                                                 <option selected="selected" value="0">&raquo; Elija un tipo &laquo;</option>
                                                 <option value="2">&raquo; Coordinador RH &laquo;</option>
                                                 <option value="3">&raquo; Supervisor Médico &laquo;</option>
@@ -460,7 +396,8 @@
                                     <tr>
                                         <td class="tdtexttablebold" style="width: 150px">Fecha inicio</td>
                                         <td class="tdconttablas">
-                                            <input id="dtmFechaIni" name="dtmFechaIni" class="field" size="10" maxlength="10" type="text" value="<%= strFirstDayOfMonth()%>" onkeypress=" return dtmFecha_onKeyPress(event);">
+                                            <input id="dtmFechaIni" name="dtmFechaIni" class="field" size="10" maxlength="10" type="text" value="<%= strFirstDayOfMonth()%>" 
+                                                onkeypress=" return dtmFecha_onKeyPress(event);">
                                             <a href="javascript:cal1.popup()">
                                                 <img src="images/imgCalendarIcon.gif" width="16" height="15" border="0" align="absMiddle"
                                                     alt="Clic para seleccionar la fecha.">
@@ -470,7 +407,8 @@
                                     <tr>
                                         <td class="tdtexttablebold" style="width: 150px">Fecha fin</td>
                                         <td class="tdconttablas">
-                                            <input id="dtmFechaFin" name="dtmFechaFin" class="field" size="10" maxlength="10" type="text" value="<%= strFechaActual()%>" onkeypress=" return dtmFecha_onKeyPress(event);">
+                                            <input id="dtmFechaFin" name="dtmFechaFin" class="field" size="10" maxlength="10" type="text" value="<%= strFechaActual()%>" 
+                                                onkeypress=" return dtmFecha_onKeyPress(event);">
                                             <a href="javascript:cal2.popup()">
                                                 <img src="images/imgCalendarIcon.gif" width="16" height="15" border="0" align="absMiddle"
                                                     alt="Clic para seleccionar la fecha.">
@@ -524,7 +462,5 @@
         </div>
     </div>
     <iframe id="iExportar" style="display: none"></iframe>
-    <%--<iframe name="ifrOculto" src="" width="0" height="0"></iframe>--%>
-    <iframe name="ifrPageToPrint" src="ifrImpresionDocumentos.aspx" width="0" height="0" marginheight="0" marginwidth="0"></iframe>
 </body>
 </html>

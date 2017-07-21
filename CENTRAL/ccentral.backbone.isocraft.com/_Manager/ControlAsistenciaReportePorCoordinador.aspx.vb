@@ -16,6 +16,9 @@ Public Class ControlAsistenciaReportePorCoordinador
 
     Private intEmpleadoId As Integer
 
+    ' Parámetro defaulta para poder hacer la consulta para esta página en específico.
+    Private Const intParametroSinValor As Integer = 0
+
 #Region " Web Form Designer Generated Code "
 
     'This call is required by the Web Form Designer.
@@ -299,8 +302,6 @@ Public Class ControlAsistenciaReportePorCoordinador
         '    Call Response.Redirect("../Default.aspx")
         'End If
 
-        'checar login con diferentes usuarios para ver que tipo de consulta es
-
         If (strCmd = "cmdImprimir") Then
 
             Dim strHTML As New StringBuilder
@@ -308,7 +309,13 @@ Public Class ControlAsistenciaReportePorCoordinador
             Dim strRecordBrowserImpresion As String = String.Empty
 
             'Resultados a mostrar en pantalla
-            ' objDataArrayReporte = Benavides.CC.Data.clsControlDeAsistencia.strObtenerReporteControlAsistencia(CInt(strUsuarioNombre), intEstatusId, intTipoNominaId, dtmFechaInicio, dtmFechaFin, strConnectionString)
+            objDataArrayReporte = clsControlDeAsistencia.strObtenerReporteControlAsistencia(CInt(strUsuarioNombre), _
+                                                                                            intEstatusId, _
+                                                                                            intTipoNominaId, _
+                                                                                            dtmFechaInicio, _
+                                                                                            dtmFechaFin, _
+                                                                                            intParametroSinValor, _
+                                                                                            strConnectionString)
 
             If IsArray(objDataArrayReporte) AndAlso objDataArrayReporte.Length > 0 Then
 
@@ -328,7 +335,13 @@ Public Class ControlAsistenciaReportePorCoordinador
         If (strCmd = "cmdExportar") Then
 
             Dim objArray As System.Array = Nothing
-            ' objArray = Benavides.CC.Data.clsControlDeAsistencia.strObtenerReporteControlAsistencia(CInt(strUsuarioNombre), intEstatusId, intTipoNominaId, dtmFechaInicio, dtmFechaFin, strConnectionString)
+            objArray = clsControlDeAsistencia.strObtenerReporteControlAsistencia(CInt(strUsuarioNombre), _
+                                                                                 intEstatusId, _
+                                                                                 intTipoNominaId, _
+                                                                                 dtmFechaInicio, _
+                                                                                 dtmFechaFin, _
+                                                                                 intParametroSinValor, _
+                                                                                 strConnectionString)
 
             ' Establecemos en la respuesta los parámetros de configuración del archivo
             Response.ContentType = "application/vnd.ms-excel"
@@ -339,7 +352,7 @@ Public Class ControlAsistenciaReportePorCoordinador
     End Sub
 
     Public Function strTablaConsultaReporte() As String
-
+        Dim strResult As New StringBuilder()
         Dim objArray As System.Array = Nothing
         Dim resultadoConsulta As String = String.Empty
         Dim strmRecordBrowserHTML As String = String.Empty
@@ -352,15 +365,20 @@ Public Class ControlAsistenciaReportePorCoordinador
                 End If
             End If
 
-
             'Reporte de Movimientos por Coordinador RH
 
             If objArray Is Nothing Then
                 Cache.Remove("cacheReporte")
-                'objArray = Benavides.CC.Data.clsControlDeAsistencia.strObtenerReporteControlAsistencia(CInt(strUsuarioNombre), intEstatusId, intTipoNominaId, dtmFechaInicio, dtmFechaFin, strConnectionString)
+                objArray = clsControlDeAsistencia.strObtenerReporteControlAsistencia(CInt(strUsuarioNombre), _
+                                                                                     intEstatusId, _
+                                                                                     intTipoNominaId, _
+                                                                                     dtmFechaInicio, _
+                                                                                     dtmFechaFin, _
+                                                                                     intParametroSinValor, _
+                                                                                     strConnectionString)
             End If
 
-            Dim strResult As New StringBuilder()
+
             If Not objArray Is Nothing AndAlso IsArray(objArray) AndAlso objArray.Length > 0 Then
 
                 Cache.Add("cacheReporte", objArray, Nothing, Date.Today.AddHours(1), System.Web.Caching.Cache.NoSlidingExpiration, System.Web.Caching.CacheItemPriority.Normal, Nothing)
@@ -410,9 +428,6 @@ Public Class ControlAsistenciaReportePorCoordinador
         strTablaReporteHTML.Append("<th class='rayita' align='center' valign='top'>Descripción</th>")
         strTablaReporteHTML.Append("<th class='rayita' align='center' valign='top'>Movimientos</th>")
         strTablaReporteHTML.Append("<th class='rayita' align='center' valign='top'>Ajustes</th>")
-
-        'strTablaReporteHTML.Append("<th class='rayita' align='center' valign='top'>Sin Confirmar</th>")
-
         strTablaReporteHTML.Append("</tr>")
 
         intContador = 0
