@@ -551,7 +551,7 @@ Public Class clsControlDeAsistencia
     '              - Arreglo bidimensional con el registro leído
     '                Array = { (), (), ..... () }
     '====================================================================
-    Public Shared Function strBuscarCoordinadoresRH(ByVal strConnectionString As String) As Array
+    Public Shared Function strBuscarCoordinadoresRH(ByVal intTipoUsuarioId As Integer, ByVal strConnectionString As String) As Array
 
         ' Constantes locales
         Const strmThisMemberName As String = "strBuscarCoordinadoresRH"
@@ -565,7 +565,7 @@ Public Class clsControlDeAsistencia
             strSQLStatement = New StringBuilder
 
             ' Creamos estatuto de SQL
-            Call strSQLStatement.Append("EXECUTE spBuscarCoordinadoresRHAsistencia")
+            Call strSQLStatement.AppendFormat("EXECUTE spBuscarCoordinadoresRHAsistencia {0}", intTipoUsuarioId)
 
             ' Ejecutamos el comando
             returnedData = Benavides.Data.SQL.MSSQL.clsSQLOperation3.aobjExecuteQuery(strSQLStatement.ToString(), strConnectionString)
@@ -1674,6 +1674,7 @@ Public Class clsControlDeAsistencia
                                                               ByVal intTipoNominaId As Integer, _
                                                               ByVal dtmFechaInicio As Date, _
                                                               ByVal dtmFechaFin As Date, _
+                                                              ByVal intTipoUsuarioId As Integer, _
                                                               ByVal strConnectionString As String) As Array
 
         ' Constantes locales
@@ -1698,6 +1699,8 @@ Public Class clsControlDeAsistencia
             Call strSQLStatement.Append("','")
             Call strSQLStatement.Append(dtmFechaFin.ToString("MM/dd/yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture))
             Call strSQLStatement.Append("'")
+            Call strSQLStatement.Append(",")
+            Call strSQLStatement.Append(intTipoUsuarioId)
 
             ' Ejecutamos el comando
             strObtenerReporteControlAsistencia = clsSQLOperation.strExecuteQuery(strSQLStatement.ToString, strConnectionString)
@@ -3383,7 +3386,7 @@ Public Class clsControlDeAsistencia
                                                   intEmpleadoId, _
                                                   dtmFechaInicio.ToString("MM/dd/yyyy", System.Globalization.CultureInfo.InvariantCulture), _
                                                   dtmFechaFin.ToString("MM/dd/yyyy", System.Globalization.CultureInfo.InvariantCulture))
-     
+
                 ' Ejecutamos el comando
                 strConsultarMovimientosEmpleadosMedicos = clsSQLOperation3.aobjExecuteQuery(strSQLStatement.ToString, strConnectionString)
                 strSQLStatement = Nothing
@@ -3558,7 +3561,7 @@ Public Class clsControlDeAsistencia
             Dim intDiaDescanso As Integer = 0
 
             Try
-                
+
                 ' EMPLEADO                   
                 objEmpleadoArray = strObtenerInformacionControlAsistencia(intEmpleadoId, strConnectionString)
 
