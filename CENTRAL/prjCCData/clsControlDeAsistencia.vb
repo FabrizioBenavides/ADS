@@ -1069,14 +1069,15 @@ Public Class clsControlDeAsistencia
     End Function
 
     Public Shared Function strConsultaDetalleControlAsistenciaPorCoordinador(ByVal intEmpleadoId As Integer, _
-                                                        ByVal strCentroLogisticoId As String, _
-                                                        ByVal intZonaId As Integer, _
-                                                        ByVal intMovimientoId As Integer, _
-                                                        ByVal intTipoNomina As Integer, _
-                                                        ByVal dtmFechaInicio As Date, _
-                                                        ByVal dtmFechaFin As Date, _
-                                                        ByVal intControlAsistenciaObservacionesId As Integer, _
-                                                        ByVal strConnectionString As String) As Array
+                                                                             ByVal strCentroLogisticoId As String, _
+                                                                             ByVal intZonaId As Integer, _
+                                                                             ByVal intMovimientoId As Integer, _
+                                                                             ByVal intTipoNomina As Integer, _
+                                                                             ByVal dtmFechaInicio As Date, _
+                                                                             ByVal dtmFechaFin As Date, _
+                                                                             ByVal intControlAsistenciaObservacionesId As Integer, _
+                                                                             ByVal intTipoUsuarioId As Integer, _
+                                                                             ByVal strConnectionString As String) As Array
         ' Constantes locales
         Const strmThisMemberName As String = "strConsultaDetalleControlAsistenciaPorCoordinador"
 
@@ -1105,6 +1106,8 @@ Public Class clsControlDeAsistencia
             Call strSQLStatement.Append("'")
             Call strSQLStatement.Append(",")
             Call strSQLStatement.Append(intControlAsistenciaObservacionesId)
+            Call strSQLStatement.Append(",")
+            Call strSQLStatement.Append(intTipoUsuarioId)
 
             ' Ejecutamos el comando
             strConsultaDetalleControlAsistenciaPorCoordinador = clsSQLOperation.strExecuteQuery(strSQLStatement.ToString, strConnectionString)
@@ -1354,15 +1357,15 @@ Public Class clsControlDeAsistencia
     End Function
 
     Public Shared Function strConsultaResumenControlAsistenciaPorCoordinador(ByVal intEmpleadoId As Integer, _
-                                                        ByVal strCentroLogisticoId As String, _
-                                                        ByVal intZonaId As Integer, _
-                                                        ByVal intMovimientoId As Integer, _
-                                                        ByVal intTipoNomina As Integer, _
-                                                        ByVal dtmFechaInicio As Date, _
-                                                        ByVal dtmFechaFin As Date, _
-                                                        ByVal intControlAsistenciaObservacionesId As Integer, _
-                                                        ByVal intTipoUsuarioId As Integer, _
-                                                        ByVal strConnectionString As String) As Array
+                                                                             ByVal strCentroLogisticoId As String, _
+                                                                             ByVal intZonaId As Integer, _
+                                                                             ByVal intMovimientoId As Integer, _
+                                                                             ByVal intTipoNomina As Integer, _
+                                                                             ByVal dtmFechaInicio As Date, _
+                                                                             ByVal dtmFechaFin As Date, _
+                                                                             ByVal intControlAsistenciaObservacionesId As Integer, _
+                                                                             ByVal intTipoUsuarioId As Integer, _
+                                                                             ByVal strConnectionString As String) As Array
 
         ' Constantes locales
         Const strmThisMemberName As String = "strConsultaResumenControlAsistenciaPorCoordinador"
