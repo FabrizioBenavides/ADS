@@ -71,18 +71,19 @@
         function establecerNombreTitulo() {
             // Administrador = 1 Coordinador RH = 2 Supervisor Medico = 3
             var intTipoUsuarioId = "<%= intTipoUsuarioId()%>";
+            var trPerfil;
 
             if (intTipoUsuarioId == "1") {
                 document.getElementById('divTitulo').innerHTML = '<h1>Asistencia - Administrador</h1>';
             }
             else if (intTipoUsuarioId == "2") {
                 document.getElementById('divTitulo').innerHTML = '<h1>Asistencia - Coordinador RH</h1>';
-                var trPerfil = document.getElementById('trPerfil');
+                trPerfil = document.getElementById('trPerfil');
                 trPerfil.style.display = 'none';
             }
             else if (intTipoUsuarioId == "3") {
                 document.getElementById('divTitulo').innerHTML = '<h1>Asistencia - Supervisor Médico</h1>';
-                var trPerfil = document.getElementById('trPerfil');
+                trPerfil = document.getElementById('trPerfil');
                 trPerfil.style.display = 'none';
             }
         }
@@ -91,7 +92,6 @@
         document.write("<%=clsCommons.strGetCustomDateTime("dd/MM/yyyy - hh:mm:ss") %>");
         return (true);
     }
-
 
     function frmControlAsistencia_onsubmit() {
         return (true);
@@ -168,7 +168,6 @@
     }
 
     function cmdConsultar_onclick() {
-
         //Variables.
         var valida;
 
@@ -491,12 +490,12 @@ function fnMarcarTodos() {
         //Si existe check box se selecciona o se quita la seleccion de "todos"	
         if (Boolean(trChkBox)) {
             if (("<%= intTipoUsuarioId()%>" == "1" && document.getElementById('chkCodigo').checked == true) ||
-               (("<%= intTipoUsuarioId()%>" == "2") && document.getElementById('chkCodigo').checked == true && document.getElementById(hdnConfirmadoValor).value == '0')) {
+               ((("<%= intTipoUsuarioId()%>" == "2") || ("<%= intTipoUsuarioId()%>" == "3")) && document.getElementById('chkCodigo').checked == true && document.getElementById(hdnConfirmadoValor).value == '0')) {
 
                         trChkBox.checked = true
                     }
                     else if (("<%= intTipoUsuarioId()%>" == "1" && document.getElementById('chkCodigo').checked == false) ||
-                        (("<%= intTipoUsuarioId()%>" == "2") && document.getElementById('chkCodigo').checked == false && document.getElementById(hdnConfirmadoValor).value == '0')) {
+                        ((("<%= intTipoUsuarioId()%>" == "2") || ("<%= intTipoUsuarioId()%>" == "3")) && document.getElementById('chkCodigo').checked == false && document.getElementById(hdnConfirmadoValor).value == '0')) {
                         trChkBox.checked = false
                     }
 
@@ -592,9 +591,8 @@ function mostrarCboAsistencia(obj) {
         <table width="780" border="0" cellpadding="0" cellspacing="0">
             <tr>
                 <td class="tdgeneralcontent">
-                    <div id="divTitulo"></div>
-                    <%--<h1>Asistencia - Coordinador RH
-                              <!--Asistencia - Administrador--></h1>--%>
+                    <div id="divTitulo">
+                    </div>
                     <p>
                         Elija primero la sucursal y el periodo de asistencia presionando el boton Consultar. 
                               Cuando la consulta muestre resultados seleccione los registros por confirmar en la casilla de la derecha de los registros y confirme la asistencia 

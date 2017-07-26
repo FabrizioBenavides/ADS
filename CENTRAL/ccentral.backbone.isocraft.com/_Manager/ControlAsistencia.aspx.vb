@@ -297,15 +297,10 @@ Public Class ControlAsistencia
     Public ReadOnly Property intTipoUsuarioId() As Integer
         Get
             If Not IsNothing(Request("hdnTipoUsuario")) AndAlso Not Trim(Request("hdnTipoUsuario")) = String.Empty AndAlso IsNumeric(Request("hdnTipoUsuario")) Then
-
                 Return CInt(Request("hdnTipoUsuario"))
-
             Else
-
                 Return intmTipoUsuarioId
-
             End If
-
         End Get
     End Property
 
@@ -646,11 +641,11 @@ Public Class ControlAsistencia
                         End If
                     End If
 
-                    If (intTipoUsuarioId = 2) AndAlso (Len(Trim(Request("chkCodigo" & intPartida.ToString))) > 0) AndAlso (Request.Form("hdnConfirmado" & intPartida.ToString) = "1") Then
+                    If (intTipoUsuarioId = 2 Or intTipoUsuarioId = 3) AndAlso (Len(Trim(Request("chkCodigo" & intPartida.ToString))) > 0) AndAlso (Request.Form("hdnConfirmado" & intPartida.ToString) = "1") Then
                         boolSinPermiso = True
                     End If
 
-                    If (Len(Trim(Request("chkCodigo" & intPartida.ToString))) > 0) AndAlso ((intTipoUsuarioId = 1) Or (intTipoUsuarioId = 2 AndAlso (Request.Form("hdnConfirmado" & intPartida.ToString) = "0"))) Then
+                    If (Len(Trim(Request("chkCodigo" & intPartida.ToString))) > 0) AndAlso ((intTipoUsuarioId = 1) Or ((intTipoUsuarioId = 2 Or intTipoUsuarioId = 3) AndAlso (Request.Form("hdnConfirmado" & intPartida.ToString) = "0"))) Then
 
                         boolSeleccion = True
 
@@ -844,6 +839,7 @@ Public Class ControlAsistencia
                                                                                   dtmFechaInicio, _
                                                                                   dtmFechaFin, _
                                                                                   intControlAsistenciaObservacionesId, _
+                                                                                  intTipoUsuarioId, _
                                                                                   strConnectionString)
         End If
 
@@ -951,7 +947,7 @@ Public Class ControlAsistencia
                 'Registro Confirmado, usuario = Aministrador
                 chkbox = "<input type='checkbox'" & idName & " checked onclick='javascript:fnMarcarUno()'/>"
 
-            ElseIf ((CBool(strConsultaRegistroDetalle(12)) = True) AndAlso (intTipoUsuarioId = 2)) Then
+            ElseIf (CBool(strConsultaRegistroDetalle(12)) = True) AndAlso (intTipoUsuarioId = 2 Or intTipoUsuarioId = 3) Then
 
                 'Registro Confirmado, usuario = Coordinador RH
                 chkbox = "<input type='checkbox'" & idName & " checked disabled='disabled' onclick='javascript:fnMarcarUno()'/>"
@@ -1049,7 +1045,7 @@ Public Class ControlAsistencia
 
         astrRecords = Nothing
 
-        If (intTipoUsuarioId = 2) AndAlso (CBool(strConsultaRegistroDetalle(12)) = True) Then
+        If (intTipoUsuarioId = 2 Or intTipoUsuarioId = 3) AndAlso (CBool(strConsultaRegistroDetalle(12)) = True) Then
 
             'Combo para Usuario = Coordinador RH con movimiento confirmado.
             cbo = "<select onchange='mostrarCboAsistencia(this);' disabled id='cbo" & intContador.ToString() & "' name='cbo" & intContador.ToString() & "' class='campotabla' style='width:85px'>"
@@ -1206,7 +1202,7 @@ Public Class ControlAsistencia
         Dim registro As New System.Collections.SortedList
         Dim contador As Integer = 0
 
-        strResultadoConsulta = Benavides.CC.Data.clsControlDeAsistencia.clsControlAsistenciaObservaciones.strConsultartblControlAsistenciaObservacionesPorActivo(strConnectionString)
+        strResultadoConsulta = clsControlDeAsistencia.clsControlAsistenciaObservaciones.strConsultartblControlAsistenciaObservacionesPorActivo(strConnectionString)
 
         Dim arrIdNombre(strResultadoConsulta.Length - 1, 1) As String
 
