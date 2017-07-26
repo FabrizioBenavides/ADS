@@ -24,6 +24,12 @@ Public Class ControlAsistencia
     Dim astrRecords As Array
     Dim strMovimientos As String = String.Empty
 
+    Private Enum TipoUsuario
+        Administrador = 1
+        CoordinadorRH = 2
+        SupervisorMedico = 3
+    End Enum
+
 #Region " Web Form Designer Generated Code "
 
     'This call is required by the Web Form Designer.
@@ -778,14 +784,33 @@ Public Class ControlAsistencia
     Private Function ConsultarResumenControlAsistencia() As Array
         Dim consultaEmpleados As System.Array = Nothing
 
-        If intTipoUsuarioId = 1 Then
-            consultaEmpleados = Benavides.CC.Data.clsControlDeAsistencia.strConsultaResumenControlAsistenciaPorAdministrador( _
-                                intEmpleadoId, strSucursalId, intZonaId, intTipoMovimientosId, _
-                                intTipoNomina, dtmFechaInicio, dtmFechaFin, intPuestoEmpleadoId, intControlAsistenciaObservacionesId, strConnectionString)
-        ElseIf intTipoUsuarioId = 2 Then
-            consultaEmpleados = Benavides.CC.Data.clsControlDeAsistencia.strConsultaResumenControlAsistenciaPorCoordinador( _
-                                intEmpleadoId, strSucursalId, intZonaId, intTipoMovimientosId, _
-                                intTipoNomina, dtmFechaInicio, dtmFechaFin, intControlAsistenciaObservacionesId, strConnectionString)
+        If intTipoUsuarioId = TipoUsuario.Administrador Then
+
+            consultaEmpleados = clsControlDeAsistencia. _
+                                strConsultaResumenControlAsistenciaPorAdministrador(intEmpleadoId, _
+                                                                                    strSucursalId, _
+                                                                                    intZonaId, _
+                                                                                    intTipoMovimientosId, _
+                                                                                    intTipoNomina, _
+                                                                                    dtmFechaInicio, _
+                                                                                    dtmFechaFin, _
+                                                                                    intPuestoEmpleadoId, _
+                                                                                    intControlAsistenciaObservacionesId, _
+                                                                                    strConnectionString)
+
+        ElseIf intTipoUsuarioId = TipoUsuario.CoordinadorRH Or intTipoUsuarioId = TipoUsuario.SupervisorMedico Then
+
+            consultaEmpleados = clsControlDeAsistencia. _
+                                strConsultaResumenControlAsistenciaPorCoordinador(intEmpleadoId, _
+                                                                                  strSucursalId, _
+                                                                                  intZonaId, _
+                                                                                  intTipoMovimientosId, _
+                                                                                  intTipoNomina, _
+                                                                                  dtmFechaInicio, _
+                                                                                  dtmFechaFin, _
+                                                                                  intControlAsistenciaObservacionesId, _
+                                                                                  intTipoUsuarioId, _
+                                                                                  strConnectionString)
         End If
 
         Return consultaEmpleados
@@ -794,14 +819,32 @@ Public Class ControlAsistencia
     Private Function ConsultarDetalleControlAsistencia() As Array
         Dim consultaEmpleados As System.Array = Nothing
 
-        If intTipoUsuarioId = 1 Then
-            consultaEmpleados = Benavides.CC.Data.clsControlDeAsistencia.strConsultaDetalleControlAsistenciaPorAdministrador( _
-                                intEmpleadoId, strSucursalId, intZonaId, intTipoMovimientosId, _
-                                intTipoNomina, dtmFechaInicio, dtmFechaFin, intPuestoEmpleadoId, intControlAsistenciaObservacionesId, strConnectionString)
-        ElseIf intTipoUsuarioId = 2 Then
-            consultaEmpleados = Benavides.CC.Data.clsControlDeAsistencia.strConsultaDetalleControlAsistenciaPorCoordinador( _
-                                intEmpleadoId, strSucursalId, intZonaId, intTipoMovimientosId, _
-                                intTipoNomina, dtmFechaInicio, dtmFechaFin, intControlAsistenciaObservacionesId, strConnectionString)
+        If intTipoUsuarioId = TipoUsuario.Administrador Then
+
+            consultaEmpleados = clsControlDeAsistencia. _
+                                strConsultaDetalleControlAsistenciaPorAdministrador(intEmpleadoId, _
+                                                                                    strSucursalId, _
+                                                                                    intZonaId, _
+                                                                                    intTipoMovimientosId, _
+                                                                                    intTipoNomina, _
+                                                                                    dtmFechaInicio, _
+                                                                                    dtmFechaFin, _
+                                                                                    intPuestoEmpleadoId, _
+                                                                                    intControlAsistenciaObservacionesId, _
+                                                                                    strConnectionString)
+
+        ElseIf intTipoUsuarioId = TipoUsuario.CoordinadorRH Or intTipoUsuarioId = TipoUsuario.SupervisorMedico Then
+
+            consultaEmpleados = clsControlDeAsistencia. _
+                                strConsultaDetalleControlAsistenciaPorCoordinador(intEmpleadoId, _
+                                                                                  strSucursalId, _
+                                                                                  intZonaId, _
+                                                                                  intTipoMovimientosId, _
+                                                                                  intTipoNomina, _
+                                                                                  dtmFechaInicio, _
+                                                                                  dtmFechaFin, _
+                                                                                  intControlAsistenciaObservacionesId, _
+                                                                                  strConnectionString)
         End If
 
         Return consultaEmpleados

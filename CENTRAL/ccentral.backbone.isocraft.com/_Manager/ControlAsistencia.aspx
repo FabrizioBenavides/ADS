@@ -20,7 +20,6 @@
     <script language="JavaScript" type="text/JavaScript" src="js/menu_tpl.js"></script>
     <script language="JavaScript" type="text/JavaScript" src="js/headerfooter.js"></script>
     <script id="clientEventHandlersJS" language="javascript">
-<!--
 
         strUsuarioNombre = "<%= strUsuarioNombre() %>";
         strFechaHora = "<%= strHTMLFechaHora %>";
@@ -31,27 +30,15 @@
             //Llenado de Combos
             <%= LlenarControlDireccion()%>
             <%= LlenarControlZona()%>
-        <%= LlenarControlTipoMovimientos()%>
+            <%= LlenarControlTipoMovimientos()%>
 
-            //Administrador = 1 Coordinador RH = 2
-            var intTipoUsuarioId = "<%= intTipoUsuarioId()%>";
-            if (intTipoUsuarioId == "1") {
-                document.getElementById('divTitulo').innerHTML = '<h1>Asistencia - Administrador</h1>';
-            }
-             // Hacer cambio de else
-            else {
-                document.getElementById('divTitulo').innerHTML = '<h1>Asistencia - Coordinador RH</h1>';
-                var trPerfil = document.getElementById('trPerfil');
-                trPerfil.style.display = 'none';
-            }
+            establecerNombreTitulo();
 
             var intDireccionId = "<%= intDireccionId %>";
             var intZonaId = "<%= intZonaId %>";
 
             if (intDireccionId == "-1") {
                 document.forms[0].elements["cboDireccionOperativa"].options[1].selected = true;
-                //document.forms[0].elements["cboZonaOperativa"].options[1].selected = true;
-                //disabledZona();
             }
             if (intZonaId == "-1") {
                 document.forms[0].elements["cboZonaOperativa"].options[1].selected = true;
@@ -73,16 +60,32 @@
 
             //Radio button Tipo de Consulta
             var intTipoConsulta = "<%= intTipoConsulta()%>";
-        if (intTipoConsulta == "1") {
-            document.forms[0].elements['rdResumen'].checked = true;
-        }
-        if (intTipoConsulta == "2") {
-            document.forms[0].elements['rdDetalle'].checked = true;
-        }
-        else {
+            if (intTipoConsulta == "1") {
+                document.forms[0].elements['rdResumen'].checked = true;
+            }
+            if (intTipoConsulta == "2") {
+                document.forms[0].elements['rdDetalle'].checked = true;
+            }
         }
 
-    }
+        function establecerNombreTitulo() {
+            // Administrador = 1 Coordinador RH = 2 Supervisor Medico = 3
+            var intTipoUsuarioId = "<%= intTipoUsuarioId()%>";
+
+            if (intTipoUsuarioId == "1") {
+                document.getElementById('divTitulo').innerHTML = '<h1>Asistencia - Administrador</h1>';
+            }
+            else if (intTipoUsuarioId == "2") {
+                document.getElementById('divTitulo').innerHTML = '<h1>Asistencia - Coordinador RH</h1>';
+                var trPerfil = document.getElementById('trPerfil');
+                trPerfil.style.display = 'none';
+            }
+            else if (intTipoUsuarioId == "3") {
+                document.getElementById('divTitulo').innerHTML = '<h1>Asistencia - Supervisor Médico</h1>';
+                var trPerfil = document.getElementById('trPerfil');
+                trPerfil.style.display = 'none';
+            }
+        }
 
     function strGetCustomDateTime() {
         document.write("<%=clsCommons.strGetCustomDateTime("dd/MM/yyyy - hh:mm:ss") %>");
@@ -562,7 +565,6 @@ function mostrarCboAsistencia(obj) {
     document.getElementById(hdnCambioMovimiento).value = "true";
 }
 
-//-->
     </script>
 
     <style type="text/css">
