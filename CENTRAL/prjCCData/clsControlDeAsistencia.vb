@@ -1361,6 +1361,7 @@ Public Class clsControlDeAsistencia
                                                         ByVal dtmFechaInicio As Date, _
                                                         ByVal dtmFechaFin As Date, _
                                                         ByVal intControlAsistenciaObservacionesId As Integer, _
+                                                        ByVal intTipoUsuarioId As Integer, _
                                                         ByVal strConnectionString As String) As Array
 
         ' Constantes locales
@@ -1391,6 +1392,8 @@ Public Class clsControlDeAsistencia
             Call strSQLStatement.Append("'")
             Call strSQLStatement.Append(",")
             Call strSQLStatement.Append(intControlAsistenciaObservacionesId)
+            Call strSQLStatement.Append(",")
+            Call strSQLStatement.Append(intTipoUsuarioId)
 
             ' Ejecutamos el comando
             strConsultaResumenControlAsistenciaPorCoordinador = clsSQLOperation.strExecuteQuery(strSQLStatement.ToString, strConnectionString)
