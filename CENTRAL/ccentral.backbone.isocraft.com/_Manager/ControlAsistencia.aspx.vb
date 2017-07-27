@@ -30,6 +30,11 @@ Public Class ControlAsistencia
         SupervisorMedico = 3
     End Enum
 
+    Private Enum TipoConsulta
+        Resumen = 1
+        Detalle = 2
+    End Enum
+
 #Region " Web Form Designer Generated Code "
 
     'This call is required by the Web Form Designer.
@@ -538,11 +543,11 @@ Public Class ControlAsistencia
         If (strCmd = "cmdImprimir") Then
 
             'CONSULTA DE REGISTROS
-            If (intTipoConsulta = 1) Then
+            If (intTipoConsulta = TipoConsulta.Resumen) Then
                 'Resumen de Movimientos
                 objDataArrayMovimientos = ConsultarResumenControlAsistencia()
 
-            ElseIf (intTipoConsulta = 2) Then
+            ElseIf (intTipoConsulta = TipoConsulta.Detalle) Then
                 'Detalle de Movimientos
                 objDataArrayMovimientos = ConsultarDetalleControlAsistencia()
             Else
@@ -552,18 +557,17 @@ Public Class ControlAsistencia
             'FORMATO A TABLA CON RESULTADOS
             If IsArray(objDataArrayMovimientos) AndAlso objDataArrayMovimientos.Length > 0 Then
 
-                If (intTipoConsulta = 1) Then
+                If (intTipoConsulta = TipoConsulta.Resumen) Then
 
                     'Resumen
                     strRecordBrowserImpresion = clsCommons.strGenerateJavascriptString(strImpresionMovimientosResumen(objDataArrayMovimientos))
 
-                ElseIf (intTipoConsulta = 2) Then
+                ElseIf (intTipoConsulta = TipoConsulta.Detalle) Then
 
                     'Se formatea la informacion.  
                     strRecordBrowserImpresion = clsCommons.strGenerateJavascriptString(strImpresionMovimientosDetalle(objDataArrayMovimientos))
 
                 End If
-
 
                 'Se ennvia a impresion.
                 strHTML.Append("<script language='Javascript'>parent.fnImprimir( " & _
@@ -579,11 +583,11 @@ Public Class ControlAsistencia
             Dim objArrayExportar As System.Array = Nothing
 
             'CONSULTA DE REGISTROS
-            If (intTipoConsulta = 1) Then
+            If (intTipoConsulta = TipoConsulta.Resumen) Then
                 'Resumen de Movimientos
                 objArrayExportar = ConsultarResumenControlAsistencia()
 
-            ElseIf (intTipoConsulta = 2) Then
+            ElseIf (intTipoConsulta = TipoConsulta.Detalle) Then
                 'Detalle de Movimientos
                 objArrayExportar = ConsultarDetalleControlAsistencia()
             Else
@@ -597,11 +601,11 @@ Public Class ControlAsistencia
             'FORMATO A TABLA CON RESULTADOS
             If IsArray(objArrayExportar) AndAlso objArrayExportar.Length > 0 Then
 
-                If (intTipoConsulta = 1) Then
+                If (intTipoConsulta = TipoConsulta.Resumen) Then
                     'Resumen
                     Call Response.Write(strTablaConsultaResumenExportar(objArrayExportar))
 
-                ElseIf (intTipoConsulta = 2) Then
+                ElseIf (intTipoConsulta = TipoConsulta.Detalle) Then
                     'Detalle.  
                     Call Response.Write(strTablaConsultaDetalleExportar(objArrayExportar))
 
@@ -641,11 +645,11 @@ Public Class ControlAsistencia
                         End If
                     End If
 
-                    If (intTipoUsuarioId = 2 Or intTipoUsuarioId = 3) AndAlso (Len(Trim(Request("chkCodigo" & intPartida.ToString))) > 0) AndAlso (Request.Form("hdnConfirmado" & intPartida.ToString) = "1") Then
+                    If (intTipoUsuarioId = TipoUsuario.CoordinadorRH Or intTipoUsuarioId = TipoUsuario.SupervisorMedico) AndAlso (Len(Trim(Request("chkCodigo" & intPartida.ToString))) > 0) AndAlso (Request.Form("hdnConfirmado" & intPartida.ToString) = "1") Then
                         boolSinPermiso = True
                     End If
 
-                    If (Len(Trim(Request("chkCodigo" & intPartida.ToString))) > 0) AndAlso ((intTipoUsuarioId = 1) Or ((intTipoUsuarioId = 2 Or intTipoUsuarioId = 3) AndAlso (Request.Form("hdnConfirmado" & intPartida.ToString) = "0"))) Then
+                    If (Len(Trim(Request("chkCodigo" & intPartida.ToString))) > 0) AndAlso ((intTipoUsuarioId = TipoUsuario.Administrador) Or ((intTipoUsuarioId = TipoUsuario.CoordinadorRH Or intTipoUsuarioId = TipoUsuario.SupervisorMedico) AndAlso (Request.Form("hdnConfirmado" & intPartida.ToString) = "0"))) Then
 
                         boolSeleccion = True
 
@@ -719,7 +723,7 @@ Public Class ControlAsistencia
 
         If (strCmd = "cmdConsultar") Or (strCmd = "cmdConfirmar") Then
 
-            If (intTipoConsulta = 1) Then
+            If (intTipoConsulta = TipoConsulta.Resumen) Then
 
                 If (Request.QueryString("pager") = "true") Then
                     If Not Cache("cacheResumen") Is Nothing Then
@@ -735,7 +739,7 @@ Public Class ControlAsistencia
                     objArray = ConsultarResumenControlAsistencia()
                 End If
 
-            ElseIf (intTipoConsulta = 2) Then
+            ElseIf (intTipoConsulta = TipoConsulta.Detalle) Then
 
                 'Detalle de Movimientos
                 objArray = ConsultarDetalleControlAsistencia()
@@ -749,7 +753,7 @@ Public Class ControlAsistencia
                 'Cantidad de registros
                 strmTotalDePartidas = objArray.Length
 
-                If (intTipoConsulta = 1) Then
+                If (intTipoConsulta = TipoConsulta.Resumen) Then
 
                     Cache.Add("cacheResumen", objArray, Nothing, Date.Today.AddHours(1), System.Web.Caching.Cache.NoSlidingExpiration, System.Web.Caching.CacheItemPriority.Normal, Nothing)
 
@@ -926,7 +930,7 @@ Public Class ControlAsistencia
             cboAsistenciaObs = ObtenerAsistenciaObservaciones(strOpciones, intContador, mostrarCboMovimientoAjuste)
 
             'Combos con informacion de los ajustes
-            If intTipoUsuarioId = 1 Then
+            If intTipoUsuarioId = TipoUsuario.Administrador Then
                 'El administrador por Regla de Negocio tendra todas las opciones
                 cboMovimientoAjuste = ObtenerMovimientosAdmin(strConsultaRegistroDetalle, intContador)
 
@@ -942,12 +946,12 @@ Public Class ControlAsistencia
                 chkbox = "<input type='checkbox'" & idName & " onclick='javascript:fnMarcarUno()'/>"
                 strConfirmado = "0"
 
-            ElseIf ((CBool(strConsultaRegistroDetalle(12)) = True) AndAlso (intTipoUsuarioId = 1)) Then
+            ElseIf ((CBool(strConsultaRegistroDetalle(12)) = True) AndAlso (intTipoUsuarioId = TipoUsuario.Administrador)) Then
 
                 'Registro Confirmado, usuario = Aministrador
                 chkbox = "<input type='checkbox'" & idName & " checked onclick='javascript:fnMarcarUno()'/>"
 
-            ElseIf (CBool(strConsultaRegistroDetalle(12)) = True) AndAlso (intTipoUsuarioId = 2 Or intTipoUsuarioId = 3) Then
+            ElseIf (CBool(strConsultaRegistroDetalle(12)) = True) AndAlso (intTipoUsuarioId = TipoUsuario.CoordinadorRH Or intTipoUsuarioId = TipoUsuario.SupervisorMedico) Then
 
                 'Registro Confirmado, usuario = Coordinador RH
                 chkbox = "<input type='checkbox'" & idName & " checked disabled='disabled' onclick='javascript:fnMarcarUno()'/>"
@@ -1045,7 +1049,7 @@ Public Class ControlAsistencia
 
         astrRecords = Nothing
 
-        If (intTipoUsuarioId = 2 Or intTipoUsuarioId = 3) AndAlso (CBool(strConsultaRegistroDetalle(12)) = True) Then
+        If (intTipoUsuarioId = TipoUsuario.CoordinadorRH Or intTipoUsuarioId = TipoUsuario.SupervisorMedico) AndAlso (CBool(strConsultaRegistroDetalle(12)) = True) Then
 
             'Combo para Usuario = Coordinador RH con movimiento confirmado.
             cbo = "<select onchange='mostrarCboAsistencia(this);' disabled id='cbo" & intContador.ToString() & "' name='cbo" & intContador.ToString() & "' class='campotabla' style='width:85px'>"
@@ -1053,7 +1057,6 @@ Public Class ControlAsistencia
 
             'Combo para Usuario = Aministrador o Usuario = Coordinador RH sin confirmar movimiento.
             cbo = "<select onchange='mostrarCboAsistencia(this);' id='cbo" & intContador.ToString() & "' name='cbo" & intContador.ToString() & "' class='campotabla' style='width:85px'>"
-
         End If
 
         'Como primera opcion seleccionada = Movimiento del registro.

@@ -55,9 +55,7 @@
             if (intTipoNomina == "2") {
                 document.forms[0].elements['rdPorSemana'].checked = true;
             }
-            else {
-            }
-
+          
             //Radio button Tipo de Consulta
             var intTipoConsulta = "<%= intTipoConsulta()%>";
             if (intTipoConsulta == "1") {
@@ -368,11 +366,11 @@
         var confirmar = confirm('Desea exportar la informacion a Excel?');
         if (confirmar == true) {
             document.forms[0].action = '<%= strThisPageName%>?strCmd=cmdExportar';
-        document.forms[0].target = "ifrOculto";
-        document.forms[0].submit();
+            document.forms[0].target = "ifrOculto";
+            document.forms[0].submit();
 
-        return (true);
-    }
+            return (true);
+        }
 }
 
 function txtEmpleadoId_onKeyPress(e) {
@@ -510,7 +508,6 @@ function fnMarcarTodos() {
         if (document.getElementById('chkCodigo').checked == true) {
 
             document.getElementById('chkCodigo').checked = false;
-
         }
     }
 
