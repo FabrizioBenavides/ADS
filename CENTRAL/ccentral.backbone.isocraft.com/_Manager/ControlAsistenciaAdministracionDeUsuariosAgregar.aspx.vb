@@ -192,7 +192,7 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
         strContrasenaEncriptada = (New Hash.DataProtector).HashString(strUsuarioContrasena, Hash.DataProtector.CryptoServiceProvider.SHA1)
 
         fechaActual = Date.Now
-
+        ' blnDebeUsuarioCambiarContraseña
         intUsuarioId = clsUsuario.intAgregarEnConcentrador(intEmpleadoId, _
                                                            0, _
                                                            intEmpleadoId.ToString(), _
@@ -280,10 +280,10 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
             resultadoUsuarios.AppendFormat("<td class='{0}' style='text-align:left'>{1}</td>", colorRegistro, renglon.Item("Sucursal").ToString())
 
             resultadoUsuarios.AppendFormat("<td align='center' style='width: 50px;' class='{0}'>" & _
-                                             "<a href='#' onClick='eliminarSucursal(this)'>" & _
-                                             "{1}</a></td>", _
-                                              colorRegistro, _
-                                              imgDeshabilitarUsuario)
+                                           "<a href='#' onClick='eliminarSucursal(this)'>" & _
+                                           "{1}</a></td>", _
+                                           colorRegistro, _
+                                           imgDeshabilitarUsuario)
 
             resultadoUsuarios.Append("</tr>")
         Next
@@ -349,12 +349,12 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
 
             companiaSucursalSeparadaPorComa = companiaSucursalSeparadaPorPipe.GetValue(intIndice).ToString().Split(New Char() {","c})
 
-            resultadoAsignarSucursales = clsControlDeAsistencia.strAsignarSucursales2( _
-                                                                          intEmpleadoId, _
-                                                                          CInt(companiaSucursalSeparadaPorComa.GetValue(0)), _
-                                                                          CInt(companiaSucursalSeparadaPorComa.GetValue(1)), _
-                                                                          intTipoUsuarioId, _
-                                                                          strConnectionString)
+            resultadoAsignarSucursales = clsControlDeAsistencia. _
+                                         strAsignarSucursales2(intEmpleadoId, _
+                                                               CInt(companiaSucursalSeparadaPorComa.GetValue(0)), _
+                                                               CInt(companiaSucursalSeparadaPorComa.GetValue(1)), _
+                                                               intTipoUsuarioId, _
+                                                               strConnectionString)
 
             If resultadoAsignarSucursales.Length > 0 AndAlso IsArray(resultadoAsignarSucursales) Then
 
