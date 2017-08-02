@@ -227,7 +227,7 @@ Public Class ControlAsistenciaAdministracionEmpleadosModificaciones
             strHtmlCode = New StringBuilder
             strHtmlCode.Append("<SELECT class='campotabla' id='cmdDiaDescanso' onChange='cambioDiaDescanso()' style='width:150'>")
 
-            If ((intDia <> "1") And (intDia <> "2") And (intDia <> "3") And (intDia <> "4") And (intDia <> "5") And (intDia <> "6") And (intDia <> "7")) Then
+            If ((intDia <> "1") And (intDia <> "2") And (intDia <> "3") And (intDia <> "4") And (intDia <> "5") And (intDia <> "6") And (intDia <> "7")) And (intDia <> "8") Then
                 strHtmlCode.Append("<OPTION value='0' selected></OPTION>")
                 strHtmlCode.Append("<OPTION value='1'>Domingo</OPTION>")
                 strHtmlCode.Append("<OPTION value='2'>Lunes</OPTION>")
@@ -236,6 +236,7 @@ Public Class ControlAsistenciaAdministracionEmpleadosModificaciones
                 strHtmlCode.Append("<OPTION value='5'>Jueves</OPTION>")
                 strHtmlCode.Append("<OPTION value='6'>Viernes</OPTION>")
                 strHtmlCode.Append("<OPTION value='7'>Sabado</OPTION>")
+                strHtmlCode.Append("<OPTION value='8'>Sabado y Domingo</OPTION>")
             End If
 
             If (intDia = "1") Then
@@ -246,6 +247,7 @@ Public Class ControlAsistenciaAdministracionEmpleadosModificaciones
                 strHtmlCode.Append("<OPTION value='5'>Jueves</OPTION>")
                 strHtmlCode.Append("<OPTION value='6'>Viernes</OPTION>")
                 strHtmlCode.Append("<OPTION value='7'>Sabado</OPTION>")
+                strHtmlCode.Append("<OPTION value='8'>Sabado y Domingo</OPTION>")
             End If
 
             If (intDia = "2") Then
@@ -256,7 +258,7 @@ Public Class ControlAsistenciaAdministracionEmpleadosModificaciones
                 strHtmlCode.Append("<OPTION value='5'>Jueves</OPTION>")
                 strHtmlCode.Append("<OPTION value='6'>Viernes</OPTION>")
                 strHtmlCode.Append("<OPTION value='7'>Sabado</OPTION>")
-
+                strHtmlCode.Append("<OPTION value='8'>Sabado y Domingo</OPTION>")
             End If
 
             If (intDia = "3") Then
@@ -267,6 +269,7 @@ Public Class ControlAsistenciaAdministracionEmpleadosModificaciones
                 strHtmlCode.Append("<OPTION value='5'>Jueves</OPTION>")
                 strHtmlCode.Append("<OPTION value='6'>Viernes</OPTION>")
                 strHtmlCode.Append("<OPTION value='7'>Sabado</OPTION>")
+                strHtmlCode.Append("<OPTION value='8'>Sabado y Domingo</OPTION>")
             End If
 
             If (intDia = "4") Then
@@ -277,7 +280,7 @@ Public Class ControlAsistenciaAdministracionEmpleadosModificaciones
                 strHtmlCode.Append("<OPTION value='5'>Jueves</OPTION>")
                 strHtmlCode.Append("<OPTION value='6'>Viernes</OPTION>")
                 strHtmlCode.Append("<OPTION value='7'>Sabado</OPTION>")
-
+                strHtmlCode.Append("<OPTION value='8'>Sabado y Domingo</OPTION>")
             End If
 
             If (intDia = "5") Then
@@ -288,6 +291,7 @@ Public Class ControlAsistenciaAdministracionEmpleadosModificaciones
                 strHtmlCode.Append("<OPTION value='5' selected>Jueves</OPTION>")
                 strHtmlCode.Append("<OPTION value='6'>Viernes</OPTION>")
                 strHtmlCode.Append("<OPTION value='7'>Sabado</OPTION>")
+                strHtmlCode.Append("<OPTION value='8'>Sabado y Domingo</OPTION>")
             End If
 
             If (intDia = "6") Then
@@ -298,6 +302,7 @@ Public Class ControlAsistenciaAdministracionEmpleadosModificaciones
                 strHtmlCode.Append("<OPTION value='5'>Jueves</OPTION>")
                 strHtmlCode.Append("<OPTION value='6' selected>Viernes</OPTION>")
                 strHtmlCode.Append("<OPTION value='7'>Sabado</OPTION>")
+                strHtmlCode.Append("<OPTION value='8'>Sabado y Domingo</OPTION>")
             End If
 
             If (intDia = "7") Then
@@ -308,6 +313,18 @@ Public Class ControlAsistenciaAdministracionEmpleadosModificaciones
                 strHtmlCode.Append("<OPTION value='5'>Jueves</OPTION>")
                 strHtmlCode.Append("<OPTION value='6'>Viernes</OPTION>")
                 strHtmlCode.Append("<OPTION value='7' selected>Sabado</OPTION>")
+                strHtmlCode.Append("<OPTION value='8'>Sabado y Domingo</OPTION>")
+            End If
+
+            If (intDia = "8") Then
+                strHtmlCode.Append("<OPTION value='1'>Domingo</OPTION>")
+                strHtmlCode.Append("<OPTION value='2'>Lunes</OPTION>")
+                strHtmlCode.Append("<OPTION value='3'>Martes</OPTION>")
+                strHtmlCode.Append("<OPTION value='4'>Miercoles</OPTION>")
+                strHtmlCode.Append("<OPTION value='5'>Jueves</OPTION>")
+                strHtmlCode.Append("<OPTION value='6'>Viernes</OPTION>")
+                strHtmlCode.Append("<OPTION value='7'>Sabado</OPTION>")
+                strHtmlCode.Append("<OPTION value='8' selected>Sabado y Domingo</OPTION>")
             End If
 
             Return strHtmlCode.ToString()

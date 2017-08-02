@@ -20,6 +20,7 @@ Public Class ControlAsistenciaAdministracionEmpleadosMedicosTurnos
     Private _blnTieneDiaDescanso As Boolean = False
     Private Const VALOR_DIA_DESCANSO As Integer = 0
     Private Const CANTIDAD_DIAS_SEMANA As Integer = 7
+    Private Const SABADO_Y_DOMINGO_ID As Integer = 8
 
     Public ReadOnly Property intEmpleadoId() As Integer
         Get
@@ -325,14 +326,20 @@ Public Class ControlAsistenciaAdministracionEmpleadosMedicosTurnos
         Dim strBotonDeshabilitado As String = String.Empty
         Dim blnEsDiaDescanso As Boolean = False
         Dim blnEsDiaActual As Boolean = False
+        Dim blnDescansaSabadoYDomingo As Boolean = False
+        Dim blnEsFinDeSemana As Boolean = False
+
+        blnDescansaSabadoYDomingo = (intDiaDescanso = SABADO_Y_DOMINGO_ID)
+        blnEsFinDeSemana = (intContadorDiaSemana = 1 Or intContadorDiaSemana = 7)
 
         blnEsDiaDescanso = (intDiaDescanso = intContadorDiaSemana)
         blnEsDiaActual = ((intDiaSemanaHoy + 1) = intContadorDiaSemana)
 
-        If blnEsDiaDescanso Or blnEsDiaActual Then
+        If (blnDescansaSabadoYDomingo And blnEsFinDeSemana) Or blnEsDiaDescanso Or blnEsDiaActual Then
+
             strBotonDeshabilitado = "DISABLED"
         End If
-   
+
         Return strBotonDeshabilitado
     End Function
 
@@ -391,6 +398,7 @@ Public Class ControlAsistenciaAdministracionEmpleadosMedicosTurnos
         Dim resultadoDiaDescanso As Array = Nothing
         Dim intDiaSemanaDescanso As Integer
         Dim strBotonDeshabilitado As String = String.Empty
+        Dim blnEsFinDeSemana As Boolean = False
 
         intCantidadRenglonesTabla = objHorarioLaboralEmpleado.Length - 1
 
@@ -413,7 +421,10 @@ Public Class ControlAsistenciaAdministracionEmpleadosMedicosTurnos
 
                 strRenglonesTablaHorario.Append("<td height='21' align='center' class='tdtittablas3'>")
 
-                If intContadorDiaSemana = intDiaSemanaDescanso Then
+                blnEsFinDeSemana = (intContadorDiaSemana = 1 Or intContadorDiaSemana = 7)
+
+                If (intContadorDiaSemana = intDiaSemanaDescanso) Or _
+                   ((blnEsFinDeSemana) And intDiaSemanaDescanso = SABADO_Y_DOMINGO_ID) Then
                     strBotonDeshabilitado = "DISABLED"
                 End If
 
@@ -430,7 +441,7 @@ Public Class ControlAsistenciaAdministracionEmpleadosMedicosTurnos
         Return strRenglonesTablaHorario.ToString()
     End Function
 
-    Private Function intObtenerDiaSemanaDescanso() As Integer
+    Protected Function intObtenerDiaSemanaDescanso() As Integer
         Dim intDiaSemanaDescanso As Integer
         Dim objResultado As Array
         Dim renglonEmpleado As SortedList

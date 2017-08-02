@@ -471,6 +471,7 @@ function cambioDiaDescanso() {
     var diaDescanso = document.forms[0].elements["cmdDiaDescanso"].value; // se obtiene el dia de descanso de lo que diga el combo dia de descanso
 
     var strGrupo = "<%= strGrupoDescripcion()%>";
+
     if ((strGrupo == 'ADMINISTRATIVO') && (diaDescanso != '1')) {
         document.forms[0].elements["cmdDiaDescanso"].value = '1';
         alert('El dia de descanso para el empleado administrativo es el domingo, no lo puede cambiar.');
