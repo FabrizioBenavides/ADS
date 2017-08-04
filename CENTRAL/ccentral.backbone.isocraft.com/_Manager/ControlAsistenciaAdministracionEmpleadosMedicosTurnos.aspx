@@ -121,7 +121,7 @@
             return esValido;
         }
 
-        // Valida si esta haciendo un nuevo horario o está modificando.
+        // Valida si esta haciendo un nuevo horario o está modificando uno existente.
         function validarHorarioNuevo(cantidadDiasDescanso) {
             var botonesDiaSemana;
             var cantidadBotonesSeleccionados = 0;

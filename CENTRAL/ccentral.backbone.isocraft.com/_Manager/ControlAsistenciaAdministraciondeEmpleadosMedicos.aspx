@@ -37,6 +37,45 @@
                                    "&intEmpleadoId=" + intEmpleadoId;
         }
 
+        function btnImprimir_onclick() {
+            var cadenaImprimir;
+            var tblAdminEmpleados = document.getElementById('tblAdminEmpleados');
+            var ventanaNueva = window.open('', '', 'height=800, width=1000');
+
+            if (tblAdminEmpleados != null) {
+                
+                cadenaImprimir = "<H2>Catálogo de Empleados Médicos</H2>";
+                cadenaImprimir = cadenaImprimir + "<table border='1px'>";
+                cadenaImprimir = cadenaImprimir + "<tr bgcolor='#87AFC6'>";
+                cadenaImprimir = cadenaImprimir + "<th>No. Empleado</th>";
+                cadenaImprimir = cadenaImprimir + "<th>Nombre</th>";
+                cadenaImprimir = cadenaImprimir + "<th>Sucursal</th>";
+                cadenaImprimir = cadenaImprimir + "</tr>";
+
+                for (var i = 1, renglon; renglon = tblAdminEmpleados.rows[i]; i++) {
+                    cadenaImprimir = cadenaImprimir + "<tr>";
+
+                    for (var j = 0, columna; columna = renglon.cells[j]; j++) {
+
+                        if (j <= 2) {
+                            cadenaImprimir = cadenaImprimir + "<td>" + columna.innerHTML + "</td>";
+                        }
+                    }
+                    cadenaImprimir = cadenaImprimir + "</tr>";
+                }
+
+                cadenaImprimir = cadenaImprimir + "</table>";
+
+                ventanaNueva.document.write(cadenaImprimir);
+
+                ventanaNueva.document.close();
+                ventanaNueva.focus();
+                ventanaNueva.print();
+                ventanaNueva.close();
+            }
+        }
+
+
 
         new menu(MENU_ITEMS, MENU_POS);
     </script>
@@ -72,7 +111,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <input id="btnImprimir" type="button" class="boton" value="Imprimir" onclick="">
+                                <input id="btnImprimir" type="button" class="boton" value="Imprimir" onclick="btnImprimir_onclick()">
                             </td>
                         </tr>
                     </table>

@@ -27,10 +27,6 @@
 
     function window_onload() {
         document.forms[0].action = "<%= strFormAction %>";
-
-        //Llenado de Combos
-        //<= LlenarControlCoordinadoresRH()%>
-
     }
 
     function strGetCustomDateTime() {
@@ -76,15 +72,7 @@
 
 function fnValidaCampos() {
 
-    //Validaciones
-    //if (document.getElementById('cboCoordinadoresRH').value == "0") {
-
-    //    alert('Seleccione un Coordinador');
-    //    document.getElementById('cboCoordinadoresRH').focus();
-    //    return (false);
-
-    //}
-    /*else*/ if (trim(document.getElementById('dtmFechaIni').value) == '' || trim(document.getElementById('dtmFechaIni').value) == '') {
+    if (trim(document.getElementById('dtmFechaIni').value) == '' || trim(document.getElementById('dtmFechaIni').value) == '') {
 
         alert('Capture la fecha por favor');
         return (false);
@@ -300,16 +288,6 @@ function cmdImprimir_onclick() {
                                         <img src="../static/images/bullet_subtitulos.gif" width="17" height="11" align="absmiddle">Coordinador RH
                                     </td>
                                 </tr>
-                                <%--<tr>
-                                        <td class="tdtexttablebold" style="width: 150px" >Coordinadores RH</td>
-                                        <td class="tdpadleft5" style="width: 240px">
-                                            <select id="cboCoordinadoresRH" name="cboCoordinadoresRH" class="campotabla" style="width:220px" onchange="return cboCoordinadoresRH_onchange()">
-                                                <option selected="selected" value="0">&raquo; Elija un coordinador &laquo;</option>
-                                                <option value="-1">&raquo; Todos los coordinadores &laquo;</option>
-							                </select>
-                                        </td>--%>
-                                    <%--</td>--%>
-                                <%--</tr>--%>
                                 <tr>
                                         <td class="tdtexttablebold" style="width: 150px">Estatus</td><!--onchange="return cboEstatus_onchange()"-->
                                         <td class="tdpadleft5" style="width: 240px">
@@ -319,7 +297,6 @@ function cmdImprimir_onclick() {
                                                 <option value="0">&raquo; No Confirmados &laquo;</option>
 							                </select>
                                         </td>
-                                    <%--</td>--%>
                                 </tr>
                                 <tr>
                                         <td class="tdtexttablebold" style="width: 150px">Tipo de Nomina</td><!--onchange="return cboEstatus_onchange()"-->
@@ -330,11 +307,8 @@ function cmdImprimir_onclick() {
                                                 <option value="1">&raquo; Por Quincena &laquo;</option>
 							                </select>
                                         </td>
-                                    <%--</td>--%>
                                 </tr>
                             </table>
-
-
                         </td>
                         <td width="50%" valign="top">
                             <table width="100%">

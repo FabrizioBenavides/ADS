@@ -421,7 +421,6 @@ Public Class ControlAsistenciaReportePorCoordinador
         strTablaReporteHTML.Append("<table width='100%' border='0' cellpadding='0' cellspacing='0'>")
 
         strTablaReporteHTML.Append("<tr class='trtitulos'>")
-        'strTablaReporteHTML.Append("<th class='rayita' align='center' valign='top'>Coordinador RH</th>")
         strTablaReporteHTML.Append("<th class='rayita' align='center' valign='top'>Centro Logistico</th>")
         strTablaReporteHTML.Append("<th class='rayita' align='center' valign='top'>Sucursal</th>")
         strTablaReporteHTML.Append("<th class='rayita' align='center' valign='top'>Movimiento</th>")
@@ -447,25 +446,13 @@ Public Class ControlAsistenciaReportePorCoordinador
             End If
 
             strTablaReporteHTML.Append("<tr>")
-            ' Coordinador RH
-            'strTablaReporteHTML.Append("<td align=center class=" & "tdceleste" & ">" & clsCommons.strFormatearDescripcion(strConsultaReporte(1)) & "</td>")
-            ' Centro Logistico 1
             strTablaReporteHTML.Append("<td id=Division" & intContador & " align=center class=" & "tdceleste" & ">" & strConsultaReporte(2) & "</td>")
-            ' Sucursal
             strTablaReporteHTML.Append("<td align=left class=" & "tdceleste" & ">" & clsCommons.strFormatearDescripcion(strConsultaReporte(3)) & "</td>")
-            ' Movimiento
             strTablaReporteHTML.Append("<td align=center class=" & "tdceleste" & ">" & strConsultaReporte(4).ToString() & "</td>")
-            ' Descripcion
             strTablaReporteHTML.Append("<td align=center class=" & "tdceleste" & ">" & clsCommons.strFormatearDescripcion(strConsultaReporte(5)) & "</td>")
-            ' Movimientos Originales
             strTablaReporteHTML.Append("<td align=center class=" & "tdceleste" & ">" & strConsultaReporte(6).ToString() & "</td>")
-            ' Ajustes
             strTablaReporteHTML.Append("<td align=center class=" & "tdceleste" & ">" & strConsultaReporte(7).ToString() & "</td>")
-
-            ' Sin Confirmar
-            'strTablaReporteHTML.Append("<td align=center class=" & "tdceleste" & ">" & intContador.ToString() & "</td>")
             strTablaReporteHTML.Append("</tr>")
-
         Next
 
         strTablaReporteHTML.Append("</tr>")

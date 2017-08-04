@@ -44,23 +44,73 @@
         }
 
         function btnBuscar_onclick() {
-
             var nombreEmpleado = "<%=NombreEmpleado%>";
             var intEmpleadoId = "<%=intEmpleadoId%>";
             var dtmFechaInicio = document.getElementById("dtmFechaInicio").value;
             var dtmFechaFin = document.getElementById("dtmFechaFin").value;
 
-            document.forms[0].action = "ControlAsistenciaMovimientosEmpleadosMedicos.aspx?strCmd2=Buscar" +
-                                       "&NombreEmpleado=" + nombreEmpleado +
-                                       "&intEmpleadoId=" + intEmpleadoId +
-                                       "&dtmFechaInicio=" + dtmFechaInicio +
-                                       "&dtmFechaFin=" + dtmFechaFin;
+            if (validarCamposVacios(dtmFechaInicio, dtmFechaFin)) {
 
-            document.forms(0).submit();
+                document.forms[0].action = "ControlAsistenciaMovimientosEmpleadosMedicos.aspx?strCmd2=Buscar" +
+                                           "&NombreEmpleado=" + nombreEmpleado +
+                                           "&intEmpleadoId=" + intEmpleadoId +
+                                           "&dtmFechaInicio=" + dtmFechaInicio +
+                                           "&dtmFechaFin=" + dtmFechaFin;
+
+                document.forms(0).submit();
+            }
+            else {
+                window.alert("Favor de elegir una fecha inicial y fecha final.");
+            }
         }
 
-        function validarCamposVacios() {
+        function validarCamposVacios(dtmFechaInicio, dtmFechaFin) {
+            var esValido = false;
 
+            if (dtmFechaInicio != "" && dtmFechaFin != "") {
+                esValido = true;
+            }
+
+            return esValido;
+        }
+
+        function btnImprimir_onclick() {
+            var cadenaImprimir;
+            var tblMovimientos = document.getElementById('tblMovimientos');
+            var ventanaNueva = window.open('', '', 'height=800, width=1000');
+
+            if (tblMovimientos != null) {
+         
+                cadenaImprimir = "<H2>Consulta de Movimientos de Médico</H2>";
+                cadenaImprimir = cadenaImprimir + "<table border='1px'>";
+                cadenaImprimir = cadenaImprimir + "<tr bgcolor='#87AFC6'>";
+                cadenaImprimir = cadenaImprimir + "<th>Fec. Mov.</th>";
+                cadenaImprimir = cadenaImprimir + "<th>Empleado</th>";
+                cadenaImprimir = cadenaImprimir + "<th>Nombre</th>";
+                cadenaImprimir = cadenaImprimir + "<th>Entrada</th>";
+                cadenaImprimir = cadenaImprimir + "<th>Salida</th>";
+                cadenaImprimir = cadenaImprimir + "<th>Movimientos</th>";
+                cadenaImprimir = cadenaImprimir + "</tr>";
+
+                for (var i = 1, renglon; renglon = tblMovimientos.rows[i]; i++) {
+                    cadenaImprimir = cadenaImprimir + "<tr>";
+
+                    for (var j = 0, columna; columna = renglon.cells[j]; j++) {
+
+                        cadenaImprimir = cadenaImprimir + "<td>" + columna.innerHTML + "</td>";
+                    }
+                    cadenaImprimir = cadenaImprimir + "</tr>";
+                }
+
+                cadenaImprimir = cadenaImprimir + "</table>";
+
+                ventanaNueva.document.write(cadenaImprimir);
+
+                ventanaNueva.document.close();
+                ventanaNueva.focus();
+                ventanaNueva.print();
+                ventanaNueva.close();
+            }
         }
 
         new menu(MENU_ITEMS, MENU_POS);
@@ -122,7 +172,7 @@
                         <tr>
                             <td colspan='3'>
                                 <input id="btnRegresar" type="button" class="boton" value="Regresar" onclick="return btnRegresar_onclick();">
-                                <input id="btnImprimir" type="button" class="boton" value="Imprimir" onclick="">
+                                <input id="btnImprimir" type="button" class="boton" value="Imprimir" onclick="return btnImprimir_onclick();">
                                 <input id="btnBuscar" type="button" class="boton" value="Buscar" onclick="return btnBuscar_onclick();">
                             </td>
                         </tr>

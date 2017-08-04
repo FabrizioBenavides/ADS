@@ -18,7 +18,7 @@ Public Class ControlAsistenciaAdministraciondeEmpleadosMedicos
 
         If Benavides.CC.Business.clsConcentrador.clsControlAcceso.blnPermitirAccesoObjeto(intGrupoUsuarioId, strThisPageName, strConnectionString) = False Or _
             Not TipoUsuario.SupervisorMedico = 3 Then
-            Call Response.Redirect("../Default.aspx")
+            'Call Response.Redirect("../Default.aspx")
         End If
 
     End Sub
@@ -31,7 +31,7 @@ Public Class ControlAsistenciaAdministraciondeEmpleadosMedicos
                      strBuscarEmpleadosMedicos(CInt(strUsuarioNombre), strConnectionString)
                                                         
         If IsArray(objMedicos) AndAlso objMedicos.Length > 0 Then
-            strResultadoTablaMedicos.Append("<table width='100%' border='0' cellpadding='0' cellspacing='0'>")
+            strResultadoTablaMedicos.Append("<table id='tblAdminEmpleados' width='100%' border='0' cellpadding='0' cellspacing='0'>")
             strResultadoTablaMedicos.Append("<tr class='trtitulos'>")
             strResultadoTablaMedicos.Append("<th class='rayita' style='text-align:left'>No. Empleado</th>")
             strResultadoTablaMedicos.Append("<th class='rayita' style='text-align:left'>Nombre</th>")

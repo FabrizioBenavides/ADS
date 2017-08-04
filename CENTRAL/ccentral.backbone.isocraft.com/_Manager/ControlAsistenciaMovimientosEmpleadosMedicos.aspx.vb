@@ -82,13 +82,6 @@ Public Class ControlAsistenciaMovimientosEmpleadosMedicos
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-        'Select Case strCmd2
-
-        '    Case "Buscar"
-
-
-        'End Select
-
     End Sub
 
     Protected Function strConsultarMovimientosEmpleadosMedicos() As String
@@ -106,7 +99,7 @@ Public Class ControlAsistenciaMovimientosEmpleadosMedicos
                                                                              strConnectionString)
 
             If IsArray(objMovimientosMedicos) AndAlso objMovimientosMedicos.Length > 0 Then
-                strResultadoTablaMovimientosMedicos.Append("<table width='100%' border='0' cellpadding='0' cellspacing='0'>")
+                strResultadoTablaMovimientosMedicos.Append("<table id='tblMovimientos' width='100%' border='0' cellpadding='0' cellspacing='0'>")
                 strResultadoTablaMovimientosMedicos.Append("<tr class='trtitulos'>")
                 strResultadoTablaMovimientosMedicos.Append("<th class='rayita' style='text-align:left'>Fec. Mov.</th>")
                 strResultadoTablaMovimientosMedicos.Append("<th class='rayita' style='text-align:left'>Empleado</th>")
