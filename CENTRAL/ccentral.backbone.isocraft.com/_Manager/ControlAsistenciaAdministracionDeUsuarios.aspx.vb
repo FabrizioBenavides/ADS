@@ -7,6 +7,12 @@ Imports System.Text
 Public Class ControlAsistenciaAdministracionDeUsuarios
     Inherits PaginaBase
 
+    Private Enum TipoUsuario
+        Administrador = 1
+        CoordinadorRH = 2
+        SupervisorMedico = 3
+    End Enum
+
     Public ReadOnly Property intGrupoUsuarioSeleccionadoId() As Integer
         Get
             Dim objArray As Array = Nothing
@@ -64,13 +70,11 @@ Public Class ControlAsistenciaAdministracionDeUsuarios
 
     Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         ' Enviamos al usuario actual a la página de acceso, si no tiene privilegios de acceder a esta página
-        'If Benavides.CC.Business.clsConcentrador.clsControlAcceso.blnPermitirAccesoObjeto(intGrupoUsuarioId, strThisPageName, strConnectionString) = False Or Not intTipoUsuarioId = 1 Or CInt(strUsuarioNombre) = 40014547 Then
-        '    Call Response.Redirect("../Default.aspx")
-        'End If
-
-        'If Benavides.CC.Business.clsConcentrador.clsControlAcceso.blnPermitirAccesoObjeto(intGrupoUsuarioId, strThisPageName, strConnectionString) = False Or Not intTipoUsuarioId = 1 Then
-        '    Call Response.Redirect("../Default.aspx")
-        'End If
+      
+        If Benavides.CC.Business.clsConcentrador.clsControlAcceso.blnPermitirAccesoObjeto(intGrupoUsuarioId, strThisPageName, strConnectionString) = False Or _
+            Not intTipoUsuarioId = TipoUsuario.Administrador Then
+            Call Response.Redirect("../Default.aspx")
+        End If
 
         Select Case strCmd2
             Case "Buscar"

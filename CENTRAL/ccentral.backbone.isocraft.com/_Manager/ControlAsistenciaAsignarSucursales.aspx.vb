@@ -290,12 +290,6 @@ Public Class ControlAsistenciaAsignarSucursales
 
     Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
-        ' Enviamos al usuario actual a la página de acceso, si no tiene privilegios de acceder a esta página
-        'If Benavides.CC.Business.clsConcentrador.clsControlAcceso.blnPermitirAccesoObjeto(intGrupoUsuarioId, strThisPageName, strConnectionString) = False Or _
-        '    Not intTipoUsuarioId = 1 Or CInt(strUsuarioNombre) = 40014547 Then
-        '    Call Response.Redirect("../Default.aspx")
-        'End If
-
         ' Almacenamos el comando ejecutado
         strCmd = isocraft.commons.clsWeb.strGetPageParameter("strCmd", "")
 
@@ -311,9 +305,6 @@ Public Class ControlAsistenciaAsignarSucursales
                     Call Response.Write("<html>" & vbCrLf)
                     Call Response.Write("<head>" & vbCrLf)
                     Call Response.Write("<script language=""javascript"">" & vbCrLf)
-                    'Call Response.Write("window.opener.document.forms[0].elements[""txtSucursales""].value=""" & Request.Form("cboSucursal") & """;" & vbCrLf)
-                    'Call Response.Write("window.opener.document.forms[0].elements[""txtCmd""].value=""Vincular"";" & vbCrLf)
-                    'Call Response.Write("window.opener.document.forms[0].submit();" & vbCrLf)
                     Call Response.Write("window.opener.document.getElementById(""sucursales"").innerHTML =""" & FormarTablaSucursales() & """;" & vbCrLf)
                     Call Response.Write("window.close();" & vbCrLf)
                     Call Response.Write("</script>" & vbCrLf)

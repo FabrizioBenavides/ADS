@@ -103,81 +103,50 @@
         }
 
         function validarAplicarHorario() {
-            var esValido = false;
-            var cantidadDiasSemana = 7;
-            var botones;
-            var cantidadBotonesAValidar;
-            var cantidadBotonesSeleccionados = 0;
-            var yaTieneHorarioAsignado;
+            var tieneEmpleadoHorarioAsignado;
             var diaSemanaDescanso = '<%=intObtenerDiaSemanaDescanso()%>';
-            var sabadoYDomingo = 8;
+            var cantidadDiasDescanso = 1;
+            var esValido = true;
 
-            yaTieneHorarioAsignado = validarYaTieneHorarioAsignado();
-    
-            if (yaTieneHorarioAsignado == true) {
-
-                cantidadBotonesAValidar = 5;
-
-                if (diaSemanaDescanso == sabadoYDomingo) {
-                    cantidadBotonesAValidar = cantidadBotonesAValidar - 1;
-                }
+            if (diaSemanaDescanso == 8) {
+                cantidadDiasDescanso = 2;
             }
-            else {
-                cantidadBotonesAValidar = 6;
+            
+            tieneEmpleadoHorarioAsignado = '<%=strTieneHorarioEmpleadoAsignado()%>';
 
-                if (diaSemanaDescanso == sabadoYDomingo) {
-                    cantidadBotonesAValidar = cantidadBotonesAValidar - 1;
-                }
+            if (tieneEmpleadoHorarioAsignado == "False") {
+                esValido = validarHorarioNuevo(cantidadDiasDescanso);
             }
+            
+            return esValido;
+        }
+
+        // Valida si esta haciendo un nuevo horario o está modificando.
+        function validarHorarioNuevo(cantidadDiasDescanso) {
+            var botonesDiaSemana;
+            var cantidadBotonesSeleccionados = 0;
+            var cantidadDiasSemana = 7;
+            var esValido = false;
 
             for (var i = 1; i <= cantidadDiasSemana; i++) {
 
-                botones = document.getElementsByName("dia" + i);
+                botonesDiaSemana = document.getElementsByName("dia" + i);
 
-                for (var j = 0; j < botones.length; j++) {
-                
-                    if (botones[j].checked == true && botones[j].disabled == false) {
+                for (var j = 0; j < botonesDiaSemana.length; j++) {
+
+                    if (botonesDiaSemana[j].checked == true && botonesDiaSemana[j].disabled == false) {
                         cantidadBotonesSeleccionados = cantidadBotonesSeleccionados + 1;
                         break;
                     }
                 }
             }
 
-            if (cantidadBotonesSeleccionados == cantidadBotonesAValidar) {
+            if ((cantidadDiasDescanso == 1 && cantidadBotonesSeleccionados == 6) ||
+                (cantidadDiasDescanso == 2 && cantidadBotonesSeleccionados == 5)) {
                 esValido = true;
             }
 
             return esValido;
-        }
-
-        // Valida si esta haciendo un nuevo horario o está modificando.
-        function validarYaTieneHorarioAsignado() {
-            var yaTieneHorarioAsignado = false;
-            var cantidadDiasSemana = 7;
-            var botones;
-            var cantidadBotonesDeshabilitadosPorDia = 0;
-
-            for (var i = 1; i <= cantidadDiasSemana; i++) {
-
-                botones = document.getElementsByName("dia" + i);
-
-                for (var j = 0; j < botones.length; j++) {
-
-                    if (botones[j].disabled) {
-                        cantidadDeshabilitados = cantidadBotonesDeshabilitadosPorDia + 1;
-                        break;
-                    }
-                }
-            }
-
-            if (cantidadBotonesDeshabilitadosPorDia == 1) {
-                yaTieneHorarioAsignado = false;
-            }
-            else if (cantidadBotonesDeshabilitadosPorDia == 2) {
-                yaTieneHorarioAsignado = true;
-            }
-
-            return yaTieneHorarioAsignado;
         }
 
         new menu(MENU_ITEMS, MENU_POS);

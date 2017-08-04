@@ -8,7 +8,18 @@ Imports System.Text
 Public Class ControlAsistenciaAdministraciondeEmpleadosMedicos
     Inherits PaginaBase
 
+    Private Enum TipoUsuario
+        Administrador = 1
+        CoordinadorRH = 2
+        SupervisorMedico = 3
+    End Enum
+
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+
+        If Benavides.CC.Business.clsConcentrador.clsControlAcceso.blnPermitirAccesoObjeto(intGrupoUsuarioId, strThisPageName, strConnectionString) = False Or _
+            Not TipoUsuario.SupervisorMedico = 3 Then
+            Call Response.Redirect("../Default.aspx")
+        End If
 
     End Sub
 

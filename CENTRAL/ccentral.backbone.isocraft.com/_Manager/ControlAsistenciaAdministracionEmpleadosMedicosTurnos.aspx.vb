@@ -191,7 +191,7 @@ Public Class ControlAsistenciaAdministracionEmpleadosMedicosTurnos
                                      clsRolMedico. _
                                      strBuscarAsignacionHorarioLaboralPorEmpleadoId(intEmpleadoId, strConnectionString)
 
-        strResultadoTablaHorario.Append("<table id='Table2' class='tdenvolventetablas' cellspacing='0' cellpadding='0' valign='top'>")
+        strResultadoTablaHorario.Append("<table id='tablaHorario' class='tdenvolventetablas' cellspacing='0' cellpadding='0' valign='top'>")
         strResultadoTablaHorario.Append("<tr>")
         strResultadoTablaHorario.Append("<th height='25' align='center' class='txsubtitulo' colspan='2'>Horario</th>")
         strResultadoTablaHorario.Append("<th height='25' align='center' class='txsubtitulo'>&nbsp;Domingo&nbsp;</th>")
@@ -425,6 +425,7 @@ Public Class ControlAsistenciaAdministracionEmpleadosMedicosTurnos
 
                 If (intContadorDiaSemana = intDiaSemanaDescanso) Or _
                    ((blnEsFinDeSemana) And intDiaSemanaDescanso = SABADO_Y_DOMINGO_ID) Then
+
                     strBotonDeshabilitado = "DISABLED"
                 End If
 
@@ -453,6 +454,21 @@ Public Class ControlAsistenciaAdministracionEmpleadosMedicosTurnos
         intDiaSemanaDescanso = CInt(renglonEmpleado.Item("intDiaSemanaId"))
 
         Return intDiaSemanaDescanso
+    End Function
+
+    Protected Function strTieneHorarioEmpleadoAsignado() As String
+        Dim objHorarioAsignadoEmpleado As Array
+        Dim blnTieneEmpleadoHorarioAsignado As Boolean = False
+
+        objHorarioAsignadoEmpleado = clsControlDeAsistencia. _
+                                     clsRolMedico. _
+                                     strBuscarAsignacionHorarioLaboralPorEmpleadoId(intEmpleadoId, strConnectionString)
+
+        If Not objHorarioAsignadoEmpleado Is Nothing AndAlso objHorarioAsignadoEmpleado.Length > 0 Then
+            blnTieneEmpleadoHorarioAsignado = True
+        End If
+
+        Return blnTieneEmpleadoHorarioAsignado.ToString()
     End Function
 
 End Class

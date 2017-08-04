@@ -21,8 +21,6 @@
             <%= strJavascriptWindowOnLoadCommands %>
             <%= strLlenarDireccionComboBox() %>
             <%= strLlenarZonaComboBox() %>
-            //<= strLlenarSucursalComboBox() %>
-
         }
 
     function strEmpleadoId() {

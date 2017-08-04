@@ -15,6 +15,7 @@ Public Class ControlAsistenciaReporte
     Inherits System.Web.UI.Page
 
     Private Enum TipoUsuario
+        Administrador = 1
         CoordinadorRH = 2
         SupervisorMedico = 3
     End Enum

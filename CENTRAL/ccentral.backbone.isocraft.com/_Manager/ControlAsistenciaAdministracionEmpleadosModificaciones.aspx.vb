@@ -204,30 +204,10 @@ Public Class ControlAsistenciaAdministracionEmpleadosModificaciones
             Dim objArrayEmpleadoRol As Array = Nothing
             Dim intDia As String = Convert.ToString(DirectCast(resultArray.GetValue(1), String))
 
-            'Obtenemos el grupo al que pertenece para saber si es de Empleado Oficina
-            'objArrayEmpleadoRol = Business.clsSucursal.clsEmpleado.strBuscar(intCompaniaId, intSucursalId, intEmpleadoId, False, strCadenaConexion)
-
-            'objArrayEmpleadoRol = clsEmpleado.strBuscar(intCompaniaId, intSucursalId, intEmpleadoId, False, strConnectionString)
-
-            'If IsArray(objArrayEmpleadoRol) AndAlso objArrayEmpleadoRol.Length > 0 Then
-
-            '    strSucursalEmpleadoRol = DirectCast(objArrayEmpleadoRol.GetValue(0), String())
-
-            '    If Len(strSucursalEmpleadoRol(11)) > 0 Then
-
-            '        strmGrupoDescripcion = strSucursalEmpleadoRol(11).ToString().Trim()
-
-            '        If strmGrupoDescripcion = "ADMINISTRATIVO" Then
-            '            blnEsGodinez = True
-            '        End If
-
-            '    End If
-            'End If
-
             strHtmlCode = New StringBuilder
             strHtmlCode.Append("<SELECT class='campotabla' id='cmdDiaDescanso' onChange='cambioDiaDescanso()' style='width:150'>")
 
-            If ((intDia <> "1") And (intDia <> "2") And (intDia <> "3") And (intDia <> "4") And (intDia <> "5") And (intDia <> "6") And (intDia <> "7")) And (intDia <> "8") Then
+            If ((intDia <> "1") And (intDia <> "2") And (intDia <> "3") And (intDia <> "4") And (intDia <> "5") And (intDia <> "6") And (intDia <> "7") And (intDia <> "8")) Then
                 strHtmlCode.Append("<OPTION value='0' selected></OPTION>")
                 strHtmlCode.Append("<OPTION value='1'>Domingo</OPTION>")
                 strHtmlCode.Append("<OPTION value='2'>Lunes</OPTION>")
