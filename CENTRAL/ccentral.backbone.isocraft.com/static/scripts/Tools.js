@@ -147,6 +147,17 @@ function printContent() {
   }
 }
 
+function printContent2() {
+    if (window.print) {
+        document.ifrPageToPrint.document.all.ToPrintTxtMigaja.innerHTML = document.all.ToPrintTxtMigaja.innerText;
+        document.ifrPageToPrint.document.all.ToPrintHtmContenido.innerHTML = document.all.ToPrintHtmContenido.innerHTML;
+        document.ifrPageToPrint.focus();
+        window.print();
+    } else {
+        alert("Tu navegador no soporta la función: Print.")
+    }
+}
+
 function MostrarMensaje(objCampo, strEtiquetaCampo, intTipoCampo, intNoMensaje, intLength, strCaracterNoValido) 
 {
   strMsgShowModal="";

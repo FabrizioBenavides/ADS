@@ -1624,7 +1624,7 @@ function calculadiasCapacitaciondesdeLoad() {
     // fin validacion fechas capacitacion
 
     function cmdImprimir_onclick() {
-        printContent();
+        printContent2();
         return (true);
     }
 
@@ -1643,188 +1643,193 @@ function calculadiasCapacitaciondesdeLoad() {
             </tr>
         </table>
         <table width="780" border="0" cellspacing="0" cellpadding="0">
-            <tr>
-                <td width="10">&nbsp;</td>
-                <td width="770" class="tdtab">Est&aacute; en : Sucursal : Control de Asistencia : Administración de Empleados Médicos </td>
+            <tr>   
+                <div id="ToPrintTxtMigaja"> 
+                    <td width="10">&nbsp;</td>
+                    <td width="770" class="tdtab">Est&aacute; en : Sucursal : Control de Asistencia : Administración de Empleados Médicos </td>
+                </div>
             </tr>
         </table>
-        <table width="780" border="0" cellpadding="0" cellspacing="0">
-            <tr>
-                <td class="tdgeneralcontent">
-                    <h1>Administración de Empleados</h1>
+        <div id='ToPrintHtmContenido'> 
+            <table width="780" border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td class="tdgeneralcontent">
+                        <h1>Administración de Empleados</h1>
 
-                    <table class="tdenvolventetablas" id="Table1" height="38" cellspacing="0" cellpadding="0" width="90%">
-                        <tr>
-                            <td class="tdtittablas3" valign="top" align="left" colspan="2">Empleado<br>
-                                <script language="javascript">strllenarComboEmpleados()</script>
-                            </td>
-                            <td class="tdtittablas3" valign="top" align="left">Día de descanso<br>
-                                <script language="javascript">strDiadeDescanso()</script>
-                            </td>
-                            <td class="tdtittablas3" valign="top" align="center" bgcolor="#ffcccc">Baja Temporal<br>
-                                <script language="javascript">strBajaTemporal()</script>
-                            </td>
-                        </tr>
-                    </table>
-                    <br>
-                    <div class="txsubtitulo">Vacaciones</div>
-                    <table class="tdenvolventetablas" id="Table2" height="19" cellspacing="0" cellpadding="0" width="90%">
-                        <tr>
-                            <td class="tdtittablas3" align="left" width="100" height="20">Fecha Inicio:</td>
-                            <td class="tdtittablas3" align="left" height="20">
-                                <script language="javascript">strVacacionesFechaInicio()</script>
-                                <img style="cursor: hand" onclick="mostrarCalendario('txtVacacionesInicio')" src="../static/images/icono_calendario.gif">
-                            </td>
-                            <td class="tdtittablas3" align="left" colspan="2" height="26"></td>
-                            <td class="tdtittablas3" align="right" width="100" height="20">Días Disponibles:</td>
-                            <td class="tdtittablas3" align="left" height="20">
-                                <script language="javascript">strDiasDisponiblesVacaciones()</script>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="tdtittablas3" align="left" width="100" height="20">Fecha Fin:</td>
-                            <td class="tdtittablas3" align="left" height="20">
-                                <script language="javascript">strVacacionesFechaFin()</script>
-                                <img style="cursor: hand" onclick="mostrarCalendario('txtVacacionesFin')" src="../static/images/icono_calendario.gif">
-                            </td>
-                            <td class="tdtittablas3" align="left" colspan="2" height="20"></td>
-                            <td class="tdtittablas3" align="right" height="20">Días Requeridos:</td>
-                            <td class="tdtittablas3" align="left" width="20" height="20">
-                                <div id="lblDias">0</div>
-                            </td>
-                        </tr>
-                    </table>
-                    <br />
-                    <div class="txsubtitulo">Incapacidad Médica</div>
-                    <table class="tdenvolventetablas" id="tblBusqueda" cellspacing="0" cellpadding="0" width="90%">
-                        <tr>
-                            <td class="tdtittablas3" align="left" width="100" height="20">Fecha 
-                                Inicio:</td>
-                            <td class="tdtittablas3" align="left" height="20">
-                                <script language="javascript">strIncapacidadMedicaFechaInicio()</script>
-                                <img style="cursor: hand" onclick="mostrarCalendario('txtIncapacidadMedicaInicio')" src="../static/images/icono_calendario.gif">
-                            </td>
-                            <td class="tdtittablas3" align="right" height="20">Folio:</td>
-                            <td class="tdtittablas3" align="left" height="20">
-                                <script language="javascript">strIncapacidadMedicaFolio()</script>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="tdtittablas3" align="left" width="100" height="20">Fecha Fin:</td>
-                            <td class="tdtittablas3" align="left" height="20">
-                                <script language="javascript">strIncapacidadMedicaFechaFin()</script>
-                                <img style="cursor: hand" onclick="mostrarCalendario('txtIncapacidadMedicaFinal')" src="../static/images/icono_calendario.gif">
-                            </td>
-                            <td class="tdtittablas3" align="right" width="100" height="20">Motivo:</td>
-                            <td colspan="4">
-                                <script language="javascript">strIncapacidadMedicaMotivos()</script>
-                            </td>
-                        </tr>
-                    </table>
-                    <table>
-                        <tr>
-                            <td class="tdtittablas3" align="left" colspan="2">
-                                <input class="boton" onclick="if (document.getElementById('changeDefault').style.display == 'block') document.getElementById('changeDefault').style.display = 'none'; else document.getElementById('changeDefault').style.display = 'block';"
-                                    type="button" value="Observaciones" name="btnObservacionesIncapacidad">
-                                <div id="changeDefault" style="display: none">
-                                    <script language="javascript">strObservacionesIncapacidad()</script>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                    <br>
-                    <div class="txsubtitulo">Permiso Especial </div>
-                    <table class="tdenvolventetablas" id="tblBusqueda" cellspacing="0" cellpadding="0" width="90%">
-                        <tr>
-                            <td class="tdtittablas3" align="left" width="100" height="20">Fecha Inicio:</td>
-                            <td class="tdtittablas3" align="left" height="20">
-                                <script language="javascript">strPermisoEspecialFechaInicio()</script>
-                                <img style="cursor: hand" onclick="mostrarCalendario('txtPermisoEspecialInicio')" src="../static/images/icono_calendario.gif">
-                            </td>
-                            <td class="tdtittablas3" align="right" height="20">Días:</td>
-                            <td class="tdtittablas3" align="left" height="60">
-                                <div id="lblDiasPermiso">0</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="tdtittablas3" align="left" width="100" height="20">Fecha Fin:</td>
-                            <td class="tdtittablas3" align="left" height="20">
-                                <script language="javascript">strPermisoEspecialFechaFin()</script>
-                                <img style="cursor: hand" onclick="mostrarCalendario('txtPermisoEspecialFin')" src="../static/images/icono_calendario.gif">
-                            </td>
-                            <td class="tdtittablas3" align="right" height="20">Con sueldo:</td>
-                            <td class="tdtittablas3" align="left" height="60">
-                                <script language="javascript">strPermisoEspecialConSueldo()</script>
-                            </td>
-                        </tr>
-                    </table>
-                    <table>
-                        <tr>
-                            <td class="tdtittablas3" align="left" colspan="2">
-                                <input class="boton" onclick="if (document.getElementById('changeDefault2').style.display == 'block') document.getElementById('changeDefault2').style.display = 'none'; else document.getElementById('changeDefault2').style.display = 'block';"
-                                    type="button" value="Observaciones" name="btnObservacionesPermiso">
-                                <div id="changeDefault2" style="display: none">
-                                    <script language="javascript">strObservacionesPermiso()</script>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                    <input type="hidden" name="hdnDiaDescansoOriginal">
-                    <input type="hidden" name="hdnDiaDescanso">
-                    <input type="hidden" name="hdnMotivo">
-                    <input type="hidden" id="dtmFechaActual" name="dtmFechaActual" value='<%= strFechaActual()%>' />
-                    <br/>
-                    <div class="txsubtitulo">Capacitación y/o Junta Operacional </div>
-                    <table class="tdenvolventetablas" id="TABLE4" cellspacing="0" cellpadding="0" width="90%">
-                        <tr>
-                            <td class="tdtittablas3" align="left" width="100" height="20">Fecha Inicio:</td>
-                            <td class="tdtittablas3" align="left" height="20">
-                                <script language="javascript">strCapacitacionFechaInicio()</script>
-                                <img style="cursor: hand" onclick="mostrarCalendario('txtCapacitacionInicio')" src="../static/images/icono_calendario.gif">
-                            </td>
-                            <td class="tdtittablas3" align="right" height="20">Días:</td>
-                            <td class="tdtittablas3" align="left" height="60">
-                                <div id="lblDiasCapacitacion">0</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="tdtittablas3" align="left" width="100" height="20">Fecha Fin:</td>
-                            <td class="tdtittablas3" align="left" height="20">
-                                <script language="javascript">strCapacitacionFechaFin()</script>
-                                <img style="cursor: hand" onclick="mostrarCalendario('txtCapacitacionFin')" src="../static/images/icono_calendario.gif">
-                            </td>
-                            <td class="tdtittablas3" align="right" height="20"></td>
-                            <td class="tdtittablas3" align="left" height="60"></td>
-                        </tr>
-                    </table>
-                    <table>
-                        <tr>
-                            <td class="tdtittablas3" align="left" colspan="2">
-                                <input class="boton" onclick="if (document.getElementById('changeDefault3').style.display == 'block') document.getElementById('changeDefault3').style.display = 'none'; else document.getElementById('changeDefault3').style.display = 'block';"
-                                    type="button" value="Observaciones" name="btnObservacionesCapacitacion">
-                                <div id="changeDefault3" style="display: none">
-                                    <script language="javascript">strObtenerObservacionesCapacitacion()</script>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                    <br>
-                    <input class="boton" id="cmdRegresar" style="width: 64px; height: 20px" onclick="return cmdRegresar_onclick()"
-                        type="button" value="Regresar" name="cmdRegresar">
-                    &nbsp;&nbsp;&nbsp;
-                    <input class="boton" id="cmdImprimir" style="width: 64px; height: 20px" onclick="cmdImprimir_onclick()"
-                        type="button" value="Imprimir" name="cmdImprimir">
-                    &nbsp; &nbsp;
-                    <input class="boton" id="cmdHorario" style="width: 64px; height: 20px" onclick="return cmdHorario_onclick()"
-                        type="button" value="Horario" name="cmdHorario">
-                    &nbsp;&nbsp;&nbsp;
-                    <input class="boton" style="width: 64px; height: 20px" onclick="return cmdAplicar_onclick()"
-                        type="button" value="Aplicar" name="cmdAplicar">
-                    <br />
-                    <div id="lblMensajeError" align="center">&nbsp;</div>
-                </td>
-            </tr>
-        </table>
+                        <table class="tdenvolventetablas" id="Table1" height="38" cellspacing="0" cellpadding="0" width="90%">
+                            <tr>
+                                <td class="tdtittablas3" valign="top" align="left" colspan="2">Empleado<br>
+                                    <script language="javascript">strllenarComboEmpleados()</script>
+                                </td>
+                                <td class="tdtittablas3" valign="top" align="left">Día de descanso<br>
+                                    <script language="javascript">strDiadeDescanso()</script>
+                                </td>
+                                <td class="tdtittablas3" valign="top" align="center" bgcolor="#ffcccc">Baja Temporal<br>
+                                    <script language="javascript">strBajaTemporal()</script>
+                                </td>
+                            </tr>
+                        </table>
+                        <br>
+                        <div class="txsubtitulo">Vacaciones</div>
+                        <table class="tdenvolventetablas" id="Table2" height="19" cellspacing="0" cellpadding="0" width="90%">
+                            <tr>
+                                <td class="tdtittablas3" align="left" width="100" height="20">Fecha Inicio:</td>
+                                <td class="tdtittablas3" align="left" height="20">
+                                    <script language="javascript">strVacacionesFechaInicio()</script>
+                                    <img style="cursor: hand" onclick="mostrarCalendario('txtVacacionesInicio')" src="../static/images/icono_calendario.gif">
+                                </td>
+                                <td class="tdtittablas3" align="left" colspan="2" height="26"></td>
+                                <td class="tdtittablas3" align="right" width="100" height="20">Días Disponibles:</td>
+                                <td class="tdtittablas3" align="left" height="20">
+                                    <script language="javascript">strDiasDisponiblesVacaciones()</script>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tdtittablas3" align="left" width="100" height="20">Fecha Fin:</td>
+                                <td class="tdtittablas3" align="left" height="20">
+                                    <script language="javascript">strVacacionesFechaFin()</script>
+                                    <img style="cursor: hand" onclick="mostrarCalendario('txtVacacionesFin')" src="../static/images/icono_calendario.gif">
+                                </td>
+                                <td class="tdtittablas3" align="left" colspan="2" height="20"></td>
+                                <td class="tdtittablas3" align="right" height="20">Días Requeridos:</td>
+                                <td class="tdtittablas3" align="left" width="20" height="20">
+                                    <div id="lblDias">0</div>
+                                </td>
+                            </tr>
+                        </table>
+                        <br />
+                        <div class="txsubtitulo">Incapacidad Médica</div>
+                        <table class="tdenvolventetablas" id="tblBusqueda" cellspacing="0" cellpadding="0" width="90%">
+                            <tr>
+                                <td class="tdtittablas3" align="left" width="100" height="20">Fecha 
+                                    Inicio:</td>
+                                <td class="tdtittablas3" align="left" height="20">
+                                    <script language="javascript">strIncapacidadMedicaFechaInicio()</script>
+                                    <img style="cursor: hand" onclick="mostrarCalendario('txtIncapacidadMedicaInicio')" src="../static/images/icono_calendario.gif">
+                                </td>
+                                <td class="tdtittablas3" align="right" height="20">Folio:</td>
+                                <td class="tdtittablas3" align="left" height="20">
+                                    <script language="javascript">strIncapacidadMedicaFolio()</script>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tdtittablas3" align="left" width="100" height="20">Fecha Fin:</td>
+                                <td class="tdtittablas3" align="left" height="20">
+                                    <script language="javascript">strIncapacidadMedicaFechaFin()</script>
+                                    <img style="cursor: hand" onclick="mostrarCalendario('txtIncapacidadMedicaFinal')" src="../static/images/icono_calendario.gif">
+                                </td>
+                                <td class="tdtittablas3" align="right" width="100" height="20">Motivo:</td>
+                                <td colspan="4">
+                                    <script language="javascript">strIncapacidadMedicaMotivos()</script>
+                                </td>
+                            </tr>
+                        </table>
+                        <table>
+                            <tr>
+                                <td class="tdtittablas3" align="left" colspan="2">
+                                    <input class="boton" onclick="if (document.getElementById('changeDefault').style.display == 'block') document.getElementById('changeDefault').style.display = 'none'; else document.getElementById('changeDefault').style.display = 'block';"
+                                        type="button" value="Observaciones" name="btnObservacionesIncapacidad">
+                                    <div id="changeDefault" style="display: none">
+                                        <script language="javascript">strObservacionesIncapacidad()</script>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        <br>
+                        <div class="txsubtitulo">Permiso Especial </div>
+                        <table class="tdenvolventetablas" id="tblBusqueda" cellspacing="0" cellpadding="0" width="90%">
+                            <tr>
+                                <td class="tdtittablas3" align="left" width="100" height="20">Fecha Inicio:</td>
+                                <td class="tdtittablas3" align="left" height="20">
+                                    <script language="javascript">strPermisoEspecialFechaInicio()</script>
+                                    <img style="cursor: hand" onclick="mostrarCalendario('txtPermisoEspecialInicio')" src="../static/images/icono_calendario.gif">
+                                </td>
+                                <td class="tdtittablas3" align="right" height="20">Días:</td>
+                                <td class="tdtittablas3" align="left" height="60">
+                                    <div id="lblDiasPermiso">0</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tdtittablas3" align="left" width="100" height="20">Fecha Fin:</td>
+                                <td class="tdtittablas3" align="left" height="20">
+                                    <script language="javascript">strPermisoEspecialFechaFin()</script>
+                                    <img style="cursor: hand" onclick="mostrarCalendario('txtPermisoEspecialFin')" src="../static/images/icono_calendario.gif">
+                                </td>
+                                <td class="tdtittablas3" align="right" height="20">Con sueldo:</td>
+                                <td class="tdtittablas3" align="left" height="60">
+                                    <script language="javascript">strPermisoEspecialConSueldo()</script>
+                                </td>
+                            </tr>
+                        </table>
+                        <table>
+                            <tr>
+                                <td class="tdtittablas3" align="left" colspan="2">
+                                    <input class="boton" onclick="if (document.getElementById('changeDefault2').style.display == 'block') document.getElementById('changeDefault2').style.display = 'none'; else document.getElementById('changeDefault2').style.display = 'block';"
+                                        type="button" value="Observaciones" name="btnObservacionesPermiso">
+                                    <div id="changeDefault2" style="display: none">
+                                        <script language="javascript">strObservacionesPermiso()</script>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        <input type="hidden" name="hdnDiaDescansoOriginal">
+                        <input type="hidden" name="hdnDiaDescanso">
+                        <input type="hidden" name="hdnMotivo">
+                        <input type="hidden" id="dtmFechaActual" name="dtmFechaActual" value='<%= strFechaActual()%>' />
+                        <br/>
+                        <div class="txsubtitulo">Capacitación y/o Junta Operacional </div>
+                        <table class="tdenvolventetablas" id="TABLE4" cellspacing="0" cellpadding="0" width="90%">
+                            <tr>
+                                <td class="tdtittablas3" align="left" width="100" height="20">Fecha Inicio:</td>
+                                <td class="tdtittablas3" align="left" height="20">
+                                    <script language="javascript">strCapacitacionFechaInicio()</script>
+                                    <img style="cursor: hand" onclick="mostrarCalendario('txtCapacitacionInicio')" src="../static/images/icono_calendario.gif">
+                                </td>
+                                <td class="tdtittablas3" align="right" height="20">Días:</td>
+                                <td class="tdtittablas3" align="left" height="60">
+                                    <div id="lblDiasCapacitacion">0</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tdtittablas3" align="left" width="100" height="20">Fecha Fin:</td>
+                                <td class="tdtittablas3" align="left" height="20">
+                                    <script language="javascript">strCapacitacionFechaFin()</script>
+                                    <img style="cursor: hand" onclick="mostrarCalendario('txtCapacitacionFin')" src="../static/images/icono_calendario.gif">
+                                </td>
+                                <td class="tdtittablas3" align="right" height="20"></td>
+                                <td class="tdtittablas3" align="left" height="60"></td>
+                            </tr>
+                        </table>
+                        <table>
+                            <tr>
+                                <td class="tdtittablas3" align="left" colspan="2">
+                                    <input class="boton" onclick="if (document.getElementById('changeDefault3').style.display == 'block') document.getElementById('changeDefault3').style.display = 'none'; else document.getElementById('changeDefault3').style.display = 'block';"
+                                        type="button" value="Observaciones" name="btnObservacionesCapacitacion">
+                                    <div id="changeDefault3" style="display: none">
+                                        <script language="javascript">strObtenerObservacionesCapacitacion()</script>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        <br>
+                        <input class="boton" id="cmdRegresar" style="width: 64px; height: 20px" onclick="return cmdRegresar_onclick()"
+                            type="button" value="Regresar" name="cmdRegresar">
+                        &nbsp;&nbsp;&nbsp;
+                        <input class="boton" id="cmdImprimir" style="width: 64px; height: 20px" onclick="cmdImprimir_onclick()"
+                            type="button" value="Imprimir" name="cmdImprimir">
+                        &nbsp; &nbsp;
+                        <input class="boton" id="cmdHorario" style="width: 64px; height: 20px" onclick="return cmdHorario_onclick()"
+                            type="button" value="Horario" name="cmdHorario">
+                        &nbsp;&nbsp;&nbsp;
+                        <input class="boton" style="width: 64px; height: 20px" onclick="return cmdAplicar_onclick()"
+                            type="button" value="Aplicar" name="cmdAplicar">
+                        <br />
+                        <div id="lblMensajeError" align="center">&nbsp;</div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
         <table width="780" border="0" cellspacing="0" cellpadding="0">
             <tr>
                 <td>

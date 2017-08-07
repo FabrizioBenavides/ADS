@@ -149,6 +149,11 @@
             return esValido;
         }
 
+        function btnImprimir_onclick() {
+            printContent2();
+            return (true);
+        }
+
         new menu(MENU_ITEMS, MENU_POS);
     </script>
 </head>
@@ -163,27 +168,31 @@
         </table>
         <table width="780" border="0" cellspacing="0" cellpadding="0">
             <tr>
-                <td width="10">&nbsp;</td>
-                <td width="770" class="tdtab">Est&aacute; en : Sucursal : Control de Asistencia : Administración de Empleados Médicos</td>
+                <div id="ToPrintTxtMigaja">
+                    <td width="10">&nbsp;</td>
+                    <td width="770" class="tdtab">Est&aacute; en : Sucursal : Control de Asistencia : Administración de Empleados Médicos</td>
+                </div>
             </tr>
         </table>
         <table width="780" border="0" cellpadding="0" cellspacing="0">
             <tr>
                 <td class="tdgeneralcontent">
                     <h1>Asignación de Horario Médico</h1>
-                    <table class="tdenvolventetablas" height="38" cellspacing="0" cellpadding="0" width="90%">
-                        <tr>
-                            <td class="tdtittablas3" valign="top" align="left" colspan="2">Empleado<br>
-                                <select id="cboEmpleados" name="cboEmpleados" class='campotabla' onchange='javascript:cboEmpleados_onchange()'>
-                                    <%= LLenarComboEmpleados()%>
-                                </select>
-                            </td>
-                        </tr>
-                    </table>
-                    <br />
-                    <br />
-                     <%= strGeneraTablaHorarioHTML()%>
-                    <br />
+                    <div id='ToPrintHtmContenido'> 
+                        <table class="tdenvolventetablas" height="38" cellspacing="0" cellpadding="0" width="90%">
+                            <tr>
+                                <td class="tdtittablas3" valign="top" align="left" colspan="2">Empleado<br>
+                                    <select id="cboEmpleados" name="cboEmpleados" class='campotabla' onchange='javascript:cboEmpleados_onchange()'>
+                                        <%= LLenarComboEmpleados()%>
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                        <br />
+                        <br />
+                         <%= strGeneraTablaHorarioHTML()%>
+                        <br />
+                    </div>
                     <table cellSpacing="0" cellPadding="0" width="100%" border="0">
                         <tr> 
                           <td class="tdtittablas3"  width="100%"> 
@@ -207,5 +216,6 @@
             </tr>
         </table>
     </form>
+    <iframe name="ifrPageToPrint" src="../static/PageToPrint.htm" width="0" height="0"></iframe>
 </body>
 </html>
