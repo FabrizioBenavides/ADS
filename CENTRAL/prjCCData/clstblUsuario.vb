@@ -190,6 +190,7 @@ Public NotInheritable Class clstblUsuario
                                           ByVal blnUsuarioBloqueado As Byte, _
                                           ByVal dtmUsuarioExpiracion As Date, _
                                           ByVal strUsuarioModificadoPor As String, _
+                                          ByVal blnUsuarioDebeCambiarContrasena As Byte, _
                                           ByVal strConnectionString As String) As Integer
 
         ' Constantes locales
@@ -208,7 +209,7 @@ Public NotInheritable Class clstblUsuario
 
             ' Creamos es estatuto de SQL
             Call strSQLStatement.AppendFormat("EXECUTE spActualizartblUsuario2 " & _
-                                              "{0}, {1}, '{2}', {3}, {4}, {5}, '{6}', '{7}'", _
+                                              "{0}, {1}, '{2}', {3}, {4}, {5}, '{6}', '{7}', {8}", _
                                               intEmpleadoId, _
                                               intUsuarioId, _
                                               strUsuarioContrasena, _
@@ -216,7 +217,8 @@ Public NotInheritable Class clstblUsuario
                                               blnUsuarioHabilitado, _
                                               blnUsuarioBloqueado, _
                                               dtmUsuarioExpiracion.ToString("MM/dd/yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture), _
-                                              strUsuarioModificadoPor)
+                                              strUsuarioModificadoPor, _
+                                              blnUsuarioDebeCambiarContrasena)
 
             ' Ejecutamos el comando
             strRegistros = clsSQLOperation.strExecuteQuery(strSQLStatement.ToString(), strConnectionString)
