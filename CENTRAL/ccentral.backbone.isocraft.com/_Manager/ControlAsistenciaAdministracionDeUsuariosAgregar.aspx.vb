@@ -298,9 +298,11 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
         Dim intResultadoEliminarSucursales As Integer = 0
         Dim intExitoGuardarSucursales As Integer = 0
         Dim intAsignada As Integer = 0
+        Dim blnUsuarioDebeCambiarContrasena As Boolean = False
 
         If strUsuarioContrasenaAnterior <> strUsuarioContrasena Then
             contrasenaGuardar = (New Hash.DataProtector).HashString(strUsuarioContrasena, Hash.DataProtector.CryptoServiceProvider.SHA1)
+            blnUsuarioDebeCambiarContrasena = True
         Else
             contrasenaGuardar = strUsuarioContrasenaAnterior
         End If
@@ -313,6 +315,7 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
                                                               CByte(blnUsuarioBloqueado), _
                                                               dtmFechaUsuarioExpiracion, _
                                                               strUsuarioNombre, _
+                                                              CByte(blnUsuarioDebeCambiarContrasena),
                                                               strConnectionString)
 
         ' Eliminar sucursales para evitar repetidos.

@@ -96,38 +96,6 @@
             return stringToTrim.replace(/^\s+|\s+$/g, "");
         }
 
-        function blnFormValidator(theForm) {
-            //var blnReturn = false;
-
-            ///* Validación del campo "Empleado" */
-            //if (trim(document.getElementById("txtEmpleadoNombre").value) == '') {
-            //    alert('Seleccione un empleado por favor');
-            //    return (false);
-            //}
-
-            ///* Validación del campo "txtUsuarioNombre" */
-            //if (blnValidarCampo(document.forms[0].elements["txtUsuarioNombre"], true, "Empleado", cintTipoCampoAlfanumerico, 20, 1, "") == true) {
-
-            //    /* Validación del campo "txtContraseña" */
-            //    if (blnValidarCampo(document.forms[0].elements["txtUsuarioContrasena"], true, "Contraseña", cintTipoCampoAlfanumerico, 35, 1, "") == true) {
-
-            //        blnReturn = blnValidarCampo(document.forms[0].elements["txtUsuarioExpiracion"], true, "Fecha de Expiración", cintTipoCampoFecha, 10, 10, "");
-            //    }
-            //}
-
-            //if (blnReturn == true) {
-            //    if (document.forms[0].elements["cboGrupoUsuario"].value == 0) {
-
-            //        blnReturn = false;
-            //        alert("Es necesario seleccionar un Grupo \n\r para realizar la operación del usuario");
-
-            //        document.forms[0].elements["cboGrupoUsuario"].focus();
-            //    }
-            //}
-
-            //return (blnReturn);
-        }
-
         function cmdSalvar_onclick() {
             var objValidar = {
                 mensajeError: "",

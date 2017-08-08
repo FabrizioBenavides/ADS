@@ -40,7 +40,7 @@ Public Class ControlAsistenciaMovimientosEmpleadosMedicos
         Get
             Dim fechaInicio As String = GetPageParameter("dtmFechaInicio", "")
 
-            If Not IsNothing(fechaInicio) Then
+            If Not IsNothing(fechaInicio) AndAlso Not fechaInicio Is String.Empty Then
                 Dim fechaSeparada As String() = fechaInicio.Split("/".ToCharArray())
 
                 Return New Date(CInt(fechaSeparada(2)), CInt(fechaSeparada(1)), CInt(fechaSeparada(0)))
@@ -51,10 +51,10 @@ Public Class ControlAsistenciaMovimientosEmpleadosMedicos
 
     Public ReadOnly Property dtmFechaFin() As Date
         Get
-            Dim fechaInicio As String = GetPageParameter("dtmFechaFin", "")
+            Dim fechaFin As String = GetPageParameter("dtmFechaFin", "")
 
-            If Not IsNothing(fechaInicio) Then
-                Dim fechaSeparada As String() = fechaInicio.Split("/".ToCharArray())
+            If Not IsNothing(fechaFin) AndAlso Not fechaFin Is String.Empty Then
+                Dim fechaSeparada As String() = fechaFin.Split("/".ToCharArray())
 
                 Return New Date(CInt(fechaSeparada(2)), CInt(fechaSeparada(1)), CInt(fechaSeparada(0)))
 
@@ -64,13 +64,13 @@ Public Class ControlAsistenciaMovimientosEmpleadosMedicos
 
     Public ReadOnly Property dtmFechaInicioValorBusqueda() As String
         Get
-            Return CStr(ViewState("dtmFechaInicioValorBusqueda"))
+            Return dtmFechaInicio.ToString("dd/MM/yyyy")
         End Get
     End Property
 
     Public ReadOnly Property dtmFechaFinValorBusqueda() As String
         Get
-            Return CStr(ViewState("dtmFechaFinValorBusqueda"))
+            Return dtmFechaFin.ToString("dd/MM/yyyy")
         End Get
     End Property
 
@@ -89,8 +89,6 @@ Public Class ControlAsistenciaMovimientosEmpleadosMedicos
         Dim objMovimientosMedicos As Array
 
         If strCmd2 = "Buscar" Then
-
-            Call GuardarValorControles()
 
             objMovimientosMedicos = clsControlDeAsistencia.clsRolMedico _
                                     .strConsultarMovimientosEmpleadosMedicos(intEmpleadoId, _
@@ -146,10 +144,5 @@ Public Class ControlAsistenciaMovimientosEmpleadosMedicos
 
         Return resultadoTabla.ToString()
     End Function
-
-    Private Sub GuardarValorControles()
-        ViewState("dtmFechaInicioValorBusqueda") = dtmFechaInicio
-        ViewState("dtmFechaFinValorBusqueda") = dtmFechaFin
-    End Sub
 
 End Class

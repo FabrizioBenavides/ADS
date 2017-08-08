@@ -1,4 +1,4 @@
-﻿<%@ Page Language="vb" AutoEventWireup="false" EnableViewState="true" CodeBehind="ControlAsistenciaMovimientosEmpleadosMedicos.aspx.vb" Inherits="com.isocraft.backbone.ccentral.ControlAsistenciaMovimientosEmpleadosMedicos" %>
+﻿<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="ControlAsistenciaMovimientosEmpleadosMedicos.aspx.vb" Inherits="com.isocraft.backbone.ccentral.ControlAsistenciaMovimientosEmpleadosMedicos" %>
 
 <html>
 <head>
