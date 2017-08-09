@@ -262,7 +262,7 @@ new menu(MENU_ITEMS, MENU_POS);
                     <%= ControlProveedor()%> 
                   </select>
                   <span class="campotablaresultado">Tolerancia:</span> 
-                  <input id="txtTolerancia" name="txtTolerancia" class="field" maxlength="2" style="width: 125px" onkeypress="return soloNumeros(event)" />
+                  <input id="txtTolerancia" name="txtTolerancia" class="field" maxlength="3" style="width: 125px" onkeypress="return soloNumeros(event)" />
                   <input id="btnCancelarRuta" class="button" onclick="return btnCancelarRuta_onclick()"
                                             value="Cancelar" type="button" name="btnCancelarRuta">
                   <input id="btnGuardarRuta" class="button" onclick="return btnGuardarRuta_onclick()"

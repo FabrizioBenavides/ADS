@@ -172,22 +172,6 @@ Public Class ControlAsistenciaReportePorCoordinador
     End Property
 
     '====================================================================
-    ' Name       : intCoordinadorRHId
-    ' Description: Value of a HTML form field
-    ' Accessor   : Read / Write
-    ' Output     : String
-    '====================================================================
-    'Public ReadOnly Property intCoordinadorRHId() As Integer
-    '    Get
-    '        If Not IsNothing(Request.Form("cboCoordinadoresRH")) Then
-    '            Return CInt(Request.Form("cboCoordinadoresRH"))
-    '        Else
-    '            Return 0
-    '        End If
-    '    End Get
-    'End Property
-
-    '====================================================================
     ' Name       : intEstatusId
     ' Description: Value of a HTML form field
     ' Accessor   : Read / Write
@@ -294,13 +278,10 @@ Public Class ControlAsistenciaReportePorCoordinador
         Const strComitasDobles As String = """"
 
         ' Enviamos al usuario actual a la página de acceso, si no tiene privilegios de acceder a esta página
-        'If Benavides.CC.Business.clsConcentrador.clsControlAcceso.blnPermitirAccesoObjeto(intGrupoUsuarioId, strThisPageName, strConnectionString) = False Then
-        '    Call Response.Redirect("../Default.aspx")
-        'End If
-
-        'If intTipoUsuarioId <> 3 Then
-        '    Call Response.Redirect("../Default.aspx")
-        'End If
+        If Benavides.CC.Business.clsConcentrador.clsControlAcceso.blnPermitirAccesoObjeto(intGrupoUsuarioId, strThisPageName, strConnectionString) = False Or _
+             Not (intTipoUsuarioId = 2 Or intTipoUsuarioId = 3) Then
+            Call Response.Redirect("../Default.aspx")
+        End If
 
         If (strCmd = "cmdImprimir") Then
 

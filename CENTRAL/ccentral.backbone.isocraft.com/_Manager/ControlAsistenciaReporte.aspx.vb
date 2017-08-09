@@ -306,10 +306,10 @@ Public Class ControlAsistenciaReporte
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
-        'If Benavides.CC.Business.clsConcentrador.clsControlAcceso.blnPermitirAccesoObjeto(intGrupoUsuarioId, strThisPageName, strConnectionString) = False Or _
-        '    Not intTipoUsuarioId = 1 Or CInt(strUsuarioNombre) = 40014547 Then
-        '    Call Response.Redirect("../Default.aspx")
-        'End If
+        If Benavides.CC.Business.clsConcentrador.clsControlAcceso.blnPermitirAccesoObjeto(intGrupoUsuarioId, strThisPageName, strConnectionString) = False Or _
+            Not intTipoUsuarioId = 1 Then
+            Call Response.Redirect("../Default.aspx")
+        End If
     End Sub
 
     Public Function strTablaConsultaReporte() As String

@@ -343,30 +343,6 @@ Public Class ControlAsistenciaAdministracionEmpleadosMedicosTurnos
         Return strBotonDeshabilitado
     End Function
 
-    'ByVal objHorarioAsignadoEmpleado As Array
-    'Private Function intEncontrarDiaSemanaDescanso() As Integer
-    '    Dim intDiaSemanaDescanso As Integer
-    '    'Dim objDiaSemanaDescanso As Array
-    '    'Dim renglonDiaDescanso As SortedList
-
-    '    'If Not objHorarioAsignadoEmpleado Is Nothing AndAlso objHorarioAsignadoEmpleado.Length > 0 Then
-
-    '    '    For Each renglon As SortedList In objHorarioAsignadoEmpleado
-
-    '    '        If CInt(renglon.Item("intHorarioLaboralId")) = VALOR_DIA_DESCANSO Then
-    '    '            intDiaSemanaDescanso = CInt(renglon.Item("intDiaSemanaId"))
-    '    '        End If
-    '    '    Next
-    '    'End If
-    '    'objDiaSemanaDescanso = clsControlDeAsistencia.clsRolMedico.strObtenerDiaDescanso(intEmpleadoId, strConnectionString)
-
-    '    'renglonDiaDescanso = DirectCast(objDiaSemanaDescanso.GetValue(0), SortedList)
-
-    '    'intDiaSemanaDescanso = CInt(renglonDiaDescanso.Item("intDiaSemanaId").ToString())
-
-    '    Return intDiaSemanaDescanso
-    'End Function
-
     Private Sub AplicarHorarioAMedico()
         Dim intResultado As Integer
 
