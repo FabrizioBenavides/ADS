@@ -50,7 +50,7 @@
             document.forms[0].action = "ControlAsistenciaAdministracionDeUsuarios.aspx?" +
                                        "strCmd2=Buscar" +
                                        "&intEmpleadoId=" + intEmpleadoId +
-                                       "&intTipoUsuarioId=" + intTipoUsuarioId;
+                                       "&intTipoUsuarioIdParametro=" + intTipoUsuarioId;
 
             document.forms(0).submit();
         }
@@ -73,7 +73,7 @@
                                    "&strUsuarioContrasena=" + strUsuarioContrasena +
                                    "&dtmUsuarioExpiracion=" + dtmUsuarioExpiracion +
                                    "&blnUsuarioBloqueado=" + blnUsuarioBloqueado +
-                                   "&intTipoUsuarioId=" + intTipoUsuarioId +
+                                   "&intTipoUsuarioIdParametro=" + intTipoUsuarioId +
                                    "&blnUsuarioHabilitado=" + blnUsuarioHabilitado;
         }
 

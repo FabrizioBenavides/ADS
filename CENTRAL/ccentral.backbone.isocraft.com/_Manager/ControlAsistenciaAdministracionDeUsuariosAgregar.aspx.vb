@@ -94,9 +94,9 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
         End Get
     End Property
 
-    Public ReadOnly Property intTipoUsuarioId() As TipoUsuario
+    Public ReadOnly Property intTipoUsuarioIdParametro() As TipoUsuario
         Get
-            Return CType(GetPageParameter("intTipoUsuarioId", "0"), TipoUsuario)
+            Return CType(GetPageParameter("intTipoUsuarioIdParametro", "0"), TipoUsuario)
         End Get
     End Property
 
@@ -165,15 +165,15 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
     Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         ' Enviamos al usuario actual a la página de acceso, si no tiene privilegios de acceder a esta página
-        'If Benavides.CC.Business.clsConcentrador.clsControlAcceso.blnPermitirAccesoObjeto(intGrupoUsuarioId, strThisPageName, strConnectionString) = False Or Not intTipoUsuarioId = 1 Or CInt(strUsuarioNombre) = 40014547 Then
-        '    Call Response.Redirect("../Default.aspx")
-        'End If
+        If Benavides.CC.Business.clsConcentrador.clsControlAcceso.blnPermitirAccesoObjeto(intGrupoUsuarioId, strThisPageName, strConnectionString) = False Or Not intTipoUsuarioId = 1 Then
+            Call Response.Redirect("../Default.aspx")
+        End If
 
         Select Case strCmd2
 
             Case "Guardar"
                 Call GuardarUsuario()
-       
+
             Case "Modificar"
                 Call EditarUsuario()
 
@@ -192,7 +192,6 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
         strContrasenaEncriptada = (New Hash.DataProtector).HashString(strUsuarioContrasena, Hash.DataProtector.CryptoServiceProvider.SHA1)
 
         fechaActual = Date.Now
-        ' blnDebeUsuarioCambiarContraseña
         intUsuarioId = clsUsuario.intAgregarEnConcentrador(intEmpleadoId, _
                                                            0, _
                                                            intEmpleadoId.ToString(), _
@@ -209,7 +208,7 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
                                                            strConnectionString)
 
         If intUsuarioId > 0 Then
-            _intUsuarioExistenteId = 1 ' Quitar linea de codigo
+            _intUsuarioExistenteId = 1
             intMembresiaUsuario = clstblMembresiaUsuario.intAgregar(intEmpleadoId,
                                                                     intUsuarioId,
                                                                     GRUPO_USUARIO_ID,
@@ -310,7 +309,7 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
         intResultadoActualizar = clstblUsuario.intActualizar2(intEmpleadoId, _
                                                               intUsuarioId, _
                                                               contrasenaGuardar, _
-                                                              intTipoUsuarioId, _
+                                                              intTipoUsuarioIdParametro, _
                                                               CByte(blnUsuarioHabilitado), _
                                                               CByte(blnUsuarioBloqueado), _
                                                               dtmFechaUsuarioExpiracion, _
@@ -356,7 +355,7 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
                                          strAsignarSucursales2(intEmpleadoId, _
                                                                CInt(companiaSucursalSeparadaPorComa.GetValue(0)), _
                                                                CInt(companiaSucursalSeparadaPorComa.GetValue(1)), _
-                                                               intTipoUsuarioId, _
+                                                               intTipoUsuarioIdParametro, _
                                                                strConnectionString)
 
             If resultadoAsignarSucursales.Length > 0 AndAlso IsArray(resultadoAsignarSucursales) Then

@@ -32,9 +32,9 @@ Public Class ControlAsistenciaAdministracionDeUsuarios
         End Get
     End Property
 
-    Public ReadOnly Property intTipoUsuarioId() As Integer
+    Public ReadOnly Property intTipoUsuarioIdParametro() As Integer
         Get
-            Return CInt(GetPageParameter("intTipoUsuarioId", "0"))
+            Return CInt(GetPageParameter("intTipoUsuarioIdParametro", "0"))
         End Get
     End Property
 
@@ -70,7 +70,7 @@ Public Class ControlAsistenciaAdministracionDeUsuarios
 
     Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         ' Enviamos al usuario actual a la página de acceso, si no tiene privilegios de acceder a esta página
-      
+
         If Benavides.CC.Business.clsConcentrador.clsControlAcceso.blnPermitirAccesoObjeto(intGrupoUsuarioId, strThisPageName, strConnectionString) = False Or _
             Not intTipoUsuarioId = TipoUsuario.Administrador Then
             Call Response.Redirect("../Default.aspx")
@@ -101,7 +101,7 @@ Public Class ControlAsistenciaAdministracionDeUsuarios
         objUsuarios = clsControlDeAsistencia. _
                       strBuscarUsuarioConcentrador(intGrupoUsuarioSeleccionadoId, _
                                                    intEmpleadoIdParametro, _
-                                                   intTipoUsuarioId, _
+                                                   intTipoUsuarioIdParametro, _
                                                    strConnectionString)
 
         If IsArray(objUsuarios) AndAlso objUsuarios.Length > 0 Then
@@ -184,7 +184,7 @@ Public Class ControlAsistenciaAdministracionDeUsuarios
 
     Private Sub GuardarValorControles()
         ViewState("txtNumeroEmpleado") = intEmpleadoId
-        ViewState("cboTipoUsuario") = intTipoUsuarioId
+        ViewState("cboTipoUsuario") = intTipoUsuarioIdParametro
     End Sub
 
 End Class

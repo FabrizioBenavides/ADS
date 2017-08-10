@@ -189,7 +189,7 @@
                 document.forms[0].action = "ControlAsistenciaAdministracionDeUsuariosAgregar.aspx?strCmd2=Guardar" +
                                            "&intEmpleadoId=" + intEmpleadoId +
                                            "&strUsuarioContrasena=" + strUsuarioContrasena +
-                                           "&intTipoUsuarioId=" + intTipoUsuarioId +
+                                           "&intTipoUsuarioIdParametro=" + intTipoUsuarioId +
                                            "&blnUsuarioHabilitado=" + blnUsuarioHabilitado +
                                            "&blnUsuarioBloqueado=" + blnUsuarioBloqueado +
                                            "&dtmUsuarioExpiracion=" + txtUsuarioExpiracion +
@@ -201,7 +201,7 @@
                                            "&intEmpleadoId=" + intEmpleadoId +
                                            "&strUsuarioContrasena=" + strUsuarioContrasena +
                                            "&strUsuarioContrasenaAnterior=" + strUsuarioContrasenaAnterior +
-                                           "&intTipoUsuarioId=" + intTipoUsuarioId +
+                                           "&intTipoUsuarioIdParametro=" + intTipoUsuarioId +
                                            "&blnUsuarioHabilitado=" + blnUsuarioHabilitado +
                                            "&blnUsuarioBloqueado=" + blnUsuarioBloqueado +
                                            "&dtmUsuarioExpiracion=" + txtUsuarioExpiracion +
