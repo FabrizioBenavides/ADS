@@ -67,7 +67,7 @@
         }
 
         function establecerNombreTitulo() {
-            // Administrador = 1 Coordinador RH = 2 Supervisor Medico = 3
+            // Administrador = 1, Coordinador RH = 2, Supervisor Medico = 3
             var intTipoUsuarioId = "<%= intTipoUsuarioId()%>";
             var trPerfil;
 
@@ -166,7 +166,6 @@
     }
 
     function cmdConsultar_onclick() {
-        //Variables.
         var valida;
 
         valida = fnValidaCampos();
@@ -281,7 +280,6 @@
                     tipoNomina = 2;
                 }
 
-
                 //-Validaciones
                 if (date1 > date3) {
                     alert('La fecha de inicio no debe ser mayor que la fecha de hoy');
@@ -358,7 +356,6 @@
     function cmdExportar_onclick() {
 
         if (document.getElementById('tblResultados').innerHTML == '') {
-
             alert('Realice la consulta por favor');
             return (false);
         }
@@ -392,10 +389,6 @@ function txtEmpleadoId_onKeyPress(e) {
 }
 
 function txtEmpleadoId_onblur() {
-    //if (trim(document.getElementById('txtProveedorNombreId').value) == '') {
-    //    document.getElementById('txtProveedorRazonSocial').value = '';
-    //}
-
     return true;
 }
 
@@ -503,7 +496,6 @@ function fnMarcarTodos() {
     }
 
     function fnMarcarUno() {
-
         //Si se quita la seleccion a una sucursal y el check box todos esta seleccionado tambien se le quita la seleccion.
         if (document.getElementById('chkCodigo').checked == true) {
 
@@ -523,11 +515,7 @@ function fnMarcarTodos() {
 
             var confirmar = confirm('Desea confirmar los registros seleccionados?');
             if (confirmar == true) {
-
-                //document.getElementById('tblResultados').innerHTML = parent.document.getElementById('tblResultados').innerHTML;
-
                 document.forms[0].action = '<%= strThisPageName%>?strCmd=cmdConfirmar';
-            //document.forms[0].target = "ifrOculto";
                 document.forms[0].submit();
         }
     }
@@ -540,8 +528,7 @@ function doSubmit(c, t, p) {
     else {
         document.getElementById('txtCurrentPage').value = p;
     }
-    document.forms[0].action =
-    '<%= strThisPageName%>?strCmd=cmdConsultar&pager=true&p=' + p;
+    document.forms[0].action = '<%= strThisPageName%>?strCmd=cmdConsultar&pager=true&p=' + p;
     document.forms[0].target = "ifrOculto";
     document.forms[0].submit();
 }
@@ -606,7 +593,6 @@ function mostrarCboAsistencia(obj) {
                             <td class="tdpadleft5" style="width: 240px">
                                 <select id="cboDireccionOperativa" name="cboDireccionOperativa" class="campotabla" style="width: 150px" onchange="return cboDireccionOperativa_onchange()">
                                     <option selected="selected" value="0">&raquo; Elija una dirección &laquo;</option>
-                                    <%--<option value="-1">&raquo; Todas las direcciones &laquo;</option>--%>
                                 </select>
                             </td>
                             <td class="tdtexttablebold" style="width: 150px">Tipo de movimiento</td>
@@ -621,7 +607,6 @@ function mostrarCboAsistencia(obj) {
                             <td class="tdpadleft5" style="width: 240px">
                                 <select id="cboZonaOperativa" class="campotabla" onchange="return cboZonaOperativa_onchange()" name="cboZonaOperativa" style="width: 150px">
                                     <option selected value="0">&raquo; Elija una zona &laquo;</option>
-                                    <%--<option value="-1">&raquo; Todas las zonas &laquo;</option>--%>
                                 </select>
                             </td>
                             <td class="tdtexttablebold" style="width: 150px">Empleado</td>
@@ -635,7 +620,6 @@ function mostrarCboAsistencia(obj) {
                             <td class="tdpadleft5" style="width: 240px">
                                 <select id="cboSucursales" class="campotabla" name="cboSucursales" style="width: 150px" onchange="return cboSucursales_onchange()">
                                     <option selected value="0">&raquo; Elija una sucursal &laquo;</option>
-                                    <!--<option value="-1">&raquo; Todas las sucursales &laquo;</option>-->
                                     <%= LlenarControlSucursales()%>
                                 </select>
                             </td>
@@ -659,7 +643,6 @@ function mostrarCboAsistencia(obj) {
                             <td class="tdpadleft5" style="width: 240px">
                                 <select id="cboObservaciones" name="cboObservaciones" class="campotabla" style="width: 150px" >
                                     <option selected="selected" value="-1">&raquo; Elija una Observación &laquo;</option>
-                                  <%--  <option value="-1">&raquo; Todas las observaciones &laquo;</option>--%>
                                     <%= LLenarControlObservaciones()%>
                                 </select>
                             </td>
@@ -780,11 +763,9 @@ function mostrarCboAsistencia(obj) {
             </tr>
         </table>
         <script language="JavaScript">
-	<!--
-    new menu(MENU_ITEMS, MENU_POS);
-    var cal1 = new calendar(null, document.forms[0].elements["dtmFechaIni"]);
-    var cal2 = new calendar(null, document.forms[0].elements["dtmFechaFin"]);
-    //-->
+            new menu(MENU_ITEMS, MENU_POS);
+            var cal1 = new calendar(null, document.forms[0].elements["dtmFechaIni"]);
+            var cal2 = new calendar(null, document.forms[0].elements["dtmFechaFin"]);
         </script>
     </form>
     <div style="display: none;">

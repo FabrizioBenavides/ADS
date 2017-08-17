@@ -530,6 +530,7 @@ Public Class ControlAsistencia
     End Property
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Load
+
         ' Enviamos al usuario actual a la página de acceso, si no tiene privilegios de acceder a esta página
         If Benavides.CC.Business.clsConcentrador.clsControlAcceso.blnPermitirAccesoObjeto(intGrupoUsuarioId, strThisPageName, strConnectionString) = False Then
             Call Response.Redirect("../Default.aspx")
@@ -544,11 +545,9 @@ Public Class ControlAsistencia
 
             'CONSULTA DE REGISTROS
             If (intTipoConsulta = TipoConsulta.Resumen) Then
-                'Resumen de Movimientos
                 objDataArrayMovimientos = ConsultarResumenControlAsistencia()
 
             ElseIf (intTipoConsulta = TipoConsulta.Detalle) Then
-                'Detalle de Movimientos
                 objDataArrayMovimientos = ConsultarDetalleControlAsistencia()
             Else
                 objDataArrayMovimientos = Nothing
@@ -566,10 +565,9 @@ Public Class ControlAsistencia
 
                     'Se formatea la informacion.  
                     strRecordBrowserImpresion = clsCommons.strGenerateJavascriptString(strImpresionMovimientosDetalle(objDataArrayMovimientos))
-
                 End If
 
-                'Se ennvia a impresion.
+                'Se envia a impresion.
                 strHTML.Append("<script language='Javascript'>parent.fnImprimir( " & _
                 strComitasDobles & strRecordBrowserImpresion.ToString & strComitasDobles & _
                 "); </script>")
@@ -584,11 +582,11 @@ Public Class ControlAsistencia
 
             'CONSULTA DE REGISTROS
             If (intTipoConsulta = TipoConsulta.Resumen) Then
-                'Resumen de Movimientos
+
                 objArrayExportar = ConsultarResumenControlAsistencia()
 
             ElseIf (intTipoConsulta = TipoConsulta.Detalle) Then
-                'Detalle de Movimientos
+
                 objArrayExportar = ConsultarDetalleControlAsistencia()
             Else
                 objArrayExportar = Nothing
@@ -602,13 +600,9 @@ Public Class ControlAsistencia
             If IsArray(objArrayExportar) AndAlso objArrayExportar.Length > 0 Then
 
                 If (intTipoConsulta = TipoConsulta.Resumen) Then
-                    'Resumen
                     Call Response.Write(strTablaConsultaResumenExportar(objArrayExportar))
-
                 ElseIf (intTipoConsulta = TipoConsulta.Detalle) Then
-                    'Detalle.  
                     Call Response.Write(strTablaConsultaDetalleExportar(objArrayExportar))
-
                 End If
 
                 Call Response.End()
@@ -683,12 +677,10 @@ Public Class ControlAsistencia
 
                             'Registros confirmados con exito 
                             intConfirmados += 1
-
                         ElseIf (intResultado = 0) Then
 
                             'Registros rechazados
                             intRechazados += 1
-
                         End If
                     End If
                 Next
@@ -707,14 +699,13 @@ Public Class ControlAsistencia
                 End If
 
             Catch ex As Exception
-                Call Response.Write("<script language='Javascript'>alert('Ocurrio un error durante la confirmacion');</script>")
+                Call Response.Write("<script language='Javascript'>alert('Ocurrio un error durante la confirmación');</script>")
             End Try
 
         End If
     End Sub
 
     Public Function strTablaConsultaAsistencia() As String
-
         Dim objArray As System.Array = Nothing
         Dim resultadoConsulta As String = String.Empty
         Dim strmRecordBrowserHTML As String = String.Empty
@@ -734,7 +725,6 @@ Public Class ControlAsistencia
                 If objArray Is Nothing Then
 
                     Cache.Remove("cacheResumen")
-
                     'Resumen de Movimientos
                     objArray = ConsultarResumenControlAsistencia()
                 End If
@@ -756,12 +746,8 @@ Public Class ControlAsistencia
                 If (intTipoConsulta = TipoConsulta.Resumen) Then
 
                     Cache.Add("cacheResumen", objArray, Nothing, Date.Today.AddHours(1), System.Web.Caching.Cache.NoSlidingExpiration, System.Web.Caching.CacheItemPriority.Normal, Nothing)
-
-                    'Resumen 
                     strResult.Append(strTablaConsultaResumenHTML(objArray))
                 Else
-
-                    'Detalle
                     strResult.Append(strTablaConsultaDetalleHTML(objArray))
                 End If
 
@@ -879,8 +865,8 @@ Public Class ControlAsistencia
 
         strTablaDetalleHTML.Append("<tr class='trtitulos'>")
         strTablaDetalleHTML.Append("<td colspan='6' align='left'></td>")
-        strTablaDetalleHTML.Append("<td class='rayita' align='center' valign='top' colspan='2'>")
-        strTablaDetalleHTML.Append("Confirmacion")
+        strTablaDetalleHTML.Append("<td class='rayita' align='right' valign='top' colspan='4'>")
+        strTablaDetalleHTML.Append("Confirmación")
         strTablaDetalleHTML.Append("</td>")
         strTablaDetalleHTML.Append("<td class='rayita'></td>")
         strTablaDetalleHTML.Append("</tr>")
@@ -889,13 +875,16 @@ Public Class ControlAsistencia
         strTablaDetalleHTML.Append("<tr class='trtitulos'>")
         strTablaDetalleHTML.Append("<th class='rayita' align='center' valign='top'>No.</th>")
         strTablaDetalleHTML.Append("<th class='rayita' align='center' valign='top'>Empleado</th>")
+
+        strTablaDetalleHTML.Append("<th class='rayita' align='center' valign='top'>Hora Entrada</th>")
+        strTablaDetalleHTML.Append("<th class='rayita' align='center' valign='top'>Hora Salida</th>")
+
         strTablaDetalleHTML.Append("<th class='rayita' align='center' valign='top'>Centro Logistico</th>")
         strTablaDetalleHTML.Append("<th class='rayita' align='center' valign='top'>Sucursal</th>")
         strTablaDetalleHTML.Append("<th class='rayita' align='center' valign='top'>Movimiento</th>")
-        'strTablaDetalleHTML.Append("<th class='rayita' align='center' valign='top'>Descripción</th>")
         strTablaDetalleHTML.Append("<th class='rayita' align='center' valign='top'>Fecha</th>")
         strTablaDetalleHTML.Append("<th class='rayita' align='center' valign='top'>Movimiento</th>")
-        strTablaDetalleHTML.Append("<th class='rayita' align='center' valign='top'> Seleccionar <br>" & chkbox & "Todos</th>")
+        strTablaDetalleHTML.Append("<th class='rayita' align='center' valign='top'>Todos" & chkbox & "</th>")
 
         strTablaDetalleHTML.Append("</tr>")
 
@@ -933,7 +922,6 @@ Public Class ControlAsistencia
             If intTipoUsuarioId = TipoUsuario.Administrador Then
                 'El administrador por Regla de Negocio tendra todas las opciones
                 cboMovimientoAjuste = ObtenerMovimientosAdmin(strConsultaRegistroDetalle, intContador)
-
             Else
                 'El coordinador RH dependera del Movimiento Original ver "tblConfiguracionMovimientosAsistencia" y "tblRelacionMovimientosAsistencia".
                 cboMovimientoAjuste = LlenarControlConfirmacionMov(strConsultaRegistroDetalle, intContador)
@@ -945,17 +933,14 @@ Public Class ControlAsistencia
                 'Registro Sin confirmar
                 chkbox = "<input type='checkbox'" & idName & " onclick='javascript:fnMarcarUno()'/>"
                 strConfirmado = "0"
-
             ElseIf ((CBool(strConsultaRegistroDetalle(12)) = True) AndAlso (intTipoUsuarioId = TipoUsuario.Administrador)) Then
 
-                'Registro Confirmado, usuario = Aministrador
+                'Registro Confirmado, usuario = Administrador
                 chkbox = "<input type='checkbox'" & idName & " checked onclick='javascript:fnMarcarUno()'/>"
-
             ElseIf (CBool(strConsultaRegistroDetalle(12)) = True) AndAlso (intTipoUsuarioId = TipoUsuario.CoordinadorRH Or intTipoUsuarioId = TipoUsuario.SupervisorMedico) Then
 
                 'Registro Confirmado, usuario = Coordinador RH
                 chkbox = "<input type='checkbox'" & idName & " checked disabled='disabled' onclick='javascript:fnMarcarUno()'/>"
-
             End If
 
             strTablaDetalleHTML.Append("<tr>")
@@ -963,14 +948,16 @@ Public Class ControlAsistencia
             strTablaDetalleHTML.Append("<td align=center class=" & strColorRegistro & ">" & strConsultaRegistroDetalle(1) & " <input type='hidden' id='hdnRegistro" & intContador.ToString() & "' name='hdnRegistro" & intContador.ToString() & "' value='" & strConsultaRegistroDetalle(0) & "'></td>")
             ' Empleado
             strTablaDetalleHTML.Append("<td align=left class=" & strColorRegistro & ">" & clsCommons.strFormatearDescripcion(strConsultaRegistroDetalle(2)) & "</td>")
-            ' Centro Logistico 1
+            ' Hora Entrada
+            strTablaDetalleHTML.Append("<td align=center class=" & strColorRegistro & ">" & strConsultaRegistroDetalle(15) & "</td>")
+            ' Hora Salida
+            strTablaDetalleHTML.Append("<td align=center class=" & strColorRegistro & ">" & strConsultaRegistroDetalle(16) & "</td>")
+            ' Centro Logistico 
             strTablaDetalleHTML.Append("<td id=Division" & intContador & " align=center class=" & strColorRegistro & ">" & strConsultaRegistroDetalle(3) & "</td>")
             ' Sucursal
             strTablaDetalleHTML.Append("<td align=left class=" & strColorRegistro & ">" & clsCommons.strFormatearDescripcion(strConsultaRegistroDetalle(6)) & "</td>")
             ' Movimiento
             strTablaDetalleHTML.Append("<td align=left class=" & strColorRegistro & ">" & CStr(strConsultaRegistroDetalle(7)) & "-" & CStr(strConsultaRegistroDetalle(8)) & "</td>")
-            ' Descripcion
-            'strTablaDetalleHTML.Append("<td align=center class=" & strColorRegistro & ">" & clsCommons.strFormatearDescripcion(strConsultaRegistroDetalle(8)) & "</td>")
             ' Fecha
             strTablaDetalleHTML.Append("<td align=center class=" & strColorRegistro & ">" & clsCommons.strFormatearFechaPresentacion(strConsultaRegistroDetalle(9)) & "</td>")
             ' Movimiento
@@ -1082,15 +1069,12 @@ Public Class ControlAsistencia
                 If Not CInt(strRegistroDetalle(0)) = CInt(strConsultaRegistroDetalle(10)) AndAlso Not CInt(strRegistroDetalle(0)) = CInt(strConsultaRegistroDetalle(7)) Then
                     cbo = cbo & "<option value='" & CStr(strRegistroDetalle(0)) & "'>" & CStr(strRegistroDetalle(2)) & "</option>"
                 End If
-
             Next
-
         End If
 
         cbo = cbo & "</select>"
 
         Return cbo
-
     End Function
 
     Public Function strTablaConsultaResumenHTML(ByVal objConsultaResumen As Array) As String
@@ -1117,8 +1101,7 @@ Public Class ControlAsistencia
         strTablaResumenHTML.Append("<tr class='trtitulos'>")
         strTablaResumenHTML.Append("<th class='rayita' align='center' valign='top'>No.</th>")
         strTablaResumenHTML.Append("<th class='rayita' align='center' valign='top'>Empleado</th>")
-        strTablaResumenHTML.Append("<th class='rayita' align='center' valign='top'>Centro Logistico</th>")
-        'strTablaResumenHTML.Append("<th class='rayita' align='center' valign='top'>Compañia</th>")
+        strTablaResumenHTML.Append("<th class='rayita' align='center' valign='top'>Centro Logístico</th>")
         strTablaResumenHTML.Append("<th class='rayita' align='center' valign='top'>Sucursal</th>")
         strTablaResumenHTML.Append("<th class='rayita' align='center' valign='top'>Movimiento</th>")
         strTablaResumenHTML.Append("<th class='rayita' align='center' valign='top'>Descripcion</th>")
@@ -1267,7 +1250,6 @@ Public Class ControlAsistencia
     ' Output     : String
     '====================================================================
     Private Function strImpresionMovimientosDetalle(ByVal objDataArrayMovimientos As Array) As String
-
         'Variables
         Dim strImpresionMovimientosHTML As StringBuilder = New StringBuilder
         Dim strRegistroMovimientos As String()
@@ -1330,10 +1312,12 @@ Public Class ControlAsistencia
                 strImpresionMovimientosHTML.Append("<td width='6%' align='left' class='" & strclase & "' nowrap >" & clsCommons.strFormatearDescripcion(strRegistroMovimientos(1)).ToString & "</td>")
                 ' Empleado
                 strImpresionMovimientosHTML.Append("<td width='16%' align='center' class='" & strclase & "' >" & clsCommons.strFormatearDescripcion(strRegistroMovimientos(2)).ToString & "</td>")
+                ' Hora Entrada
+                strImpresionMovimientosHTML.Append("<td width='16%' align='center' class='" & strclase & "' >" & clsCommons.strFormatearDescripcion(strRegistroMovimientos(15)).ToString & "</td>")
+                ' Hora Salida
+                strImpresionMovimientosHTML.Append("<td width='16%' align='center' class='" & strclase & "' >" & clsCommons.strFormatearDescripcion(strRegistroMovimientos(16)).ToString & "</td>")
                 ' Centro Logistico
                 strImpresionMovimientosHTML.Append("<td width='7%' align='center' class='" & strclase & "'>" & clsCommons.strFormatearDescripcion(strRegistroMovimientos(3)) & "</td>")
-                ' Compania
-                'strImpresionMovimientosHTML.Append("<td width='13%' align='left' class='" & strclase & "' >" & clsCommons.strFormatearDescripcion(strRegistroMovimientos(4)) & "</td>")
                 ' Sucursal
                 strImpresionMovimientosHTML.Append("<td width='15%' align='left' class='" & strclase & "' >" & clsCommons.strFormatearDescripcion(strRegistroMovimientos(6)) & "</td>")
                 'Movimiento
@@ -1345,7 +1329,7 @@ Public Class ControlAsistencia
                 'Movimiento
                 strImpresionMovimientosHTML.Append("<td width='6%' align='center' class='" & strclase & "' >" & clsCommons.strFormatearDescripcion(strRegistroMovimientos(10)) & "</td>")
                 'Descripcion
-                strImpresionMovimientosHTML.Append("<td width='16%' align='center' class='" & strclase & "' >" & clsCommons.strFormatearDescripcion(strRegistroMovimientos(11)) & "</td>")
+                strImpresionMovimientosHTML.Append("<td width='12%' align='center' class='" & strclase & "' >" & clsCommons.strFormatearDescripcion(strRegistroMovimientos(11)) & "</td>")
                 'Observación
                 strImpresionMovimientosHTML.Append("<td width='16%' align='center' class='" & strclase & "' >" & clsCommons.strFormatearDescripcion(strRegistroMovimientos(14)) & "</td>")
                 'Confirmacion
@@ -1356,17 +1340,13 @@ Public Class ControlAsistencia
                     strImpresionMovimientosHTML.Append("</table>")
                     intRenglon = 0
                 End If
-
             Next
-
         End If
 
         Return strImpresionMovimientosHTML.ToString()
-
     End Function
 
     Private Function strImprimeEncabezadoDetalle(ByVal strHojaActual As String, ByVal strHojaFinal As String) As String
-
         Dim strHtmlEncabezado As StringBuilder
         strHtmlEncabezado = New StringBuilder
 
@@ -1382,7 +1362,7 @@ Public Class ControlAsistencia
 
         ' Fecha de Hoy /  Sucursal  / Hoja
         strHtmlEncabezado.Append("<tr class='trtxtBold'>")
-        strHtmlEncabezado.Append("<th width='7%' align='left'   class='tdtxtBold'>" & Date.Now.Day.ToString & "/" & Date.Now.Month.ToString & "/" & Date.Now.Year.ToString & "</th>")
+        strHtmlEncabezado.Append("<th width='7%' align='left' class='tdtxtBold'>" & Date.Now.Day.ToString & "/" & Date.Now.Month.ToString & "/" & Date.Now.Year.ToString & "</th>")
         strHtmlEncabezado.Append("<th width='50%' align='center' class='tdtxtBold' nowrap> ADS Central </th>")
         strHtmlEncabezado.Append("<th width='10%' align='center' class='tdtxtBold' nowrap></th>")
         strHtmlEncabezado.Append("<th width='10%' align='center' class='tdtxtBold' nowrap></th>")
@@ -1394,7 +1374,7 @@ Public Class ControlAsistencia
 
         strHtmlEncabezado.Append("<tr class='trtxtBold'>")
         strHtmlEncabezado.Append("<th class='tdtxtBold' colspan='11'></th>")
-        strHtmlEncabezado.Append("<th class='tdtxtBold' align='center' colspan='3' nowrap>Confirmacion</th>")
+        strHtmlEncabezado.Append("<th class='tdtxtBold' align='center' colspan='5' nowrap>Confirmación</th>")
         strHtmlEncabezado.Append("<th class='tdtxtBold'></th>")
         strHtmlEncabezado.Append("</tr>")
 
@@ -1402,24 +1382,26 @@ Public Class ControlAsistencia
         strHtmlEncabezado.Append("<tr class='trtxtBold'>")
         strHtmlEncabezado.Append("<th width='6%' class='tdtxtBold' align='center' nowrap>No.</th>")
         strHtmlEncabezado.Append("<th width='16%' class='tdtxtBold' align='center' nowrap>Empleado</th>")
-        strHtmlEncabezado.Append("<th width='7%' class='tdtxtBold' align='center' nowrap>Centro Logistico</th>")
+        strHtmlEncabezado.Append("<th width='16%' class='tdtxtBold' align='center' nowrap>Hora Entrada</th>")
+        strHtmlEncabezado.Append("<th width='16%' class='tdtxtBold' align='center' nowrap>Hora Salida</th>")
+        strHtmlEncabezado.Append("<th width='7%' class='tdtxtBold' align='center' nowrap>Centro Logístico</th>")
         strHtmlEncabezado.Append("<th width='15%' class='tdtxtBold' align='center' nowrap>Sucursal</th>")
         strHtmlEncabezado.Append("<th width='6%' class='tdtxtBold' align='center' nowrap>Movimiento</th>")
         strHtmlEncabezado.Append("<th width='16%' class='tdtxtBold' align='center' nowrap>Descripción</th>")
         strHtmlEncabezado.Append("<th width='7%' class='tdtxtBold' align='center' nowrap>Fecha</th>")
         strHtmlEncabezado.Append("<th width='6%' class='tdtxtBold' align='center' nowrap>Movimiento</th>")
         strHtmlEncabezado.Append("<th width='16%' class='tdtxtBold' align='center' nowrap>Descripción</th>")
-        strHtmlEncabezado.Append("<th width='16%' class='tdtxtBold' align='center' nowrap>Obs.</th>")
+        strHtmlEncabezado.Append("<th width='12%' class='tdtxtBold' align='center' nowrap>Obs.</th>")
+        ' strHtmlEncabezado.Append("<th width='16%' class='tdtxtBold' align='center' nowrap>Obs.</th>")
         strHtmlEncabezado.Append("<th width='5%' class='tdtxtBold' align='center' nowrap>Confirmación</th>")
         strHtmlEncabezado.Append("</tr>")
 
         'Raya Sola
         strHtmlEncabezado.Append("<tr class='trtxtBold'>")
-        strHtmlEncabezado.Append("<th width='100%' class='rayita' colspan='11'>" & "&nbsp;" & "</th>")
+        strHtmlEncabezado.Append("<th width='100%' class='rayita' colspan='13'>" & "&nbsp;" & "</th>")
         strHtmlEncabezado.Append("</tr>")
 
-        strImprimeEncabezadoDetalle = strHtmlEncabezado.ToString
-
+        strImprimeEncabezadoDetalle = strHtmlEncabezado.ToString()
     End Function
 
     'Resumen
@@ -1489,8 +1471,6 @@ Public Class ControlAsistencia
                 strImpresionMovimientosHTML.Append("<td width='25%' align='left' class='" & strclase & "' >" & clsCommons.strFormatearDescripcion(strRegistroMovimientos(1)).ToString & "</td>")
                 ' Centro Logistico
                 strImpresionMovimientosHTML.Append("<td width='10%' align='center' class='" & strclase & "'>" & clsCommons.strFormatearDescripcion(strRegistroMovimientos(2)) & "</td>")
-                ' Compania
-                'strImpresionMovimientosHTML.Append("<td width='13%' align='left' class='" & strclase & "' >" & clsCommons.strFormatearDescripcion(strRegistroMovimientos(3)) & "</td>")
                 ' Sucursal
                 strImpresionMovimientosHTML.Append("<td width='20%' align='center' class='" & strclase & "' >" & clsCommons.strFormatearDescripcion(strRegistroMovimientos(5)) & "</td>")
                 'Movimiento
@@ -1548,7 +1528,7 @@ Public Class ControlAsistencia
         strHtmlEncabezado.Append("<tr class='trtxtBold'>")
         strHtmlEncabezado.Append("<th width='10%' class='tdtxtBold' align='center' nowrap>No.</th>")
         strHtmlEncabezado.Append("<th width='25%' class='tdtxtBold' align='center' nowrap>Empleado</th>")
-        strHtmlEncabezado.Append("<th width='10%' class='tdtxtBold' align='center' nowrap>Centro Logistico</th>")
+        strHtmlEncabezado.Append("<th width='10%' class='tdtxtBold' align='center' nowrap>Centro Logístico</th>")
         strHtmlEncabezado.Append("<th width='20%' class='tdtxtBold' align='center' nowrap>Sucursal</th>")
         strHtmlEncabezado.Append("<th width='10%' class='tdtxtBold' align='center' nowrap>Movimiento</th>")
         strHtmlEncabezado.Append("<th width='20%' class='tdtxtBold' align='center' nowrap>Descripción</th>")
@@ -1562,7 +1542,6 @@ Public Class ControlAsistencia
         strHtmlEncabezado.Append("</tr>")
 
         strImprimeEncabezadoResumen = strHtmlEncabezado.ToString
-
     End Function
 
 #End Region
@@ -1610,8 +1589,6 @@ Public Class ControlAsistencia
             strTablaMovimientosHTML.Append("<td align=left id=tdCodigo" & intContador.ToString() & " class=" & strColorRegistro & ">" & clsCommons.strFormatearDescripcion(strConsultaResumen(1)) & "</td>")
             'Centro Logistico                  
             strTablaMovimientosHTML.Append("<td align=center class=" & strColorRegistro & ">" & clsCommons.strFormatearDescripcion(strConsultaResumen(2)) & "</td>")
-            'Compania
-            'strTablaMovimientosHTML.Append("<td class=" & strColorRegistro & ">" & clsCommons.strFormatearDescripcion(strConsultaResumen(4)) & "</td>")
             'Sucursal
             strTablaMovimientosHTML.Append("<td class=" & strColorRegistro & ">" & clsCommons.strFormatearDescripcion(strConsultaResumen(5)) & "</td>")
             'Movimiento
@@ -1643,15 +1620,16 @@ Public Class ControlAsistencia
 
         strTablaEspaciosHTML.Append("<tr class='trtitulos'>")
         strTablaEspaciosHTML.Append("<th class='rayita' colspan='7'></th>")
-        strTablaEspaciosHTML.Append("<th class='rayita' align='center' valign='top' colspan='2'>Confirmacion</th>")
+        strTablaEspaciosHTML.Append("<th class='rayita' align='center' valign='top' colspan='4'>Confirmación</th>")
         strTablaEspaciosHTML.Append("<th class='rayita'></th>")
         strTablaEspaciosHTML.Append("</tr>")
 
         strTablaEspaciosHTML.Append("<tr class='trtitulos'>")
         strTablaEspaciosHTML.Append("<th width='10%' class='rayita' align='center' valign='top'>No</th>")
         strTablaEspaciosHTML.Append("<th width='10%' class='rayita' align='center' valign='top'>Empleado</th>")
+        strTablaEspaciosHTML.Append("<th width='16%' class='tdtxtBold' align='center' nowrap>Hora Entrada</th>")
+        strTablaEspaciosHTML.Append("<th width='16%' class='tdtxtBold' align='center' nowrap>Hora Salida</th>")
         strTablaEspaciosHTML.Append("<th width='10%' class='rayita' align='center' valign='top'>Centro Logistico</th>")
-        'strTablaEspaciosHTML.Append("<th width='10%' align=center class='rayita' align='left' valign='top'>Compania</th>")
         strTablaEspaciosHTML.Append("<th width='10%' class='rayita' align='center' valign='top'>Sucursal</th>")
         strTablaEspaciosHTML.Append("<th width='10%' class='rayita' align='center' valign='top'>Movimiento</th>")
         strTablaEspaciosHTML.Append("<th width='8%' class='rayita' align='center' valign='top'>Descripción</th>")
@@ -1687,10 +1665,12 @@ Public Class ControlAsistencia
             strTablaEspaciosHTML.Append("<td align='left' class=" & strColorRegistro & ">" & clsCommons.strFormatearDescripcion(strConsultaExportaDetalle(1)) & "</td>")
             'Empleado
             strTablaEspaciosHTML.Append("<td align='left' id=tdCodigo" & intContador.ToString() & " class=" & strColorRegistro & ">" & clsCommons.strFormatearDescripcion(strConsultaExportaDetalle(2)) & "</td>")
+
+            strTablaEspaciosHTML.Append("<td align='center' class=" & strColorRegistro & ">" & strConsultaExportaDetalle(15) & "</td>")
+            strTablaEspaciosHTML.Append("<td align='center' class=" & strColorRegistro & ">" & strConsultaExportaDetalle(16) & "</td>")
+
             'Centro Logistico                  
             strTablaEspaciosHTML.Append("<td align='center' class=" & strColorRegistro & ">" & clsCommons.strFormatearDescripcion(strConsultaExportaDetalle(3)) & "</td>")
-            'Compania
-            'strTablaEspaciosHTML.Append("<td class=" & strColorRegistro & ">" & clsCommons.strFormatearDescripcion(strConsultaExportaDetalle(4)) & "</td>")
             'Sucursal
             strTablaEspaciosHTML.Append("<td align='left' class=" & strColorRegistro & ">" & clsCommons.strFormatearDescripcion(strConsultaExportaDetalle(6)) & "</td>")
             'Movimiento
@@ -1714,5 +1694,7 @@ Public Class ControlAsistencia
         strTablaEspaciosHTML.Append("</table>")
         strTablaConsultaDetalleExportar = strTablaEspaciosHTML.ToString
     End Function
+
 #End Region
+
 End Class
