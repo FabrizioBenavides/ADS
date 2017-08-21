@@ -345,12 +345,10 @@
     }
 
     function fnImprimir(strMovimientos) {
-
         //Llamada desde el servidor para imprimir resultados de la consulta.
         document.ifrPageToPrint.document.all.divBody.innerHTML = strMovimientos;
         document.ifrPageToPrint.focus();
         window.print();
-
     }
 
     function cmdExportar_onclick() {
@@ -423,11 +421,11 @@ function cmdTipoConsulta_onfocus() {
     document.getElementById('tblResultados').innerHTML = '';
 
     if (document.getElementById('rdResumen').checked == true) {
-        parent.document.getElementById('rdResumen').checked = true
+        parent.document.getElementById('rdResumen').checked = true;
     }
 
     if (document.getElementById('rdDetalle').checked == true) {
-        parent.document.getElementById('rdDetalle').checked = true
+        parent.document.getElementById('rdDetalle').checked = true;
     }
     return (false);
 }
@@ -575,7 +573,7 @@ function mostrarCboAsistencia(obj) {
         <table width="780" border="0" cellpadding="0" cellspacing="0">
             <tr>
                 <td class="tdgeneralcontent">
-                    <div id="divTitulo">
+                    <div id="divTitulo" >
                     </div>
                     <p>
                         Elija primero la sucursal y el periodo de asistencia presionando el boton Consultar. 
@@ -702,7 +700,6 @@ function mostrarCboAsistencia(obj) {
                                                     <td>&nbsp;</td>
                                                 </tr>
                                             </table>
-
                                         </td>
                                         <td width="50%" valign="top">
                                             <table width="100%">
@@ -736,7 +733,6 @@ function mostrarCboAsistencia(obj) {
                         <input type="hidden" id="dtmFechaActual" name="dtmFechaActual" value='<%= strFechaActual()%>' />
                         <input type="hidden" id="hdnTotalDePartidas" name="hdnTotalDePartidas">
                         <input type="hidden" id="hdnTipoUsuario" name="hdnTipoUsuario" value='<%= intTipoUsuarioId()%>'>
-
                         <input class="button" id="cmdConsultar" name="cmdConsultar" value="Consultar" onclick="return cmdConsultar_onclick()" type="button">
                         &nbsp;
                     </p>

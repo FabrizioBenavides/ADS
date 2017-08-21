@@ -35,7 +35,7 @@
         function cargarValoresControles() {
             document.getElementById("txtUsuarioNombre").value = "<%=intEmpleadoId%>";
             document.getElementById("txtUsuarioContrasena").value = "<%=strUsuarioContrasena%>";
-            document.getElementById("cboTipoUsuario").value = "<%=intTipoUsuarioId%>";
+            document.getElementById("cboTipoUsuario").value = "<%=intTipoUsuarioIdParametro%>";
 
             document.getElementById("cmdBuscarEmpleado").disabled = true;
 

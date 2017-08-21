@@ -1391,8 +1391,8 @@ Public Class ControlAsistencia
         strHtmlEncabezado.Append("<th width='7%' class='tdtxtBold' align='center' nowrap>Fecha</th>")
         strHtmlEncabezado.Append("<th width='6%' class='tdtxtBold' align='center' nowrap>Movimiento</th>")
         strHtmlEncabezado.Append("<th width='16%' class='tdtxtBold' align='center' nowrap>Descripción</th>")
-        strHtmlEncabezado.Append("<th width='12%' class='tdtxtBold' align='center' nowrap>Obs.</th>")
-        ' strHtmlEncabezado.Append("<th width='16%' class='tdtxtBold' align='center' nowrap>Obs.</th>")
+        strHtmlEncabezado.Append("<th width='16%' class='tdtxtBold' align='center' nowrap>Obs.</th>")
+
         strHtmlEncabezado.Append("<th width='5%' class='tdtxtBold' align='center' nowrap>Confirmación</th>")
         strHtmlEncabezado.Append("</tr>")
 
