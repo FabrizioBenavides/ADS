@@ -18,7 +18,8 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
     End Enum
 
     'This call is required by the Web Form Designer.
-    <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
+    <System.Diagnostics.DebuggerStepThrough()>
+    Private Sub InitializeComponent()
 
     End Sub
 

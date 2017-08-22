@@ -85,9 +85,15 @@ Public Class ControlAsistenciaReporte
     ' Throws     : None
     ' Output     : String
     '====================================================================
-    Public ReadOnly Property intTipoUsuarioId() As Integer
+    Public ReadOnly Property intTipoUsuarioIdParametro() As Integer
         Get
             Return CInt(Request.Form("cboTipoUsuario"))
+        End Get
+    End Property
+
+    Public ReadOnly Property intTipoUsuarioId() As Integer
+        Get
+            Return Benavides.CC.Data.clsControlDeAsistencia.intObtenerTipoUsuarioId(strUsuarioNombre, strConnectionString)
         End Get
     End Property
 
@@ -110,7 +116,7 @@ Public Class ControlAsistenciaReporte
 
             strEmpleados = (CreateJavascriptComboBoxOptions("cboCoordinadoresRH", _
                                                             CStr(intEmpleadoId), _
-                                                            Benavides.CC.Data.clsControlDeAsistencia.strBuscarCoordinadoresRH(intTipoUsuarioId, strConnectionString), _
+                                                            Benavides.CC.Data.clsControlDeAsistencia.strBuscarCoordinadoresRH(intTipoUsuarioIdParametro, strConnectionString), _
                                                            "intEmpleadoId", _
                                                            "strCoordinadorNombre", _
                                                             2))
@@ -327,7 +333,7 @@ Public Class ControlAsistenciaReporte
                                                                                                  intTipoNominaId, _
                                                                                                  dtmFechaInicio, _
                                                                                                  dtmFechaFin, _
-                                                                                                 intTipoUsuarioId, _
+                                                                                                 intTipoUsuarioIdParametro, _
                                                                                                  strConnectionString)
             End If
 

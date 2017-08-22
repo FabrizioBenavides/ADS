@@ -34,7 +34,7 @@
         function mantenerValorControles() {
             var strCmd;
 
-            var intTipoUsuarioId;
+            var intTipoUsuarioIdParametro;
             var intCoordinadorRHId;
             var intEstatusId;
             var intTipoNominaId;
@@ -43,19 +43,19 @@
             
             strCmd = "<%=strCmd%>";
 
-            intTipoUsuarioId = "<%= intTipoUsuarioId%>";
+            intTipoUsuarioIdParametro = "<%= intTipoUsuarioIdParametro%>";
             intCoordinadorRHId = "<%= intCoordinadorRHId%>";
             intEstatusId = "<%= intEstatusId%>";
             intTipoNominaId = "<%= intTipoNominaId%>";
             strFechaInicio = "<%= strFechaInicio%>";
             strFechaFin = "<%= strFechaFin%>";
             
-            if (strCmd == "BuscarTipoUsuario" && intTipoUsuarioId > 0) {
-                document.forms[0].elements["cboTipoUsuario"].value = intTipoUsuarioId;
+            if (strCmd == "BuscarTipoUsuario" && intTipoUsuarioIdParametro > 0) {
+                document.forms[0].elements["cboTipoUsuario"].value = intTipoUsuarioIdParametro;
             }
-            else if (strCmd == "cmdConsultar" && intTipoUsuarioId > 0) {
+            else if (strCmd == "cmdConsultar" && intTipoUsuarioIdParametro > 0) {
 
-                document.forms[0].elements["cboTipoUsuario"].value = intTipoUsuarioId;
+                document.forms[0].elements["cboTipoUsuario"].value = intTipoUsuarioIdParametro;
                 document.forms[0].elements["cboCoordinadoresRH"].value = intCoordinadorRHId;
                 document.forms[0].elements["cboEstatus"].value = intEstatusId;
                 document.forms[0].elements["cboTipoNomina"].value = intTipoNominaId;
@@ -266,7 +266,7 @@
         function obtenerTablaReporte(tblReporteAsistencia) {
             var cadenaTabla;
 
-            var intTipoUsuarioId = "<%= intTipoUsuarioId%>";
+            var intTipoUsuarioId = "<%= intTipoUsuarioIdParametro%>";
             var nombreTipoUsuario;
 
             if (intTipoUsuarioId == 2) {

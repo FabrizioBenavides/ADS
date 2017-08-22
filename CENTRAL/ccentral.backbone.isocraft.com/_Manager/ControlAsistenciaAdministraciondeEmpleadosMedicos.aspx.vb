@@ -17,7 +17,7 @@ Public Class ControlAsistenciaAdministraciondeEmpleadosMedicos
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         If Benavides.CC.Business.clsConcentrador.clsControlAcceso.blnPermitirAccesoObjeto(intGrupoUsuarioId, strThisPageName, strConnectionString) = False Or _
-            Not TipoUsuario.SupervisorMedico = 3 Then
+            Not intTipoUsuarioId = TipoUsuario.SupervisorMedico Then
             Call Response.Redirect("../Default.aspx")
         End If
     End Sub

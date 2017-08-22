@@ -283,6 +283,8 @@ Public Class ControlAsistenciaReportePorCoordinador
             Call Response.Redirect("../Default.aspx")
         End If
 
+        ' agregar Enum
+
         If (strCmd = "cmdImprimir") Then
 
             Dim strHTML As New StringBuilder
