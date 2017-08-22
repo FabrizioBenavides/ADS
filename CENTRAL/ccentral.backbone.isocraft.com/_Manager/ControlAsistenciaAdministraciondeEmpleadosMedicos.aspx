@@ -20,12 +20,6 @@
             <%= strJavascriptWindowOnLoadCommands %>
         }
 
-        function mostrarPaginaMovimientos_onclick(intEmpleadoId, NombreEmpleado) {
-            window.location.href = "ControlAsistenciaMovimientosEmpleadosMedicos.aspx?strCmd2=mostrarPaginaMovimientos" +
-                                   "&intEmpleadoId=" + intEmpleadoId +
-                                   "&NombreEmpleado=" + NombreEmpleado;
-        }
-
         function mostrarPaginaAdministracionEmpleados_onclick(intEmpleadoId) {
             window.location.href = "ControlAsistenciaAdministracionEmpleadosModificaciones.aspx?strCmd=Editar" +
                                    "&intEmpleadoId=" + intEmpleadoId +
@@ -74,8 +68,6 @@
                 ventanaNueva.close();
             }
         }
-
-
 
         new menu(MENU_ITEMS, MENU_POS);
     </script>

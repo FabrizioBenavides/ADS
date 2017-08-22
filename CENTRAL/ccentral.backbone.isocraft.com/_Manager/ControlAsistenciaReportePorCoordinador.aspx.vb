@@ -439,9 +439,7 @@ Public Class ControlAsistenciaReportePorCoordinador
         strTablaReporteHTML.Append("</tr>")
         strTablaReporteHTML.Append("</table>")
         strTablaReporteHTML.AppendFormat("<input type=""hidden"" id=""txtCurrentPage"" name=""txtCurrentPage"" value=""{0}"">", intPage)
-        strTablaConsultaReporteHTML = strTablaReporteHTML.ToString
-
-
+        strTablaConsultaReporteHTML = strTablaReporteHTML.ToString()
     End Function
 
 #Region "Imprimir"
