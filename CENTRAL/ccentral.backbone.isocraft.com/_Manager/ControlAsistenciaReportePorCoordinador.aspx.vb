@@ -14,6 +14,12 @@ Imports System.Web.Caching
 Public Class ControlAsistenciaReportePorCoordinador
     Inherits System.Web.UI.Page
 
+    Private Enum TipoUsuario
+        Administrador = 1
+        CoordinadorRH = 2
+        SupervisorMedico = 3
+    End Enum
+
     Private intEmpleadoId As Integer
 
     ' Parámetro defaulta para poder hacer la consulta para esta página en específico.
@@ -22,7 +28,8 @@ Public Class ControlAsistenciaReportePorCoordinador
 #Region " Web Form Designer Generated Code "
 
     'This call is required by the Web Form Designer.
-    <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
+    <System.Diagnostics.DebuggerStepThrough()>
+    Private Sub InitializeComponent()
 
     End Sub
 
@@ -252,7 +259,6 @@ Public Class ControlAsistenciaReportePorCoordinador
     '====================================================================
     Public ReadOnly Property strFechaActual() As String
         Get
-
             Dim dtmFechaActual As Date
 
             dtmFechaActual = New Date(Date.Today.Year, Date.Today.Month, Date.Today.Day)
@@ -274,19 +280,15 @@ Public Class ControlAsistenciaReportePorCoordinador
     End Property
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Load
-
         Const strComitasDobles As String = """"
 
         ' Enviamos al usuario actual a la página de acceso, si no tiene privilegios de acceder a esta página
         If Benavides.CC.Business.clsConcentrador.clsControlAcceso.blnPermitirAccesoObjeto(intGrupoUsuarioId, strThisPageName, strConnectionString) = False Or _
-             Not (intTipoUsuarioId = 2 Or intTipoUsuarioId = 3) Then
+             Not (intTipoUsuarioId = TipoUsuario.CoordinadorRH Or intTipoUsuarioId = TipoUsuario.SupervisorMedico) Then
             Call Response.Redirect("../Default.aspx")
         End If
 
-        ' agregar Enum
-
         If (strCmd = "cmdImprimir") Then
-
             Dim strHTML As New StringBuilder
             Dim objDataArrayReporte As Array = Nothing
             Dim strRecordBrowserImpresion As String = String.Empty
@@ -301,7 +303,6 @@ Public Class ControlAsistenciaReportePorCoordinador
                                                                                             strConnectionString)
 
             If IsArray(objDataArrayReporte) AndAlso objDataArrayReporte.Length > 0 Then
-
                 'Se envia la informacion a imprimir para darle formato de acuerdo a la tabla seleccionada por el usuario.  
                 strRecordBrowserImpresion = clsCommons.strGenerateJavascriptString(strImpresionReporte(objDataArrayReporte))
 
@@ -316,7 +317,6 @@ Public Class ControlAsistenciaReportePorCoordinador
         End If
 
         If (strCmd = "cmdExportar") Then
-
             Dim objArray As System.Array = Nothing
             objArray = clsControlDeAsistencia.strObtenerReporteControlAsistencia(CInt(strUsuarioNombre), _
                                                                                  intEstatusId, _
@@ -363,12 +363,10 @@ Public Class ControlAsistenciaReportePorCoordinador
 
 
             If Not objArray Is Nothing AndAlso IsArray(objArray) AndAlso objArray.Length > 0 Then
-
                 Cache.Add("cacheReporte", objArray, Nothing, Date.Today.AddHours(1), System.Web.Caching.Cache.NoSlidingExpiration, System.Web.Caching.CacheItemPriority.Normal, Nothing)
 
                 'Detalle
                 strResult.Append(strTablaConsultaReporteHTML(objArray))
-
             Else
                 'Tabla vacia sin resultados de consulta
                 Call Response.Write("<script language='Javascript'>alert('Busqueda sin resultados');</script>")
@@ -506,8 +504,6 @@ Public Class ControlAsistenciaReportePorCoordinador
                 End If
 
                 strImpresionReporteHTML.Append("<tr>")
-                ' Nombre Coordinador
-                'strImpresionReporteHTML.Append("<td width='15%' align='left' class='" & strclase & "' >" & clsCommons.strFormatearDescripcion(strRegistrosReporte(1)).ToString & "</td>")
                 ' Centro Logistico
                 strImpresionReporteHTML.Append("<td width='12%' align='left' class='" & strclase & "'>" & clsCommons.strFormatearDescripcion(strRegistrosReporte(2)) & "</td>")
                 ' Sucursal
@@ -526,17 +522,13 @@ Public Class ControlAsistenciaReportePorCoordinador
                     strImpresionReporteHTML.Append("</table>")
                     intRenglon = 0
                 End If
-
             Next
-
         End If
 
         Return strImpresionReporteHTML.ToString()
-
     End Function
 
     Private Function strImprimeEncabezado(ByVal strHojaActual As String, ByVal strHojaFinal As String) As String
-
         Dim strHtmlEncabezado As StringBuilder
         strHtmlEncabezado = New StringBuilder
 
@@ -565,7 +557,6 @@ Public Class ControlAsistenciaReportePorCoordinador
 
         'Encabezado titulos
         strHtmlEncabezado.Append("<tr class='trtxtBold'>")
-        'strHtmlEncabezado.Append("<th width='30%' class='tdtxtBold' align='center' nowrap>Coordinador RH</th>")
         strHtmlEncabezado.Append("<th width='15%' class='tdtxtBold' align='center' nowrap>Centro Logistico</th>")
         strHtmlEncabezado.Append("<th width='12%' class='tdtxtBold' align='center' nowrap>Sucursal</th>")
         strHtmlEncabezado.Append("<th width='20%' class='tdtxtBold' align='center' nowrap>Movimiento</th>")
@@ -597,7 +588,6 @@ Public Class ControlAsistenciaReportePorCoordinador
         strTablaExportarReporteHTML.Append("<span class='txsubtitulo'> </span> ")
         strTablaExportarReporteHTML.Append("<table width='100%' border='0' cellpadding='0' cellspacing='0'>")
         strTablaExportarReporteHTML.Append("<tr class='trtitulos'>")
-        'strTablaExportarReporteHTML.Append("<th width='10%' align=center class='rayita' align='left' valign='top'>Coordinador RH</th>")
         strTablaExportarReporteHTML.Append("<th width='10%' align=center class='rayita' align='left' valign='top'>Centro Logistico</th>")
         strTablaExportarReporteHTML.Append("<th width='10%' align=center class='rayita' align='left' valign='top'>Sucursal</th>")
         strTablaExportarReporteHTML.Append("<th width='10%' align=center class='rayita' align='left' valign='top'>Movimiento</th>")
@@ -620,8 +610,6 @@ Public Class ControlAsistenciaReportePorCoordinador
 
             strTablaExportarReporteHTML.Append("<tr>")
 
-            'CoordinadorRH
-            'strTablaExportarReporteHTML.Append("<td id=tdCodigo" & intContador.ToString() & " class=" & strColorRegistro & ">" & clsCommons.strFormatearDescripcion(strConsultaReporteExportar(1)) & "</td>")
             'Centro Logistico
             strTablaExportarReporteHTML.Append("<td class=" & strColorRegistro & ">" & clsCommons.strFormatearDescripcion(strConsultaReporteExportar(2)) & "</td>")
             'Sucursal

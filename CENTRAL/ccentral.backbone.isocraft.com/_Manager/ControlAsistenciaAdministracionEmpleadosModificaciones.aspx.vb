@@ -14,7 +14,8 @@ Public Class ControlAsistenciaAdministracionEmpleadosModificaciones
 #Region " Web Form Designer Generated Code "
 
     'This call is required by the Web Form Designer.
-    <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
+    <System.Diagnostics.DebuggerStepThrough()>
+    Private Sub InitializeComponent()
 
     End Sub
 
@@ -867,42 +868,6 @@ Public Class ControlAsistenciaAdministracionEmpleadosModificaciones
         End Set
     End Property
 
-    '====================================================================
-    ' Name       : strRecordBrowserHTML
-    ' Description: Valor que tomara la variable strmRecordBrowserHTML
-    ' Accessor   : Read
-    ' Throws     : Ninguna
-    ' Output     : String
-    '====================================================================
-    'Public Function strRecordBrowserHTML() As String
-    '    ' Declaración e inicialización de las variables locales
-    '    Dim strTargetURL As String = Request.ServerVariables("SCRIPT_NAME") & "?"
-    '    Dim blnConsultaAdministrativa As Boolean = False
-    '    Dim objGrupoUsuario As Array = Nothing
-    '    Dim strGrupoUsuarioRegistro As String() = Nothing
-    '    Dim objDataArray As Array = Nothing
-
-    '    ' Traemos informacion del rol que tiene el empleado firmado actualmente
-    '    'objGrupoUsuario = clstblGrupoUsuario.strBuscar(intGrupoUsuarioId, "", "", "", Date.Now, "", 0, 0, strCadenaConexion)
-
-    '    If IsArray(objGrupoUsuario) Then
-    '        If objGrupoUsuario.Length > 0 Then
-    '            strGrupoUsuarioRegistro = DirectCast(objGrupoUsuario.GetValue(0), String())
-    '            ' Validamos si el usuario firmado es un Administrador
-    '            blnConsultaAdministrativa = LTrim(RTrim(strGrupoUsuarioRegistro(1))).ToUpper.Equals("ADMINISTRADOR")
-    '        End If
-    '    End If
-
-    '    'objDataArray = Business.clsSucursal.clsEmpleado.strBuscar(intCompaniaId, intSucursalId, intEmpleadoId, blnConsultaAdministrativa, strCadenaConexion)
-
-    '    If IsArray(objDataArray) Then
-    '        If objDataArray.Length > 0 Then
-    '            ' Generamos el Navegador de Registros
-    '            Return clsCommons.strGenerateJavascriptString(clsRecordBrowser.strGetHTML("SucursalEmpleadosAdministrar", objDataArray, 1, objDataArray.Length, strTargetURL))
-    '        End If
-    '    End If
-    'End Function
-
     Public ReadOnly Property strNombreDeEmpleado() As String
         Get
         End Get
@@ -925,9 +890,9 @@ Public Class ControlAsistenciaAdministracionEmpleadosModificaciones
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         ' Control de Acceso de la página
-        'If Benavides.CC.Business.clsConcentrador.clsControlAcceso.blnPermitirAccesoObjeto(intGrupoUsuarioId, strThisPageName, strConnectionString) = False Then
-        '    Call Response.Redirect("../Default.aspx")
-        'End If
+        If Benavides.CC.Business.clsConcentrador.clsControlAcceso.blnPermitirAccesoObjeto(intGrupoUsuarioId, strThisPageName, strConnectionString) = False Then
+            Call Response.Redirect("../Default.aspx")
+        End If
 
         Try
 

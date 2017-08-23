@@ -4,26 +4,24 @@
 <html>
 <head>
     <title>Benavides: Control de Asistencia</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<link href="css/menu.css" rel="stylesheet" type="text/css">
-<link href="css/estilo.css" rel="stylesheet" type="text/css">
-<script language="JavaScript" type="text/JavaScript" src="js/tools.js"></script>
-<script language="JavaScript" type="text/JavaScript" src="../static/scripts/tools.js"></script>
-<script language="JavaScript" type="text/JavaScript" src="js/calendario.js"></script>
-<script language="JavaScript" type="text/JavaScript" src="js/cal_format00.js"></script>
-<meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5">
-<LINK rel="stylesheet" type="text/css" href="css/menu.css">
-<LINK rel="stylesheet" type="text/css" href="css/estilo.css">
-<script language="JavaScript" type="text/JavaScript" src="js/menu.js"></script>
-<script language="JavaScript" type="text/JavaScript" src="js/menu_items.js"></script>
-<script language="JavaScript" type="text/JavaScript" src="js/menu_tpl.js"></script>
-<script language="JavaScript" type="text/JavaScript" src="js/headerfooter.js"></script>
-<script id="clientEventHandlersJS" language="javascript">
-<!--
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <link href="css/menu.css" rel="stylesheet" type="text/css">
+    <link href="css/estilo.css" rel="stylesheet" type="text/css">
+    <script language="JavaScript" type="text/JavaScript" src="js/tools.js"></script>
+    <script language="JavaScript" type="text/JavaScript" src="../static/scripts/tools.js"></script>
+    <script language="JavaScript" type="text/JavaScript" src="js/calendario.js"></script>
+    <script language="JavaScript" type="text/JavaScript" src="js/cal_format00.js"></script>
+    <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5">
+    <LINK rel="stylesheet" type="text/css" href="css/menu.css">
+    <LINK rel="stylesheet" type="text/css" href="css/estilo.css">
+    <script language="JavaScript" type="text/JavaScript" src="js/menu.js"></script>
+    <script language="JavaScript" type="text/JavaScript" src="js/menu_items.js"></script>
+    <script language="JavaScript" type="text/JavaScript" src="js/menu_tpl.js"></script>
+    <script language="JavaScript" type="text/JavaScript" src="js/headerfooter.js"></script>
+    <script id="clientEventHandlersJS" language="javascript">
 
     strUsuarioNombre = "<%= strUsuarioNombre() %>";
     strFechaHora = "<%= strHTMLFechaHora %>";
-
 
     function window_onload() {
         document.forms[0].action = "<%= strFormAction %>";
@@ -34,38 +32,31 @@
         return (true);
     }
 
-
     function frmControlAsistencia_onsubmit() {
         return (true);
     }
 
     function cmdRegresar_onclick() {
-
         //Redirecciona a usuario al "home" de Control de Asistencia.
         window.location = "AsistenciaNomina.aspx";
-
     }
 
     function cboCoordinadoresRH_onchange() {
-
         document.getElementById("tblReporte").innerHTML = '';
         return (true);
     }
 
     function cmdConsultar_onclick() {
-
         document.getElementById('tblReporte').innerHTML = '';
-
-        //Variables.
         var valida;
 
         valida = fnValidaCampos();
         if (valida) {
 
             document.forms[0].action = '<%= strThisPageName%>?strCmd=cmdConsultar';
-        document.forms[0].target = "ifrOculto";
-        document.forms[0].submit();
-    }
+            document.forms[0].target = "ifrOculto";
+            document.forms[0].submit();
+        }
 
     return (valida);
 }
@@ -171,52 +162,49 @@ function trim(stringToTrim) {
 function cmdImprimir_onclick() {
 
     //Validacion de resultados
-    var tablaTotal = document.getElementById('tblReporte').innerHTML
+    var tablaTotal = document.getElementById('tblReporte').innerHTML;
+
     if (trim(tablaTotal) == 'Consulta sin resultados' || trim(tablaTotal) == '') {
-        alert('No hay resultados de la consulta')
+        alert('No hay resultados de la consulta');
         return (false);
     }
 
     var confirmar = confirm('Desea imprimir la informacion?');
+
     if (confirmar) {
-
         document.forms[0].action = "<%=strFormAction%>?strCmd=cmdImprimir";
-                document.forms[0].target = "ifrOculto";
-                document.forms[0].submit();
-                document.forms[0].target = '';
+        document.forms[0].target = "ifrOculto";
+        document.forms[0].submit();
+        document.forms[0].target = '';
+    }
 
-            }
-
-            return (false);
-        }
+    return (false);
+}
 
         function fnImprimir(strReporteAsistencia) {
-
             //Llamada desde el servidor para imprimir resultados de las consulta.
             document.ifrPageToPrint.document.all.divBody.innerHTML = strReporteAsistencia;
             document.ifrPageToPrint.focus();
             window.print();
-
         }
 
         function dtmFecha_onKeyPress(e) {
-
             //No se permiten caracteres especiales para la fecha.
             var key = window.event ? e.keyCode : e.which;
             if (key > 46 && key < 58) {
                 return true;
             }
             else {
-                return false
+                return false;
             }
         }
 
         function cmdExportar_onclick() {
-
             //Validacion de resultados
-            var tablaTotal = document.getElementById('tblReporte').innerHTML
+            var tablaTotal = document.getElementById('tblReporte').innerHTML;
+
             if (trim(tablaTotal) == 'Consulta sin resultados' || trim(tablaTotal) == '') {
-                alert('No hay resultados de la consulta')
+                alert('No hay resultados de la consulta');
                 return (false);
             }
 
@@ -243,13 +231,12 @@ function cmdImprimir_onclick() {
             else {
                 document.getElementById('txtCurrentPage').value = p;
             }
-            document.forms[0].action =
-            '<%= strThisPageName%>?strCmd=cmdConsultar&pager=true&p=' + p;
-        document.forms[0].target = "ifrOculto";
-        document.forms[0].submit();
-    }
-    //-->
-</script>
+
+            document.forms[0].action = '<%= strThisPageName%>?strCmd=cmdConsultar&pager=true&p=' + p;
+            document.forms[0].target = "ifrOculto";
+            document.forms[0].submit();
+        }
+  </script>
 
     <style type="text/css">
         .auto-style1 {
@@ -289,7 +276,7 @@ function cmdImprimir_onclick() {
                                     </td>
                                 </tr>
                                 <tr>
-                                        <td class="tdtexttablebold" style="width: 150px">Estatus</td><!--onchange="return cboEstatus_onchange()"-->
+                                        <td class="tdtexttablebold" style="width: 150px">Estatus</td>
                                         <td class="tdpadleft5" style="width: 240px">
                                             <select id="cboEstatus" name="cboEstatus" class="campotabla" style="width:220px" >
                                                 <option selected="selected" value="-1">&raquo; Todos &laquo;</option>
@@ -299,7 +286,7 @@ function cmdImprimir_onclick() {
                                         </td>
                                 </tr>
                                 <tr>
-                                        <td class="tdtexttablebold" style="width: 150px">Tipo de Nomina</td><!--onchange="return cboEstatus_onchange()"-->
+                                        <td class="tdtexttablebold" style="width: 150px">Tipo de Nomina</td>
                                         <td class="tdpadleft5" style="width: 240px">
                                             <select id="cboTipoNomina" name="cboTipoNomina" class="campotabla" style="width:220px" >
                                                 <option selected="selected" value="0">&raquo; Todos &laquo;</option>
@@ -382,4 +369,3 @@ function cmdImprimir_onclick() {
     <iframe name="ifrPageToPrint" src="ifrImpresionDocumentos.aspx" width="0" height="0" marginheight="0" marginwidth="0"></iframe>
 </body>
 </html>
-

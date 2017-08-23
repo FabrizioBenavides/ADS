@@ -23,7 +23,8 @@ Public Class ControlAsistenciaReporte
 #Region " Web Form Designer Generated Code "
 
     'This call is required by the Web Form Designer.
-    <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
+    <System.Diagnostics.DebuggerStepThrough()>
+    Private Sub InitializeComponent()
 
     End Sub
 
@@ -289,7 +290,6 @@ Public Class ControlAsistenciaReporte
     '====================================================================
     Public ReadOnly Property strFechaActual() As String
         Get
-
             Dim dtmFechaActual As Date
 
             dtmFechaActual = New Date(Date.Today.Year, Date.Today.Month, Date.Today.Day)
@@ -313,7 +313,7 @@ Public Class ControlAsistenciaReporte
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         If Benavides.CC.Business.clsConcentrador.clsControlAcceso.blnPermitirAccesoObjeto(intGrupoUsuarioId, strThisPageName, strConnectionString) = False Or _
-            Not intTipoUsuarioId = 1 Then
+            Not intTipoUsuarioId = TipoUsuario.Administrador Then
             Call Response.Redirect("../Default.aspx")
         End If
     End Sub
@@ -364,9 +364,9 @@ Public Class ControlAsistenciaReporte
 
         strTablaReporteHTML = New StringBuilder
 
-        If intTipoUsuarioId = TipoUsuario.CoordinadorRH Then
+        If intTipoUsuarioIdParametro = TipoUsuario.CoordinadorRH Then
             intValorTipoUsuario = "Coordinador RH"
-        ElseIf intTipoUsuarioId = TipoUsuario.SupervisorMedico Then
+        ElseIf intTipoUsuarioIdParametro = TipoUsuario.SupervisorMedico Then
             intValorTipoUsuario = "Supervisor Médico"
         End If
 
