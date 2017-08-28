@@ -89,12 +89,13 @@ Public Class ControlAsistenciaMovimientosEmpleadosMedicos
         Dim objMovimientosMedicos As Array
 
         If strCmd2 = "Buscar" Then
+            ' Ya no existe porque pagina ya no es necesaria.
 
-            objMovimientosMedicos = clsControlDeAsistencia.clsRolMedico _
-                                    .strConsultarMovimientosEmpleadosMedicos(intEmpleadoId, _
-                                                                             dtmFechaInicio, _
-                                                                             dtmFechaFin, _
-                                                                             strConnectionString)
+            'objMovimientosMedicos = clsControlDeAsistencia.clsRolMedico _
+            '                        .strConsultarMovimientosEmpleadosMedicos(intEmpleadoId, _
+            '                                                                 dtmFechaInicio, _
+            '                                                                 dtmFechaFin, _
+            '                                                                 strConnectionString)
 
             If IsArray(objMovimientosMedicos) AndAlso objMovimientosMedicos.Length > 0 Then
                 strResultadoTablaMovimientosMedicos.Append("<table id='tblMovimientos' width='100%' border='0' cellpadding='0' cellspacing='0'>")

@@ -185,7 +185,7 @@ Public Class ControlAsistenciaAdministracionEmpleadosMedicosTurnos
         Dim objHorarioLaboralEmpleado As Array
         Dim objHorarioAsignadoEmpleado As Array
 
-        objHorarioLaboralEmpleado = clsControlDeAsistencia.clsRolMedico.strBuscarHorarioLaboralPorEmpleadoId(intEmpleadoId, strConnectionString)
+        objHorarioLaboralEmpleado = clsControlDeAsistencia.clsRolMedico.strBuscarHorarioLaboral(strConnectionString)
 
         objHorarioAsignadoEmpleado = clsControlDeAsistencia. _
                                      clsRolMedico. _
@@ -207,9 +207,11 @@ Public Class ControlAsistenciaAdministracionEmpleadosMedicosTurnos
            (Not objHorarioAsignadoEmpleado Is Nothing AndAlso objHorarioAsignadoEmpleado.Length > 0) Then
 
             strResultadoTablaHorario.Append(strCrearRenglonesHorarioConHorarioAsignadoEmpleado(objHorarioLaboralEmpleado, objHorarioAsignadoEmpleado))
-        Else
+
+        ElseIf (Not objHorarioLaboralEmpleado Is Nothing AndAlso objHorarioLaboralEmpleado.Length > 0) Then
 
             strResultadoTablaHorario.Append(strCrearRenglonesHorarioSinHorarioAsignadoEmpleado(objHorarioLaboralEmpleado))
+
         End If
 
         strResultadoTablaHorario.Append("</table>")
