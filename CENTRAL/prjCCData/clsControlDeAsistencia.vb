@@ -3988,9 +3988,9 @@ Public Class clsControlDeAsistencia
             End Try
         End Function
 
-        Public Shared Function strBuscarHorarioLaboralPorEmpleadoId(ByVal intEmpleadoId As Integer, ByVal strConnectionString As String) As Array
+        Public Shared Function strBuscarHorarioLaboral(ByVal strConnectionString As String) As Array
             ' Constantes locales
-            Const strmThisMemberName As String = "strBuscarHorarioLaboralPorEmpleadoId"
+            Const strmThisMemberName As String = "strBuscarHorarioLaboral"
             Const strmThisClassName As String = "clsRolMedico"
 
             ' Variables locales
@@ -4001,11 +4001,10 @@ Public Class clsControlDeAsistencia
                 strSQLStatement = New StringBuilder
 
                 ' Creamos es estatuto de SQL
-                Call strSQLStatement.Append("EXECUTE spBuscarHorarioLaboralPorEmpleadoId ")
-                Call strSQLStatement.Append(intEmpleadoId)
+                Call strSQLStatement.Append("EXECUTE spBuscarHorarioLaboral ")
 
                 ' Ejecutamos el comando
-                strBuscarHorarioLaboralPorEmpleadoId = clsSQLOperation3.aobjExecuteQuery(strSQLStatement.ToString(), strConnectionString)
+                strBuscarHorarioLaboral = clsSQLOperation3.aobjExecuteQuery(strSQLStatement.ToString(), strConnectionString)
                 strSQLStatement = Nothing
 
             Catch objException As Exception
@@ -4046,7 +4045,7 @@ Public Class clsControlDeAsistencia
                 Call objApplicationEventLog.WriteEntry(strErrorString.ToString(), EventLogEntryType.Error, Err.Number, intCategoryNumber)
 
                 ' Regresamos la información
-                strBuscarHorarioLaboralPorEmpleadoId = Nothing
+                strBuscarHorarioLaboral = Nothing
             End Try
         End Function
 
