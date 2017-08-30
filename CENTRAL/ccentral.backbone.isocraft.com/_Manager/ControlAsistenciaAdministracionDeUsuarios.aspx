@@ -22,11 +22,21 @@
 
         function cargarValoresControles() {
             var strCmd2;
+            var txtNumeroEmpleado;
 
             strCmd2 = "<%=strCmd2%>";
 
             if (strCmd2 == "Buscar") {
-                document.getElementById("txtNumeroEmpleado").value = "<%=txtNumeroEmpleado%>";
+
+                txtNumeroEmpleado = "<%=txtNumeroEmpleado%>";
+
+                if (txtNumeroEmpleado == "0") {
+                    document.getElementById("txtNumeroEmpleado").value = "";
+                }
+                else {
+                    document.getElementById("txtNumeroEmpleado").value = txtNumeroEmpleado;
+                }
+
                 document.getElementById("cboTipoUsuario").value = "<%=cboTipoUsuario%>"; 
             }
         }

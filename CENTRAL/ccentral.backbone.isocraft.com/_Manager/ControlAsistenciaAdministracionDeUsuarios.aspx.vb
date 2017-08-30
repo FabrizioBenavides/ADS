@@ -40,7 +40,7 @@ Public Class ControlAsistenciaAdministracionDeUsuarios
 
     Public ReadOnly Property intEmpleadoId() As String
         Get
-            Return GetPageParameter("intEmpleadoId", "")
+            Return GetPageParameter("intEmpleadoId", "0")
         End Get
     End Property
 
@@ -92,7 +92,7 @@ Public Class ControlAsistenciaAdministracionDeUsuarios
         Dim objUsuarios As Array
         Dim intEmpleadoIdParametro As Integer
 
-        If intEmpleadoId Is String.Empty Then
+        If intEmpleadoId Is "0" Then
             intEmpleadoIdParametro = 0
         Else
             intEmpleadoIdParametro = CInt(intEmpleadoId)
