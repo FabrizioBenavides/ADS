@@ -272,7 +272,8 @@ function cmdImprimir_onclick() {
                             <table width="100%" >
                                 <tr>
                                     <td class='txsubtitulo' colspan="2">
-                                        <img src="../static/images/bullet_subtitulos.gif" width="17" height="11" align="absmiddle">Coordinador RH
+                                        <img src="../static/images/bullet_subtitulos.gif" width="17" height="11" align="absmiddle">
+                                        Coordinador RH/Supervisor Médico
                                     </td>
                                 </tr>
                                 <tr>

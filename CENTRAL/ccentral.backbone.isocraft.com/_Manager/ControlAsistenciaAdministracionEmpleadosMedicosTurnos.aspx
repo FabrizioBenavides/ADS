@@ -112,7 +112,7 @@
                 cantidadDiasDescanso = 2;
             }
             
-            tieneEmpleadoHorarioAsignado = '<%=strTieneHorarioEmpleadoAsignado()%>';
+           tieneEmpleadoHorarioAsignado = '<%=strTieneHorarioEmpleadoAsignado()%>';
 
             if (tieneEmpleadoHorarioAsignado == "False") {
                 esValido = validarHorarioNuevo(cantidadDiasDescanso);
