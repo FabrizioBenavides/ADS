@@ -66,7 +66,7 @@ Public Class VentasCapreDescuentoProducto
 
         If Benavides.CC.Business.clsConcentrador.clsControlAcceso. _
                blnPermitirAccesoObjeto(intGrupoUsuarioId, strThisPageName, strConnectionString) = False Then
-            Call Response.Redirect("../Default.aspx")
+            'Call Response.Redirect("../Default.aspx")
         End If
 
         Select Case strCmd2
@@ -491,6 +491,39 @@ Public Class VentasCapreDescuentoProducto
         End If
 
         Return blnExisteProducto
+    End Function
+
+    Protected Function ExportarReporteProductos() As String
+        Dim strResultadoConsulta As Array
+        Dim strReporte As StringBuilder = New StringBuilder
+        Dim renglon As New System.Collections.SortedList
+
+        strResultadoConsulta = clsCapre.clsCapreMaximoArticulo.strExportarCapreMaximoArticuloPorProducto(strConnectionString)
+
+        If IsArray(strResultadoConsulta) AndAlso strResultadoConsulta.Length > 0 Then
+
+            strReporte.Append("<table border=""2px"" >")
+            strReporte.Append("<tr bgcolor=""#87AFC6"" >")
+            strReporte.Append("<th>Código</th>")
+            strReporte.Append("<th>Nombre Producto</th>")
+            strReporte.Append("<th>Descuento(%)</th>")
+            strReporte.Append("</tr>")
+
+            For Each renglon In strResultadoConsulta
+                strReporte.Append("<tr>")
+
+                strReporte.AppendFormat("<td>{0}</td>", CStr(renglon.Item("intArticuloId")))
+                strReporte.AppendFormat("<td>{0}</td>", CStr(renglon.Item("strArticuloDescripcion")))
+                strReporte.AppendFormat("<td>{0}</td>", CStr(renglon.Item("fltCaprePorcentajeMaximo")))
+
+                strReporte.Append("</tr>")
+            Next
+
+            strReporte.Append("</table>")
+        End If
+
+
+        Return strReporte.ToString()
     End Function
 
 End Class

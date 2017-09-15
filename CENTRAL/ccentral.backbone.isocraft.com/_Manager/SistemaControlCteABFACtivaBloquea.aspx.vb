@@ -2,8 +2,6 @@ Imports Isocraft.Web.Http
 Imports Isocraft.Web.Convert
 Imports System.Text
 
-
-
 Public Class SistemaControlCteABFACtivaBloquea
     Inherits System.Web.UI.Page
 
@@ -13,11 +11,6 @@ Public Class SistemaControlCteABFACtivaBloquea
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
 
     End Sub
-    'Protected WithEvents lblClienteSAPId As System.Web.UI.WebControls.Label
-    'Protected WithEvents lblClienteABFId As System.Web.UI.WebControls.Label
-    'Protected WithEvents lblClienteInstEdit As System.Web.UI.WebControls.Label
-    'Protected WithEvents chkActivo As System.Web.UI.WebControls.CheckBox
-    'Protected WithEvents chkCredDisp As System.Web.UI.WebControls.CheckBox
 
     'NOTE: The following placeholder declaration is required by the Web Form Designer.
     'Do not delete or move it.
@@ -29,8 +22,6 @@ Public Class SistemaControlCteABFACtivaBloquea
         InitializeComponent()
 
         strbuscaCliente = GetPageParameter("strbuscaCliente", GetPageParameter("txtbuscaCliente", ""))
-
-
     End Sub
 
 #End Region
@@ -43,7 +34,6 @@ Public Class SistemaControlCteABFACtivaBloquea
     Private intmtxtGrupoClienteEspecialId As Integer
 
     Private strmbuscaCliente As String
-
 
 #End Region
 
@@ -245,35 +235,27 @@ Public Class SistemaControlCteABFACtivaBloquea
     '====================================================================
     Public Function strGetRecordBrowserHTML() As String
         Dim strc As String = """"
-
-
-        ' Declaramos e inicializamos las variables locales
-
         Dim objDataArray As Array = Benavides.CC.Data.clstblClienteVentasInstitucionales.strBuscar(strbuscaCliente, strConnectionString)
-
         Dim objRegistroDataArray As New System.Collections.SortedList
         Dim strRecordBrowserHTML As New System.Text.StringBuilder
+        Dim intContadorRegistros As Integer = 0
+        Dim strColorRegistro As String = ""
+        Dim strSAPId As String
+        Dim strABFId As String
+        Dim strNombre As String
 
         If IsArray(objDataArray) AndAlso objDataArray.Length > 0 Then
 
-            Dim intContadorRegistros As Integer = 0
-            Dim strColorRegistro As String = ""
-            Dim strSAPId As String
-            Dim strABFId As String
-            Dim strNombre As String
-
             strRecordBrowserHTML.Append("<table width='100%' border='0' cellpadding='0' cellspacing='0'>")
-
             strRecordBrowserHTML.Append("<tr class='trtitulos'>")
             strRecordBrowserHTML.Append("<th  class='rayita'>&nbsp;</th>")
             strRecordBrowserHTML.Append("<th  class='rayita'>SAP</th>")
             strRecordBrowserHTML.Append("<th  class='rayita'>ABF</th>")
             strRecordBrowserHTML.Append("<th  class='rayita'>Nombre</th>")
             strRecordBrowserHTML.Append("<th  class='rayita'>Activo</th>")
-            strRecordBrowserHTML.Append("<th  class='rayita' align='center'>Excedido Limite de Credito</th>")
+            strRecordBrowserHTML.Append("<th  class='rayita' align='center'>Excedido Límite de Crédito</th>")
             strRecordBrowserHTML.Append("<th  class='rayita'>Acciones</th>")
             strRecordBrowserHTML.Append("</tr>")
-
 
             For Each objRegistroDataArray In objDataArray
                 intContadorRegistros += 1
@@ -287,7 +269,6 @@ Public Class SistemaControlCteABFACtivaBloquea
                 strSAPId = "&nbsp;"
                 strABFId = "&nbsp;"
                 strNombre = "&nbsp;"
-
 
                 If Len(Trim(CStr(objRegistroDataArray.Item("strClienteSAPId")))) > 0 Then
                     strSAPId = Benavides.POSAdmin.Commons.clsCommons.strFormatearDescripcion(CStr(objRegistroDataArray.Item("strClienteSAPId")))
@@ -306,29 +287,34 @@ Public Class SistemaControlCteABFACtivaBloquea
                 strRecordBrowserHTML.Append("<td class=" & strColorRegistro & ">" & strSAPId & "</td>")
                 strRecordBrowserHTML.Append("<td class=" & strColorRegistro & ">" & strABFId & "</td>")
                 strRecordBrowserHTML.Append("<td class=" & strColorRegistro & ">" & strNombre & "</td>")
-                'strRecordBrowserHTML.Append("<td class=" & strColorRegistro & ">" & Benavides.POSAdmin.Commons.clsCommons.strFormatearDescripcion(CStr(objRegistroDataArray.Item("blnClienteActivo"))).Replace("True", "Sí").Replace("False", "No") & "</td>")
-                strRecordBrowserHTML.Append("<td class=" & strColorRegistro & " align=center>" & "<input class=fieldborderless id=chkClienteActivo" & intContadorRegistros.ToString & " type=checkbox name=chkClienteActivo" & intContadorRegistros.ToString & " disabled=true " & CStr(objRegistroDataArray.Item("blnClienteActivo")).Replace("True", "checked").Replace("False", "") & "></td>")
-                strRecordBrowserHTML.Append("<td class=" & strColorRegistro & " align=center>" & "<input class=fieldborderless id=chkClienteExcedidoEnLimiteCredito" & intContadorRegistros.ToString & " type=checkbox name=chkClienteExcedidoEnLimiteCredito" & intContadorRegistros.ToString & " disabled=true " & CStr(objRegistroDataArray.Item("blnClienteExcedidoEnLimiteCredito")).Replace("True", "checked").Replace("False", "") & "></td>")
-                strRecordBrowserHTML.Append("<td class=" & strColorRegistro & " align=center>" & "<a href='SistemaControlCteABFACtivaBloquea.aspx?strCmd=Editar" & _
-                "&strbuscaCliente=" & strbuscaCliente & _
-                "&strClienteSAPId=" & strSAPId & _
-                "&strClienteABFId=" & strABFId & _
-                "&strClienteNombre=" & strNombre & _
-                "&blnClienteActivo=" & CStr(objRegistroDataArray.Item("blnClienteActivo")).Replace("True", "1").Replace("False", "0") & _
-                "&blnClienteExcedidoEnLimiteCredito=" & CStr(objRegistroDataArray.Item("blnClienteExcedidoEnLimiteCredito")).Replace("True", "1").Replace("False", "0") & _
-                 "'><img src='../static/images/icono_editar.gif' width='11' height='13' border='0' align='absMiddle' alt = 'Haga clic aquí para editar la disponibilidad del cliente'></a></td>")
-                strRecordBrowserHTML.Append("</tr>")
 
+                strRecordBrowserHTML.Append("<td class=" & strColorRegistro & " align=center>" &
+                                                                              "<input class=fieldborderless id=chkClienteActivo" & intContadorRegistros.ToString &
+                                                                              " type=checkbox name=chkClienteActivo" & intContadorRegistros.ToString &
+                                                                              " disabled=true " & CStr(objRegistroDataArray.Item("blnClienteActivo")).Replace("True", "checked").Replace("False", "") & "></td>")
+
+                strRecordBrowserHTML.Append("<td class=" & strColorRegistro & " align=center>" &
+                                                                              "<input class=fieldborderless id=chkClienteExcedidoEnLimiteCredito" & intContadorRegistros.ToString &
+                                                                              " type=checkbox name=chkClienteExcedidoEnLimiteCredito" & intContadorRegistros.ToString &
+                                                                              " disabled=true " & CStr(objRegistroDataArray.Item("blnClienteExcedidoEnLimiteCredito")).Replace("True", "checked").Replace("False", "") & "></td>")
+
+                strRecordBrowserHTML.Append("<td class=" & strColorRegistro & " align=center>" & "<a href='SistemaControlCteABFACtivaBloquea.aspx?strCmd=Editar" & _
+                                                                                                 "&strbuscaCliente=" & strbuscaCliente & _
+                                                                                                 "&strClienteSAPId=" & strSAPId & _
+                                                                                                 "&strClienteABFId=" & strABFId & _
+                                                                                                 "&strClienteNombre=" & strNombre & _
+                                                                                                 "&blnClienteActivo=" & CStr(objRegistroDataArray.Item("blnClienteActivo")).Replace("True", "1").Replace("False", "0") & _
+                                                                                                 "&blnClienteExcedidoEnLimiteCredito=" & CStr(objRegistroDataArray.Item("blnClienteExcedidoEnLimiteCredito")).Replace("True", "1").Replace("False", "0") & "'>" & _
+                                                                                                 "<img src='../static/images/icono_editar.gif' width='11' height='13' border='0' align='absMiddle' alt = 'Haga clic aquí para editar la disponibilidad del cliente' title='Haga clic aquí para editar la disponibilidad del cliente' ></a></td>")
+
+                strRecordBrowserHTML.Append("</tr>")
             Next
 
             strRecordBrowserHTML.Append("</table>")
-
         End If
 
-        Return strRecordBrowserHTML.ToString
-
+        Return strRecordBrowserHTML.ToString()
     End Function
-
 
     Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         'Put user code to initialize the page here
@@ -346,13 +332,65 @@ Public Class SistemaControlCteABFACtivaBloquea
         Select Case strCmd
 
             Case "Guardar"
-
-                intResultado = Benavides.CC.Data.clstblClienteVentasInstitucionales.intActualizar(strClienteSAPId, strClienteABFId, strClienteNombre, blnClienteActivo, blnClienteExcedidoEnLimiteCredito, strConnectionString)
+                intResultado = Benavides.CC.Data.clstblClienteVentasInstitucionales.intActualizar(strClienteSAPId, _
+                                                                                                  strClienteABFId, _
+                                                                                                  strClienteNombre, _
+                                                                                                  blnClienteActivo, _
+                                                                                                  blnClienteExcedidoEnLimiteCredito, _
+                                                                                                  strConnectionString)
 
                 Response.Redirect("SistemaControlCteABFACtivaBloquea.aspx?" & "strbuscaCliente=" & strbuscaCliente)
-
         End Select
-
     End Sub
+
+    Protected Function ExportarReporteClientes() As String
+        Dim strResultadoConsulta As Array
+        Dim strReporte As StringBuilder = New StringBuilder
+        Dim renglon As New System.Collections.SortedList
+
+        strResultadoConsulta = Benavides.CC.Data.clstblClienteVentasInstitucionales.strExportar(strConnectionString)
+
+        If IsArray(strResultadoConsulta) AndAlso strResultadoConsulta.Length > 0 Then
+
+            strReporte.Append("<table border=""2px"" >")
+            strReporte.Append("<tr bgcolor=""#87AFC6"" >")
+            strReporte.Append("<th>SAP</th>")
+            strReporte.Append("<th>ABF</th>")
+            strReporte.Append("<th>Nombre</th>")
+            strReporte.Append("<th>Límite Crédito</th>")
+            strReporte.Append("<th>Saldo Crédito SAP</th>")
+            strReporte.Append("<th>Saldo Crédito Bensfac</th>")
+            strReporte.Append("<th>Cuenta Crédito</th>")
+            strReporte.Append("<th>Saldo Cuenta Crédito SAP</th>")
+            strReporte.Append("<th>Saldo Cuenta Crédito Bensfac</th>")
+            strReporte.Append("<th>Cliente Excedido en Límite de Crédito</th>")
+            strReporte.Append("<th>Cliente Activo</th>")
+            strReporte.Append("<th>Cliente ABF</th>")
+            strReporte.Append("</tr>")
+
+            For Each renglon In strResultadoConsulta
+                strReporte.Append("<tr>")
+
+                strReporte.AppendFormat("<td style=""width:150px""> {0}</td>", CStr(renglon.Item("strClienteSAPId")))
+                strReporte.AppendFormat("<td style=""text-align:center"">{0}</td>", CStr(renglon.Item("strClienteABFId")))
+                strReporte.AppendFormat("<td style=""text-align:left"">{0}</td>", CStr(renglon.Item("strClienteNombre")))
+                strReporte.AppendFormat("<td>{0}</td>", (CDbl(renglon.Item("fltLimiteCredito"))).ToString("###,###,##0.00"))
+                strReporte.AppendFormat("<td>{0}</td>", (CDbl(renglon.Item("fltSaldoCreditoSAP"))).ToString("###,###,##0.00"))
+                strReporte.AppendFormat("<td>{0}</td>", (CDbl(renglon.Item("fltSaldoCreditoBensfac"))).ToString("###,###,##0.00"))
+                strReporte.AppendFormat("<td style=""text-align:center"">{0}</td>", CStr(renglon.Item("strCuentaCredito")))
+                strReporte.AppendFormat("<td>{0}</td>", (CDbl(renglon.Item("fltSaldoCuentaCreditoSAP"))).ToString("###,###,##0.00"))
+                strReporte.AppendFormat("<td>{0}</td>", (CDbl(renglon.Item("fltSaldoCuentaCreditoBensfac"))).ToString("###,###,##0.00"))
+                strReporte.AppendFormat("<td style=""text-align:center"" >{0}</td>", CStr(renglon.Item("blnClienteExcedidoEnLimiteCredito")))
+                strReporte.AppendFormat("<td style=""text-align:center"">{0}</td>", CStr(renglon.Item("blnClienteActivo")))
+                strReporte.AppendFormat("<td style=""text-align:center"">{0}</td>", CStr(renglon.Item("blnClienteABF")))
+
+                strReporte.Append("</tr>")
+            Next
+
+            strReporte.Append("</table>")
+        End If
+
+        Return strReporte.ToString()
+    End Function
 
 End Class
