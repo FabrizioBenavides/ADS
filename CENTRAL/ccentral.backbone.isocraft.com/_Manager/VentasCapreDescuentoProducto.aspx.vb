@@ -66,7 +66,7 @@ Public Class VentasCapreDescuentoProducto
 
         If Benavides.CC.Business.clsConcentrador.clsControlAcceso. _
                blnPermitirAccesoObjeto(intGrupoUsuarioId, strThisPageName, strConnectionString) = False Then
-            'Call Response.Redirect("../Default.aspx")
+            Call Response.Redirect("../Default.aspx")
         End If
 
         Select Case strCmd2

@@ -10,7 +10,6 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
 
     Private _dtmFechaUsuarioExpiracion As Date
     Private _intUsuarioExistenteId As Integer
-    Private Const GRUPO_USUARIO_ID As Integer = 28
 
     Public Enum TipoUsuario
         CoordinadorRH = 2
@@ -18,8 +17,7 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
     End Enum
 
     'This call is required by the Web Form Designer.
-    <System.Diagnostics.DebuggerStepThrough()>
-    Private Sub InitializeComponent()
+    <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
 
     End Sub
 
@@ -152,6 +150,20 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
         End Get
     End Property
 
+    Public Function intResultadoGrupoControlAsistencia() As Integer
+        Dim resultadoConsulta As Array
+        Dim objConsulta As Array
+        Dim controlAsistenciaGrupoId As Integer
+
+        resultadoConsulta = clsControlDeAsistencia.strBuscarGrupoControlAsistencia(strConnectionString)
+
+        For Each objConsulta In resultadoConsulta
+            controlAsistenciaGrupoId = CInt(objConsulta.GetValue(0))
+        Next
+
+        Return controlAsistenciaGrupoId
+    End Function
+
     Private Sub Page_Init(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Init
         InitializeComponent()
 
@@ -212,7 +224,7 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
             _intUsuarioExistenteId = 1
             intMembresiaUsuario = clstblMembresiaUsuario.intAgregar(intEmpleadoId,
                                                                     intUsuarioId,
-                                                                    GRUPO_USUARIO_ID,
+                                                                    intResultadoGrupoControlAsistencia,
                                                                     fechaActual,
                                                                     strUsuarioNombre,
                                                                     strConnectionString)
@@ -292,7 +304,6 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
     End Function
 
     Private Sub EditarUsuario()
-        Dim strContrasenaNuevaEncriptada As String = String.Empty
         Dim contrasenaGuardar As String = String.Empty
         Dim intResultadoActualizar As Integer = 0
         Dim intResultadoEliminarSucursales As Integer = 0

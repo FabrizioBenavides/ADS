@@ -99,6 +99,46 @@
         }
 
         function btnExportarProductos_onclick() {
+            var concatenacionExportacion;
+            var tablaReporte = document.getElementById('tablaProducto');
+            var guardar;
+
+            if (tablaReporte != null) {
+                concatenacionExportacion = "<table border='2px'>";
+                concatenacionExportacion = concatenacionExportacion + "<tr bgcolor='#87AFC6'>";
+                concatenacionExportacion = concatenacionExportacion + "<th>Código</th>";
+                concatenacionExportacion = concatenacionExportacion + "<th>Nombre Producto</th>";
+                concatenacionExportacion = concatenacionExportacion + "<th>Descuento(%)</th>";
+                concatenacionExportacion = concatenacionExportacion + "</tr>";
+
+                for (var i = 1, renglon; renglon = tablaReporte.rows[i]; i++) {
+
+                    concatenacionExportacion = concatenacionExportacion + "<tr>";
+
+                    for (var j = 0, columna; columna = renglon.cells[j]; j++) {
+                        if (j < 3) {
+                            concatenacionExportacion = concatenacionExportacion + "<td>" + columna.innerHTML + "</td>";
+                        }
+                    }
+                    concatenacionExportacion = concatenacionExportacion + "</tr>";
+                }
+
+                concatenacionExportacion = concatenacionExportacion + "</table>";
+
+                var ua = window.navigator.userAgent;
+                var msie = ua.indexOf("MSIE");
+
+                if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) {
+                    iExportar.document.open("txt/html", "replace");
+                    iExportar.document.write(concatenacionExportacion);
+                    iExportar.document.close();
+                    iExportar.focus();
+                    guardar = iExportar.document.execCommand("SaveAs", true, "Descuento de Productos.xls");
+                }
+            }
+        }
+
+        function btnExportarProductosTodo_onclick() {
             var cadenaReporte;
             var guardar;
 
@@ -112,7 +152,7 @@
                 iExportar.document.write(cadenaReporte);
                 iExportar.document.close();
                 iExportar.focus();
-                guardar = iExportar.document.execCommand("SaveAs", true, "Descuento de Productos.xls");
+                guardar = iExportar.document.execCommand("SaveAs", true, "Descuento de Todos los Productos.xls");
             }
         }
         
@@ -273,7 +313,9 @@
                                 <input id="btnEliminarProductos" class="button" onclick="return btnEliminarProductos_onclick()"
                                     value="Eliminar" type="button" name="btnEliminarProductos" title="Elimina todos los productos actuales.">
                                 <input id="btnExportarProductos" class="button" onclick="return btnExportarProductos_onclick()"
-                                    value="Exportar" type="button" name="btnExportarProductos" title="Manda la lista de todos los productos a un archivo de excel.">
+                                    value="Exportar" type="button" name="btnExportarProductos" title="Manda la lista de los productos en pantalla a un archivo de excel.">
+                                <input id="btnExportarProductosTodo" class="button" onclick="return btnExportarProductosTodo_onclick()"
+                                    value="Exportar Todo" type="button" name="btnExportarProductosTodo" title="Manda la lista de todos los productos a un archivo de excel.">
                             </td>
                         </tr>
                         <tr height="80">
@@ -291,11 +333,9 @@
                                 </div>
                             </td>
                         </tr>
-                        
                         <tr>
                             <td><%= strObtenerProductos()%></td>
                         </tr>
-                        
                     </table>
                 </td>
             </tr>

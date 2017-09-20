@@ -299,7 +299,7 @@
                 <td width="770" class="tdtab">Está en : Sucursal : Control de Asistencia : Administrar usuarios : Asignar usuario </td>
             </tr>
         </table>
-        <table width="780" border="0" cellpadding="0" cellspacing="0">
+        <table width="780px" border="0" cellpadding="0" cellspacing="0">
             <tr>
                 <td class="tdgeneralcontent">
                     <h1>Asignar usuario </h1>
@@ -391,7 +391,7 @@
                     &nbsp;&nbsp;
                     <input name="cmdCancelar" type="button" class="button" id="cmdCancelar" onclick="return cmdCancelar_onclick();" value="Cancelar">
                     <br /><br />
-                    <input id="btnEliminarSucursales" type="button" class="button" style="margin-left: 650px;"
+                    <input id="btnEliminarSucursales" type="button" class="button" style="margin-left: 600px;"
                         onclick="return btnEliminarSucursales_onclick();" value="Eliminar Sucursales" />
                     <br /><br />
 
