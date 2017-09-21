@@ -27,7 +27,7 @@
                 document.forms[0].elements["txtUsuarioExpiracion"].value = "<%= dtmFechaUsuarioExpiracion.ToString("dd/MM/yyyy")%>";
             }
             
-            if (strCmd2 == "Editar") {
+            if (strCmd2 == "Editar" || strCmd2 == "Modificar" || strCmd2 == "Guardar") {
                 cargarValoresControles();
             }
         }
@@ -102,7 +102,7 @@
                 esInvalido: false
             };
 
-            objValidar= validarGuardarUsuario();
+            objValidar = validarGuardarUsuario();
 
             if (objValidar.esInvalido == false) {
                 salvarUsuario();
@@ -214,13 +214,11 @@
         function cmdNavegadorRegistrosAgregar_onclick() {
             var intEmpleadoId = trim(document.getElementById('txtUsuarioNombre').value);
             var strEmpleadoNombre = trim(document.getElementById('txtEmpleadoNombre').value);
-            var intGrupoId = 28;
             var strGrupoUsuarioNombre = "Control de Asistencia";
 
             return Pop("ControlAsistenciaAsignarSucursales.aspx?intEmpleadoId=" + intEmpleadoId +
-                                                                "&strEmpleadoNombre=" + strEmpleadoNombre +
-                                                                "&intGrupoId=" + intGrupoId +
-                                                                "&strGrupoUsuarioNombre=" + strGrupoUsuarioNombre, "400", "600")
+                                                              "&strEmpleadoNombre=" + strEmpleadoNombre +
+                                                              "&strGrupoUsuarioNombre=" + strGrupoUsuarioNombre, "400", "600")
         }
 
         function eliminarSucursal(elemento) {

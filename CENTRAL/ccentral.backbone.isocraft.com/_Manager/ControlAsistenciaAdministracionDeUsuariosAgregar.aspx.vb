@@ -30,7 +30,6 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
     '====================================================================
     Public ReadOnly Property strFechaActual() As String
         Get
-
             Dim dtmFechaActual As Date
 
             dtmFechaActual = New Date(Date.Today.Year, Date.Today.Month, Date.Today.Day)
@@ -250,7 +249,7 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
         Dim strResultadoTablaSucursales As New StringBuilder
         Dim objSucursales As Array
 
-        If strCmd2 = "Editar" Then
+        If strCmd2 = "Editar" Or strCmd2 = "Modificar" Or strCmd2 = "Guardar" Then
             objSucursales = clsControlDeAsistencia.strObtenerSucursalesPorTipoUsuario(intEmpleadoId, strConnectionString)
         End If
 
