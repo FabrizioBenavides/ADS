@@ -371,13 +371,6 @@
                                 </a>
                             </td>
                         </tr>
-                        <tr>
-                            <td colspan="2" class="tdtexttablebold">
-                                <span class="tdtexttablereg">
-                                <input type="checkbox" name="chkUsuarioAlcance" value="1" disabled>
-                                Operar sólo en el ámbito del Concentrador Central</span>
-                            </td>
-                        </tr>
                         <tr class="txaccion">
                             <td colspan="2">&nbsp;</td>
                         </tr>

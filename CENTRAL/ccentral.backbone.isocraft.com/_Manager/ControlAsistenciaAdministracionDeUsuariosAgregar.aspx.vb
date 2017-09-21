@@ -336,7 +336,7 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
 
         ' Guardar sucursales.
         If intResultadoEliminarSucursales = 0 Or intResultadoEliminarSucursales > 0 Then
-            AsignarSucursales(intExitoGuardarSucursales, intAsignada)
+            Call AsignarSucursales(intExitoGuardarSucursales, intAsignada)
         End If
 
         If intExitoGuardarSucursales > 0 Then
@@ -351,49 +351,51 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
         End If
     End Sub
 
-    Private Function AsignarSucursales(ByRef intExitoGuardarSucursales As Integer, ByRef intAsignada As Integer) As Integer
+    Private Sub AsignarSucursales(ByRef intExitoGuardarSucursales As Integer, ByRef intAsignada As Integer)
         Dim companiaSucursalSeparadaPorPipe As String()
         Dim companiaSucursalSeparadaPorComa As String()
         Dim resultadoAsignarSucursales As Array = Nothing
         Dim intIndice As Integer = 0
 
-        companiaSucursalSeparadaPorPipe = strCompaniasSucursalesSeleccionadas.Split(New Char() {"|"c}, StringSplitOptions.RemoveEmptyEntries)
+        companiaSucursalSeparadaPorPipe = strCompaniasSucursalesSeleccionadas.Split(New Char() {"|"c})
 
         For intIndice = 0 To companiaSucursalSeparadaPorPipe.Length - 1
 
-            companiaSucursalSeparadaPorComa = companiaSucursalSeparadaPorPipe.GetValue(intIndice).ToString().Split(New Char() {","c})
+            If companiaSucursalSeparadaPorPipe.GetValue(intIndice).ToString() <> String.Empty Then
 
-            resultadoAsignarSucursales = clsControlDeAsistencia. _
-                                         strAsignarSucursales2(intEmpleadoId, _
-                                                               CInt(companiaSucursalSeparadaPorComa.GetValue(0)), _
-                                                               CInt(companiaSucursalSeparadaPorComa.GetValue(1)), _
-                                                               intTipoUsuarioIdParametro, _
-                                                               strConnectionString)
+                companiaSucursalSeparadaPorComa = companiaSucursalSeparadaPorPipe.GetValue(intIndice).ToString().Split(New Char() {","c})
 
-            If resultadoAsignarSucursales.Length > 0 AndAlso IsArray(resultadoAsignarSucursales) Then
+                resultadoAsignarSucursales = clsControlDeAsistencia. _
+                                             strAsignarSucursales2(intEmpleadoId, _
+                                                                   CInt(companiaSucursalSeparadaPorComa.GetValue(0)), _
+                                                                   CInt(companiaSucursalSeparadaPorComa.GetValue(1)), _
+                                                                   intTipoUsuarioIdParametro, _
+                                                                   strConnectionString)
 
-                ' Recorremos los pares identificadores
-                Dim strResultadosAsignacionSucursal As Array
+                If resultadoAsignarSucursales.Length > 0 AndAlso IsArray(resultadoAsignarSucursales) Then
 
-                For Each strResultadosAsignacionSucursal In resultadoAsignarSucursales
+                    ' Recorremos los pares identificadores
+                    Dim strResultadosAsignacionSucursal As Array
 
-                    If Not (strResultadosAsignacionSucursal.GetValue(0) Is Nothing) AndAlso _
-                       Not (CInt(strResultadosAsignacionSucursal.GetValue(0)) = -1) Then
-                        intExitoGuardarSucursales = CInt(strResultadosAsignacionSucursal.GetValue(0))
-                    Else
-                        intExitoGuardarSucursales = 0
-                        Exit For
-                    End If
+                    For Each strResultadosAsignacionSucursal In resultadoAsignarSucursales
 
-                    If Not (strResultadosAsignacionSucursal.GetValue(1) Is Nothing) AndAlso _
-                       Not CBool(strResultadosAsignacionSucursal.GetValue(1)) = False Then
-                        intAsignada = 1
-                    End If
-                Next
+                        If Not (strResultadosAsignacionSucursal.GetValue(0) Is Nothing) AndAlso _
+                           Not (CInt(strResultadosAsignacionSucursal.GetValue(0)) = -1) Then
+                            intExitoGuardarSucursales = CInt(strResultadosAsignacionSucursal.GetValue(0))
+                        Else
+                            intExitoGuardarSucursales = 0
+                            Exit For
+                        End If
 
+                        If Not (strResultadosAsignacionSucursal.GetValue(1) Is Nothing) AndAlso _
+                           Not CBool(strResultadosAsignacionSucursal.GetValue(1)) = False Then
+                            intAsignada = 1
+                        End If
+                    Next
+
+                End If
             End If
         Next
-
-    End Function
+    End Sub
 
 End Class
