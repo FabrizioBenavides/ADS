@@ -402,7 +402,7 @@ Public Class ControlAsistenciaAdministracionEmpleadosMedicosTurnos
                 blnEsFinDeSemana = (intContadorDiaSemana = 1 Or intContadorDiaSemana = 7)
 
                 If (intContadorDiaSemana = intDiaSemanaDescanso) Or _
-                   ((blnEsFinDeSemana) And intDiaSemanaDescanso = SABADO_Y_DOMINGO_ID) Then
+                   (blnEsFinDeSemana And intDiaSemanaDescanso = SABADO_Y_DOMINGO_ID) Then
 
                     strBotonDeshabilitado = "DISABLED"
                 End If
@@ -421,15 +421,16 @@ Public Class ControlAsistenciaAdministracionEmpleadosMedicosTurnos
     End Function
 
     Protected Function intObtenerDiaSemanaDescanso() As Integer
-        Dim intDiaSemanaDescanso As Integer
+        Dim intDiaSemanaDescanso As Integer = 0
         Dim objResultado As Array
         Dim renglonEmpleado As SortedList
 
         objResultado = clsControlDeAsistencia.clsRolMedico.strObtenerDiaDescanso(intEmpleadoId, strConnectionString)
 
-        renglonEmpleado = DirectCast(objResultado.GetValue(0), SortedList)
-
-        intDiaSemanaDescanso = CInt(renglonEmpleado.Item("intDiaSemanaId"))
+        If Not objResultado Is Nothing AndAlso objResultado.Length > 0 Then
+            renglonEmpleado = DirectCast(objResultado.GetValue(0), SortedList)
+            intDiaSemanaDescanso = CInt(renglonEmpleado.Item("intDiaSemanaId"))
+        End If
 
         Return intDiaSemanaDescanso
     End Function
