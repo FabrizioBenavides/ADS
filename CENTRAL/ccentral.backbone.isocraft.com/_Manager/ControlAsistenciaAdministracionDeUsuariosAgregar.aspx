@@ -216,9 +216,11 @@
             var strEmpleadoNombre = trim(document.getElementById('txtEmpleadoNombre').value);
             var strGrupoUsuarioNombre = "Control de Asistencia";
 
+            document.getElementById("sucursalesExistentes").value = obtenerCompaniasSucursalesExistentes();
+         
             return Pop("ControlAsistenciaAsignarSucursales.aspx?intEmpleadoId=" + intEmpleadoId +
                                                               "&strEmpleadoNombre=" + strEmpleadoNombre +
-                                                              "&strGrupoUsuarioNombre=" + strGrupoUsuarioNombre, "400", "600")
+                                                              "&strGrupoUsuarioNombre=" + strGrupoUsuarioNombre, "400", "600");
         }
 
         function eliminarSucursal(elemento) {
@@ -268,6 +270,30 @@
             }
 
             return companiasSucursales;
+        }
+
+        function obtenerCompaniasSucursalesExistentes() {
+            var tablaSucursalesAsignadas = document.getElementById("tablaSucursalesAsignadas");
+            var companiasSucursales = "";
+
+            if (tablaSucursalesAsignadas != null && tablaSucursalesAsignadas.rows.length > 0) {
+
+                    for (var i = 1, renglon; renglon = tablaSucursalesAsignadas.rows[i]; i++) {
+
+                        companiasSucursales = companiasSucursales + "," + renglon.cells[0].innerText + "|" +
+                                                                          renglon.cells[1].innerText + "|" +
+                                                                          separarSucursalNombre(renglon.cells[2].innerText);
+                }
+            }
+
+            return companiasSucursales;
+        }
+
+        function separarSucursalNombre(sucursal) {
+            var sucursalSeparada = sucursal.split("-");
+            var resultado = sucursalSeparada[0] + "|" + sucursalSeparada[1];
+
+            return resultado;
         }
 
         function cboTipoUsuario_onchange() {
@@ -400,6 +426,7 @@
                 </td>
             </tr>
         </table>
+        <input type="hidden" id="sucursalesExistentes" />
         <script language="JavaScript">
             var cal1 = new calendar(null, document.forms[0].elements['txtUsuarioExpiracion']);
         </script>

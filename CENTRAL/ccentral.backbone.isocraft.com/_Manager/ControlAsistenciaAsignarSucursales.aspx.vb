@@ -126,6 +126,12 @@ Public Class ControlAsistenciaAsignarSucursales
         End Get
     End Property
 
+    Private ReadOnly Property strSucursalesExistentes() As String
+        Get
+            Return isocraft.commons.clsWeb.strGetPageParameter("strSucursalesExistentes", "")
+        End Get
+    End Property
+
     '====================================================================
     ' Name       : strLlenarDireccionComboBox
     ' Description: Regresa una cadena de texto con el código Javascript
@@ -401,6 +407,8 @@ Public Class ControlAsistenciaAsignarSucursales
         Dim strSucursalesSeparadas As String()
 
         strSucursales = Request.Form("cboSucursal").ToString()
+
+        strSucursales = strSucursales + strSucursalesExistentes
 
         strSucursalesSeparadas = strSucursales.Split(New Char() {","c})
 

@@ -46,8 +46,9 @@
     }
 
     function cmdCerrar_onclick() {
-
         var blnSelected = false;
+
+        var sucursalesExistentes = window.opener.document.getElementById("sucursalesExistentes").value;
 
         for (var intCounter = 0; intCounter < document.forms[0].elements["cboSucursal"].length; intCounter++) {
 
@@ -63,7 +64,7 @@
         }
 
         if (blnSelected == true) {
-            document.forms[0].action += "?strCmd=Cerrar";
+            document.forms[0].action += "?strCmd=Cerrar&strSucursalesExistentes=" + sucursalesExistentes;
             document.forms[0].submit();
         }
         else {
