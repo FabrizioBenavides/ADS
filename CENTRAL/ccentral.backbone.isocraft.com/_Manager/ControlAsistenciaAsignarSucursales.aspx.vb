@@ -1,4 +1,5 @@
 ﻿Imports System.Text
+Imports System.Collections
 
 Public Class ControlAsistenciaAsignarSucursales
     Inherits System.Web.UI.Page
@@ -344,7 +345,7 @@ Public Class ControlAsistenciaAsignarSucursales
         Dim strResultadoTablaSucursales As New StringBuilder
         Dim strSucursalesSeparadas As String()
 
-        strSucursalesSeparadas = FormarRenglonesSucursales()
+        strSucursalesSeparadas = ObtenerSucursales()
 
         strResultadoTablaSucursales.Append("<table id='tablaSucursalesAsignadas' width='100%' border='0' cellpadding='0' cellspacing='0'>")
 
@@ -401,18 +402,44 @@ Public Class ControlAsistenciaAsignarSucursales
         Return resultadoSucursales.ToString()
     End Function
 
-    Private Function FormarRenglonesSucursales() As String()
+    Private Function ObtenerSucursales() As String()
         Dim strResultado As String = String.Empty
         Dim strSucursales As String = String.Empty
-        Dim strSucursalesSeparadas As String()
+        Dim strResultadoSucursales As String()
 
         strSucursales = Request.Form("cboSucursal").ToString()
 
         strSucursales = strSucursales + strSucursalesExistentes
 
+        strResultadoSucursales = RemoverSucursalesRepetidas(strSucursales)
+
+        Return strResultadoSucursales
+    End Function
+
+    Private Function RemoverSucursalesRepetidas(ByVal strSucursales As String) As String()
+        Dim arrSucursalesNoRepetidas As New ArrayList()
+        Dim strSucursalesSeparadas As String()
+        Dim strResultadoSucursales As String()
+
         strSucursalesSeparadas = strSucursales.Split(New Char() {","c})
 
-        Return strSucursalesSeparadas
+        If strSucursalesSeparadas.Length > 1 Then
+            For i As Integer = 0 To strSucursalesSeparadas.Length - 1
+
+                If Not arrSucursalesNoRepetidas.Contains(strSucursalesSeparadas(i).Trim()) Then
+                    arrSucursalesNoRepetidas.Add(strSucursalesSeparadas(i).Trim())
+                End If
+            Next
+
+            strResultadoSucursales = New String(arrSucursalesNoRepetidas.Count - 1) {}
+            arrSucursalesNoRepetidas.CopyTo(strResultadoSucursales)
+        Else
+            strResultadoSucursales = strSucursalesSeparadas
+        End If
+
+        Return strResultadoSucursales
     End Function
+
+
 
 End Class

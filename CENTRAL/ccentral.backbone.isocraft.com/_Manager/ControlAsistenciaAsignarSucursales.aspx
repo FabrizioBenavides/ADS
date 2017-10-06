@@ -64,7 +64,7 @@
         }
 
         if (blnSelected == true) {
-            document.forms[0].action += "?strCmd=Cerrar&strSucursalesExistentes=" + sucursalesExistentes;
+            document.forms[0].action = "?strCmd=Cerrar&strSucursalesExistentes=" + sucursalesExistentes;
             document.forms[0].submit();
         }
         else {
