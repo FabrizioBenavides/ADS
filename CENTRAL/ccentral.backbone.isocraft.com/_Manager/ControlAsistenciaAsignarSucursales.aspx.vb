@@ -406,10 +406,12 @@ Public Class ControlAsistenciaAsignarSucursales
         Dim strResultado As String = String.Empty
         Dim strSucursales As String = String.Empty
         Dim strResultadoSucursales As String()
+        Dim sucursalesExistentesPop As String = String.Empty
 
         strSucursales = Request.Form("cboSucursal").ToString()
+        sucursalesExistentesPop = Request.Form("sucursalesExistentesPop").ToString()
 
-        strSucursales = strSucursales + strSucursalesExistentes
+        strSucursales = strSucursales + sucursalesExistentesPop
 
         strResultadoSucursales = RemoverSucursalesRepetidas(strSucursales)
 

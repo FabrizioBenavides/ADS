@@ -64,7 +64,9 @@
         }
 
         if (blnSelected == true) {
-            document.forms[0].action = "?strCmd=Cerrar&strSucursalesExistentes=" + sucursalesExistentes;
+
+            document.getElementById("sucursalesExistentesPop").value = sucursalesExistentes;
+            document.forms[0].action = "?strCmd=Cerrar";
             document.forms[0].submit();
         }
         else {
@@ -166,6 +168,7 @@
                 </td>
             </tr>
         </table>
+        <input type="hidden" id="sucursalesExistentesPop" name ="sucursalesExistentesPop" />
         <table width="360" border="0" cellspacing="0" cellpadding="0">
             <tr>
                 <td>

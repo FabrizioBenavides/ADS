@@ -137,11 +137,12 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
         End Get
     End Property
 
-    Public ReadOnly Property strCompaniasSucursalesSeleccionadas() As String
-        Get
-            Return CStr(GetPageParameter("strCompaniasSucursalesSeleccionadas", ""))
-        End Get
-    End Property
+    'Public ReadOnly Property strCompaniasSucursalesSeleccionadas() As String
+    '    Get
+    '        Return CStr(GetPageParameter("strCompaniasSucursalesSeleccionadas", ""))
+
+    '    End Get
+    'End Property
 
     Public ReadOnly Property strCmd2() As String
         Get
@@ -323,7 +324,7 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
                                                               intTipoUsuarioIdParametro, _
                                                               CByte(blnUsuarioHabilitado), _
                                                               CByte(blnUsuarioBloqueado), _
-                                                              dtmFechaUsuarioExpiracion, _
+                                                              CDate(Request.Form("txtUsuarioExpiracion").ToString()), _
                                                               strUsuarioNombre, _
                                                               CByte(blnUsuarioDebeCambiarContrasena),
                                                               strConnectionString)
@@ -356,7 +357,10 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
         Dim resultadoAsignarSucursales As Array = Nothing
         Dim intIndice As Integer = 0
 
-        companiaSucursalSeparadaPorPipe = strCompaniasSucursalesSeleccionadas.Split(New Char() {"|"c})
+        ' companiaSucursalSeparadaPorPipe = strCompaniasSucursalesSeleccionadas.Split(New Char() {"|"c})
+
+        companiaSucursalSeparadaPorPipe = Request.Form("sucursalesExistentes").ToString().Split(New Char() {"|"c})
+
 
         For intIndice = 0 To companiaSucursalSeparadaPorPipe.Length - 1
 

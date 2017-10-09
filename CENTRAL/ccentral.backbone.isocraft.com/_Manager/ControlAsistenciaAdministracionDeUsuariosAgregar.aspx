@@ -185,6 +185,8 @@
 
             var companiasSucursales = obtenerCompaniasSucursales();
 
+            document.getElementById("sucursalesExistentes").value = companiasSucursales;
+
             if (strCmd2 == "Agregar") {
                 document.forms[0].action = "ControlAsistenciaAdministracionDeUsuariosAgregar.aspx?strCmd2=Guardar" +
                                            "&intEmpleadoId=" + intEmpleadoId +
@@ -192,10 +194,9 @@
                                            "&intTipoUsuarioIdParametro=" + intTipoUsuarioId +
                                            "&blnUsuarioHabilitado=" + blnUsuarioHabilitado +
                                            "&blnUsuarioBloqueado=" + blnUsuarioBloqueado +
-                                           "&dtmUsuarioExpiracion=" + txtUsuarioExpiracion +
-                                           "&strCompaniasSucursalesSeleccionadas=" + companiasSucursales;
+                                           "&dtmUsuarioExpiracion=" + txtUsuarioExpiracion;
             }
-            else if (strCmd2 == "Editar") {
+            else {
                 document.forms[0].action = "ControlAsistenciaAdministracionDeUsuariosAgregar.aspx?strCmd2=Modificar" +
                                            "&intUsuarioId=" + intUsuarioId +
                                            "&intEmpleadoId=" + intEmpleadoId +
@@ -204,8 +205,7 @@
                                            "&intTipoUsuarioIdParametro=" + intTipoUsuarioId +
                                            "&blnUsuarioHabilitado=" + blnUsuarioHabilitado +
                                            "&blnUsuarioBloqueado=" + blnUsuarioBloqueado +
-                                           "&dtmUsuarioExpiracion=" + txtUsuarioExpiracion +
-                                           "&strCompaniasSucursalesSeleccionadas=" + companiasSucursales;
+                                           "&dtmUsuarioExpiracion=" + txtUsuarioExpiracion;
             }
             
             document.forms(0).submit();
@@ -426,7 +426,7 @@
                 </td>
             </tr>
         </table>
-        <input type="hidden" id="sucursalesExistentes" />
+        <input type="hidden" id="sucursalesExistentes" name="sucursalesExistentes" />
         <script language="JavaScript">
             var cal1 = new calendar(null, document.forms[0].elements['txtUsuarioExpiracion']);
         </script>
