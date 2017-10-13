@@ -320,23 +320,6 @@ Public Class ControlAsistenciaAsignarSucursales
                     Call Response.End()
                 End If
 
-                ' Si se ha seleccionado toda la direccion
-                If intDireccionId > 0 AndAlso intZonaId = -1 Then
-
-                    ' Regresamos a la página padre con las sucursales seleccionadas
-                    Call Response.Write("<html>" & vbCrLf)
-                    Call Response.Write("<head>" & vbCrLf)
-                    Call Response.Write("<script language=""javascript"">" & vbCrLf)
-                    Call Response.Write("window.opener.document.forms[0].elements[""txtSucursales""].value=""" & intDireccionId & "|" & intZonaId & """;" & vbCrLf)
-                    Call Response.Write("window.opener.document.forms[0].elements[""txtCmd""].value=""Vincular"";" & vbCrLf)
-                    Call Response.Write("window.opener.document.forms[0].submit();" & vbCrLf)
-                    Call Response.Write("window.close();" & vbCrLf)
-                    Call Response.Write("</script>" & vbCrLf)
-                    Call Response.Write("</head>" & vbCrLf)
-                    Call Response.Write("</html>" & vbCrLf)
-                    Call Response.End()
-
-                End If
         End Select
 
     End Sub
@@ -441,7 +424,5 @@ Public Class ControlAsistenciaAsignarSucursales
 
         Return strResultadoSucursales
     End Function
-
-
 
 End Class

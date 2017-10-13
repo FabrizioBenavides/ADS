@@ -168,7 +168,6 @@
                 </td>
             </tr>
         </table>
-        <input type="hidden" id="sucursalesExistentesPop" name ="sucursalesExistentesPop" />
         <table width="360" border="0" cellspacing="0" cellpadding="0">
             <tr>
                 <td>
@@ -176,6 +175,7 @@
                 </td>
             </tr>
         </table>
+        <input type="hidden" id="sucursalesExistentesPop" name ="sucursalesExistentesPop" />
     </form>
 </body>
 </html>

@@ -184,7 +184,6 @@
             }
 
             var companiasSucursales = obtenerCompaniasSucursales();
-
             document.getElementById("sucursalesExistentes").value = companiasSucursales;
 
             if (strCmd2 == "Agregar") {
@@ -426,10 +425,10 @@
                 </td>
             </tr>
         </table>
-        <input type="hidden" id="sucursalesExistentes" name="sucursalesExistentes" />
         <script language="JavaScript">
             var cal1 = new calendar(null, document.forms[0].elements['txtUsuarioExpiracion']);
         </script>
+        <input type="hidden" id="sucursalesExistentes" name="sucursalesExistentes" />
     </form>
 </body>
 </html>

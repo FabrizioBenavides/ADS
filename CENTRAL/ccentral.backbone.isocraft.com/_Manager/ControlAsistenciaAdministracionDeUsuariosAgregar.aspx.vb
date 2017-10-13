@@ -137,13 +137,6 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
         End Get
     End Property
 
-    'Public ReadOnly Property strCompaniasSucursalesSeleccionadas() As String
-    '    Get
-    '        Return CStr(GetPageParameter("strCompaniasSucursalesSeleccionadas", ""))
-
-    '    End Get
-    'End Property
-
     Public ReadOnly Property strCmd2() As String
         Get
             Return isocraft.commons.clsWeb.strGetPageParameter("strCmd2", "")
@@ -191,7 +184,6 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
                 Call EditarUsuario()
 
         End Select
-
     End Sub
 
     Private Sub GuardarUsuario()
@@ -357,10 +349,7 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
         Dim resultadoAsignarSucursales As Array = Nothing
         Dim intIndice As Integer = 0
 
-        ' companiaSucursalSeparadaPorPipe = strCompaniasSucursalesSeleccionadas.Split(New Char() {"|"c})
-
         companiaSucursalSeparadaPorPipe = Request.Form("sucursalesExistentes").ToString().Split(New Char() {"|"c})
-
 
         For intIndice = 0 To companiaSucursalSeparadaPorPipe.Length - 1
 
@@ -375,9 +364,9 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
                                                                    intTipoUsuarioIdParametro, _
                                                                    strConnectionString)
 
+                ' Verificar si se guardó correctamente.
                 If resultadoAsignarSucursales.Length > 0 AndAlso IsArray(resultadoAsignarSucursales) Then
 
-                    ' Recorremos los pares identificadores
                     Dim strResultadosAsignacionSucursal As Array
 
                     For Each strResultadosAsignacionSucursal In resultadoAsignarSucursales
@@ -395,8 +384,8 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
                             intAsignada = 1
                         End If
                     Next
-
                 End If
+
             End If
         Next
     End Sub
