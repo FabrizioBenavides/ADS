@@ -108,7 +108,6 @@ function ValidaFechas(dtmFechaIni, dtmFechaFin) {
             var mesActual = dtmActual.substring(3, 5);
             var anioActual = dtmActual.substring(6, 10);
 
-
             //Validacion
             var date1 = (anioIni + mesIni + diaIni);
             var date2 = (anioFin + mesFin + diaFin);
@@ -142,12 +141,6 @@ function ValidaFechas(dtmFechaIni, dtmFechaFin) {
                 alert('La diferencia entre Fecha de inicio y Fecha final NO debe ser mayor a 2 meses.');
                 return (false);
             }
-            //else if ((mesFin > mesIni) && ((mesFin - mesIni) > 2)) {
-            //    alert('La diferencia entre Fecha de inicio y Fecha final NO debe ser mayor a 2 meses.');
-            //}
-            //else if ((mesFin < mesIni) && ((mesFin + 12) - mesIni) > 2) {
-            //alert('La diferencia entre Fecha de inicio y Fecha final NO debe ser mayor a 2 meses.');
-            //}
         }
     }
 

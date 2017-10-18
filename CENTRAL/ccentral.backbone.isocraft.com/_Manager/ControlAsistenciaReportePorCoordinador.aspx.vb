@@ -22,9 +22,6 @@ Public Class ControlAsistenciaReportePorCoordinador
 
     Private intEmpleadoId As Integer
 
-    ' Parámetro defaulta para poder hacer la consulta para esta página en específico.
-    Private Const intParametroSinValor As Integer = 0
-
 #Region " Web Form Designer Generated Code "
 
     'This call is required by the Web Form Designer.
@@ -295,12 +292,12 @@ Public Class ControlAsistenciaReportePorCoordinador
 
             'Resultados a mostrar en pantalla
             objDataArrayReporte = clsControlDeAsistencia.strObtenerReporteControlAsistencia(CInt(strUsuarioNombre), _
-                                                                                            intEstatusId, _
-                                                                                            intTipoNominaId, _
-                                                                                            dtmFechaInicio, _
-                                                                                            dtmFechaFin, _
-                                                                                            intParametroSinValor, _
-                                                                                            strConnectionString)
+                                                                                             intEstatusId, _
+                                                                                             intTipoNominaId, _
+                                                                                             dtmFechaInicio, _
+                                                                                             dtmFechaFin, _
+                                                                                             intTipoUsuarioId, _
+                                                                                             strConnectionString)
 
             If IsArray(objDataArrayReporte) AndAlso objDataArrayReporte.Length > 0 Then
                 'Se envia la informacion a imprimir para darle formato de acuerdo a la tabla seleccionada por el usuario.  
@@ -323,7 +320,7 @@ Public Class ControlAsistenciaReportePorCoordinador
                                                                                  intTipoNominaId, _
                                                                                  dtmFechaInicio, _
                                                                                  dtmFechaFin, _
-                                                                                 intParametroSinValor, _
+                                                                                 intTipoUsuarioId, _
                                                                                  strConnectionString)
 
             ' Establecemos en la respuesta los parámetros de configuración del archivo
@@ -357,7 +354,7 @@ Public Class ControlAsistenciaReportePorCoordinador
                                                                                      intTipoNominaId, _
                                                                                      dtmFechaInicio, _
                                                                                      dtmFechaFin, _
-                                                                                     intParametroSinValor, _
+                                                                                     intTipoUsuarioId, _
                                                                                      strConnectionString)
             End If
 
@@ -397,10 +394,8 @@ Public Class ControlAsistenciaReportePorCoordinador
         End If
 
         strTablaReporteHTML = New StringBuilder
-        strTablaReporteHTML.Append(Benavides.CC.Commons.clsRecordBrowserNew.displayScroll(objConsultaReporte.Length, intPage, intTotal, String.Empty, Nothing))
 
         strTablaReporteHTML.Append("<table width='100%' border='0' cellpadding='0' cellspacing='0'>")
-
         strTablaReporteHTML.Append("<tr class='trtitulos'>")
         strTablaReporteHTML.Append("<th class='rayita' align='center' valign='top'>Centro Logistico</th>")
         strTablaReporteHTML.Append("<th class='rayita' align='center' valign='top'>Sucursal</th>")
