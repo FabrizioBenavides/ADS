@@ -898,6 +898,10 @@
       <DependentUpon>SistemaEditarTienda.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="_Manager\SistemaEmpleadosCertificadosAdministrar.aspx.vb">
+      <DependentUpon>SistemaEmpleadosCertificadosAdministrar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="_Manager\SistemaEmpresasRecolectoras.aspx.vb">
       <DependentUpon>SistemaEmpresasRecolectoras.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -912,6 +916,14 @@
     </Compile>
     <Compile Include="_Manager\SistemaEmpresasRecolectorasEditarEmpresa.aspx.vb">
       <DependentUpon>SistemaEmpresasRecolectorasEditarEmpresa.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="_Manager\SistemaMedicamentosIlegalesAdministrar.aspx.vb">
+      <DependentUpon>SistemaMedicamentosIlegalesAdministrar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="_Manager\SistemaMedicamentosIlegalesEditar.aspx.vb">
+      <DependentUpon>SistemaMedicamentosIlegalesEditar.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="_Manager\SistemaMonedas.aspx.vb">
@@ -3089,10 +3101,13 @@
     <Content Include="_Manager\SistemaEditarGrupo.aspx" />
     <Content Include="_Manager\SistemaEditarReceta.aspx" />
     <Content Include="_Manager\SistemaEditarTienda.aspx" />
+    <Content Include="_Manager\SistemaEmpleadosCertificadosAdministrar.aspx" />
     <Content Include="_Manager\SistemaEmpresasRecolectoras.aspx" />
     <Content Include="_Manager\SistemaEmpresasRecolectorasAdministrarEmpresasRecolectoras.aspx" />
     <Content Include="_Manager\SistemaEmpresasRecolectorasAsignarRecolectoras.aspx" />
     <Content Include="_Manager\SistemaEmpresasRecolectorasEditarEmpresa.aspx" />
+    <Content Include="_Manager\SistemaMedicamentosIlegalesAdministrar.aspx" />
+    <Content Include="_Manager\SistemaMedicamentosIlegalesEditar.aspx" />
     <Content Include="_Manager\SistemaMonedas.aspx" />
     <Content Include="_Manager\SistemaRecetas.aspx" />
     <Content Include="_Manager\SistemaRevisarAutorizacionRecetas.aspx" />
