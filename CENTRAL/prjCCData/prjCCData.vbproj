@@ -296,6 +296,7 @@
     <Compile Include="clstblArticuloIEPS.vb">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="clstblArticuloIlegal.vb" />
     <Compile Include="clstblArticuloInventarioAgotado.vb">
       <SubType>Code</SubType>
     </Compile>
@@ -638,6 +639,7 @@
     <Compile Include="clstblEmpleado.vb">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="clstblEmpleadoCertificado.vb" />
     <Compile Include="clstblEmpleadoSucursal.vb">
       <SubType>Code</SubType>
     </Compile>
