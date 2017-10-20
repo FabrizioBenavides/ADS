@@ -202,7 +202,7 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
                                                            intEmpleadoId.ToString(), _
                                                            strContrasenaEncriptada, _
                                                            CByte(blnUsuarioHabilitado), _
-                                                           dtmFechaUsuarioExpiracion, _
+                                                           _dtmFechaUsuarioExpiracion, _
                                                            fechaActual, _
                                                            fechaActual, _
                                                            strUsuarioNombre, _
@@ -316,7 +316,7 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
                                                               intTipoUsuarioIdParametro, _
                                                               CByte(blnUsuarioHabilitado), _
                                                               CByte(blnUsuarioBloqueado), _
-                                                              CDate(Request.Form("txtUsuarioExpiracion").ToString()), _
+                                                              _dtmFechaUsuarioExpiracion, _
                                                               strUsuarioNombre, _
                                                               CByte(blnUsuarioDebeCambiarContrasena),
                                                               strConnectionString)
