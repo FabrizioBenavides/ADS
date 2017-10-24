@@ -1,9 +1,10 @@
 ﻿Imports Isocraft.Web.Http
 Imports Isocraft.Web.Convert
+Imports System.Text
+Imports System.Collections
 
 Public Class clsSistemaEmpleadosCertificadosAgregar
     Inherits System.Web.UI.Page
-
 
 #Region " Web Form Designer Generated Code "
 
@@ -342,5 +343,34 @@ Public Class clsSistemaEmpleadosCertificadosAgregar
                 Call Benavides.CC.Data.clstblEmpleadoCertificado.intEliminar(0, Now, "", strConnectionString)
         End Select
     End Sub
+
+    Public Function strExportarEmpleadosCertificados() As String
+        Dim strResultadoCadena As New StringBuilder
+        Dim aoEmpleadosCertificados As Array
+
+        aoEmpleadosCertificados = Benavides.CC.Data.clstblEmpleadoCertificado.aobjExportarEmpleadosCertificados(strConnectionString)
+
+        strResultadoCadena.Append("<table id='empleadosCertificados' border='2px'>")
+        strResultadoCadena.Append("<tr bgcolor='#87AFC6'>")
+        strResultadoCadena.Append("<th>Empleado</th>")
+        strResultadoCadena.Append("<th>Activo</th>")
+        strResultadoCadena.Append("<th>Modificado Por</th>")
+        strResultadoCadena.Append("<th>Ultima Modificación</th>")
+        strResultadoCadena.Append("</tr>")
+
+        For Each renglon As SortedList In aoEmpleadosCertificados
+
+            strResultadoCadena.Append("<tr>")
+            strResultadoCadena.AppendFormat("<td>{0}</td>", renglon.Item("intEmpleadoId").ToString())
+            strResultadoCadena.AppendFormat("<td align='center'>{0}</td>", renglon.Item("blnEmpleadoActivo").ToString())
+            strResultadoCadena.AppendFormat("<td>{0}</td>", renglon.Item("strEmpleadoCertificadoModificadoPor").ToString())
+            strResultadoCadena.AppendFormat("<td>{0}</td>", renglon.Item("dtmEmpleadoCertificadoUltimaModificacion").ToString())
+            strResultadoCadena.Append("</tr>")
+        Next
+
+        strResultadoCadena.Append("</table>")
+
+        Return strResultadoCadena.ToString()
+    End Function
 
 End Class

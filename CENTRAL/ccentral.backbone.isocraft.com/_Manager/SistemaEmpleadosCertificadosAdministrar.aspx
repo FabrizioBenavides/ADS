@@ -13,8 +13,8 @@
     <script language="JavaScript" type="text/JavaScript" src="js/headerfooter.js"></script>
     <script language="JavaScript" type="text/JavaScript" src="../static/scripts/Tools.js"></script>
     <script id="clientEventHandlersJS" language="javascript">
-<!--
-    strUsuarioNombre = "<%= strUsuarioNombre %>";
+
+        strUsuarioNombre = "<%= strUsuarioNombre %>";
         strFechaHora = "<%= strHTMLFechaHora %>";
 
 
@@ -68,7 +68,23 @@
             document.forms[0].submit();
         }
 
-        //-->
+        function cmdExportar_onclick() {
+            var concatenacionExportacion;
+            var empleadosCertificados = "<%= strExportarEmpleadosCertificados()%>";
+            var guardar;
+        
+            var ua = window.navigator.userAgent;
+            var msie = ua.indexOf("MSIE");
+
+            if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) {
+                iExportar.document.open("txt/html", "replace");
+                iExportar.document.write(empleadosCertificados);
+                iExportar.document.close();
+                iExportar.focus();
+                guardar = iExportar.document.execCommand("SaveAs", true, "Empleados Certificados.xls");
+            }
+        }
+
     </script>
 </head>
 <body language="javascript" onload="return window_onload()">
@@ -139,6 +155,7 @@
                     </table>
                     <input name="cmdEjecutar" type="submit" class="button" id="cmdEjecutar" value="Ejecutar consulta" language="javascript" onclick="return cmdEjecutar_onclick()">
                     <input name="cmdLimpiar" type="button" class="button" id="cmdLimpiar" value="Limpiar" language="javascript" onclick="return cmdLimpiar_onclick()">
+                    <input name="cmdExportar" type="button" class="button" id="cdmExportar" value="Exportar Todo" language="javascript" onclick="return cmdExportar_onclick()">
                     <br>
                     <br>
                     <%= strObtenerEmpleadosCertificados()%></td>
@@ -151,12 +168,12 @@
                 </td>
             </tr>
         </table>
+        <iframe id="iExportar" style="display: none"></iframe>
         <script language="JavaScript">
 	<!--
-    new menu(MENU_ITEMS, MENU_POS);
+            new menu(MENU_ITEMS, MENU_POS);
     //-->
         </script>
     </form>
 </body>
 </html>
-
