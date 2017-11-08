@@ -24,7 +24,7 @@
             var strCmd2 = "<%= strCmd2%>";
 
             if (strCmd2 == "Agregar") {
-                document.forms[0].elements["txtUsuarioExpiracion"].value = "<%= dtmFechaUsuarioExpiracion.ToString("dd/MM/yyyy")%>";
+                document.forms[0].elements["txtUsuarioExpiracion"].value = "<%= strFechaActual%>";
             }
             
             if (strCmd2 == "Editar" || strCmd2 == "Modificar" || strCmd2 == "Guardar") {
@@ -53,7 +53,7 @@
                 document.forms[0].elements['optCuentaBloqueada'][1].checked = true;
             }
 
-            document.getElementById("txtUsuarioExpiracion").value = "<%= dtmFechaUsuarioExpiracion.ToString("dd/MM/yyyy")%>";
+            document.getElementById("txtUsuarioExpiracion").value = "<%= strFechaUsuarioExpiracion%>";
         }
 
         function cmdBuscarEmpleado_onclick() {

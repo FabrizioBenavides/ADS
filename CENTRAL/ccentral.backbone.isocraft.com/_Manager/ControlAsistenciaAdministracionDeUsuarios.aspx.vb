@@ -160,7 +160,7 @@ Public Class ControlAsistenciaAdministracionDeUsuarios
                                             renglon.Item("intEmpleadoId").ToString(), _
                                             renglon.Item("intUsuarioId").ToString(), _
                                             renglon.Item("strUsuarioContrasena").ToString(), _
-                                            renglon.Item("dtmUsuarioExpiracion").ToString(), _
+                                            CDate(renglon.Item("dtmUsuarioExpiracion")).ToString("dd/MM/yyyy"), _
                                             renglon.Item("blnUsuarioBloqueado").ToString(), _
                                             renglon.Item("intTipoUsuarioId").ToString(), _
                                             renglon.Item("blnUsuarioHabilitado").ToString(), _

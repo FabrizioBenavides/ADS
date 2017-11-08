@@ -8,7 +8,6 @@ Imports System.Text
 Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
     Inherits PaginaBase
 
-    Private _dtmFechaUsuarioExpiracion As Date
     Private _intUsuarioExistenteId As Integer
 
     Public Enum TipoUsuario
@@ -57,13 +56,16 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
     ' Throws     : Ninguna
     ' Output     : Date
     '====================================================================
-    Public Property dtmFechaUsuarioExpiracion() As Date
+    Public ReadOnly Property dtmFechaUsuarioExpiracion() As Date
         Get
-            Return _dtmFechaUsuarioExpiracion
+            Return CDate(Benavides.POSAdmin.Commons.clsCommons.strDMYtoMDY(GetPageParameter("dtmUsuarioExpiracion", "")))
         End Get
-        Set(ByVal dtmValue As Date)
-            _dtmFechaUsuarioExpiracion = dtmValue
-        End Set
+    End Property
+
+    Public ReadOnly Property strFechaUsuarioExpiracion() As String
+        Get
+            Return GetPageParameter("dtmUsuarioExpiracion", "")
+        End Get
     End Property
 
     '====================================================================
@@ -160,12 +162,6 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
     Private Sub Page_Init(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Init
         InitializeComponent()
 
-        If strCmd2 = "Agregar" Then
-            _dtmFechaUsuarioExpiracion = CDate(clsCommons.strDMYtoMDY(GetPageParameter("txtUsuarioExpiracion", DateAdd(DateInterval.Day, 30, Date.Now).ToString("dd/MM/yyyy"))))
-        ElseIf strCmd2 = "Editar" Or strCmd2 = "Guardar" Or strCmd2 = "Modificar" Then
-            _dtmFechaUsuarioExpiracion = CDate(clsCommons.strDMYtoMDY(GetPageParameter("dtmUsuarioExpiracion", "")))
-        End If
-
     End Sub
 
     Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -202,7 +198,7 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
                                                            intEmpleadoId.ToString(), _
                                                            strContrasenaEncriptada, _
                                                            CByte(blnUsuarioHabilitado), _
-                                                           _dtmFechaUsuarioExpiracion, _
+                                                           dtmFechaUsuarioExpiracion, _
                                                            fechaActual, _
                                                            fechaActual, _
                                                            strUsuarioNombre, _
@@ -316,7 +312,7 @@ Public Class ControlAsistenciaAdministracionDeUsuariosAgregar
                                                               intTipoUsuarioIdParametro, _
                                                               CByte(blnUsuarioHabilitado), _
                                                               CByte(blnUsuarioBloqueado), _
-                                                              _dtmFechaUsuarioExpiracion, _
+                                                              dtmFechaUsuarioExpiracion, _
                                                               strUsuarioNombre, _
                                                               CByte(blnUsuarioDebeCambiarContrasena),
                                                               strConnectionString)
