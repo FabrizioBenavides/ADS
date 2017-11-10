@@ -55,12 +55,15 @@ Public Class wsClienteFiscal
 
     End Function
 
+    <WebMethod()> _
+    Public Function strBuscarPacRFC(ByVal strClienteFiscalRFC As String) As String
+        Return "1"
+    End Function
+
     Public ReadOnly Property strCadenaConexion() As String
         Get
             Return ConfigurationSettings.AppSettings("strCadenaConexionConcentradorCentral")
         End Get
     End Property
-
-
 
 End Class
