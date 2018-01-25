@@ -64,6 +64,8 @@ var MENU_ITEMS = [
 			],
 			['Devoluciones Articulos Autorizados', 'SucursalAdministrarDevolucionArticuloAutorizado.aspx'
 			],
+            ['TES para Controlados', 'SucursalAdministrarTESMedicamentos.aspx'
+            ],
 		],
 		['Cuentas', 'SucursalCuentas.aspx', null,
 			['Asignar cuentas a sucursales', 'SucursalAsignacionCuentasSucursal.aspx'

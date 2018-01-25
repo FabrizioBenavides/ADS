@@ -7,7 +7,6 @@ Imports Benavides.CC.Business
 Public Class wsClienteFiscal
     Inherits System.Web.Services.WebService
 
-
 #Region " Web Services Designer Generated Code "
 
     Public Sub New()
@@ -43,6 +42,11 @@ Public Class wsClienteFiscal
 
 #End Region
 
+    Private Enum ResultadoWSEdxPacRFC
+        Existe = 1
+        NoExiste = 0
+        ErrorPac = -1
+    End Enum
 
     <WebMethod()> _
     Public Function strBuscarClienteFiscal(ByVal strClienteFiscalRFC As String) As Benavides.CC.Business.clsDAOClienteFiscal()
@@ -56,8 +60,12 @@ Public Class wsClienteFiscal
     End Function
 
     <WebMethod()> _
-    Public Function strBuscarPacRFC(ByVal strClienteFiscalRFC As String) As String
-        Return "1"
+    Public Function intBuscarEdxPacRFC(ByVal strClienteFiscalRFC As String) As Integer
+        Dim intResultado As Integer
+
+        intResultado = Benavides.CC.Business.clsConcentrador.clsClienteFiscal.intBuscarEdxPacRFC(strClienteFiscalRFC)
+
+        Return intResultado
     End Function
 
     Public ReadOnly Property strCadenaConexion() As String

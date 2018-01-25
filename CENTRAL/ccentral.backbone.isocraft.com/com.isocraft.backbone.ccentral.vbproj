@@ -1026,6 +1026,13 @@
       <DependentUpon>SucursalAdministrarRutaTransporteReporte.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="_Manager\SucursalAdministrarTESMedicamentos.aspx.designer.vb">
+      <DependentUpon>SucursalAdministrarTESMedicamentos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="_Manager\SucursalAdministrarTESMedicamentos.aspx.vb">
+      <DependentUpon>SucursalAdministrarTESMedicamentos.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="_Manager\SucursalAgregarEstadoOperativoCaja.aspx.vb">
       <DependentUpon>SucursalAgregarEstadoOperativoCaja.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3133,6 +3140,7 @@
     <Content Include="_Manager\SucursalAdministrarRutaTransporte.aspx" />
     <Content Include="_Manager\SucursalAdministrarRutaTransporteDetalle.aspx" />
     <Content Include="_Manager\SucursalAdministrarRutaTransporteReporte.aspx" />
+    <Content Include="_Manager\SucursalAdministrarTESMedicamentos.aspx" />
     <Content Include="_Manager\SucursalAgregarEstadoOperativoCaja.aspx" />
     <Content Include="_Manager\SucursalAgregarFormatoDatoPoliticaPos.aspx" />
     <Content Include="_Manager\SucursalAltaDeFondoFijo.aspx" />
